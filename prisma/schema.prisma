@@ -1,0 +1,133 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String  @map("user_id")
+  type              String
+  provider          String
+  providerAccountId String  @map("provider_account_id")
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@map("accounts")
+}
+
+model User {
+  id            String        @id @default(cuid())
+  name          String
+  email         String?       @unique
+  emailVerified DateTime?     @map("email_verified")
+  password      String?
+  image         String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime?
+  accounts      Account[]
+  projects      Project[]
+  colors        Color[]
+  themeColors   ThemeColor[]
+  themeColumns  ThemeColumn[]
+  themes        Theme[]
+
+  @@map("users")
+}
+
+model Project {
+  id           String        @id @default(cuid())
+  name         String
+  description  String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime?
+  owner        User          @relation(fields: [ownerId], references: [id])
+  ownerId      String
+  colors       Color[]
+  themeColors  ThemeColor[]
+  themeColumns ThemeColumn[]
+  themes       Theme[]
+  position     Int
+
+  @@map("projects")
+}
+
+model Color {
+  id          String    @id @default(cuid())
+  type        String
+  color       String
+  name        String?
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime? @updatedAt
+  owner       User      @relation(fields: [ownerId], references: [id])
+  ownerId     String
+  project     Project   @relation(fields: [projectId], references: [id])
+  projectId   String
+  position    Int
+
+  @@map("colors")
+}
+
+model ThemeColor {
+  id            String      @id @default(cuid())
+  color         String
+  name          String?
+  description   String?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime?   @updatedAt
+  owner         User        @relation(fields: [ownerId], references: [id])
+  ownerId       String
+  project       Project     @relation(fields: [projectId], references: [id])
+  projectId     String
+  themeColumn   ThemeColumn @relation(fields: [themeColumnId], references: [id], onDelete: Cascade)
+  themeColumnId String
+  theme         Theme       @relation(fields: [themeId], references: [id], onDelete: Cascade)
+  themeId       String
+
+  @@map("theme_colors")
+}
+
+model ThemeColumn {
+  id          String       @id @default(cuid())
+  name        String
+  description String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime?    @updatedAt
+  owner       User         @relation(fields: [ownerId], references: [id])
+  ownerId     String
+  project     Project      @relation(fields: [projectId], references: [id])
+  projectId   String
+  colors      ThemeColor[]
+  position    Int
+
+  @@map("theme_columns")
+}
+
+model Theme {
+  id          String       @id @default(cuid())
+  type        String
+  name        String
+  description String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime?    @updatedAt
+  owner       User         @relation(fields: [ownerId], references: [id])
+  ownerId     String
+  project     Project      @relation(fields: [projectId], references: [id])
+  projectId   String
+  colors      ThemeColor[]
+  position    Int
+
+  @@map("themes")
+}
