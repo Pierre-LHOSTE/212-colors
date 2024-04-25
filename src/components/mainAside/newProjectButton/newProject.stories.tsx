@@ -2,13 +2,12 @@ import type { Meta, StoryObj } from "@storybook/react";
 import NewProjectButton from "./NewProjectButton";
 
 const meta = {
-  title: "Project/NewProject",
+  title: "MainAside/ProjectList/NewProject",
   component: NewProjectButton,
   parameters: {
     layout: "centered",
   },
   decorators: [],
-  tags: ["autodocs"],
   argTypes: {},
 } satisfies Meta<typeof NewProjectButton>;
 

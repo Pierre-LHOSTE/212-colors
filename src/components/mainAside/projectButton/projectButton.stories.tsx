@@ -1,10 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import ProjectIcon from "./ProjectIcon";
+import ProjectButton from "./ProjectButton";
 
 const meta = {
-  title: "Project/Icon",
-  component: ProjectIcon,
+  title: "MainAside/ProjectList/ProjectButton",
+  component: ProjectButton,
   parameters: {
     layout: "centered",
   },
@@ -23,9 +23,8 @@ const meta = {
       </div>
     ),
   ],
-  tags: ["autodocs"],
   argTypes: {},
-} satisfies Meta<typeof ProjectIcon>;
+} satisfies Meta<typeof ProjectButton>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

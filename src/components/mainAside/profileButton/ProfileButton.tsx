@@ -1,7 +1,7 @@
 import { IconUser } from "@tabler/icons-react";
-import "./profile-icon.scss";
+import "./profile-button.scss";
 
-function ProfileIcon({ active = false }: { active?: boolean }) {
+function ProfileButton({ active = false }: { active?: boolean }) {
   return (
     <div style={{ backgroundColor: "#1E2126" }}>
       <div style={{ height: "36px" }} />
@@ -18,4 +18,4 @@ function ProfileIcon({ active = false }: { active?: boolean }) {
   );
 }
 
-export default ProfileIcon;
+export default ProfileButton;

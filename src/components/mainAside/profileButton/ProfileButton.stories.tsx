@@ -1,16 +1,21 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import ProfileIcon from "./ProfileIcon";
+import ProfileButton from "./ProfileButton";
 
 const meta = {
-  title: "Project/Profile",
-  component: ProfileIcon,
+  title: "MainAside/Profile/ProfileButton",
+  component: ProfileButton,
   parameters: {
     layout: "centered",
   },
-  decorators: [],
-  tags: ["autodocs"],
+  decorators: [
+    (Story: any) => (
+      <div style={{ width: "86px" }}>
+        <Story />
+      </div>
+    ),
+  ],
   argTypes: {},
-} satisfies Meta<typeof ProfileIcon>;
+} satisfies Meta<typeof ProfileButton>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

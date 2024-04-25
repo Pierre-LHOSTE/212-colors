@@ -1,8 +1,8 @@
 import { ProjectIconType } from "@/src/types/project";
 import { Draggable } from "react-beautiful-dnd";
-import "./project-icon.scss";
+import "./project-button.scss";
 
-function ProjectIcon({
+function ProjectButton({
   name,
   active,
   color,
@@ -33,7 +33,7 @@ function ProjectIcon({
   );
 }
 
-export default ProjectIcon;
+export default ProjectButton;
 
 function getInitials(name: string): string {
   let initials = "";

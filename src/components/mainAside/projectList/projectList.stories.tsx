@@ -1,16 +1,21 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import ProjectsList from "./ProjectsList";
+import ProjectList from "./ProjectList";
 
 const meta = {
-  title: "Project/List",
-  component: ProjectsList,
+  title: "MainAside/ProjectList/ProjectList",
+  component: ProjectList,
   parameters: {
     layout: "centered",
   },
-  decorators: [],
-  tags: ["autodocs"],
+  decorators: [
+    (Story: any) => (
+      <div style={{ width: "86px" }}>
+        <Story />
+      </div>
+    ),
+  ],
   argTypes: {},
-} satisfies Meta<typeof ProjectsList>;
+} satisfies Meta<typeof ProjectList>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

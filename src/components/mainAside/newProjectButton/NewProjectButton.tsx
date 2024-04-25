@@ -1,6 +1,6 @@
 import { IconPlus } from "@tabler/icons-react";
 import { Button } from "antd";
-import "./new-project.scss";
+import "./new-project-button.scss";
 
 function NewProjectButton() {
   return (
