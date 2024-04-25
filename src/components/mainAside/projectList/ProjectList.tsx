@@ -16,7 +16,7 @@ function ProjectList({ projects }: { projects: ProjectIconsType[] }) {
           <nav
             ref={provided.innerRef}
             {...provided.droppableProps}
-            id="project-icon-list"
+            id="project-list"
           >
             {projects
               .sort((a, b) => a.position - b.position)

@@ -1,12 +1,12 @@
 import { ProjectIconsType } from "@/src/types/project";
 import "./main-aside.scss";
-import ProfileIcon from "./profileButton/ProfileButton";
+import ProfileSection from "./profileSection/ProfileSection";
 import ProjectIconList from "./projectList/ProjectList";
 
 function MainAside({ projects }: { projects: ProjectIconsType[] }) {
   return (
-    <div id="projects-list">
-      <ProfileIcon />
+    <div id="main-aside">
+      <ProfileSection />
       <ProjectIconList projects={projects} />
     </div>
   );

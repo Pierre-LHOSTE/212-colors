@@ -16,6 +16,7 @@ const meta = {
             {(provided) => (
               <div ref={provided.innerRef} {...provided.droppableProps}>
                 <Story />
+                {provided.placeholder}
               </div>
             )}
           </Droppable>
@@ -45,6 +46,26 @@ export const Active: Story = {
     name: "Active icon",
     active: true,
     color: "#ff1818",
+    index: 0,
+  },
+};
+
+export const LightColored: Story = {
+  args: {
+    id: "1",
+    name: "Default icon",
+    active: false,
+    color: "#b7c2ff",
+    index: 0,
+  },
+};
+
+export const ActiveLightColored: Story = {
+  args: {
+    id: "1",
+    name: "Default icon",
+    active: true,
+    color: "#b7c2ff",
     index: 0,
   },
 };

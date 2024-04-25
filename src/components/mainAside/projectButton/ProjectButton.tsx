@@ -1,6 +1,10 @@
 import { ProjectIconType } from "@/src/types/project";
+import { colord, extend } from "colord";
+import a11yPlugin from "colord/plugins/a11y";
 import { Draggable } from "react-beautiful-dnd";
 import "./project-button.scss";
+
+extend([a11yPlugin]);
 
 function ProjectButton({
   name,
@@ -10,6 +14,8 @@ function ProjectButton({
   index,
 }: ProjectIconType & { index: number }) {
   const initials = getInitials(name);
+
+  const elementColor = isVeryLightColor(color) ? "dark" : "light";
 
   return (
     <Draggable draggableId={id} index={index}>
@@ -21,11 +27,11 @@ function ProjectButton({
         >
           <div
             {...provided.dragHandleProps}
+            className={`icon-hook ${elementColor}`}
             style={{ backgroundColor: color }}
-            className="icon-hook"
           ></div>
           <button style={{ backgroundColor: color }}>
-            <span>{initials}</span>
+            <span className={elementColor}>{initials}</span>
           </button>
         </div>
       )}
@@ -55,4 +61,14 @@ function getInitials(name: string): string {
   initials = initials.slice(0, 3);
 
   return initials;
+}
+
+function isVeryLightColor(color: string): boolean {
+  const c = colord(color);
+
+  if (c.luminance() >= 0.5) {
+    return true;
+  }
+
+  return false;
 }
