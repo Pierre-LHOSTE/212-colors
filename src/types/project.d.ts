@@ -2,9 +2,21 @@ import { ColorType, ThemeColorType } from "./color";
 import { ThemeColumnType, ThemeType } from "./theme";
 import { UserType } from "./user";
 
-export interface ProjectType {
+export interface ProjectLiteType {
   id: string;
   name: string;
+}
+
+export interface ProjectIconType extends ProjectLiteType {
+  color: string;
+  active: boolean;
+}
+
+export interface ProjectIconsType extends ProjectIconType {
+  position: number;
+}
+
+export interface ProjectType extends ProjectLiteType {
   description?: string;
   createdAt: Date;
   updatedAt?: Date;
@@ -15,4 +27,6 @@ export interface ProjectType {
   themeColumns: ThemeColumnType[];
   themes: ThemeType[];
   position: number;
+  colorSection: boolean;
+  themeSection: boolean;
 }

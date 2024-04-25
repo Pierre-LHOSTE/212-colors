@@ -42,8 +42,20 @@ model User {
   themeColors   ThemeColor[]
   themeColumns  ThemeColumn[]
   themes        Theme[]
+  settings      Settings?
 
   @@map("users")
+}
+
+model Settings {
+  id           String  @id @default(cuid())
+  userId       String  @unique
+  user         User    @relation(fields: [userId], references: [id])
+  theme        String
+  dynamicTheme Boolean
+  language     String
+
+  @@map("settings")
 }
 
 model Project {
@@ -59,6 +71,9 @@ model Project {
   themeColumns ThemeColumn[]
   themes       Theme[]
   position     Int
+
+  colorSection Boolean
+  themeSection Boolean
 
   @@map("projects")
 }
