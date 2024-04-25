@@ -1,0 +1,10 @@
+#project-icon-list {
+  width: 100%;
+  // display: flex;
+  // flex-direction: column;
+  // gap: 8px;
+  padding: 16px 0;
+  > * {
+    margin-bottom: 8px;
+  }
+}
