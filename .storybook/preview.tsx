@@ -2,6 +2,7 @@ import type { Preview } from "@storybook/react";
 import { themes } from "@storybook/theming";
 import { ConfigProvider } from "antd";
 import React from "react";
+import "../app/globals.css";
 import darkTheme from "../src/themes/dark";
 import lightTheme from "../src/themes/light";
 
