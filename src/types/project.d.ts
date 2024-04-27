@@ -7,12 +7,9 @@ export interface ProjectLiteType {
   name: string;
 }
 
-export interface ProjectIconType extends ProjectLiteType {
+export interface ProjectButtonType extends ProjectLiteType {
   color: string;
   active: boolean;
-}
-
-export interface ProjectIconsType extends ProjectIconType {
   position: number;
 }
 

@@ -1,10 +1,10 @@
-import { ProjectIconsType } from "@/src/types/project";
+import { ProjectButtonType } from "@/src/types/project";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import NewProjectButton from "../newProjectButton/NewProjectButton";
 import ProjectButton from "../projectButton/ProjectButton";
 import "./project-list.scss";
 
-function ProjectList({ projects }: { projects: ProjectIconsType[] }) {
+function ProjectList({ projects }: { projects: ProjectButtonType[] }) {
   function handleDragEnd(params: any) {
     console.log(params);
   }
@@ -21,14 +21,7 @@ function ProjectList({ projects }: { projects: ProjectIconsType[] }) {
             {projects
               .sort((a, b) => a.position - b.position)
               .map((project, i) => (
-                <ProjectButton
-                  key={project.id}
-                  name={project.name}
-                  active={project.active}
-                  color={project.color}
-                  id={project.id}
-                  index={i}
-                />
+                <ProjectButton project={project} index={i} />
               ))}
             {provided.placeholder}
             <NewProjectButton />

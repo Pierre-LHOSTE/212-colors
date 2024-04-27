@@ -1,4 +1,4 @@
-import { ProjectIconType } from "@/src/types/project";
+import { ProjectButtonType } from "@/src/types/project";
 import { colord, extend } from "colord";
 import a11yPlugin from "colord/plugins/a11y";
 import { Draggable } from "react-beautiful-dnd";
@@ -7,12 +7,11 @@ import "./project-button.scss";
 extend([a11yPlugin]);
 
 function ProjectButton({
-  name,
-  active,
-  color,
-  id,
-  index,
-}: ProjectIconType & { index: number }) {
+  project,
+}: {
+  project: ProjectButtonType & { index: number };
+}) {
+  const { id, name, color, active, index } = project;
   const initials = getInitials(name);
 
   const elementColor = isVeryLightColor(color) ? "dark" : "light";
