@@ -6,6 +6,8 @@ import "../app/globals.css";
 import darkTheme from "../src/themes/dark";
 import lightTheme from "../src/themes/light";
 
+const isDarkTheme = window.matchMedia("(prefers-color-scheme: dark)").matches;
+
 const preview: Preview = {
   parameters: {
     controls: {
@@ -15,9 +17,9 @@ const preview: Preview = {
       },
     },
     backgrounds: {
-      default: "dark",
+      default: isDarkTheme ? "dark" : "light",
       values: [
-        { name: "light", value: "#fff" },
+        { name: "light", value: "#e9e9e9" },
         { name: "dark", value: "#0F1319" },
       ],
     },
@@ -30,6 +32,7 @@ const preview: Preview = {
       const isDarkTheme = window.matchMedia(
         "(prefers-color-scheme: dark)"
       ).matches;
+      console.log("🚀 ~ isDarkTheme:", isDarkTheme);
       return (
         <ConfigProvider theme={isDarkTheme ? darkTheme : lightTheme}>
           <Story />

@@ -1,0 +1,17 @@
+#nav-aside {
+  width: 256px;
+  height: 100%;
+  background-color: #13161c;
+}
+
+@media (prefers-color-scheme: dark) {
+  #nav-aside {
+    background-color: #13161c;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  #nav-aside {
+    background-color: #fff;
+  }
+}

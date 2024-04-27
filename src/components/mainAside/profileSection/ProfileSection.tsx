@@ -1,8 +1,9 @@
 import ProfileButton from "../profileButton/ProfileButton";
+import "./profile-section.scss";
 
 function ProfileSection() {
   return (
-    <div style={{ backgroundColor: "#1E2126" }}>
+    <div id="profile-section">
       <div style={{ height: "36px" }} />
       <ProfileButton />
     </div>

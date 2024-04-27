@@ -118,3 +118,7 @@ a {
     color-scheme: dark;
   }
 }
+
+.ant-btn {
+  display: flex;
+}

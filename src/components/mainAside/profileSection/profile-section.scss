@@ -1,0 +1,17 @@
+#profile-section {
+  border-bottom: 2px solid;
+}
+
+@media (prefers-color-scheme: dark) {
+  #profile-section {
+    background-color: "#1E2126";
+    border-bottom-color: #0f1319;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  #profile-section {
+    background-color: #fdfdfd;
+    border-bottom-color: #dedede;
+  }
+}

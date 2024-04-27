@@ -1,0 +1,35 @@
+.nav-button {
+  display: flex;
+  gap: 16px;
+  padding: 8px 16px 8px 12px;
+  height: auto;
+  cursor: default;
+
+  .ant-btn-icon {
+    margin: 0 !important;
+  }
+
+  &.active {
+    background-color: #3e4045;
+    color: #fff;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .nav-button {
+    color: #898a8d;
+    &.active {
+      background-color: #3e4045;
+      color: #fff;
+    }
+  }
+}
+@media (prefers-color-scheme: light) {
+  .nav-button {
+    color: #898a8d;
+    &.active {
+      background-color: #f0f0f0;
+      color: #000;
+    }
+  }
+}
