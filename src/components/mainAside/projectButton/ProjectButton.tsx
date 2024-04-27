@@ -8,10 +8,12 @@ extend([a11yPlugin]);
 
 function ProjectButton({
   project,
+  index,
 }: {
-  project: ProjectButtonType & { index: number };
+  project: ProjectButtonType;
+  index: number;
 }) {
-  const { id, name, color, active, index } = project;
+  const { id, name, color, active } = project;
   const initials = getInitials(name);
 
   const elementColor = isVeryLightColor(color) ? "dark" : "light";

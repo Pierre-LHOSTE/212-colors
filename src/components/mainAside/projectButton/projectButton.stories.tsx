@@ -32,40 +32,52 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    id: "1",
-    name: "Default icon",
-    active: false,
-    color: "#ff1818",
+    project: {
+      id: "1",
+      name: "Default icon",
+      active: false,
+      color: "#ff1818",
+      position: 0,
+    },
     index: 0,
   },
 };
 
 export const Active: Story = {
   args: {
-    id: "1",
-    name: "Active icon",
-    active: true,
-    color: "#ff1818",
+    project: {
+      id: "1",
+      name: "Active icon",
+      active: true,
+      color: "#ff1818",
+      position: 0,
+    },
     index: 0,
   },
 };
 
 export const LightColored: Story = {
   args: {
-    id: "1",
-    name: "Default icon",
-    active: false,
-    color: "#b7c2ff",
+    project: {
+      id: "1",
+      name: "LightColored icon",
+      active: false,
+      color: "#b7c2ff",
+      position: 0,
+    },
     index: 0,
   },
 };
 
 export const ActiveLightColored: Story = {
   args: {
-    id: "1",
-    name: "Default icon",
-    active: true,
-    color: "#b7c2ff",
+    project: {
+      id: "1",
+      name: "Active LightColored icon",
+      active: true,
+      color: "#b7c2ff",
+      position: 0,
+    },
     index: 0,
   },
 };

@@ -21,7 +21,7 @@ function ProjectList({ projects }: { projects: ProjectButtonType[] }) {
             {projects
               .sort((a, b) => a.position - b.position)
               .map((project, i) => (
-                <ProjectButton project={project} index={i} />
+                <ProjectButton key={i} project={project} index={i} />
               ))}
             {provided.placeholder}
             <NewProjectButton />
