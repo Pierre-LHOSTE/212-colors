@@ -1,0 +1,16 @@
+.content-card {
+  padding: 32px;
+  border-radius: 8px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .content-card {
+    background-color: #13161c;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .content-card {
+    background-color: #fff;
+  }
+}
