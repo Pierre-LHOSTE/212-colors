@@ -32,7 +32,6 @@ const preview: Preview = {
       const isDarkTheme = window.matchMedia(
         "(prefers-color-scheme: dark)"
       ).matches;
-      console.log("🚀 ~ isDarkTheme:", isDarkTheme);
       return (
         <ConfigProvider theme={isDarkTheme ? darkTheme : lightTheme}>
           <Story />
