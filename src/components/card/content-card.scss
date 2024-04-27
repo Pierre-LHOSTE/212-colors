@@ -18,11 +18,21 @@
     position: relative;
     box-sizing: border-box;
     background-color: inherit;
-    padding: 32px;
+    padding: 24px 32px;
     border-radius: 6px;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 32px;
+  }
+
+  .card-actions {
+    display: none;
+  }
+
+  &:hover {
+    .card-actions {
+      display: block;
+    }
   }
 }
 

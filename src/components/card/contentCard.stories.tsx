@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import ContentCard from "./ContentCard";
-import ContentCardContent from "./contentCardContent/ContentCardContent";
 
 const meta = {
   title: "Components/ContentCard",
@@ -17,15 +16,41 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    children: (
-      <>
-        <ContentCardContent title="test 1">
+    sections: [
+      {
+        title: "test 1",
+        children: (
           <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit</p>
-        </ContentCardContent>
-        <ContentCardContent title="test 2">
+        ),
+      },
+      {
+        title: "test 2",
+        children: (
           <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit</p>
-        </ContentCardContent>
-      </>
-    ),
+        ),
+      },
+    ],
+  },
+};
+
+export const WithCreateAction: Story = {
+  args: {
+    sections: [
+      {
+        title: "test 1",
+        children: (
+          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit</p>
+        ),
+        createAction: () => console.log("create action"),
+      },
+      {
+        title: "test 2",
+        children: (
+          <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit</p>
+        ),
+        createAction: () => console.log("create action"),
+        showOptionAction: () => console.log("show option action"),
+      },
+    ],
   },
 };
