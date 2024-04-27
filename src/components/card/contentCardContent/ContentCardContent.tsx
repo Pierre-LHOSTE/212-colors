@@ -11,7 +11,7 @@ function ContentCardContent({
   createAction,
   showOptionAction,
 }: {
-  title: string;
+  title?: string;
   children: React.ReactNode;
   createAction?: () => void;
   showOptionAction?: () => void;
@@ -19,7 +19,7 @@ function ContentCardContent({
   return (
     <section className="content-card-content">
       <header className="card-header">
-        <h3>{title}</h3>
+        <h3>{title ? title : ""}</h3>
         <div className="card-actions">
           {showOptionAction ? (
             <Button icon={<IconDots size={iconSize} />} type="text" />

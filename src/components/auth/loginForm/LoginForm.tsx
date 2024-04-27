@@ -1,17 +1,9 @@
 "use client";
 import { login } from "@/src/actions/login";
-import { DEFAULT_LOGIN_REDIRECT } from "@/src/lib/routes";
 import { LoginSchema } from "@/src/schemas/LoginSchema";
-import { Alert, Button, Form, Input } from "antd";
+import { Button, Form, Input } from "antd";
 import { createSchemaFieldRule } from "antd-zod";
-import { signIn } from "next-auth/react";
-import Link from "next/link";
 import { useState, useTransition } from "react";
-
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
-};
 
 const rule = createSchemaFieldRule(LoginSchema);
 
@@ -36,41 +28,40 @@ function LoginForm() {
   }
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-      }}
-    >
+    <>
       <Form
-        {...layout}
+        layout="vertical"
         name="login-form"
         onFinish={onSubmit}
-        style={{ maxWidth: 600 }}
+        // style={{ maxWidth: 600 }}
         disabled={isPending}
       >
-        {error ? <Alert message={error} type="error" /> : null}
+        {/* {error ? <Alert message={error} type="error" /> : null}
         {success ? <Alert message={success} type="success" /> : null}
         {!success && !error ? (
           <Alert message="Please fill in the form" type="info" />
-        ) : null}
-        <br />
-        <Form.Item label="Email" name="email" rules={[rule]}>
-          <Input />
-        </Form.Item>
+        ) : null} */}
 
-        <Form.Item label="Password" name="password" rules={[rule]}>
-          <Input.Password />
-        </Form.Item>
+        <header className="card-header">
+          <h3>Login</h3>
+        </header>
 
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+        <div>
+          <Form.Item label="Email" name="email" rules={[rule]}>
+            <Input />
+          </Form.Item>
+
+          <Form.Item label="Password" name="password" rules={[rule]}>
+            <Input.Password />
+          </Form.Item>
+        </div>
+
+        <Form.Item>
           <Button type="primary" htmlType="submit">
             Login
           </Button>
         </Form.Item>
-        <Link href="/auth/register">{"Doesn't have an account?"}</Link>
+        {/* <Link href="/auth/register">{"Doesn't have an account?"}</Link>
         <Button
           onClick={() => {
             signIn("github", {
@@ -79,9 +70,9 @@ function LoginForm() {
           }}
         >
           Github
-        </Button>
+        </Button> */}
       </Form>
-    </div>
+    </>
   );
 }
 

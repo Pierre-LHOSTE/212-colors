@@ -1,15 +1,9 @@
 "use client";
 import { register } from "@/src/actions/register";
 import { RegisterSchema } from "@/src/schemas/registerSchema";
-import { Alert, Button, Form, Input } from "antd";
+import { Button, Form, Input } from "antd";
 import { createSchemaFieldRule } from "antd-zod";
-import Link from "next/link";
 import { useState, useTransition } from "react";
-
-const layout = {
-  labelCol: { span: 8 },
-  wrapperCol: { span: 16 },
-};
 
 const rule = createSchemaFieldRule(RegisterSchema);
 
@@ -39,59 +33,58 @@ function RegisterForm() {
   }
 
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100vh",
-      }}
-    >
+    <>
       <Form
-        {...layout}
+        layout="vertical"
         name="register-form"
         onFinish={onSubmit}
-        style={{ maxWidth: 600 }}
         disabled={isPending}
       >
-        {error ? <Alert message={error} type="error" /> : null}
+        {/* {error ? <Alert message={error} type="error" /> : null}
         {success ? <Alert message={success} type="success" /> : null}
         {!success && !error ? (
           <Alert message="Please fill in the form" type="info" />
         ) : null}
-        <br />
-        <Form.Item label="Username" name="name" rules={[rule]}>
-          <Input />
-        </Form.Item>
-        <Form.Item label="Email" name="email" rules={[rule]}>
-          <Input />
-        </Form.Item>
-        <Form.Item label="Password" name="password" rules={[rule]}>
-          <Input.Password />
-        </Form.Item>
-        <Form.Item
-          label="Confirm Password"
-          name="confirmPassword"
-          dependencies={["password"]}
-          rules={[
-            rule,
-            {
-              required: true,
-              message: "Please confirm your password!",
-            },
-            ({ getFieldValue }) => validateConfirmPassword({ getFieldValue }),
-          ]}
-        >
-          <Input.Password />
-        </Form.Item>
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+        <br /> */}
+
+        <header className="card-header">
+          <h3>Register</h3>
+        </header>
+
+        <div>
+          <Form.Item label="Username" name="name" rules={[rule]}>
+            <Input />
+          </Form.Item>
+          <Form.Item label="Email" name="email" rules={[rule]}>
+            <Input />
+          </Form.Item>
+          <Form.Item label="Password" name="password" rules={[rule]}>
+            <Input.Password />
+          </Form.Item>
+          <Form.Item
+            label="Confirm Password"
+            name="confirmPassword"
+            dependencies={["password"]}
+            rules={[
+              rule,
+              {
+                required: true,
+                message: "Please confirm your password!",
+              },
+              ({ getFieldValue }) => validateConfirmPassword({ getFieldValue }),
+            ]}
+          >
+            <Input.Password />
+          </Form.Item>
+        </div>
+        <Form.Item>
           <Button type="primary" htmlType="submit">
             Register
           </Button>
         </Form.Item>
-        <Link href="/auth/login">{"Already have an account?"}</Link>
+        {/* <Link href="/auth/login">{"Already have an account?"}</Link> */}
       </Form>
-    </div>
+    </>
   );
 }
 

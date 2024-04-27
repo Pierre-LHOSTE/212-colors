@@ -11,7 +11,7 @@ function App({ projects }: { projects: ProjectButtonType[] }) {
       <NavAside />
       <div id="content">
         <Header />
-        <main id="main">{"content"}</main>
+        <main id="main"></main>
       </div>
     </div>
   );
