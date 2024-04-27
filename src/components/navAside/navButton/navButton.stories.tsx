@@ -3,7 +3,7 @@ import { IconInfoCircle } from "@tabler/icons-react";
 import NavButton from "./NavButton";
 
 const meta = {
-  title: "NavAside/NavButton",
+  title: "NavAside/ButtonList/NavButton",
   component: NavButton,
   parameters: {
     layout: "centered",

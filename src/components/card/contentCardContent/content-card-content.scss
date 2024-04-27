@@ -1,0 +1,10 @@
+.content-card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  h3 {
+    opacity: 0.5;
+    font-weight: 400;
+  }
+}

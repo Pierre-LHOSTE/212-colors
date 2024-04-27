@@ -1,10 +1,10 @@
 import "./nav-header.scss";
 
-function NavHeader() {
+function NavHeader({ title }: { title: string }) {
   return (
     <header id="nav-header">
       <div>
-        <span>Lorem ipsum</span>
+        <span>{title}</span>
       </div>
     </header>
   );

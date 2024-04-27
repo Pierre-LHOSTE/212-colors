@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import NavHeader from "./NavHeader";
 
 const meta = {
-  title: "NavAside/NavHeader",
+  title: "NavAside/NavHeader/NavHeader",
   component: NavHeader,
   parameters: {
     layout: "centered",
@@ -21,5 +21,7 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {},
+  args: {
+    title: "Lorem Ipsum",
+  },
 };
