@@ -20,7 +20,7 @@ const preview: Preview = {
       default: isDarkTheme ? "dark" : "light",
       values: [
         { name: "light", value: "#e9e9e9" },
-        { name: "dark", value: "#0F1319" },
+        { name: "dark", value: "#000" },
       ],
     },
     docs: {

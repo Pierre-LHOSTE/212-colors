@@ -3,5 +3,30 @@
   height: 48px;
   border-radius: 12px;
   border: none;
-  //   background-color: #202027;
+}
+
+@media (prefers-color-scheme: dark) {
+  #new-project {
+    background-color: rgba($color: #fff, $alpha: 0.025);
+
+    &:hover {
+      background-color: rgba($color: #fff, $alpha: 0.05);
+    }
+    svg {
+      stroke: #fff;
+    }
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  #new-project {
+    background-color: rgba($color: #000, $alpha: 0.025);
+
+    &:hover {
+      background-color: rgba($color: #000, $alpha: 0.05);
+    }
+    svg {
+      stroke: #000;
+    }
+  }
 }
