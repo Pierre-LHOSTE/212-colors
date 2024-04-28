@@ -1,5 +1,6 @@
+import { isVeryLightColor } from "@/src/lib/utils";
 import { ProjectButtonType } from "@/src/types/project";
-import { colord, extend } from "colord";
+import { extend } from "colord";
 import a11yPlugin from "colord/plugins/a11y";
 import { Draggable } from "react-beautiful-dnd";
 import "./project-button.scss";
@@ -62,14 +63,4 @@ function getInitials(name: string): string {
   initials = initials.slice(0, 3);
 
   return initials;
-}
-
-function isVeryLightColor(color: string): boolean {
-  const c = colord(color);
-
-  if (c.luminance() >= 0.5) {
-    return true;
-  }
-
-  return false;
 }

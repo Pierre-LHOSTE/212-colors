@@ -1,3 +1,4 @@
+import { isVeryLightColor } from "@/src/lib/utils";
 import type { ColorPickerProps, GetProp } from "antd";
 import { ColorPicker } from "antd";
 import { useEffect, useState } from "react";
@@ -21,6 +22,14 @@ function Color({
     setCurrentColor(color);
   }, [color]);
 
+  const elementColor = isVeryLightColor(
+    typeof currentColor === "string"
+      ? currentColor
+      : currentColor?.toHexString()
+  )
+    ? "dark"
+    : "light";
+
   return (
     <div className="color">
       <h4>{name}</h4>
@@ -35,7 +44,7 @@ function Color({
                 : currentColor?.toHexString(),
           }}
         >
-          <span>
+          <span className={elementColor}>
             {typeof currentColor === "string"
               ? currentColor
               : currentColor?.toHexString()}
