@@ -1,19 +1,21 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import RegisterForm from "./RegisterForm";
+import OAuthCard from "./OAuthCard";
 
 const meta = {
-  title: "Auth/RegisterForm",
-  component: RegisterForm,
+  title: "Auth/OAuthCard",
+  component: OAuthCard,
   parameters: {
     layout: "centered",
   },
+  decorators: [],
   argTypes: {},
-  args: {},
-} satisfies Meta<typeof RegisterForm>;
+} satisfies Meta<typeof OAuthCard>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {},
+  args: {
+    authType: "login",
+  },
 };

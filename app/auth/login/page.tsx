@@ -1,9 +1,9 @@
-import LoginForm from "@/src/components/auth/loginForm/LoginForm";
+import LoginCard from "@/src/components/auth/loginCard/LoginCard";
 
 function LoginPage() {
   return (
     <>
-      <LoginForm />
+      <LoginCard />
     </>
   );
 }

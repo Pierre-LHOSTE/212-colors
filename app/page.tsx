@@ -1,3 +1,9 @@
+import App from "@/src/components/app/ProjectLayout";
+
 export default function Home() {
-  return <main>Main content</main>;
+  return (
+    <App projects={[]}>
+      <></>
+    </App>
+  );
 }

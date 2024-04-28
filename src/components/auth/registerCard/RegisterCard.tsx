@@ -1,7 +1,7 @@
 import AuthCard from "../authCard/AuthCard";
 import RegisterForm from "../registerForm/RegisterForm";
 
-function LoginCard() {
+function RegisterCard() {
   return (
     <AuthCard authType="register" height={520}>
       <RegisterForm />
@@ -9,4 +9,4 @@ function LoginCard() {
   );
 }
 
-export default LoginCard;
+export default RegisterCard;

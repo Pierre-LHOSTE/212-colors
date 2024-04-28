@@ -1,9 +1,9 @@
-import RegisterForm from "@/src/components/auth/registerForm/RegisterForm";
+import RegisterCard from "@/src/components/auth/registerCard/RegisterCard";
 
 function LoginPage() {
   return (
     <>
-      <RegisterForm />
+      <RegisterCard />
     </>
   );
 }
