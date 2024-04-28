@@ -29,7 +29,7 @@ function ContentCardContent({
           ) : null}
         </div>
       </header>
-      <div>{children}</div>
+      <div className="content-card-section-content">{children}</div>
     </section>
   );
 }

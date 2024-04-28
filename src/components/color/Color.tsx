@@ -12,9 +12,9 @@ function Color({
   color,
   description,
 }: {
-  name: string;
+  name?: string;
   color: string;
-  description: string;
+  description?: string;
 }) {
   const [currentColor, setCurrentColor] = useState<Color>("");
 

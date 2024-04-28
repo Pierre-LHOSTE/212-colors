@@ -1,11 +1,7 @@
 import { isVeryLightColor } from "@/src/lib/utils";
 import { ProjectButtonType } from "@/src/types/project";
-import { extend } from "colord";
-import a11yPlugin from "colord/plugins/a11y";
 import { Draggable } from "react-beautiful-dnd";
 import "./project-button.scss";
-
-extend([a11yPlugin]);
 
 function ProjectButton({
   project,

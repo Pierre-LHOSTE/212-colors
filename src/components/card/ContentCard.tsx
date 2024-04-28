@@ -18,6 +18,8 @@ interface ContentCardBasicType {
 interface ContentCardProps extends ContentCardBasicType {
   sections?: ContentCardSectionType[];
   noPadding?: boolean;
+  id?: string;
+  className?: string;
 }
 
 function ContentCard({
@@ -27,9 +29,14 @@ function ContentCard({
   createAction,
   showOptionAction,
   noPadding,
+  id,
+  className,
 }: ContentCardProps): JSX.Element {
   return (
-    <div className="content-card-wrapper">
+    <div
+      id={id}
+      className={`content-card-wrapper${className ? className : ""}`}
+    >
       <div className={`content-card${noPadding ? " no-padding" : ""}`}>
         {sections && sections.length > 0 ? (
           sections.map((content: ContentCardSectionType, index: number) => (
