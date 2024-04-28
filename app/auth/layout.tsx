@@ -9,7 +9,14 @@ function AuthLayout({ children }: { children: React.ReactNode }) {
         width: "100vw",
       }}
     >
-      {children}
+      <div
+        style={{
+          display: "flex",
+          gap: "32px",
+        }}
+      >
+        {children}
+      </div>
     </div>
   );
 }

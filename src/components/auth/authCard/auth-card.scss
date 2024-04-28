@@ -1,4 +1,5 @@
-.auth-card .content-card {
+#login-card .content-card,
+#register-card .content-card {
   display: flex;
   flex-direction: row;
   gap: 0;
@@ -7,6 +8,7 @@
     aspect-ratio: 1;
     background: linear-gradient(135deg, #ff1818, #1e2126);
     height: 333px;
+    border-radius: 6px 0 0 6px;
   }
 
   form {
