@@ -2,6 +2,7 @@ import { isVeryLightColor } from "@/src/lib/utils";
 import type { ColorPickerProps, GetProp } from "antd";
 import { ColorPicker, Typography } from "antd";
 import { useEffect, useState } from "react";
+import { Draggable } from "react-beautiful-dnd";
 import Button from "../button/Button";
 import "./color.scss";
 
@@ -11,10 +12,14 @@ function Color({
   name,
   color,
   description,
+  id,
+  index,
 }: {
   name?: string;
   color: string;
   description?: string;
+  id: string;
+  index: number;
 }) {
   const [currentColor, setCurrentColor] = useState<Color>("");
 
@@ -31,41 +36,50 @@ function Color({
     : "light";
 
   return (
-    <div className="color">
-      <Typography.Title
-        level={4}
-        editable={{
-          triggerType: ["text"],
-        }}
-      >
-        {name}
-      </Typography.Title>
-      <ColorPicker value={currentColor} onChange={setCurrentColor}>
-        <Button
-          type="primary"
-          className="color-preview"
-          style={{
-            backgroundColor:
-              typeof currentColor === "string"
-                ? currentColor
-                : currentColor?.toHexString(),
-          }}
+    <Draggable draggableId={id} index={index}>
+      {(provided) => (
+        <div
+          className="color"
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
         >
-          <span className={elementColor}>
-            {typeof currentColor === "string"
-              ? currentColor
-              : currentColor?.toHexString()}
-          </span>
-        </Button>
-      </ColorPicker>
-      <Typography.Paragraph
-        editable={{
-          triggerType: ["text"],
-        }}
-      >
-        {description}
-      </Typography.Paragraph>
-    </div>
+          <Typography.Title
+            level={4}
+            editable={{
+              triggerType: ["text"],
+            }}
+          >
+            {name}
+          </Typography.Title>
+          <ColorPicker value={currentColor} onChange={setCurrentColor}>
+            <Button
+              type="primary"
+              className="color-preview"
+              style={{
+                backgroundColor:
+                  typeof currentColor === "string"
+                    ? currentColor
+                    : currentColor?.toHexString(),
+              }}
+            >
+              <span className={elementColor}>
+                {typeof currentColor === "string"
+                  ? currentColor
+                  : currentColor?.toHexString()}
+              </span>
+            </Button>
+          </ColorPicker>
+          <Typography.Paragraph
+            editable={{
+              triggerType: ["text"],
+            }}
+          >
+            {description}
+          </Typography.Paragraph>
+        </div>
+      )}
+    </Draggable>
   );
 }
 

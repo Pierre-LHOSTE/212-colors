@@ -1,5 +1,6 @@
 import MainCard from "@/src/components/card/MainCard";
 import Color from "@/src/components/color/Color";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import "./secondary-card.scss";
 
 interface colorType {
@@ -36,17 +37,36 @@ function SecondaryCard() {
       type: "secondary",
     },
   ];
+
+  function handleDragEnd(params: any) {
+    console.log(params);
+  }
+
   return (
-    <MainCard id="secondary-card" title="Secondary">
-      {colors.map((color, index) => (
-        <Color
-          key={index}
-          name={color.name}
-          color={color.color}
-          description={color.description}
-        />
-      ))}
-    </MainCard>
+    <DragDropContext onDragEnd={handleDragEnd}>
+      <Droppable droppableId="secondary-card" direction="vertical">
+        {(provided) => (
+          <MainCard
+            direction="vertical"
+            innerRef={provided.innerRef}
+            droppableProps={provided.droppableProps}
+            id="secondary-card"
+            title="Secondary"
+          >
+            {colors.map((color, index) => (
+              <Color
+                key={index}
+                name={color.name}
+                color={color.color}
+                description={color.description}
+                id={`color-${index}`}
+                index={index}
+              />
+            ))}
+          </MainCard>
+        )}
+      </Droppable>
+    </DragDropContext>
   );
 }
 

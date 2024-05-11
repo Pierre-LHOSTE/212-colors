@@ -1,9 +1,21 @@
 #secondary-card {
-  // .content-card-section-content {
-  //   display: flex;
-  //   flex-direction: column;
-  //   gap: 32px;
-  // }
+  .main-card-section-content-scroll {
+    overflow-y: visible;
+  }
+  .main-card-section-content {
+    > div {
+      padding: 16px 0;
+      box-sizing: content-box;
+
+      &:first-child {
+        padding-top: 0;
+      }
+
+      &:last-child {
+        padding-bottom: 0;
+      }
+    }
+  }
 
   .color {
     width: 320px;

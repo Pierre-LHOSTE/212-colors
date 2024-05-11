@@ -1,19 +1,16 @@
 #special-card {
-  .content-card-section-content {
-    display: flex;
-    gap: 32px;
+  .main-card-section-content {
+    > div {
+      padding: 0 16px;
+      box-sizing: content-box;
+
+      &:first-child {
+        padding-left: 0;
+      }
+
+      &:last-child {
+        padding-right: 0;
+      }
+    }
   }
-  // flex: 1;
-  // .color-preview {
-  //   height: 374px;
-  // }
-
-  // .content-card-content > div {
-  //   display: flex;
-  //   gap: 32px;
-
-  //   .color {
-  //     flex: 1;
-  //   }
-  // }
 }

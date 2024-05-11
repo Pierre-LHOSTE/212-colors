@@ -26,6 +26,8 @@ export const Default: Story = {
     name: "Lorem Ipsum Red",
     color: "#FF1818",
     description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit",
+    id: "color-1",
+    index: 1,
   },
 };
 
@@ -33,6 +35,8 @@ export const WithoutName: Story = {
   args: {
     color: "#FF1818",
     description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit",
+    id: "color-1",
+    index: 1,
   },
 };
 
@@ -40,12 +44,16 @@ export const WithoutDescription: Story = {
   args: {
     name: "Lorem Ipsum Red",
     color: "#FF1818",
+    id: "color-1",
+    index: 1,
   },
 };
 
 export const WithoutAnyText: Story = {
   args: {
     color: "#FF1818",
+    id: "color-1",
+    index: 1,
   },
 };
 
@@ -54,6 +62,8 @@ export const IntoCard: Story = {
     name: "Lorem Ipsum Red",
     color: "#FF1818",
     description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit",
+    id: "color-1",
+    index: 1,
   },
   decorators: [
     (Story: any) => (
@@ -69,6 +79,8 @@ export const IntoHorizontalCard: Story = {
     name: "Lorem Ipsum Red",
     color: "#FF1818",
     description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit",
+    id: "color-1",
+    index: 1,
   },
   decorators: [
     (Story: any) => (
@@ -87,6 +99,8 @@ export const IntoVerticalCard: Story = {
     name: "Lorem Ipsum Red",
     color: "#FF1818",
     description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit",
+    id: "color-1",
+    index: 1,
   },
   decorators: [
     (Story: any) => (
