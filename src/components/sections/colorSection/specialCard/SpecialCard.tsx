@@ -12,32 +12,47 @@ interface colorType {
 function SpecialCard() {
   const colors = [
     {
-      color: "#FF1818",
-      name: "Lorem Ipsum",
+      color: "#1FBF55",
+      name: "Success",
       description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit",
       type: "success",
     },
     {
-      color: "#0FF818",
-      name: "Lorem Ipsum",
+      color: "#FF1818",
+      name: "Error",
       description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit",
       type: "error",
     },
     {
-      color: "#100FF8",
-      name: "Lorem Ipsum",
+      color: "#C88400",
+      name: "Warning",
       description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit",
       type: "warning",
     },
     {
-      color: "#F00FF2",
-      name: "Lorem Ipsum",
+      color: "#D6A3FF",
+      name: "Info",
       description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit",
       type: "info",
     },
+    {
+      color: "#222222",
+      name: "Dark",
+      description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit",
+    },
+    {
+      color: "#808080",
+      name: "Neutral",
+      description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit",
+    },
+    {
+      color: "#F2F2F2",
+      name: "Light",
+      description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit",
+    },
   ];
   return (
-    <MainCard id="special-card" title="Special">
+    <MainCard direction="horizontal" id="special-card" title="Special">
       {colors.map((color, index) => (
         <Color
           key={index}

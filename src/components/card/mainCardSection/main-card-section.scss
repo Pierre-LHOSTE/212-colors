@@ -4,6 +4,7 @@
     flex-direction: column;
     gap: 16px;
     padding-bottom: 8px;
+    min-height: 100%;
 
     &:not(:first-child) {
       padding: 24px 0 8px 0;
@@ -24,6 +25,7 @@
     .main-card-section-content {
       gap: 32px;
       display: flex;
+      flex: 1;
     }
   }
 

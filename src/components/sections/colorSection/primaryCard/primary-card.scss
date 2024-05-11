@@ -1,15 +1,6 @@
 #primary-card {
-  flex: 1;
+  .color,
   .color-preview {
-    height: 374px;
-  }
-
-  .content-card-content > div {
-    display: flex;
-    gap: 32px;
-
-    .color {
-      flex: 1;
-    }
+    flex: 1;
   }
 }
