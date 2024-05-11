@@ -1,6 +1,6 @@
 import { isVeryLightColor } from "@/src/lib/utils";
 import type { ColorPickerProps, GetProp } from "antd";
-import { ColorPicker } from "antd";
+import { ColorPicker, Typography } from "antd";
 import { useEffect, useState } from "react";
 import Button from "../button/Button";
 import "./color.scss";
@@ -32,7 +32,14 @@ function Color({
 
   return (
     <div className="color">
-      <h4>{name}</h4>
+      <Typography.Title
+        level={4}
+        editable={{
+          triggerType: ["text"],
+        }}
+      >
+        {name}
+      </Typography.Title>
       <ColorPicker value={currentColor} onChange={setCurrentColor}>
         <Button
           type="primary"
@@ -51,7 +58,13 @@ function Color({
           </span>
         </Button>
       </ColorPicker>
-      <p>{description}</p>
+      <Typography.Paragraph
+        editable={{
+          triggerType: ["text"],
+        }}
+      >
+        {description}
+      </Typography.Paragraph>
     </div>
   );
 }

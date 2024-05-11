@@ -4,14 +4,36 @@
   gap: 16px;
   min-width: 186px;
 
-  h4 {
-    font-size: 18px;
-    font-weight: normal;
+  .ant-typography-edit-content {
+    inset-inline-start: 0;
+
+    textarea {
+      border: none;
+      font-size: inherit;
+      padding: 0;
+      font-weight: inherit;
+      min-height: 0;
+      line-height: inherit;
+    }
   }
 
-  p {
+  h4,
+  .ant-typography-h4.ant-typography-edit-content {
+    font-size: 18px;
+    font-weight: normal;
+    margin: 0;
+    height: 25px;
+  }
+
+  .ant-typography:not(h4, .ant-typography-h4) {
     font-size: 14px;
     opacity: 0.5;
+    inset-inline-start: 0;
+    margin: 0;
+  }
+
+  .ant-typography {
+    cursor: pointer;
   }
 
   .color-preview {
