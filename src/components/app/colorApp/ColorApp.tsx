@@ -7,9 +7,12 @@ function ColorApp() {
     <>
       <div className="flex-horizontal">
         <div className="flex-vertical">
+          {/* <div style={{ backgroundColor: "red", flex: 1 }}></div> */}
           <PrimaryCard />
+          {/* <div style={{ backgroundColor: "green", height: 200 }}></div> */}
           <SpecialCard />
         </div>
+        {/* <div style={{ backgroundColor: "blue", width: 200 }}></div> */}
         <SecondaryCard />
       </div>
     </>

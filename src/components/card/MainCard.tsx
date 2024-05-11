@@ -44,10 +44,11 @@ function MainCard({
         <OverlayScrollbarsComponent
           className="main-card-sections-scroll"
           defer={true}
-          options={{
-            scrollbars: { autoHide: "scroll" },
-          }}
-          // style={{ maxHeight: "100%", overflow: "auto" }}
+          options={
+            {
+              // scrollbars: { autoHide: "scroll" },
+            }
+          }
         >
           {sections && sections.length > 0 ? (
             sections.map((content: MainCardSectionType, index: number) => (
