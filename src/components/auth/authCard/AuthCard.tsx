@@ -1,4 +1,4 @@
-import ContentCard from "../../card/ContentCard";
+import MainCard from "../../card/MainCard";
 import "./auth-card.scss";
 
 function AuthCard({
@@ -12,7 +12,7 @@ function AuthCard({
 }) {
   return (
     <div id={`${authType}-card`} className="auth-card">
-      <ContentCard noPadding>
+      <MainCard noPadding>
         <div
           id="block"
           style={{
@@ -27,7 +27,7 @@ function AuthCard({
         >
           {children}
         </div>
-      </ContentCard>
+      </MainCard>
     </div>
   );
 }

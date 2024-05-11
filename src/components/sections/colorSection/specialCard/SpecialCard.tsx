@@ -1,4 +1,4 @@
-import ContentCard from "@/src/components/card/ContentCard";
+import MainCard from "@/src/components/card/MainCard";
 import Color from "@/src/components/color/Color";
 import "./special-card.scss";
 
@@ -37,7 +37,7 @@ function SpecialCard() {
     },
   ];
   return (
-    <ContentCard id="special-card" title="Special">
+    <MainCard id="special-card" title="Special">
       {colors.map((color, index) => (
         <Color
           key={index}
@@ -46,7 +46,7 @@ function SpecialCard() {
           description={color.description}
         />
       ))}
-    </ContentCard>
+    </MainCard>
   );
 }
 

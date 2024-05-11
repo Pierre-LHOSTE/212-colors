@@ -1,4 +1,4 @@
-import ContentCard from "@/src/components/card/ContentCard";
+import MainCard from "@/src/components/card/MainCard";
 import Color from "@/src/components/color/Color";
 import "./primary-card.scss";
 
@@ -17,7 +17,7 @@ function PrimaryCard() {
     },
   ];
   return (
-    <ContentCard id="primary-card" title="Primary">
+    <MainCard id="primary-card" title="Primary">
       {colors.map((color, index) => (
         <Color
           key={index}
@@ -26,7 +26,7 @@ function PrimaryCard() {
           description={color.description}
         />
       ))}
-    </ContentCard>
+    </MainCard>
   );
 }
 

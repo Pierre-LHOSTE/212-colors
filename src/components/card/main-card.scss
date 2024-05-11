@@ -1,0 +1,83 @@
+.main-card {
+  padding: 2px;
+  border-radius: 8px;
+  position: relative;
+  width: 100%;
+  //   overflow: hidden;
+  //   display: flex;
+  //   // flex: 1;
+  //   // overflow: auto;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), #ffffff00);
+  }
+
+  .main-card-wrapper {
+    position: relative;
+    box-sizing: border-box;
+    background-color: inherit;
+    padding: 24px 32px;
+    padding-right: 12px;
+    border-radius: 6px;
+    width: 100%;
+    height: 100%;
+    //     display: flex;
+    //     flex-direction: column;
+    // gap: 32px;
+    //     // flex: 1;
+
+    //     &.no-padding {
+    //       padding: 0;
+    //     }
+
+    .main-card-sections-scroll {
+      padding-right: 20px;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+
+      > div {
+        // display: flex;
+        flex-direction: column;
+        // gap: 32px;
+      }
+
+      &:hover .os-scrollbar-auto-hide.os-scrollbar-auto-hide-hidden {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+  }
+
+  .card-actions {
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  &:hover {
+    .card-actions {
+      opacity: 0.8;
+    }
+  }
+  &.vertical .content-card > div {
+    padding-right: 16px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .main-card {
+    background-color: #13161c;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .main-card {
+    background-color: #fff;
+  }
+}

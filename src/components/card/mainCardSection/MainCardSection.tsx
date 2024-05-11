@@ -1,12 +1,11 @@
 import { IconDots, IconPlus } from "@tabler/icons-react";
 import React from "react";
-import SimpleBar from "simplebar-react";
 import Button from "../../button/Button";
-import "./content-card-content.scss";
+import "./main-card-section.scss";
 
 const iconSize = 16;
 
-function ContentCardContent({
+function MainCardSection({
   title,
   children,
   createAction,
@@ -18,7 +17,7 @@ function ContentCardContent({
   showOptionAction?: () => void;
 }) {
   return (
-    <section className="content-card-content">
+    <section className="main-card-section">
       <header className="card-header">
         <h3>{title ? title : ""}</h3>
         <div className="card-actions">
@@ -30,11 +29,9 @@ function ContentCardContent({
           ) : null}
         </div>
       </header>
-      <SimpleBar autoHide className="content-card-section-content">
-        {children}
-      </SimpleBar>
+      <div className="main-card-section-content">{children}</div>
     </section>
   );
 }
 
-export default ContentCardContent;
+export default MainCardSection;

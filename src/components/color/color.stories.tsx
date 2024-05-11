@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import ContentCard from "../card/ContentCard";
+import MainCard from "../card/MainCard";
 import Color from "./Color";
 
 const meta = {
@@ -29,6 +29,41 @@ export const Default: Story = {
   },
 };
 
+export const WithoutName: Story = {
+  args: {
+    color: "#FF1818",
+    description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit",
+  },
+};
+
+export const WithoutDescription: Story = {
+  args: {
+    name: "Lorem Ipsum Red",
+    color: "#FF1818",
+  },
+};
+
+export const WithoutAnyText: Story = {
+  args: {
+    color: "#FF1818",
+  },
+};
+
+export const IntoCard: Story = {
+  args: {
+    name: "Lorem Ipsum Red",
+    color: "#FF1818",
+    description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit",
+  },
+  decorators: [
+    (Story: any) => (
+      <MainCard title="Test">
+        <Story />
+      </MainCard>
+    ),
+  ],
+};
+
 export const IntoHorizontalCard: Story = {
   args: {
     name: "Lorem Ipsum Red",
@@ -37,12 +72,12 @@ export const IntoHorizontalCard: Story = {
   },
   decorators: [
     (Story: any) => (
-      <ContentCard title="Test" direction="horizontal">
+      <MainCard title="Test" direction="horizontal">
         <Story />
         <Story />
         <Story />
         <Story />
-      </ContentCard>
+      </MainCard>
     ),
   ],
 };
@@ -55,12 +90,12 @@ export const IntoVerticalCard: Story = {
   },
   decorators: [
     (Story: any) => (
-      <ContentCard title="Test" direction="vertical">
+      <MainCard title="Test" direction="vertical">
         <Story />
         <Story />
         <Story />
         <Story />
-      </ContentCard>
+      </MainCard>
     ),
   ],
 };

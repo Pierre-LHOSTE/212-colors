@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import ContentCardContent from "./ContentCardContent";
+import MainCardContent from "./MainCardSection";
 
 const meta = {
-  title: "Components/ContentCard/ContentCardContent",
-  component: ContentCardContent,
+  title: "Components/MainCard/MainCardContent",
+  component: MainCardContent,
   parameters: {
     layout: "centered",
   },
   decorators: [],
   argTypes: {},
-} satisfies Meta<typeof ContentCardContent>;
+} satisfies Meta<typeof MainCardContent>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

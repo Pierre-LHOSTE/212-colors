@@ -4,7 +4,7 @@ import { IconBrandGithubFilled } from "@tabler/icons-react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Button from "../../button/Button";
-import ContentCard from "../../card/ContentCard";
+import MainCard from "../../card/MainCard";
 import "./oauth-card.scss";
 
 function OAuthCard({ authType }: { authType: string }) {
@@ -12,7 +12,7 @@ function OAuthCard({ authType }: { authType: string }) {
 
   return (
     <div className="auth-card oauth-card">
-      <ContentCard
+      <MainCard
         sections={[
           {
             title: "OAuth",
@@ -55,7 +55,7 @@ function OAuthCard({ authType }: { authType: string }) {
                 ),
               },
         ]}
-      ></ContentCard>
+      ></MainCard>
     </div>
   );
 }

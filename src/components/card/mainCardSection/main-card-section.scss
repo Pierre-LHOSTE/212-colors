@@ -1,0 +1,36 @@
+.main-card {
+  .main-card-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-bottom: 8px;
+
+    &:not(:first-child) {
+      padding: 24px 0 8px 0;
+    }
+
+    .card-header {
+      height: 32px;
+      display: flex;
+      align-items: center;
+
+      h3 {
+        opacity: 0.5;
+        font-weight: 400;
+        flex: 1;
+      }
+    }
+
+    .main-card-section-content {
+      gap: 32px;
+      display: flex;
+    }
+  }
+
+  &.horizontal .main-card-content .main-card-section-content {
+    flex-direction: row;
+  }
+  &.vertical .main-card-section-content {
+    flex-direction: column;
+  }
+}
