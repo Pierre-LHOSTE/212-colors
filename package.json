@@ -26,6 +26,7 @@
     "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18",
     "sass": "^1.75.0",
+    "simplebar-react": "^3.2.5",
     "zod": "^3.22.5",
     "zustand": "^4.5.2"
   },

@@ -8,7 +8,14 @@ interface colorType {
   color: string;
 }
 
-function PrimaryCard({ colors }: { colors: colorType[] }) {
+function PrimaryCard() {
+  const colors = [
+    {
+      color: "#FF1818",
+      name: "Lorem Ipsum",
+      description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit",
+    },
+  ];
   return (
     <ContentCard id="primary-card" title="Primary">
       {colors.map((color, index) => (

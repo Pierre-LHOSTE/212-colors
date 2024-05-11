@@ -113,6 +113,17 @@ a {
   text-decoration: none;
 }
 
+.flex-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.flex-horizontal {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

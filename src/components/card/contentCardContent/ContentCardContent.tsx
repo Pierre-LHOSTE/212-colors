@@ -1,5 +1,6 @@
 import { IconDots, IconPlus } from "@tabler/icons-react";
 import React from "react";
+import SimpleBar from "simplebar-react";
 import Button from "../../button/Button";
 import "./content-card-content.scss";
 
@@ -29,7 +30,9 @@ function ContentCardContent({
           ) : null}
         </div>
       </header>
-      <div className="content-card-section-content">{children}</div>
+      <SimpleBar autoHide className="content-card-section-content">
+        {children}
+      </SimpleBar>
     </section>
   );
 }

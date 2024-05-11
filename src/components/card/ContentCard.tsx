@@ -20,9 +20,11 @@ interface ContentCardProps extends ContentCardBasicType {
   noPadding?: boolean;
   id?: string;
   className?: string;
+  direction?: "horizontal" | "vertical";
 }
 
 function ContentCard({
+  direction,
   sections,
   title,
   children,
@@ -35,7 +37,7 @@ function ContentCard({
   return (
     <div
       id={id}
-      className={`content-card-wrapper${className ? className : ""}`}
+      className={`content-card-wrapper${className ? className : ""}${direction === "horizontal" ? " horizontal" : " vertical"}`}
     >
       <div className={`content-card${noPadding ? " no-padding" : ""}`}>
         {sections && sections.length > 0 ? (

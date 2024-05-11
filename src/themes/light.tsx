@@ -4,7 +4,11 @@ const lightTheme: ThemeConfig = {
   algorithm: theme.defaultAlgorithm,
   token: {
     fontSize: 16,
-    colorPrimary: "#FF1818",
+    colorPrimary: "#ff1818",
+    colorInfo: "#ff1818",
+    colorLink: "#1677ff",
+    colorError: "#ff1818",
+    colorBgBase: "#f5f5f5",
   },
 };
 
