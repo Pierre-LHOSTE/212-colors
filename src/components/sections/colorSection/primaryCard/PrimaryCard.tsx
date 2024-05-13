@@ -1,3 +1,4 @@
+"use client";
 import MainCard from "@/src/components/card/MainCard";
 import Color from "@/src/components/color/Color";
 import { DragDropContext, Droppable } from "@hello-pangea/dnd";

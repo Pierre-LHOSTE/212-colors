@@ -1,3 +1,4 @@
+"use client";
 import MainCard from "@/src/components/card/MainCard";
 import Color from "@/src/components/color/Color";
 import { DragDropContext, Droppable } from "@hello-pangea/dnd";
@@ -26,6 +27,36 @@ function SecondaryCard() {
     },
     {
       color: "#100FF8",
+      name: "Lorem Ipsum",
+      description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit",
+      type: "secondary",
+    },
+    {
+      color: "#F00FF2",
+      name: "Lorem Ipsum",
+      description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit",
+      type: "secondary",
+    },
+    {
+      color: "#F00FF2",
+      name: "Lorem Ipsum",
+      description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit",
+      type: "secondary",
+    },
+    {
+      color: "#F00FF2",
+      name: "Lorem Ipsum",
+      description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit",
+      type: "secondary",
+    },
+    {
+      color: "#F00FF2",
+      name: "Lorem Ipsum",
+      description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit",
+      type: "secondary",
+    },
+    {
+      color: "#F00FF2",
       name: "Lorem Ipsum",
       description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit",
       type: "secondary",

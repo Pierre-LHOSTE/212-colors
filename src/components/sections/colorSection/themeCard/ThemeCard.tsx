@@ -2,7 +2,7 @@
 import MainCard from "@/src/components/card/MainCard";
 import Color from "@/src/components/color/Color";
 import { DragDropContext, Droppable } from "@hello-pangea/dnd";
-import "./special-card.scss";
+import "./theme-card.scss";
 
 interface colorType {
   name?: string;
@@ -11,7 +11,7 @@ interface colorType {
   type?: string;
 }
 
-function SpecialCard() {
+function ThemeCard() {
   const colors = [
     {
       color: "#1FBF55",
@@ -60,11 +60,11 @@ function SpecialCard() {
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
-      <Droppable droppableId="special-card" direction="horizontal">
+      <Droppable droppableId="theme-card" direction="horizontal">
         {(provided) => (
           <MainCard
-            id="special-card"
-            title="Special"
+            id="theme-card"
+            title="Theme"
             direction="horizontal"
             innerRef={provided.innerRef}
             droppableProps={provided.droppableProps}
@@ -87,4 +87,4 @@ function SpecialCard() {
   );
 }
 
-export default SpecialCard;
+export default ThemeCard;

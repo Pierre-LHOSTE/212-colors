@@ -1,60 +1,74 @@
 #nav-header {
-  height: 116px;
-  width: 100%;
-  color: #fff;
-  border-radius: 6px;
-  padding: 2px;
-  position: relative;
-  overflow: hidden;
-  box-sizing: border-box;
+  border-bottom: 2px solid;
 
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
+  #nav-header-wrapper {
+    height: 116px;
     width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), #ffffff00);
-  }
-
-  > div {
-    box-sizing: border-box;
+    color: #fff;
+    border-radius: 6px;
+    padding: 2px;
     position: relative;
-    border-radius: 4px;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: end;
-    padding: 24px 32px;
+    overflow: hidden;
+    box-sizing: border-box;
 
-    > span {
-      font-weight: 700;
-      font-size: 18px;
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), #ffffff00);
+    }
+
+    > div {
+      box-sizing: border-box;
+      position: relative;
+      border-radius: 4px;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: end;
+      padding: 24px 32px;
+
+      > span {
+        font-weight: 700;
+        font-size: 18px;
+      }
     }
   }
 }
 
 @media (prefers-color-scheme: dark) {
   #nav-header {
-    background: #b83536;
-    background: linear-gradient(135deg, #ff1818, #1e2126);
+    background-color: black;
+    border-bottom-color: black;
 
-    > div {
-      background: #ff1818;
+    #nav-header-wrapper {
+      background: #b83536;
       background: linear-gradient(135deg, #ff1818, #1e2126);
+
+      > div {
+        background: #ff1818;
+        background: linear-gradient(135deg, #ff1818, #1e2126);
+      }
     }
   }
 }
 
 @media (prefers-color-scheme: light) {
   #nav-header {
-    background: #b83536;
-    background: linear-gradient(135deg, #ff1818, #1e2126);
+    background-color: #dedede;
+    border-bottom-color: #dedede;
 
-    > div {
-      background: #ff1818;
+    #nav-header-wrapper {
+      background: #b83536;
       background: linear-gradient(135deg, #ff1818, #1e2126);
+
+      > div {
+        background: #ff1818;
+        background: linear-gradient(135deg, #ff1818, #1e2126);
+      }
     }
   }
 }

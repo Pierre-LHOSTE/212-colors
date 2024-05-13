@@ -1,6 +1,7 @@
 #nav-aside {
   width: 256px;
   height: 100%;
+  flex-shrink: 0;
   background-color: #13161c;
 
   .ant-menu {

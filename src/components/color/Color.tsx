@@ -1,3 +1,4 @@
+"use client";
 import { isVeryLightColor } from "@/src/lib/utils";
 import { Draggable } from "@hello-pangea/dnd";
 import type { ColorPickerProps, GetProp } from "antd";

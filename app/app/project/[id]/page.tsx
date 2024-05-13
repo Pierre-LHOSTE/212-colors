@@ -17,7 +17,7 @@ function ProjectPage({ params }: { params: { id: string } }) {
     })();
   }, [params.id]);
 
-  return <>{/* <ColorApp /> */}</>;
+  return <>Project page</>;
 }
 
 export default ProjectPage;

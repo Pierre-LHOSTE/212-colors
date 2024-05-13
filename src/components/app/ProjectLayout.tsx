@@ -1,7 +1,7 @@
 "use client";
 import { ProjectButtonType } from "@/src/types/project";
 import MainAside from "../mainAside/MainAside";
-import NavAside from "../navAside/NavAside";
+import NavAside from "../navAside/NavProjectAside";
 import "./app.scss";
 import Header from "./header/Header";
 
