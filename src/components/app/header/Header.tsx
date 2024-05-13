@@ -1,3 +1,4 @@
+"use client";
 import "./header.scss";
 
 function Header() {

@@ -19,11 +19,12 @@ interface MainCardBasicType {
 interface MainCardProps extends MainCardBasicType {
   sections?: MainCardSectionType[];
   noPadding?: boolean;
+  noScroll?: boolean;
   id?: string;
   className?: string;
   direction?: "horizontal" | "vertical";
   innerRef?: (element: HTMLDivElement | null) => void;
-  droppableProps: object;
+  droppableProps?: object;
 }
 
 function MainCard({
@@ -34,6 +35,7 @@ function MainCard({
   createAction,
   showOptionAction,
   noPadding,
+  noScroll,
   id,
   className,
   innerRef,
@@ -44,41 +46,68 @@ function MainCard({
       ref={innerRef}
       {...droppableProps}
       id={id}
-      className={`main-card${className ? className : ""}${direction === "horizontal" ? " horizontal" : " vertical"}`}
+      className={`main-card${className ? className : ""}${direction === "horizontal" ? " horizontal" : " vertical"}${noPadding ? " no-padding" : ""}`}
     >
-      <div className={`main-card-wrapper${noPadding ? " no-padding" : ""}`}>
-        <OverlayScrollbarsComponent
-          className="main-card-sections-scroll"
-          defer={true}
-          options={
-            {
-              // scrollbars: { autoHide: "scroll" },
-            }
-          }
-        >
-          {sections && sections.length > 0 ? (
-            sections.map((content: MainCardSectionType, index: number) => (
+      <div className={`main-card-wrapper`}>
+        {noScroll ? (
+          <div className="main-card-sections-scroll">
+            {sections && sections.length > 0 ? (
+              sections.map((content: MainCardSectionType, index: number) => (
+                <MainCardSection
+                  key={index}
+                  title={content.title}
+                  createAction={content.createAction}
+                  showOptionAction={content.showOptionAction}
+                >
+                  {content.children}
+                </MainCardSection>
+              ))
+            ) : title || createAction || showOptionAction ? (
               <MainCardSection
-                key={index}
-                title={content.title}
-                createAction={content.createAction}
-                showOptionAction={content.showOptionAction}
+                title={title}
+                createAction={createAction}
+                showOptionAction={showOptionAction}
               >
-                {content.children}
+                {children}
               </MainCardSection>
-            ))
-          ) : title || createAction || showOptionAction ? (
-            <MainCardSection
-              title={title}
-              createAction={createAction}
-              showOptionAction={showOptionAction}
-            >
-              {children}
-            </MainCardSection>
-          ) : (
-            <>{children}</>
-          )}
-        </OverlayScrollbarsComponent>
+            ) : (
+              <>{children}</>
+            )}
+          </div>
+        ) : (
+          <OverlayScrollbarsComponent
+            className="main-card-sections-scroll"
+            defer={true}
+            options={
+              {
+                // scrollbars: { autoHide: "scroll" },
+              }
+            }
+          >
+            {sections && sections.length > 0 ? (
+              sections.map((content: MainCardSectionType, index: number) => (
+                <MainCardSection
+                  key={index}
+                  title={content.title}
+                  createAction={content.createAction}
+                  showOptionAction={content.showOptionAction}
+                >
+                  {content.children}
+                </MainCardSection>
+              ))
+            ) : title || createAction || showOptionAction ? (
+              <MainCardSection
+                title={title}
+                createAction={createAction}
+                showOptionAction={showOptionAction}
+              >
+                {children}
+              </MainCardSection>
+            ) : (
+              <>{children}</>
+            )}
+          </OverlayScrollbarsComponent>
+        )}
       </div>
     </div>
   );

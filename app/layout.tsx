@@ -19,9 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div id="app-window">
-          <Wrapper>{children}</Wrapper>
-        </div>
+        <Wrapper>{children}</Wrapper>
       </body>
     </html>
   );

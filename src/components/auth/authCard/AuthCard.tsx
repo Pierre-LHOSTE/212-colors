@@ -1,3 +1,5 @@
+"use client";
+import { AnimatePresence, motion } from "framer-motion";
 import MainCard from "../../card/MainCard";
 import "./auth-card.scss";
 
@@ -11,24 +13,33 @@ function AuthCard({
   height: number;
 }) {
   return (
-    <div id={`${authType}-card`} className="auth-card">
-      <MainCard noPadding>
-        <div
-          id="block"
-          style={{
-            height: height ? `${height}px` : "333px",
-          }}
-        ></div>
-        <div
-          className="content-card-content"
-          style={{
-            minWidth: height / 1.5,
-          }}
-        >
-          {children}
-        </div>
-      </MainCard>
-    </div>
+    <AnimatePresence>
+      <motion.div
+        initial={{ x: 30, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        exit={{ x: -30, opacity: 0 }}
+        id={`${authType}-card`}
+        className="auth-card"
+      >
+        <MainCard noPadding noScroll>
+          <div
+            id="block"
+            style={{
+              height: height ? `${height}px` : "333px",
+            }}
+          ></div>
+          <div
+            className="content-card-content"
+            style={{
+              minWidth: height / 1.5,
+              height: height ? `${height}px` : "333px",
+            }}
+          >
+            {children}
+          </div>
+        </MainCard>
+      </motion.div>
+    </AnimatePresence>
   );
 }
 

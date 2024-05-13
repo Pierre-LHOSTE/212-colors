@@ -6,7 +6,11 @@
 .oauth-card > div {
   height: 100%;
 
-  .content-card {
+  .main-card-sections-scroll > div {
+    display: flex;
     justify-content: space-between;
+  }
+  .main-card-section .main-card-section-content {
+    display: block;
   }
 }

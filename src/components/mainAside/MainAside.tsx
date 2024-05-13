@@ -1,3 +1,4 @@
+"use client";
 import { ProjectButtonType } from "@/src/types/project";
 import "./main-aside.scss";
 import ProfileSection from "./profileSection/ProfileSection";

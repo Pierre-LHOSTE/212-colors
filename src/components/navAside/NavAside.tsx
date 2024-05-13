@@ -1,3 +1,4 @@
+"use client";
 import "./nav-aside.scss";
 import NavButtonList from "./navButtonList/NavButtonList";
 import NavHeader from "./navHeader/NavHeader";

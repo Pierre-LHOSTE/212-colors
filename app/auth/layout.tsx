@@ -1,3 +1,6 @@
+"use client";
+import { AnimatePresence, motion } from "framer-motion";
+
 function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
     <div
@@ -9,14 +12,19 @@ function AuthLayout({ children }: { children: React.ReactNode }) {
         width: "100vw",
       }}
     >
-      <div
-        style={{
-          display: "flex",
-          gap: "32px",
-        }}
-      >
-        {children}
-      </div>
+      <AnimatePresence>
+        <motion.div
+          initial={{ y: -30, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: 30, opacity: 0 }}
+          style={{
+            display: "flex",
+            gap: "32px",
+          }}
+        >
+          {children}
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 }

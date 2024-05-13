@@ -1,5 +1,5 @@
-#login-card .content-card,
-#register-card .content-card {
+#login-card .main-card,
+#register-card .main-card {
   display: flex;
   flex-direction: row;
   gap: 0;
@@ -11,12 +11,18 @@
     border-radius: 6px 0 0 6px;
   }
 
+  .main-card-sections-scroll {
+    display: flex;
+    flex-direction: row;
+  }
+
   form {
     padding: 32px;
     display: flex;
     flex-direction: column;
     flex: 1;
     justify-content: space-between;
+    height: 100%;
 
     .ant-form-item:last-child {
       margin-bottom: 0;
