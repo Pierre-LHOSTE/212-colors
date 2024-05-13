@@ -1,5 +1,5 @@
+import { DragDropContext, Droppable } from "@hello-pangea/dnd";
 import type { Meta, StoryObj } from "@storybook/react";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import ProjectButton from "./ProjectButton";
 
 const meta = {

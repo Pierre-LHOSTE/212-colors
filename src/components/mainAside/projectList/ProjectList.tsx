@@ -1,13 +1,28 @@
+import { getProjectList } from "@/src/api/project";
 import { ProjectButtonType } from "@/src/types/project";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
-import NewProjectButton from "../newProjectButton/NewProjectButton";
-import ProjectButton from "../projectButton/ProjectButton";
+import { DragDropContext, Droppable } from "@hello-pangea/dnd";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import "./project-list.scss";
 
-function ProjectList({ projects }: { projects: ProjectButtonType[] }) {
+import NewProjectButton from "../newProjectButton/NewProjectButton";
+import ProjectButton from "../projectButton/ProjectButton";
+
+function ProjectList() {
+  const pathname = usePathname();
+
   function handleDragEnd(params: any) {
     console.log(params);
   }
+  const [projects, setProjects] = useState<ProjectButtonType[] | null>(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      const p: ProjectButtonType[] | null = await getProjectList();
+      setProjects(p);
+    }
+    fetchData();
+  }, []);
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
@@ -16,13 +31,20 @@ function ProjectList({ projects }: { projects: ProjectButtonType[] }) {
           <nav
             ref={provided.innerRef}
             {...provided.droppableProps}
-            id="project-list"
+            id="projects-list"
           >
             {projects
-              .sort((a, b) => a.position - b.position)
-              .map((project, i) => (
-                <ProjectButton key={i} project={project} index={i} />
-              ))}
+              ? projects
+                  .sort((a, b) => a.position - b.position)
+                  .map((project, i) => (
+                    <ProjectButton
+                      key={i}
+                      project={project}
+                      index={i}
+                      active={pathname === `/app/project/${project.id}`}
+                    />
+                  ))
+              : null}
             {provided.placeholder}
             <NewProjectButton />
           </nav>

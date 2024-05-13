@@ -1,9 +1,9 @@
 import { auth, signOut } from "@/src/lib/auth";
 import { AUTH_ROUTES } from "@/src/lib/routes";
 
-async function SettingsPage() {
+async function ProfilePage() {
   const session = await auth();
-  console.log("🚀 ~ session:", session);
+
   return (
     <>
       {JSON.stringify(session)}
@@ -22,4 +22,4 @@ async function SettingsPage() {
   );
 }
 
-export default SettingsPage;
+export default ProfilePage;

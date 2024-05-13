@@ -8,8 +8,9 @@ export interface ProjectLiteType {
 }
 
 export interface ProjectButtonType extends ProjectLiteType {
-  color: string;
-  active: boolean;
+  colors: {
+    color: string;
+  }[];
   position: number;
 }
 

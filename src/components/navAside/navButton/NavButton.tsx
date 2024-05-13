@@ -1,6 +1,6 @@
+import { Button } from "antd";
 import "./nav-button.scss";
 
-import { Button } from "antd";
 import React from "react";
 
 function NavButton({

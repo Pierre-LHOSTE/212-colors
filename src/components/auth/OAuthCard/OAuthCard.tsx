@@ -1,9 +1,9 @@
 "use client";
 import { DEFAULT_LOGIN_REDIRECT } from "@/src/lib/routes";
 import { IconBrandGithubFilled } from "@tabler/icons-react";
+import { Button } from "antd";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import Button from "../../button/Button";
 import MainCard from "../../card/MainCard";
 import "./oauth-card.scss";
 

@@ -1,9 +1,8 @@
 import { isVeryLightColor } from "@/src/lib/utils";
+import { Draggable } from "@hello-pangea/dnd";
 import type { ColorPickerProps, GetProp } from "antd";
-import { ColorPicker, Typography } from "antd";
+import { Button, ColorPicker, Typography } from "antd";
 import { useEffect, useState } from "react";
-import { Draggable } from "react-beautiful-dnd";
-import Button from "../button/Button";
 import "./color.scss";
 
 type Color = GetProp<ColorPickerProps, "value">;

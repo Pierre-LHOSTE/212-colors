@@ -1,16 +1,15 @@
 "use client";
-
 import darkTheme from "@/src/themes/dark";
 import lightTheme from "@/src/themes/light";
 import { ConfigProvider } from "antd";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function Wrapper({
+export function AntdConfig({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const [isDarkTheme, setIsDarkTheme] = useState<boolean>(true);
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
 
   useEffect(() => {
     setIsDarkTheme(window.matchMedia("(prefers-color-scheme: dark)").matches);

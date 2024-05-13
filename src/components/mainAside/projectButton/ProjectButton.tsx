@@ -1,16 +1,20 @@
 import { isVeryLightColor } from "@/src/lib/utils";
 import { ProjectButtonType } from "@/src/types/project";
-import { Draggable } from "react-beautiful-dnd";
+import { Draggable } from "@hello-pangea/dnd";
+import Link from "next/link";
 import "./project-button.scss";
 
 function ProjectButton({
   project,
   index,
+  active,
 }: {
   project: ProjectButtonType;
   index: number;
+  active: boolean;
 }) {
-  const { id, name, color, active } = project;
+  const { id, name, colors } = project;
+  const color = colors[0].color;
   const initials = getInitials(name);
 
   const elementColor = isVeryLightColor(color) ? "dark" : "light";
@@ -28,9 +32,9 @@ function ProjectButton({
             className={`icon-hook ${elementColor}`}
             style={{ backgroundColor: color }}
           ></div>
-          <button style={{ backgroundColor: color }}>
+          <Link href={"/app/project/" + id} style={{ backgroundColor: color }}>
             <span className={elementColor}>{initials}</span>
-          </button>
+          </Link>
         </div>
       )}
     </Draggable>

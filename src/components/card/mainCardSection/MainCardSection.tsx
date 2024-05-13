@@ -1,6 +1,6 @@
 import { IconDots, IconPlus } from "@tabler/icons-react";
+import { Button } from "antd";
 import React from "react";
-import Button from "../../button/Button";
 import "./main-card-section.scss";
 
 const iconSize = 16;

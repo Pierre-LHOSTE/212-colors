@@ -1,6 +1,6 @@
 import MainCard from "@/src/components/card/MainCard";
 import Color from "@/src/components/color/Color";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { DragDropContext, Droppable } from "@hello-pangea/dnd";
 import "./special-card.scss";
 
 interface colorType {

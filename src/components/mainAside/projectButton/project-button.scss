@@ -32,7 +32,7 @@
     background-color: #000 !important;
   }
 
-  button {
+  a {
     @extend %flex-center;
     --size: 48px;
     width: var(--size);
@@ -61,7 +61,7 @@
     }
   }
 
-  &:not(.active) button {
+  &:not(.active) a {
     cursor: default;
 
     &:hover {
@@ -72,7 +72,7 @@
     }
   }
 
-  &.active button {
+  &.active a {
     width: 100%;
     height: 100%;
     border-radius: 0;
