@@ -32,7 +32,10 @@ function ProjectButton({
             className={`icon-hook ${elementColor}`}
             style={{ backgroundColor: color }}
           ></div>
-          <Link href={"/app/project/" + id} style={{ backgroundColor: color }}>
+          <Link
+            href={`/app/project/${id}/overview`}
+            style={{ backgroundColor: color }}
+          >
             <span className={elementColor}>{initials}</span>
           </Link>
         </div>

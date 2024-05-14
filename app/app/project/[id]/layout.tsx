@@ -1,7 +1,7 @@
 import Header from "@/src/components/app/header/Header";
 import NavProjectAside from "@/src/components/navAside/NavProjectAside";
 
-export default function RootLayout({
+export default function Layout({
   children,
   params,
 }: Readonly<{

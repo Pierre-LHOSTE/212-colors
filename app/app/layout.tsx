@@ -5,14 +5,14 @@ import "./layout.scss";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function RootLayout({
+export default function Layout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
     <div id="app-window">
-      <MainAside projects={[]} />
+      <MainAside />
       {children}
     </div>
   );

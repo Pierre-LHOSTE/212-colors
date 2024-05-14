@@ -41,7 +41,7 @@ function ProjectList() {
                       key={i}
                       project={project}
                       index={i}
-                      active={pathname === `/app/project/${project.id}`}
+                      active={pathname.startsWith(`/app/project/${project.id}`)}
                     />
                   ))
               : null}
