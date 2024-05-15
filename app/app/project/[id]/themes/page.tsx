@@ -1,10 +1,11 @@
 "use client";
-import ThemeCard from "@/src/components/sections/colorSection/themeCard/ThemeCard";
+
+import ThemeColorsCard from "@/src/components/sections/colorSection/themeColorsCard/ThemeColorsCard";
 
 function ThemesPage() {
   return (
     <>
-      <ThemeCard />
+      <ThemeColorsCard colors={[]} name="Light" type="light" />
     </>
   );
 }

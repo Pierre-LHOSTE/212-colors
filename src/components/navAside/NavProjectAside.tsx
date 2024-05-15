@@ -1,4 +1,5 @@
 "use client";
+import { useSettingsStore } from "@/src/store/settings";
 import {
   IconDeviceDesktop,
   IconInfoCircle,
@@ -39,6 +40,7 @@ const items: MenuItem[] = [
 
 function NavProjectAside({ projectId }: { projectId: string }) {
   const pathname = usePathname();
+  const setActiveSection = useSettingsStore((state) => state.setActiveSection);
 
   const itemsMenu = items.map((item) => {
     if (item && !("type" in item)) {
@@ -61,7 +63,7 @@ function NavProjectAside({ projectId }: { projectId: string }) {
       <NavHeader title="Lorem Ipsum" />
       <Menu
         id="main-nav"
-        // onClick={onClick}
+        onClick={({ key }) => setActiveSection(key)}
         selectedKeys={[pathname]}
         mode="vertical"
         items={itemsMenu}

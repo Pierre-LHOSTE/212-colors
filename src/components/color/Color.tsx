@@ -1,26 +1,24 @@
 "use client";
 import { isVeryLightColor } from "@/src/lib/utils";
+import { ColorType } from "@/src/types/color";
 import { Draggable } from "@hello-pangea/dnd";
-import type { ColorPickerProps, GetProp } from "antd";
-import { Button, ColorPicker, Typography } from "antd";
+import {
+  Button,
+  ColorPicker,
+  ColorPickerProps,
+  GetProp,
+  Typography,
+} from "antd";
 import { useEffect, useState } from "react";
 import "./color.scss";
 
 type Color = GetProp<ColorPickerProps, "value">;
 
-function Color({
-  name,
-  color,
-  description,
-  id,
-  index,
-}: {
-  name?: string;
-  color: string;
-  description?: string;
-  id: string;
+interface propsType extends ColorType {
   index: number;
-}) {
+}
+
+function Color({ name, color, description, id, index }: propsType) {
   const [currentColor, setCurrentColor] = useState<Color>("");
 
   useEffect(() => {
@@ -44,14 +42,16 @@ function Color({
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <Typography.Title
-            level={4}
-            editable={{
-              triggerType: ["text"],
-            }}
-          >
-            {name}
-          </Typography.Title>
+          {name ? (
+            <Typography.Title
+              level={4}
+              editable={{
+                triggerType: ["text"],
+              }}
+            >
+              {name}
+            </Typography.Title>
+          ) : null}
           <ColorPicker value={currentColor} onChange={setCurrentColor}>
             <Button
               type="primary"
@@ -70,13 +70,15 @@ function Color({
               </span>
             </Button>
           </ColorPicker>
-          <Typography.Paragraph
-            editable={{
-              triggerType: ["text"],
-            }}
-          >
-            {description}
-          </Typography.Paragraph>
+          {description ? (
+            <Typography.Paragraph
+              editable={{
+                triggerType: ["text"],
+              }}
+            >
+              {description}
+            </Typography.Paragraph>
+          ) : null}
         </div>
       )}
     </Draggable>

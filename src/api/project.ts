@@ -1,5 +1,4 @@
 "use server";
-
 import prisma from "@/src/lib/prisma";
 import { ProjectButtonType } from "../types/project";
 
@@ -28,6 +27,9 @@ export async function getProjectList(): Promise<ProjectButtonType[] | null> {
           select: { color: true },
         },
         position: true,
+      },
+      orderBy: {
+        position: "asc",
       },
     });
     return project;

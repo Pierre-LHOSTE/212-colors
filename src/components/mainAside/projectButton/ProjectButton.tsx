@@ -1,4 +1,5 @@
 import { isVeryLightColor } from "@/src/lib/utils";
+import { useSettingsStore } from "@/src/store/settings";
 import { ProjectButtonType } from "@/src/types/project";
 import { Draggable } from "@hello-pangea/dnd";
 import Link from "next/link";
@@ -16,6 +17,7 @@ function ProjectButton({
   const { id, name, colors } = project;
   const color = colors[0].color;
   const initials = getInitials(name);
+  const activeSection = useSettingsStore((state) => state.activeSection);
 
   const elementColor = isVeryLightColor(color) ? "dark" : "light";
 
@@ -33,7 +35,7 @@ function ProjectButton({
             style={{ backgroundColor: color }}
           ></div>
           <Link
-            href={`/app/project/${id}/overview`}
+            href={`/app/project/${id}/${activeSection}`}
             style={{ backgroundColor: color }}
           >
             <span className={elementColor}>{initials}</span>

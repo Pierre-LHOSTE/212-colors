@@ -1,3 +1,5 @@
+import Message from "@/src/components/message/Message";
+import Notification from "@/src/components/message/Notification";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "overlayscrollbars/overlayscrollbars.css";
@@ -21,7 +23,13 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <StyledComponentsRegistry>
-          <AntdConfig>{children}</AntdConfig>
+          <AntdConfig>
+            {children}
+            <>
+              <Message />
+              <Notification />
+            </>
+          </AntdConfig>
         </StyledComponentsRegistry>
       </body>
     </html>

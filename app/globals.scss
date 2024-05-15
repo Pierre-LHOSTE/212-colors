@@ -124,13 +124,11 @@ a {
 
 .flex-vertical {
   flex-direction: column;
+  flex: 1;
 }
 .flex-horizontal {
   flex-direction: row;
-}
-
-button.ant-btn {
-  display: flex;
+  flex: 1;
 }
 
 @media (prefers-color-scheme: dark) {

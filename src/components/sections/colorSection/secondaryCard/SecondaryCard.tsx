@@ -1,74 +1,11 @@
 "use client";
 import MainCard from "@/src/components/card/MainCard";
 import Color from "@/src/components/color/Color";
+import { ColorType } from "@/src/types/color";
 import { DragDropContext, Droppable } from "@hello-pangea/dnd";
 import "./secondary-card.scss";
 
-interface colorType {
-  name?: string;
-  description?: string;
-  color: string;
-  type?: string;
-}
-
-function SecondaryCard() {
-  const colors = [
-    {
-      color: "#FF1818",
-      name: "Lorem Ipsum",
-      description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit",
-      type: "secondary",
-    },
-    {
-      color: "#0FF818",
-      name: "Lorem Ipsum",
-      description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit",
-      type: "secondary",
-    },
-    {
-      color: "#100FF8",
-      name: "Lorem Ipsum",
-      description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit",
-      type: "secondary",
-    },
-    {
-      color: "#F00FF2",
-      name: "Lorem Ipsum",
-      description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit",
-      type: "secondary",
-    },
-    {
-      color: "#F00FF2",
-      name: "Lorem Ipsum",
-      description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit",
-      type: "secondary",
-    },
-    {
-      color: "#F00FF2",
-      name: "Lorem Ipsum",
-      description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit",
-      type: "secondary",
-    },
-    {
-      color: "#F00FF2",
-      name: "Lorem Ipsum",
-      description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit",
-      type: "secondary",
-    },
-    {
-      color: "#F00FF2",
-      name: "Lorem Ipsum",
-      description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit",
-      type: "secondary",
-    },
-    {
-      color: "#F00FF2",
-      name: "Lorem Ipsum",
-      description: "Lorem ipsum dolor sit, amet consectetur adipisicing elit",
-      type: "secondary",
-    },
-  ];
-
+function SecondaryCard({ colors }: { colors: ColorType[] }) {
   function handleDragEnd(params: any) {
     console.log(params);
   }
@@ -84,16 +21,11 @@ function SecondaryCard() {
             id="secondary-card"
             title="Secondary"
           >
-            {colors.map((color, index) => (
-              <Color
-                key={index}
-                name={color.name}
-                color={color.color}
-                description={color.description}
-                id={`color-${index}`}
-                index={index}
-              />
-            ))}
+            {colors && colors.length > 0
+              ? colors.map((color, index) => (
+                  <Color key={index} {...color} index={index} />
+                ))
+              : null}
           </MainCard>
         )}
       </Droppable>

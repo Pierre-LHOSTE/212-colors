@@ -25,7 +25,11 @@ function MainCardSection({
             <Button icon={<IconDots size={iconSize} />} type="text" />
           ) : null}
           {createAction ? (
-            <Button icon={<IconPlus size={iconSize} />} type="text" />
+            <Button
+              icon={<IconPlus size={iconSize} />}
+              type="text"
+              onClick={() => createAction()}
+            />
           ) : null}
         </div>
       </header>

@@ -46,7 +46,7 @@ function MainCard({
       ref={innerRef}
       {...droppableProps}
       id={id}
-      className={`main-card${className ? className : ""}${direction === "horizontal" ? " horizontal" : " vertical"}${noPadding ? " no-padding" : ""}`}
+      className={`main-card${className ? ` ${className} ` : ""}${direction === "horizontal" ? " horizontal" : " vertical"}${noPadding ? " no-padding" : ""}`}
     >
       <div className={`main-card-wrapper`}>
         {noScroll ? (

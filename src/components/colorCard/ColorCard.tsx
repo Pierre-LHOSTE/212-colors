@@ -2,11 +2,21 @@
 import MainCard from "@/src/components/card/MainCard";
 import Color from "@/src/components/color/Color";
 import { useSettingsStore } from "@/src/store/settings";
-import { ColorType } from "@/src/types/color";
+import { ColorType, ColorTypeType } from "@/src/types/color";
 import { DragDropContext, Droppable } from "@hello-pangea/dnd";
-import "./primary-card.scss";
+import "./color-card.scss";
 
-function PrimaryCard({ colors }: { colors: ColorType[] }) {
+type DirectionType = "horizontal" | "vertical";
+
+function ColorCard({
+  colors,
+  name,
+  direction,
+}: {
+  colors: ColorType[];
+  name: string;
+  direction: DirectionType;
+}) {
   const setCreateColorModalState = useSettingsStore(
     (state) => state.setCreateColorModalState
   );
@@ -14,20 +24,24 @@ function PrimaryCard({ colors }: { colors: ColorType[] }) {
   function handleDragEnd(params: any) {
     console.log(params);
   }
+  console.log("🚀 ~ colors:", colors);
+
+  const id = name.toLowerCase() as ColorTypeType;
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
-      <Droppable droppableId="primary-card" direction="horizontal">
+      <Droppable droppableId="special-card" direction={direction}>
         {(provided) => (
           <MainCard
-            direction="horizontal"
+            className={`color-card ${direction}`}
+            id={`${id}-card`}
+            title={name}
+            direction={direction}
             innerRef={provided.innerRef}
             droppableProps={provided.droppableProps}
-            id="primary-card"
-            title="Primary"
             createAction={() =>
               setCreateColorModalState({
-                colorType: "primary",
+                colorType: id,
                 show: true,
               })
             }
@@ -37,6 +51,7 @@ function PrimaryCard({ colors }: { colors: ColorType[] }) {
                   <Color key={index} {...color} index={index} />
                 ))
               : null}
+            {provided.placeholder}
           </MainCard>
         )}
       </Droppable>
@@ -44,4 +59,4 @@ function PrimaryCard({ colors }: { colors: ColorType[] }) {
   );
 }
 
-export default PrimaryCard;
+export default ColorCard;
