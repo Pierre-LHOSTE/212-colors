@@ -29,17 +29,25 @@
   header {
     display: flex;
     justify-content: space-between;
+    gap: 8px;
+    align-items: center;
 
-    .color-actions {
+    .color-actions button {
       opacity: 0;
     }
   }
 
   &:hover {
     header {
-      .color-actions {
+      .color-actions button {
         opacity: 0.5;
       }
+    }
+  }
+
+  .color-actions.open {
+    button:last-child {
+      opacity: 1;
     }
   }
 

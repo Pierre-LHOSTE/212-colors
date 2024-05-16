@@ -63,11 +63,15 @@
 
   &:not(.active) a {
     cursor: default;
+    transition: filter 0.5s;
 
     &:hover {
-      transform: scale(1.05);
+      // transform: scale(1.05);
+      filter: hue-rotate(-30deg);
+      // background-color: inherit;
       &:active {
-        transform: scale(1);
+        filter: none;
+        // transform: scale(1);
       }
     }
   }

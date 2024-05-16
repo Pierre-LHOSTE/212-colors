@@ -91,3 +91,17 @@ export async function reOrder(newArray: ColorType[]) {
     return { error: true, message: error.message };
   }
 }
+
+export async function deleteColor(id: string) {
+  try {
+    await prisma.color.delete({
+      where: {
+        id,
+      },
+    });
+    return { success: true };
+  } catch (error: any) {
+    console.error(error);
+    return { error: true, message: error.message };
+  }
+}

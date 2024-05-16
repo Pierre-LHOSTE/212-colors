@@ -98,6 +98,10 @@ function ColorCard({
     setActiveId(null);
   }
 
+  function deleteColor(colorId: string) {
+    setLocalColors(localColors.filter((item) => item.id !== colorId));
+  }
+
   return (
     <DndContext
       sensors={sensors}
@@ -123,7 +127,7 @@ function ColorCard({
         <SortableContext items={localColors.map((i) => i.id)}>
           {localColors && localColors.length > 0
             ? localColors.map((color, index) => (
-                <Color key={index} {...color} />
+                <Color key={index} {...color} deleteLocalColor={deleteColor} />
               ))
             : null}
         </SortableContext>

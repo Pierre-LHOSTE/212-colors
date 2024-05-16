@@ -8,17 +8,30 @@ import {
   ColorPicker,
   ColorPickerProps,
   GetProp,
+  Popconfirm,
   Typography,
 } from "antd";
 import { useEffect, useState } from "react";
 import "./color.scss";
 
+import { deleteColor } from "@/src/api/color";
 import { CSS } from "@dnd-kit/utilities";
 
 type Color = GetProp<ColorPickerProps, "value">;
 
-function Color({ name, color, description, id }: ColorType) {
+interface ColorPropsType extends ColorType {
+  deleteLocalColor?: (colorId: string) => void;
+}
+
+function Color({
+  name,
+  color,
+  description,
+  id,
+  deleteLocalColor,
+}: ColorPropsType) {
   const [currentColor, setCurrentColor] = useState<Color>(color as Color);
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
   const {
     attributes,
@@ -49,6 +62,12 @@ function Color({ name, color, description, id }: ColorType) {
     opacity: isDragging ? 0.2 : undefined,
   };
 
+  async function handleDelete() {
+    const res = await deleteColor(id);
+    if (res.error) return console.error(res.message);
+    if (deleteLocalColor) deleteLocalColor(id);
+  }
+
   return (
     <div className="color" ref={setNodeRef} {...attributes} style={style}>
       <header>
@@ -60,22 +79,20 @@ function Color({ name, color, description, id }: ColorType) {
         >
           {name}
         </Typography.Title>
-        <div className="color-actions">
-          <Button
-            type="text"
-            icon={<IconGripVertical />}
-            onClick={() => {
-              console.log("Move color");
+        <div className={`color-actions${isConfirmOpen ? " open" : ""}`}>
+          <Button type="text" icon={<IconGripVertical />} {...listeners} />
+          <Popconfirm
+            title="Delete the color"
+            description="Are you sure to delete this color?"
+            okText="Yes"
+            cancelText="No"
+            onConfirm={handleDelete}
+            onOpenChange={(open) => {
+              setIsConfirmOpen(open);
             }}
-            {...listeners}
-          />
-          <Button
-            type="text"
-            icon={<IconTrash />}
-            onClick={() => {
-              console.log("Delete color");
-            }}
-          />
+          >
+            <Button type="text" icon={<IconTrash />} />
+          </Popconfirm>
         </div>
       </header>
       <ColorPicker value={currentColor} onChange={setCurrentColor}>
