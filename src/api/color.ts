@@ -5,11 +5,9 @@ import { ColorType } from "../types/color";
 
 export async function createColor({
   color,
-  ownerId,
   projectId,
 }: {
   color: ColorType;
-  ownerId: string;
   projectId: string;
 }) {
   const session = await auth();

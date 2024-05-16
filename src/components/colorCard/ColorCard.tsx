@@ -115,6 +115,8 @@ function ColorCard({
           setCreateColorModalState({
             colorType: cardId,
             show: true,
+            addColor: (color: ColorType) =>
+              setLocalColors([...localColors, color]),
           })
         }
       >

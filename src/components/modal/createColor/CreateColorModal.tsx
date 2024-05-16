@@ -1,6 +1,7 @@
 "use client";
 import { createColor } from "@/src/api/color";
 import { useSettingsStore } from "@/src/store/settings";
+import { ColorType } from "@/src/types/color";
 import { ColorPicker, Form, Input } from "antd";
 import { createSchemaFieldRule } from "antd-zod";
 import { useTransition } from "react";
@@ -21,15 +22,26 @@ function CreateColorModal({ params }: { params: { id: string } }) {
   );
   const [form] = Form.useForm();
 
-  function onSubmit(values: any) {
+  function onSubmit(values: ColorType) {
+    const newColor = { ...values, type: createColorModalState.colorType };
     const formValues = {
-      color: { ...values, type: createColorModalState.colorType },
-      ownerId: params.id,
+      color: newColor,
       projectId: params.id,
     };
     startTransition(async () => {
       const res = await createColor(formValues);
       if ("id" in res) {
+        if (createColorModalState.addColor) {
+          const { id, name, description, color, type, position } = res;
+          createColorModalState.addColor({
+            id,
+            name,
+            description,
+            color,
+            type: type as ColorType["type"],
+            position,
+          });
+        }
         setCreateColorModalState({
           show: false,
         });

@@ -1,12 +1,13 @@
 import { MessageArgsProps, NotificationArgsProps } from "antd";
 import { create } from "zustand";
-import { ColorTypeType } from "../types/color";
+import { ColorType, ColorTypeType } from "../types/color";
 
 type SetStateFunction<T> = (state: T) => void;
 
 interface createColorModalStateType {
   colorType: ColorTypeType;
   show: boolean;
+  addColor?: (color: ColorType) => void;
 }
 
 interface SettingsStoreType {
