@@ -4,9 +4,7 @@ import { ColorType } from "@/src/types/color";
 
 async function ColorsPage({ params }: { params: { id: string } }) {
   const colors = await getColors(params.id);
-  console.log("🚀 ~ colors:", colors);
-  console.log("params:");
-  console.log(params);
+  const { id } = params;
 
   const primaryColors: ColorType[] = Array.isArray(colors)
     ? colors.filter((c) => c.type === "primary")

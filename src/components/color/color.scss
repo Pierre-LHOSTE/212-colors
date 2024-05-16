@@ -23,6 +23,24 @@
     font-weight: normal;
     margin: 0;
     height: 25px;
+    flex: 1;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+
+    .color-actions {
+      opacity: 0;
+    }
+  }
+
+  &:hover {
+    header {
+      .color-actions {
+        opacity: 0.5;
+      }
+    }
   }
 
   .ant-typography:not(h4, .ant-typography-h4) {
@@ -63,6 +81,7 @@
   .color {
     .color-preview {
       outline-color: #0f1319;
+      background-color: rgba($color: #fff, $alpha: 0.2);
     }
   }
 }
@@ -71,6 +90,7 @@
   .color {
     .color-preview {
       outline-color: #fff;
+      background-color: rgba($color: #000, $alpha: 0.2);
     }
   }
 }

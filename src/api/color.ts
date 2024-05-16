@@ -18,12 +18,6 @@ export async function createColor({
   }
   try {
     const { name, description, type } = color;
-    console.log({
-      color,
-      ownerId,
-      projectId,
-    });
-
     let maxPosition = await prisma.color.findFirst({
       where: {
         type,
@@ -48,7 +42,7 @@ export async function createColor({
     });
     return res;
   } catch (error: any) {
-    console.log(error);
+    console.error(error);
     return { error: true, message: error.message };
   }
 }
@@ -72,6 +66,28 @@ export async function getColors(projectId: string) {
       },
     });
     return colors as ColorType[];
+  } catch (error: any) {
+    console.error(error);
+    return { error: true, message: error.message };
+  }
+}
+
+export async function reOrder(newArray: ColorType[]) {
+  try {
+    console.log("Reordering colors");
+
+    const promises = newArray.map((color, index) => {
+      return prisma.color.update({
+        where: {
+          id: color.id,
+        },
+        data: {
+          position: index,
+        },
+      });
+    });
+    await Promise.all(promises);
+    return { success: true };
   } catch (error: any) {
     console.error(error);
     return { error: true, message: error.message };
