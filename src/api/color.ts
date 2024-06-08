@@ -2,6 +2,7 @@
 import prisma from "@/src/lib/prisma";
 import { auth } from "../lib/auth";
 import { ColorType } from "../types/color";
+import { ThemeColumnType } from "../types/theme";
 
 export async function createColor({
   color,
@@ -70,14 +71,17 @@ export async function getColors(projectId: string) {
   }
 }
 
-export async function reOrder(newArray: ColorType[]) {
+export async function reOrder(
+  newArray: ColorType[] | ThemeColumnType[],
+  dataType: "color" | "themeColumn"
+) {
   try {
-    console.log("Reordering colors");
+    console.log(`Reordering ${dataType}s`);
 
-    const promises = newArray.map((color, index) => {
-      return prisma.color.update({
+    const promises = newArray.map((item, index) => {
+      return (prisma[dataType] as any).update({
         where: {
-          id: color.id,
+          id: item.id,
         },
         data: {
           position: index,

@@ -10,15 +10,11 @@ import "./header-with-options.scss";
 
 function HeaderWithOptions({
   name,
-  isConfirmOpen,
-  setIsConfirmOpen,
   handleDelete,
   listeners,
 }: {
   name: string | null;
-  isConfirmOpen: boolean;
-  setIsConfirmOpen: (open: boolean) => void;
-  handleDelete: () => void;
+  handleDelete?: () => void;
   listeners: any;
 }) {
   const [open, setOpen] = useState(false);
@@ -39,35 +35,36 @@ function HeaderWithOptions({
       </Typography.Title>
       <div className={`color-actions${open ? " open" : ""}`}>
         <Button type="text" icon={<IconGripVertical />} {...listeners} />
-        <Popover
-          content={
-            <>
-              <Button type="text" icon={<IconPencil />}>
-                Edit
-              </Button>
-              <Popconfirm
-                title="Delete the color"
-                description="Are you sure to delete this color?"
-                okText="Yes"
-                cancelText="No"
-                onConfirm={handleDelete}
-                onOpenChange={(open) => {
-                  setIsConfirmOpen(open);
-                }}
-              >
-                <Button type="primary" icon={<IconTrash />}>
-                  Delete
+        {handleDelete ? (
+          <Popover
+            content={
+              <>
+                <Button type="text" icon={<IconPencil />}>
+                  Edit
                 </Button>
-              </Popconfirm>
-            </>
-          }
-          title=""
-          trigger="click"
-          open={open}
-          onOpenChange={handleOpenChange}
-        >
-          <Button type="text" icon={<IconDotsVertical />} />
-        </Popover>
+                {handleDelete ? (
+                  <Popconfirm
+                    title="Delete the color"
+                    description="Are you sure to delete this color?"
+                    okText="Yes"
+                    cancelText="No"
+                    onConfirm={handleDelete}
+                  >
+                    <Button type="primary" icon={<IconTrash />}>
+                      Delete
+                    </Button>
+                  </Popconfirm>
+                ) : null}
+              </>
+            }
+            title=""
+            trigger="click"
+            open={open}
+            onOpenChange={handleOpenChange}
+          >
+            <Button type="text" icon={<IconDotsVertical />} />
+          </Popover>
+        ) : null}
       </div>
     </header>
   );

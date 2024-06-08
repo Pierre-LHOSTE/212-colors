@@ -2,12 +2,13 @@
 import { useModalStore } from "@/src/store/modal";
 import { ThemeColorType } from "@/src/types/color";
 import { ThemeColumnType, ThemeType, ThemeTypeType } from "@/src/types/theme";
+import { UniqueIdentifier } from "@dnd-kit/core";
 import { IconPlus } from "@tabler/icons-react";
 import { Button } from "antd";
 import { useState } from "react";
 import MainCard from "../card/MainCard";
-import ThemeColorsCard from "../sections/colorSection/themeColorsCard/ThemeColorsCard";
-import ThemeColumn from "./themColumn/ThemeColumn";
+import ThemeColorsCard from "../themeColorsCard/ThemeColorsCard";
+import ThemeColumnList from "./ThemeColumnList";
 
 function ThemesList({
   themes,
@@ -19,43 +20,23 @@ function ThemesList({
   themeColors: ThemeColorType[];
 }) {
   const [localThemes, setLocalThemes] = useState(themes);
-  const [localThemeColumns, setLocalThemeColumns] = useState(themeColumns);
   const [localThemeColor, setLocalThemeColor] = useState(themeColors);
+  const [localThemeColumns, setLocalThemeColumns] = useState(themeColumns);
+  const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
 
   const setModalState = useModalStore((state) => state.setModalState);
 
-  function createThemeColumn() {
-    setModalState({
-      id: "theme-column",
-      updateLocalState: (themeColumn: ThemeColumnType) =>
-        setLocalThemeColumns([...localThemeColumns, themeColumn]),
-    });
-  }
-
   return (
     <>
-      <MainCard
-        className="theme-color-card"
-        title={"Colors informations"}
-        direction="horizontal"
-        createAction={createThemeColumn}
-      >
-        {localThemeColumns.map((themeColumn, index) => (
-          <ThemeColumn key={index} themeColumn={themeColumn} />
-        ))}
-      </MainCard>
+      <ThemeColumnList
+        localThemeColumns={localThemeColumns}
+        setLocalThemeColumns={setLocalThemeColumns}
+      />
       {localThemes.map((theme, index) => (
         <ThemeColorsCard
           key={index}
-          colors={localThemeColor.map((color) =>
-            color.themeId === theme.id
-              ? {
-                  name: color.name,
-                  description: color.description,
-                  color: color.color,
-                }
-              : null
-          )}
+          colors={localThemeColor.filter((color) => color.themeId === theme.id)}
+          themeColumn={localThemeColumns}
           name={theme.name}
           type={theme.type as ThemeTypeType}
         />

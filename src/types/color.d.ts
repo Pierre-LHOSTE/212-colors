@@ -1,5 +1,4 @@
 import { ProjectType } from "./project";
-import { ThemeColumnType } from "./theme";
 import { UserType } from "./user";
 
 export type ColorTypeType = "primary" | "secondary" | "special";
@@ -30,9 +29,9 @@ export interface ThemeColorType {
   color: string;
   name: string | null;
   description: string | null;
-  themeColumn: ThemeColumnType;
+  // themeColumn: ThemeColumnType;
   themeColumnId: string;
-  theme: ThemeType;
+  // theme: ThemeType;
   themeId: string;
 }
 

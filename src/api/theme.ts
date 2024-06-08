@@ -140,9 +140,24 @@ export async function getThemeColors(projectId: string) {
         description: true,
         color: true,
         themeId: true,
+        themeColumnId: true,
       },
     });
     return themeColors;
+  } catch (error: any) {
+    console.error(error);
+    return { error: true, message: error.message };
+  }
+}
+
+export async function deleteThemeColumn(id: string) {
+  try {
+    await prisma.themeColumn.delete({
+      where: {
+        id,
+      },
+    });
+    return { success: true };
   } catch (error: any) {
     console.error(error);
     return { error: true, message: error.message };

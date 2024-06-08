@@ -10,7 +10,9 @@ async function ThemesPage({ params }: { params: { id: string } }) {
     !themes ||
     !Array.isArray(themes) ||
     !themeColumns ||
-    !Array.isArray(themeColumns)
+    !Array.isArray(themeColumns) ||
+    !themeColors ||
+    !Array.isArray(themeColors)
   ) {
     return null;
   }

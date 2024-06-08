@@ -136,6 +136,11 @@ button.ant-btn {
   align-items: center;
 }
 
+.ant-popover-inner .ant-popover-inner-content {
+  display: flex;
+  gap: 8px;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

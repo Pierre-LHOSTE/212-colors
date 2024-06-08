@@ -30,7 +30,6 @@ function Color({
   deleteLocalColor,
 }: ColorPropsType) {
   const [currentColor, setCurrentColor] = useState<Color>(color as Color);
-  const [isConfirmOpen, setIsConfirmOpen] = useState(false);
 
   const {
     attributes,
@@ -68,11 +67,14 @@ function Color({
   }
 
   return (
-    <div className="color" ref={setNodeRef} {...attributes} style={style}>
+    <div
+      className="color header-hover"
+      ref={setNodeRef}
+      {...attributes}
+      style={style}
+    >
       <HeaderWithOptions
         name={name}
-        isConfirmOpen={isConfirmOpen}
-        setIsConfirmOpen={setIsConfirmOpen}
         handleDelete={handleDelete}
         listeners={listeners}
       />

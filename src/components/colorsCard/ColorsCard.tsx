@@ -82,7 +82,7 @@ function ColorsCard({
 
       const newArray = arrayMove(localColors, activeItemIndex, overItemIndex);
 
-      reOrderApi(newArray);
+      reOrderApi(newArray, "color");
       setLocalColors(newArray);
     }
   }

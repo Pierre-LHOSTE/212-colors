@@ -3,3 +3,22 @@
     opacity: 1;
   }
 }
+
+header {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: center;
+
+  .color-actions button {
+    opacity: 0;
+  }
+}
+
+.header-hover:hover {
+  header {
+    .color-actions button {
+      opacity: 0.5;
+    }
+  }
+}
