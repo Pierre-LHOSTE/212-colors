@@ -2,11 +2,11 @@
 import { reOrder as reOrderApi } from "@/src/api/color";
 import MainCard from "@/src/components/card/MainCard";
 import Color from "@/src/components/color/Color";
-import { useSettingsStore } from "@/src/store/settings";
 import { ColorType, ColorTypeType } from "@/src/types/color";
 import { useState } from "react";
 import "./colors-card.scss";
 
+import { useModalStore } from "@/src/store/modal";
 import {
   DndContext,
   DragEndEvent,
@@ -37,9 +37,7 @@ function ColorsCard({
   name: string;
   direction: DirectionType;
 }) {
-  const setCreateColorModalState = useSettingsStore(
-    (state) => state.setCreateColorModalState
-  );
+  const setModalState = useModalStore((state) => state.setModalState);
   const [localColors, setLocalColors] = useState(colors);
   const cardId = name.toLowerCase() as ColorTypeType;
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
@@ -116,10 +114,10 @@ function ColorsCard({
         title={name}
         direction={direction}
         createAction={() =>
-          setCreateColorModalState({
-            colorType: cardId,
-            show: true,
-            addColor: (color: ColorType) =>
+          setModalState({
+            data: cardId,
+            id: "color",
+            updateLocalState: (color: ColorType) =>
               setLocalColors([...localColors, color]),
           })
         }

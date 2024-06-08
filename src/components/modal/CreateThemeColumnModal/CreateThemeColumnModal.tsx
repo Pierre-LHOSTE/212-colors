@@ -1,6 +1,7 @@
 "use client";
 
 import { createThemeColumn } from "@/src/api/theme";
+import { useModalStore } from "@/src/store/modal";
 import { useSettingsStore } from "@/src/store/settings";
 import { ThemeColumnType } from "@/src/types/theme";
 import { Form, Input } from "antd";
@@ -15,12 +16,8 @@ function CreateThemeColumnModal({ params }: { params: { id: string } }) {
   const setMessage = useSettingsStore((state) => state.setMessage);
   const setNotification = useSettingsStore((state) => state.setNotification);
   const [isPending, startTransition] = useTransition();
-  const setCreateThemeColumnModalState = useSettingsStore(
-    (state) => state.setCreateThemeColumnModalState
-  );
-  const createThemeColumnModalState = useSettingsStore(
-    (state) => state.createThemeColumnModalState
-  );
+  const setModalState = useModalStore((state) => state.setModalState);
+  const modalState = useModalStore((state) => state.modalState);
   const [form] = Form.useForm();
 
   function onSubmit(values: ThemeColumnType) {
@@ -32,9 +29,9 @@ function CreateThemeColumnModal({ params }: { params: { id: string } }) {
     startTransition(async () => {
       const res = await createThemeColumn(formValues);
       if ("id" in res) {
-        if (createThemeColumnModalState.addThemeColumn) {
+        if (modalState.updateLocalState) {
           const { id, name, description, position } = res;
-          createThemeColumnModalState.addThemeColumn({
+          modalState.updateLocalState({
             id,
             name,
             description,
@@ -42,8 +39,8 @@ function CreateThemeColumnModal({ params }: { params: { id: string } }) {
             colors: [],
           });
         }
-        setCreateThemeColumnModalState({
-          show: false,
+        setModalState({
+          id: "",
         });
         setMessage({
           type: "success",
@@ -66,10 +63,11 @@ function CreateThemeColumnModal({ params }: { params: { id: string } }) {
 
   return (
     <FormModal
-      isOpen={createThemeColumnModalState.show}
+      title="Create new color type"
+      isOpen={modalState.id === "theme-column"}
       closeModal={() =>
-        setCreateThemeColumnModalState({
-          show: false,
+        setModalState({
+          id: "",
         })
       }
       submitForm={() => form.submit()}

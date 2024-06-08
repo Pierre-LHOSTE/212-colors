@@ -1,5 +1,6 @@
 "use client";
 import { createTheme } from "@/src/api/theme";
+import { useModalStore } from "@/src/store/modal";
 import { useSettingsStore } from "@/src/store/settings";
 import { ThemeType } from "@/src/types/theme";
 import { Form, Input, Select } from "antd";
@@ -14,12 +15,8 @@ function CreateThemeModal({ params }: { params: { id: string } }) {
   const setMessage = useSettingsStore((state) => state.setMessage);
   const setNotification = useSettingsStore((state) => state.setNotification);
   const [isPending, startTransition] = useTransition();
-  const setCreateThemeModalState = useSettingsStore(
-    (state) => state.setCreateThemeModalState
-  );
-  const createThemeModalState = useSettingsStore(
-    (state) => state.createThemeModalState
-  );
+  const setModalState = useModalStore((state) => state.setModalState);
+  const modalState = useModalStore((state) => state.modalState);
   const [form] = Form.useForm();
 
   function onSubmit(values: ThemeType) {
@@ -31,9 +28,9 @@ function CreateThemeModal({ params }: { params: { id: string } }) {
     startTransition(async () => {
       const res = await createTheme(formValues);
       if ("id" in res) {
-        if (createThemeModalState.addTheme) {
+        if (modalState.updateLocalState) {
           const { id, name, description, type, position } = res;
-          createThemeModalState.addTheme({
+          modalState.updateLocalState({
             id,
             name,
             description,
@@ -42,8 +39,8 @@ function CreateThemeModal({ params }: { params: { id: string } }) {
             colors: [],
           });
         }
-        setCreateThemeModalState({
-          show: false,
+        setModalState({
+          id: "",
         });
         setMessage({
           type: "success",
@@ -66,10 +63,11 @@ function CreateThemeModal({ params }: { params: { id: string } }) {
 
   return (
     <FormModal
-      isOpen={createThemeModalState.show}
+      title="Create new theme"
+      isOpen={modalState.id === "theme"}
       closeModal={() =>
-        setCreateThemeModalState({
-          show: false,
+        setModalState({
+          id: "",
         })
       }
       submitForm={() => form.submit()}

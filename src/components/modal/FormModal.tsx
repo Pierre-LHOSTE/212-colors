@@ -5,6 +5,7 @@ interface FormModalProps {
   isOpen: boolean;
   closeModal: () => void;
   submitForm: () => void;
+  title: string;
 }
 
 function FormModal({
@@ -12,10 +13,12 @@ function FormModal({
   isOpen,
   closeModal,
   submitForm,
+  title,
 }: FormModalProps) {
   return (
     <>
       <Modal
+        title={title}
         open={isOpen}
         onCancel={() => closeModal()}
         footer={

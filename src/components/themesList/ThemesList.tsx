@@ -1,5 +1,5 @@
 "use client";
-import { useSettingsStore } from "@/src/store/settings";
+import { useModalStore } from "@/src/store/modal";
 import { ThemeColorType } from "@/src/types/color";
 import { ThemeColumnType, ThemeType, ThemeTypeType } from "@/src/types/theme";
 import { IconPlus } from "@tabler/icons-react";
@@ -22,18 +22,12 @@ function ThemesList({
   const [localThemeColumns, setLocalThemeColumns] = useState(themeColumns);
   const [localThemeColor, setLocalThemeColor] = useState(themeColors);
 
-  const setCreateThemeModalState = useSettingsStore(
-    (state) => state.setCreateThemeModalState
-  );
-
-  const setCreateThemeColumnModalState = useSettingsStore(
-    (state) => state.setCreateThemeColumnModalState
-  );
+  const setModalState = useModalStore((state) => state.setModalState);
 
   function createThemeColumn() {
-    setCreateThemeColumnModalState({
-      show: true,
-      addThemeColumn: (themeColumn: ThemeColumnType) =>
+    setModalState({
+      id: "theme-column",
+      updateLocalState: (themeColumn: ThemeColumnType) =>
         setLocalThemeColumns([...localThemeColumns, themeColumn]),
     });
   }
@@ -71,10 +65,9 @@ function ThemesList({
           type="text"
           icon={<IconPlus />}
           onClick={() =>
-            setCreateThemeModalState({
-              show: true,
-
-              addTheme: (theme: ThemeType) =>
+            setModalState({
+              id: "theme",
+              updateLocalState: (theme: ThemeType) =>
                 setLocalThemes([...localThemes, theme]),
             })
           }

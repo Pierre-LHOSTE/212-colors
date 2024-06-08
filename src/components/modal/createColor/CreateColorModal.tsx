@@ -1,5 +1,6 @@
 "use client";
 import { createColor } from "@/src/api/color";
+import { useModalStore } from "@/src/store/modal";
 import { useSettingsStore } from "@/src/store/settings";
 import { ColorType } from "@/src/types/color";
 import { ColorPicker, Form, Input } from "antd";
@@ -14,16 +15,12 @@ function CreateColorModal({ params }: { params: { id: string } }) {
   const setMessage = useSettingsStore((state) => state.setMessage);
   const setNotification = useSettingsStore((state) => state.setNotification);
   const [isPending, startTransition] = useTransition();
-  const setCreateColorModalState = useSettingsStore(
-    (state) => state.setCreateColorModalState
-  );
-  const createColorModalState = useSettingsStore(
-    (state) => state.createColorModalState
-  );
+  const setModalState = useModalStore((state) => state.setModalState);
+  const modalState = useModalStore((state) => state.modalState);
   const [form] = Form.useForm();
 
   function onSubmit(values: ColorType) {
-    const newColor = { ...values, type: createColorModalState.colorType };
+    const newColor = { ...values, type: modalState.data as ColorType["type"] };
     const formValues = {
       color: newColor,
       projectId: params.id,
@@ -31,9 +28,9 @@ function CreateColorModal({ params }: { params: { id: string } }) {
     startTransition(async () => {
       const res = await createColor(formValues);
       if ("id" in res) {
-        if (createColorModalState.addColor) {
+        if (modalState.updateLocalState) {
           const { id, name, description, color, type, position } = res;
-          createColorModalState.addColor({
+          modalState.updateLocalState({
             id,
             name,
             description,
@@ -42,8 +39,8 @@ function CreateColorModal({ params }: { params: { id: string } }) {
             position,
           });
         }
-        setCreateColorModalState({
-          show: false,
+        setModalState({
+          id: "",
         });
         setMessage({
           type: "success",
@@ -71,10 +68,11 @@ function CreateColorModal({ params }: { params: { id: string } }) {
 
   return (
     <FormModal
-      isOpen={createColorModalState.show}
+      title="Create new color"
+      isOpen={modalState.id === "color"}
       closeModal={() =>
-        setCreateColorModalState({
-          show: false,
+        setModalState({
+          id: "",
         })
       }
       submitForm={() => form.submit()}
