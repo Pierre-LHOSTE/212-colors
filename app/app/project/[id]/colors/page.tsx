@@ -1,5 +1,5 @@
 import { getColors } from "@/src/api/color";
-import ColorCard from "@/src/components/colorCard/ColorCard";
+import ColorsCard from "@/src/components/colorsCard/ColorsCard";
 import { ColorType } from "@/src/types/color";
 
 async function ColorsPage({ params }: { params: { id: string } }) {
@@ -22,18 +22,18 @@ async function ColorsPage({ params }: { params: { id: string } }) {
     <>
       <div className="flex-horizontal">
         <div className="flex-vertical">
-          <ColorCard
+          <ColorsCard
             colors={primaryColors}
             name="Primary"
             direction="horizontal"
           />
-          <ColorCard
+          <ColorsCard
             colors={specialColors}
             name="Special"
             direction="horizontal"
           />
         </div>
-        <ColorCard
+        <ColorsCard
           colors={secondaryColors}
           name="Secondary"
           direction="vertical"
