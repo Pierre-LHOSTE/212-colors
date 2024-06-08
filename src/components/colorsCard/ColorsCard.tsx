@@ -5,7 +5,7 @@ import Color from "@/src/components/color/Color";
 import { useSettingsStore } from "@/src/store/settings";
 import { ColorType, ColorTypeType } from "@/src/types/color";
 import { useState } from "react";
-import "./color-card.scss";
+import "./colors-card.scss";
 
 import {
   DndContext,
