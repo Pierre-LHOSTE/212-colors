@@ -2,13 +2,11 @@
 import { isVeryLightColor } from "@/src/lib/utils";
 import { ColorCompType } from "@/src/types/color";
 import { useSortable } from "@dnd-kit/sortable";
-import { IconGripVertical, IconTrash } from "@tabler/icons-react";
 import {
   Button,
   ColorPicker,
   ColorPickerProps,
   GetProp,
-  Popconfirm,
   Typography,
 } from "antd";
 import { useEffect, useState } from "react";
@@ -16,6 +14,7 @@ import "./color.scss";
 
 import { deleteColor } from "@/src/api/color";
 import { CSS } from "@dnd-kit/utilities";
+import HeaderWithOptions from "../headerWithOptions/HeaderWithOptions";
 
 type Color = GetProp<ColorPickerProps, "value">;
 
@@ -70,31 +69,13 @@ function Color({
 
   return (
     <div className="color" ref={setNodeRef} {...attributes} style={style}>
-      <header>
-        <Typography.Title
-          level={4}
-          editable={{
-            triggerType: ["text"],
-          }}
-        >
-          {name}
-        </Typography.Title>
-        <div className={`color-actions${isConfirmOpen ? " open" : ""}`}>
-          <Button type="text" icon={<IconGripVertical />} {...listeners} />
-          <Popconfirm
-            title="Delete the color"
-            description="Are you sure to delete this color?"
-            okText="Yes"
-            cancelText="No"
-            onConfirm={handleDelete}
-            onOpenChange={(open) => {
-              setIsConfirmOpen(open);
-            }}
-          >
-            <Button type="text" icon={<IconTrash />} />
-          </Popconfirm>
-        </div>
-      </header>
+      <HeaderWithOptions
+        name={name}
+        isConfirmOpen={isConfirmOpen}
+        setIsConfirmOpen={setIsConfirmOpen}
+        handleDelete={handleDelete}
+        listeners={listeners}
+      />
       <ColorPicker value={currentColor} onChange={setCurrentColor}>
         <Button
           type="primary"
