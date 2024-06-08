@@ -1,6 +1,6 @@
 "use client";
 import { isVeryLightColor } from "@/src/lib/utils";
-import { ColorType } from "@/src/types/color";
+import { ColorCompType } from "@/src/types/color";
 import { useSortable } from "@dnd-kit/sortable";
 import { IconGripVertical, IconTrash } from "@tabler/icons-react";
 import {
@@ -19,7 +19,7 @@ import { CSS } from "@dnd-kit/utilities";
 
 type Color = GetProp<ColorPickerProps, "value">;
 
-interface ColorPropsType extends ColorType {
+interface ColorPropsType extends ColorCompType {
   deleteLocalColor?: (colorId: string) => void;
 }
 

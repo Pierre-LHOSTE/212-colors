@@ -1,8 +1,14 @@
+#primary-card .color {
+  max-width: none;
+}
+
 .color {
   display: flex;
   flex-direction: column;
   gap: 16px;
   min-width: 186px;
+  max-width: 320px;
+  // padding: 0 16px;
 
   .ant-typography-edit-content {
     inset-inline-start: 0;

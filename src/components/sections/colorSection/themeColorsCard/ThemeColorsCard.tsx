@@ -1,6 +1,7 @@
 "use client";
 import MainCard from "@/src/components/card/MainCard";
 import Color from "@/src/components/color/Color";
+import { ThemeColorType } from "@/src/types/color";
 import { DragDropContext, Droppable } from "@hello-pangea/dnd";
 import "./theme-colors-card.scss";
 
@@ -10,15 +11,13 @@ interface colorType {
   name?: string;
   description?: string;
   color: string;
-  type?: string;
 }
 
 function ThemeColorsCard({
   colors,
   name,
-  type,
 }: {
-  colors: colorType[];
+  colors: (ThemeColorType | null)[];
   name: string;
   type: ThemeTypeType;
 }) {
@@ -37,16 +36,21 @@ function ThemeColorsCard({
             innerRef={provided.innerRef}
             droppableProps={provided.droppableProps}
           >
-            {colors.map((color, index) => (
-              <Color
-                key={index}
-                name={color.name}
-                color={color.color}
-                description={color.description}
-                id={`color-${index}`}
-                index={index}
-              />
-            ))}
+            {colors.map((color, index) => {
+              if (color) {
+                return (
+                  <Color
+                    key={index}
+                    color={color.color}
+                    name={color.name}
+                    description={color.description}
+                    position={index}
+                    id="color"
+                  />
+                );
+              }
+              return <>No color</>;
+            })}
             {provided.placeholder}
           </MainCard>
         )}

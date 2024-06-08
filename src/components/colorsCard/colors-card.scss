@@ -1,0 +1,30 @@
+.color-card {
+  .main-card-section-content {
+    gap: 32px;
+  }
+
+  &#primary-card {
+    flex: 1;
+
+    .main-card-section {
+      height: 100%;
+
+      .color,
+      .color-preview {
+        flex: 1;
+      }
+    }
+  }
+
+  &#secondary-card {
+    .color {
+      width: 320px;
+    }
+  }
+
+  &#special-card {
+    .color {
+      flex: 1;
+    }
+  }
+}

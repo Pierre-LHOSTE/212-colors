@@ -131,6 +131,11 @@ a {
   flex: 1;
 }
 
+button.ant-btn {
+  display: inline-flex;
+  align-items: center;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;

@@ -1,5 +1,7 @@
 import Header from "@/src/components/app/header/Header";
+import CreateThemeColumnModal from "@/src/components/modal/CreateThemeColumnModal/CreateThemeColumnModal";
 import CreateColorModal from "@/src/components/modal/createColor/CreateColorModal";
+import CreateThemeModal from "@/src/components/modal/createTheme/CreateThemeModal";
 import NavProjectAside from "@/src/components/navAside/NavProjectAside";
 
 export default function Layout({
@@ -17,6 +19,8 @@ export default function Layout({
         <main id="main">{children}</main>
         <>
           <CreateColorModal params={params} />
+          <CreateThemeModal params={params} />
+          <CreateThemeColumnModal params={params} />
         </>
       </div>
     </>

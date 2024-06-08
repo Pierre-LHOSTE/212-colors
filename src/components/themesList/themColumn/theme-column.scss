@@ -1,0 +1,18 @@
+.theme-column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 186px;
+  max-width: 320px;
+
+  .ant-typography {
+    margin: 0;
+  }
+
+  .ant-typography:not(h4, .ant-typography-h4) {
+    font-size: 14px;
+    opacity: 0.5;
+    inset-inline-start: 0;
+    margin: 0;
+  }
+}

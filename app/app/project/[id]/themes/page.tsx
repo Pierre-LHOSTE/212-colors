@@ -1,12 +1,28 @@
-"use client";
+import { getThemeColors, getThemeColumns, getThemes } from "@/src/api/theme";
+import ThemesList from "@/src/components/themesList/ThemesList";
 
-import ThemeColorsCard from "@/src/components/sections/colorSection/themeColorsCard/ThemeColorsCard";
+async function ThemesPage({ params }: { params: { id: string } }) {
+  const themes = await getThemes(params.id);
+  const themeColumns = await getThemeColumns(params.id);
+  const themeColors = await getThemeColors(params.id);
 
-function ThemesPage() {
+  if (
+    !themes ||
+    !Array.isArray(themes) ||
+    !themeColumns ||
+    !Array.isArray(themeColumns)
+  ) {
+    return null;
+  }
+
   return (
-    <>
-      <ThemeColorsCard colors={[]} name="Light" type="light" />
-    </>
+    <div className="flex-vertical">
+      <ThemesList
+        themes={themes}
+        themeColumns={themeColumns}
+        themeColors={themeColors}
+      />
+    </div>
   );
 }
 

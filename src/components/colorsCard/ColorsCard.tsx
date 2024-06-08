@@ -28,7 +28,7 @@ import {
 
 type DirectionType = "horizontal" | "vertical";
 
-function ColorCard({
+function ColorsCard({
   colors,
   name,
   direction,
@@ -141,4 +141,4 @@ function ColorCard({
   );
 }
 
-export default ColorCard;
+export default ColorsCard;
