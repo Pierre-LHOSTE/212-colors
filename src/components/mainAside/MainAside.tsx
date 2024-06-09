@@ -1,13 +1,15 @@
 "use client";
+import CreateProjectModal from "../modal/createProject/CreateProjectModal";
 import "./main-aside.scss";
 import ProfileSection from "./profileSection/ProfileSection";
-import ProjectIconList from "./projectList/ProjectList";
+import ProjectList from "./projectList/ProjectList";
 
 function MainAside() {
   return (
     <div id="main-aside">
       <ProfileSection />
-      <ProjectIconList />
+      <ProjectList />
+      <CreateProjectModal />
     </div>
   );
 }

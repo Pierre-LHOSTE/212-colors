@@ -1,5 +1,5 @@
 import { getProjectList } from "@/src/api/project";
-import { ProjectButtonType } from "@/src/types/project";
+import { ProjectButtonType, ProjectType } from "@/src/types/project";
 import { DragDropContext, Droppable } from "@hello-pangea/dnd";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -14,15 +14,22 @@ function ProjectList() {
   function handleDragEnd(params: any) {
     console.log(params);
   }
-  const [projects, setProjects] = useState<ProjectButtonType[] | null>(null);
+  const [projects, setProjects] = useState<ProjectButtonType[]>([]);
 
   useEffect(() => {
     async function fetchData() {
-      const p: ProjectButtonType[] | null = await getProjectList();
-      setProjects(p);
+      const res = await getProjectList();
+      if ("error" in res) {
+        return console.error(res.message);
+      }
+      setProjects(res);
     }
     fetchData();
   }, []);
+
+  function addProject(newProject: ProjectType) {
+    setProjects([...projects, newProject]);
+  }
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
@@ -46,7 +53,7 @@ function ProjectList() {
                   ))
               : null}
             {provided.placeholder}
-            <NewProjectButton />
+            <NewProjectButton addProject={addProject} />
           </nav>
         )}
       </Droppable>

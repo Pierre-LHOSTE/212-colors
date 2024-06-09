@@ -1,6 +1,38 @@
 "use server";
 import prisma from "@/src/lib/prisma";
-import { ProjectButtonType } from "../types/project";
+import { revalidateTag } from "next/cache";
+import { auth } from "../lib/auth";
+
+export async function createProject({ name }: { name: string }) {
+  const session = await auth();
+  if (!session?.user?.id) {
+    return { error: true, message: "User not found" };
+  }
+  try {
+    let maxPosition = await prisma.project.findFirst({
+      select: {
+        position: true,
+      },
+      orderBy: {
+        position: "desc",
+      },
+    });
+    const res = await prisma.project.create({
+      data: {
+        name,
+        position: maxPosition ? maxPosition.position + 1 : 0,
+        ownerId: session.user.id,
+        colorSection: true,
+        themeSection: true,
+      },
+    });
+    revalidateTag("prisma-project");
+    return res;
+  } catch (error: any) {
+    console.error(error);
+    return { error: true, message: error.message };
+  }
+}
 
 export async function getProjectById(id: string) {
   try {
@@ -8,13 +40,13 @@ export async function getProjectById(id: string) {
       where: { id },
     });
     return project;
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
-    return null;
+    return { error: true, message: error.message };
   }
 }
 
-export async function getProjectList(): Promise<ProjectButtonType[] | null> {
+export async function getProjectList() {
   try {
     const project = await prisma.project.findMany({
       select: {
@@ -33,8 +65,8 @@ export async function getProjectList(): Promise<ProjectButtonType[] | null> {
       },
     });
     return project;
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
-    return null;
+    return { error: true, message: error.message };
   }
 }

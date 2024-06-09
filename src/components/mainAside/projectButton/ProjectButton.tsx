@@ -15,7 +15,7 @@ function ProjectButton({
   active: boolean;
 }) {
   const { id, name, colors } = project;
-  const color = colors[0].color;
+  const color = colors && colors.length > 0 ? colors[0].color : "#000";
   const initials = getInitials(name);
   const activeSection = useSettingsStore((state) => state.activeSection);
 
