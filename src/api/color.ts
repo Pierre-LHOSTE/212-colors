@@ -140,3 +140,17 @@ export async function createThemeColor({
     return { error: true, message: error.message };
   }
 }
+
+export async function deleteThemeColor(id: string) {
+  try {
+    await prisma.themeColor.delete({
+      where: {
+        id,
+      },
+    });
+    return { success: true };
+  } catch (error: any) {
+    console.error(error);
+    return { error: true, message: error.message };
+  }
+}

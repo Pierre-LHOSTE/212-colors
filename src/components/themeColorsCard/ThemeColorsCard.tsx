@@ -53,12 +53,18 @@ function ThemeColorsCard({
               if (color) {
                 return (
                   <Color
-                    key={index}
+                    key={color.id}
                     color={color.color}
                     name={color.name}
                     description={color.description}
                     position={index}
-                    id="color"
+                    id={color.id}
+                    isThemeColor
+                    deleteLocalColor={() =>
+                      setLocalThemeColor(
+                        localThemeColors.filter((c) => c.id !== color.id)
+                      )
+                    }
                   />
                 );
               } else {

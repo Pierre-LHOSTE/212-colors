@@ -1,5 +1,5 @@
 "use client";
-import { deleteColor } from "@/src/api/color";
+import { deleteColor, deleteThemeColor } from "@/src/api/color";
 import { isVeryLightColor } from "@/src/lib/utils";
 import { ColorCompType } from "@/src/types/color";
 import { useSortable } from "@dnd-kit/sortable";
@@ -19,6 +19,7 @@ type Color = GetProp<ColorPickerProps, "value">;
 
 interface ColorPropsType extends ColorCompType {
   deleteLocalColor?: (colorId: string) => void;
+  isThemeColor?: boolean;
 }
 
 function Color({
@@ -27,6 +28,7 @@ function Color({
   description,
   id,
   deleteLocalColor,
+  isThemeColor,
 }: ColorPropsType) {
   const [currentColor, setCurrentColor] = useState<Color>(color as Color);
 
@@ -60,9 +62,15 @@ function Color({
   };
 
   async function handleDelete() {
-    const res = await deleteColor(id);
-    if (res.error) return console.error(res.message);
-    if (deleteLocalColor) deleteLocalColor(id);
+    if (isThemeColor) {
+      const res = await deleteThemeColor(id);
+      if (res.error) return console.error(res.message);
+      if (deleteLocalColor) deleteLocalColor(id);
+    } else {
+      const res = await deleteColor(id);
+      if (res.error) return console.error(res.message);
+      if (deleteLocalColor) deleteLocalColor(id);
+    }
   }
 
   return (
