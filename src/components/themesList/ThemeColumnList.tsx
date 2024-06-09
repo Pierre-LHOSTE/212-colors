@@ -6,6 +6,7 @@ import {
   DndContext,
   DragEndEvent,
   DragMoveEvent,
+  DragOverlay,
   DragStartEvent,
   KeyboardSensor,
   PointerSensor,
@@ -89,6 +90,21 @@ function ThemeColumnList({
     setActiveId(null);
   }
 
+  function findThemeColumnData(
+    id: UniqueIdentifier | undefined
+  ): ThemeColumnType {
+    const item = localThemeColumns.find((item) => item.id === id);
+    if (!item)
+      return {
+        name: "",
+        id: "",
+        description: "",
+        colors: [],
+        position: 0,
+      };
+    return item;
+  }
+
   return (
     <DndContext
       sensors={sensors}
@@ -113,6 +129,11 @@ function ThemeColumnList({
           ))}
         </SortableContext>
       </MainCard>
+      <DragOverlay adjustScale={false}>
+        {activeId ? (
+          <>{<ThemeColumn themeColumn={findThemeColumnData(activeId)} />}</>
+        ) : null}
+      </DragOverlay>
     </DndContext>
   );
 }

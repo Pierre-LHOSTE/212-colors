@@ -12,7 +12,7 @@ function ThemeColumn({
   deleteLocalThemeColumn,
 }: {
   themeColumn: ThemeColumnType;
-  deleteLocalThemeColumn: (id: string) => void;
+  deleteLocalThemeColumn?: (id: string) => void;
 }) {
   const { name, id, description } = themeColumn;
   const {
