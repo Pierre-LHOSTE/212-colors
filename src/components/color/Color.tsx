@@ -1,6 +1,7 @@
 "use client";
 import { deleteColor, deleteThemeColor, updateColorHex } from "@/src/api/color";
 import { isVeryLightColor } from "@/src/lib/utils";
+import { useModalStore } from "@/src/store/modal";
 import { ColorCompType } from "@/src/types/color";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
@@ -20,6 +21,7 @@ type Color = GetProp<ColorPickerProps, "value">;
 interface ColorPropsType extends ColorCompType {
   deleteLocalColor?: (colorId: string) => void;
   isThemeColor?: boolean;
+  updateLocalState?: (color: any) => void;
 }
 
 function Color({
@@ -29,10 +31,12 @@ function Color({
   id,
   deleteLocalColor,
   isThemeColor,
+  updateLocalState,
 }: ColorPropsType) {
   const [currentColor, setCurrentColor] = useState<Color>(color as Color);
   const [initColor, setInitColor] = useState<Color>(color as Color);
   const [isPickerVisible, setIsPickerVisible] = useState(false);
+  const setModalState = useModalStore((state) => state.setModalState);
 
   const {
     attributes,
@@ -82,7 +86,11 @@ function Color({
   }
 
   async function updateColor() {
-    const res = await updateColorHex({ color: getColorHex(), id });
+    const res = await updateColorHex({
+      color: getColorHex(),
+      id,
+      isThemeColor,
+    });
     if (res.error) {
       setCurrentColor(initColor);
       return console.error(res.message);
@@ -91,8 +99,22 @@ function Color({
     setIsPickerVisible(false);
   }
 
+  function handleEdit() {
+    setModalState({
+      id: isThemeColor ? "theme-color" : "color",
+      mode: "edit",
+      editItem: {
+        id,
+        name,
+        description,
+        color: getColorHex(),
+      },
+      updateLocalState,
+    });
+  }
+
   useEffect(() => {
-    if (getColorHex() !== initColor) setCurrentColor(initColor);
+    if (getColorHex() !== color) setCurrentColor(initColor);
   }, [isPickerVisible]);
 
   return (
@@ -106,6 +128,7 @@ function Color({
         name={name}
         handleDelete={handleDelete}
         listeners={listeners}
+        handleEdit={handleEdit}
       />
       <ColorPicker
         value={currentColor}

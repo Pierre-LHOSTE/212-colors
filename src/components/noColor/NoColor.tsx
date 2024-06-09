@@ -1,6 +1,6 @@
 "use client";
 import { useSortable } from "@dnd-kit/sortable";
-import { Button, ColorPickerProps, GetProp } from "antd";
+import { Button } from "antd";
 import "./no-color.scss";
 
 import { useModalStore } from "@/src/store/modal";
@@ -8,8 +8,6 @@ import { ThemeColorType } from "@/src/types/color";
 import { CSS } from "@dnd-kit/utilities";
 import { IconPlus } from "@tabler/icons-react";
 import HeaderWithOptions from "../headerWithOptions/HeaderWithOptions";
-
-type Color = GetProp<ColorPickerProps, "value">;
 
 interface ColorPropsType {
   columnName: string;

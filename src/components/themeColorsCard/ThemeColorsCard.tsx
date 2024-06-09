@@ -35,6 +35,14 @@ function ThemeColorsCard({
     console.log(params);
   }
 
+  function updateLocalState(color: ThemeColorType) {
+    setLocalThemeColor(
+      localThemeColors.map((item) =>
+        item.id === color.id ? Object.assign({}, item, color) : item
+      )
+    );
+  }
+
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
       <Droppable droppableId={`theme-card-${name}`} direction="horizontal">
@@ -65,6 +73,7 @@ function ThemeColorsCard({
                         localThemeColors.filter((c) => c.id !== color.id)
                       )
                     }
+                    updateLocalState={updateLocalState}
                   />
                 );
               } else {

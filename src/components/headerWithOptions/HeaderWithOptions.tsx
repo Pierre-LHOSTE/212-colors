@@ -11,10 +11,12 @@ import "./header-with-options.scss";
 function HeaderWithOptions({
   name,
   handleDelete,
+  handleEdit,
   listeners,
 }: {
   name: string | null;
   handleDelete?: () => void;
+  handleEdit?: () => void;
   listeners: any;
 }) {
   const [open, setOpen] = useState(false);
@@ -22,6 +24,13 @@ function HeaderWithOptions({
   const handleOpenChange = (newOpen: boolean) => {
     setOpen(newOpen);
   };
+
+  function handleEditFunc() {
+    if (handleEdit) {
+      handleEdit();
+    }
+    setOpen(false);
+  }
 
   return (
     <header className="header-with-options">
@@ -39,7 +48,11 @@ function HeaderWithOptions({
           <Popover
             content={
               <>
-                <Button type="text" icon={<IconPencil />}>
+                <Button
+                  type="text"
+                  icon={<IconPencil />}
+                  onClick={handleEditFunc}
+                >
                   Edit
                 </Button>
                 {handleDelete ? (

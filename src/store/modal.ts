@@ -1,13 +1,12 @@
 import { create } from "zustand";
-import { ColorType, ThemeColorType } from "../types/color";
-import { ThemeColumnType, ThemeType } from "../types/theme";
+import { ColorType } from "../types/color";
 
 type SetStateFunction<T> = (state: T) => void;
 
 interface ModalStateType {
   id: string;
   mode: "add" | "edit";
-  editData?: ColorType | ThemeType | ThemeColumnType | ThemeColorType;
+  editItem?: any;
   updateLocalState?: (arg: any) => void;
   data?: {
     colorType?: ColorType["type"];

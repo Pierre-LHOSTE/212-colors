@@ -163,21 +163,90 @@ export async function deleteThemeColor(id: string) {
 export async function updateColorHex({
   id,
   color,
+  isThemeColor,
 }: {
   id: string;
   color: string;
+  isThemeColor?: boolean;
 }) {
   try {
-    await prisma.color.update({
-      where: {
-        id,
-      },
-      data: {
-        color,
-      },
-    });
+    if (isThemeColor) {
+      await prisma.themeColor.update({
+        where: {
+          id,
+        },
+        data: {
+          color,
+        },
+      });
+      revalidateTag("prisma-themeColor");
+    } else {
+      await prisma.color.update({
+        where: {
+          id,
+        },
+        data: {
+          color,
+        },
+      });
+    }
     revalidateTag("prisma-color");
     return { success: true };
+  } catch (error: any) {
+    console.error(error);
+    return { error: true, message: error.message };
+  }
+}
+
+export async function updateColor({
+  color,
+  isThemeColor,
+}: {
+  color: ColorType | ThemeColorType;
+  isThemeColor?: boolean;
+}) {
+  console.log("Update color...", color);
+
+  try {
+    if (isThemeColor) {
+      const res = await prisma.themeColor.update({
+        where: {
+          id: color.id,
+        },
+        data: {
+          name: color.name,
+          description: color.description,
+          color: color.color,
+        },
+        select: {
+          id: true,
+          name: true,
+          description: true,
+          color: true,
+        },
+      });
+      revalidateTag("prisma-themeColor");
+      return res;
+    } else {
+      const res = await prisma.color.update({
+        where: {
+          id: color.id,
+        },
+        data: {
+          name: color.name,
+          description: color.description,
+          color: color.color,
+        },
+        select: {
+          id: true,
+          name: true,
+          description: true,
+          color: true,
+        },
+      });
+      revalidateTag("prisma-color");
+      return res;
+    }
   } catch (error: any) {
     console.error(error);
     return { error: true, message: error.message };

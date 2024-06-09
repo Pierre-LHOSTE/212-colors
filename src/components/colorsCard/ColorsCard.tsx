@@ -96,6 +96,14 @@ function ColorsCard({
     setLocalColors(localColors.filter((item) => item.id !== colorId));
   }
 
+  function updateLocalState(color: ColorType) {
+    setLocalColors(
+      localColors.map((item) =>
+        item.id === color.id ? Object.assign({}, item, color) : item
+      )
+    );
+  }
+
   return (
     <DndContext
       sensors={sensors}
@@ -124,6 +132,7 @@ function ColorsCard({
                   key={color.id}
                   {...color}
                   deleteLocalColor={deleteColor}
+                  updateLocalState={updateLocalState}
                 />
               ))
             : null}
