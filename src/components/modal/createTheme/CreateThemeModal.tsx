@@ -74,7 +74,7 @@ function CreateThemeModal({ params }: { params: { id: string } }) {
     >
       <Form
         layout="vertical"
-        name="new-collection"
+        name="new-theme-form"
         disabled={isPending}
         onFinish={onSubmit}
         form={form}

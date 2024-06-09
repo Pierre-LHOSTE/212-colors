@@ -83,7 +83,7 @@ function CreateThemeColorModal({ params }: { params: { id: string } }) {
     >
       <Form
         layout="vertical"
-        name="new-collection"
+        name="new-theme-color-form"
         disabled={isPending}
         onFinish={onSubmit}
         form={form}

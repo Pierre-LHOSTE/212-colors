@@ -74,7 +74,7 @@ function CreateThemeColumnModal({ params }: { params: { id: string } }) {
     >
       <Form
         layout="vertical"
-        name="new-theme-column"
+        name="new-theme-column-form"
         disabled={isPending}
         onFinish={onSubmit}
         form={form}

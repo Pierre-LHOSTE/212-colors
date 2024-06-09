@@ -66,7 +66,7 @@ function CreateProjectModal() {
     >
       <Form
         layout="vertical"
-        name="new-project"
+        name="new-project-form"
         disabled={isPending}
         onFinish={onSubmit}
         form={form}
