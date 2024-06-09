@@ -83,7 +83,10 @@ function Color({
 
   async function updateColor() {
     const res = await updateColorHex({ color: getColorHex(), id });
-    if (res.error) return console.error(res.message);
+    if (res.error) {
+      setCurrentColor(initColor);
+      return console.error(res.message);
+    }
     setInitColor(getColorHex());
     setIsPickerVisible(false);
   }
