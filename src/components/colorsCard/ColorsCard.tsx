@@ -87,10 +87,6 @@ function ColorsCard({
     }
   }
 
-  const handleDragMove = (event: DragMoveEvent) => {
-    updateColorPosition(event);
-  };
-
   function handleDragEnd(event: DragEndEvent) {
     updateColorPosition(event);
     setActiveId(null);
@@ -105,7 +101,6 @@ function ColorsCard({
       sensors={sensors}
       collisionDetection={closestCorners}
       onDragStart={handleDragStart}
-      onDragMove={handleDragMove}
       onDragEnd={handleDragEnd}
     >
       <MainCard
@@ -125,7 +120,11 @@ function ColorsCard({
         <SortableContext items={localColors.map((i) => i.id)}>
           {localColors && localColors.length > 0
             ? localColors.map((color, index) => (
-                <Color key={index} {...color} deleteLocalColor={deleteColor} />
+                <Color
+                  key={color.id}
+                  {...color}
+                  deleteLocalColor={deleteColor}
+                />
               ))
             : null}
         </SortableContext>

@@ -81,10 +81,6 @@ function ThemeColumnList({
     setActiveId(id);
   }
 
-  const handleDragMove = (event: DragMoveEvent) => {
-    updateThemeColumnPosition(event);
-  };
-
   function handleDragEnd(event: DragEndEvent) {
     updateThemeColumnPosition(event);
     setActiveId(null);
@@ -110,7 +106,6 @@ function ThemeColumnList({
       sensors={sensors}
       collisionDetection={closestCorners}
       onDragStart={handleDragStart}
-      onDragMove={handleDragMove}
       onDragEnd={handleDragEnd}
     >
       <MainCard
@@ -122,7 +117,7 @@ function ThemeColumnList({
         <SortableContext items={localThemeColumns.map((i) => i.id)}>
           {localThemeColumns.map((themeColumn, index) => (
             <ThemeColumn
-              key={index}
+              key={themeColumn.id}
               themeColumn={themeColumn}
               deleteLocalThemeColumn={deleteLocalThemeColumn}
             />
