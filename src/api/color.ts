@@ -1,5 +1,6 @@
 "use server";
 import prisma from "@/src/lib/prisma";
+import { revalidateTag } from "next/cache";
 import { auth } from "../lib/auth";
 import { ColorType, ThemeColorType } from "../types/color";
 import { ThemeColumnType } from "../types/theme";
@@ -39,6 +40,7 @@ export async function createColor({
         projectId,
       },
     });
+    revalidateTag("prisma-color");
     return res;
   } catch (error: any) {
     console.error(error);
@@ -64,6 +66,7 @@ export async function getColors(projectId: string) {
         position: "asc",
       },
     });
+    revalidateTag("prisma-color");
     return colors as ColorType[];
   } catch (error: any) {
     console.error(error);
@@ -89,6 +92,7 @@ export async function reOrder(
       });
     });
     await Promise.all(promises);
+    revalidateTag("prisma-${dataType}");
     return { success: true };
   } catch (error: any) {
     console.error(error);
@@ -103,6 +107,7 @@ export async function deleteColor(id: string) {
         id,
       },
     });
+    revalidateTag("prisma-color");
     return { success: true };
   } catch (error: any) {
     console.error(error);
@@ -134,6 +139,7 @@ export async function createThemeColor({
         themeColumnId,
       },
     });
+    revalidateTag("prisma-themeColor");
     return res;
   } catch (error: any) {
     console.error(error);
@@ -148,6 +154,7 @@ export async function deleteThemeColor(id: string) {
         id,
       },
     });
+    revalidateTag("prisma-themeColor");
     return { success: true };
   } catch (error: any) {
     console.error(error);
