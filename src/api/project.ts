@@ -55,6 +55,9 @@ export async function getProjectList() {
         description: true,
         colors: {
           where: { type: "primary" },
+          orderBy: {
+            position: "asc",
+          },
           take: 1,
           select: { color: true },
         },

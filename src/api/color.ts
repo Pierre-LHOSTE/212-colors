@@ -80,8 +80,6 @@ export async function reOrder(
   dataType: "color" | "themeColumn" | "project"
 ) {
   try {
-    console.log(`Reordering ${dataType}s`);
-
     const promises = newArray.map((item, index) => {
       return (prisma[dataType] as any).update({
         where: {
@@ -156,6 +154,29 @@ export async function deleteThemeColor(id: string) {
       },
     });
     revalidateTag("prisma-themeColor");
+    return { success: true };
+  } catch (error: any) {
+    console.error(error);
+    return { error: true, message: error.message };
+  }
+}
+export async function updateColorHex({
+  id,
+  color,
+}: {
+  id: string;
+  color: string;
+}) {
+  try {
+    await prisma.color.update({
+      where: {
+        id,
+      },
+      data: {
+        color,
+      },
+    });
+    revalidateTag("prisma-color");
     return { success: true };
   } catch (error: any) {
     console.error(error);

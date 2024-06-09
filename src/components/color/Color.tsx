@@ -1,5 +1,5 @@
 "use client";
-import { deleteColor, deleteThemeColor } from "@/src/api/color";
+import { deleteColor, deleteThemeColor, updateColorHex } from "@/src/api/color";
 import { isVeryLightColor } from "@/src/lib/utils";
 import { ColorCompType } from "@/src/types/color";
 import { useSortable } from "@dnd-kit/sortable";
@@ -31,6 +31,8 @@ function Color({
   isThemeColor,
 }: ColorPropsType) {
   const [currentColor, setCurrentColor] = useState<Color>(color as Color);
+  const [initColor, setInitColor] = useState<Color>(color as Color);
+  const [isPickerVisible, setIsPickerVisible] = useState(false);
 
   const {
     attributes,
@@ -73,6 +75,19 @@ function Color({
     }
   }
 
+  function getColorHex() {
+    return typeof currentColor === "string"
+      ? currentColor
+      : currentColor?.toHexString();
+  }
+
+  async function updateColor() {
+    const res = await updateColorHex({ color: getColorHex(), id });
+    if (res.error) return console.error(res.message);
+    setInitColor(getColorHex());
+    setIsPickerVisible(false);
+  }
+
   return (
     <div
       className="color header-hover"
@@ -85,22 +100,46 @@ function Color({
         handleDelete={handleDelete}
         listeners={listeners}
       />
-      <ColorPicker value={currentColor} onChange={setCurrentColor}>
+      <ColorPicker
+        value={currentColor}
+        onChange={setCurrentColor}
+        open={isPickerVisible}
+        onOpenChange={setIsPickerVisible}
+        panelRender={(panel) => (
+          <div className="custom-panel">
+            <div
+              style={{
+                marginBottom: 8,
+              }}
+            >
+              {getColorHex() !== initColor ? (
+                <>
+                  <Button
+                    type="primary"
+                    style={{
+                      backgroundColor: getColorHex(),
+                    }}
+                    onClick={updateColor}
+                  >
+                    Save color
+                  </Button>
+                </>
+              ) : (
+                "Current color"
+              )}
+            </div>
+            {panel}
+          </div>
+        )}
+      >
         <Button
           type="primary"
           className="color-preview"
           style={{
-            backgroundColor:
-              typeof currentColor === "string"
-                ? currentColor
-                : currentColor?.toHexString(),
+            backgroundColor: getColorHex(),
           }}
         >
-          <span className={elementColor}>
-            {typeof currentColor === "string"
-              ? currentColor
-              : currentColor?.toHexString()}
-          </span>
+          <span className={elementColor}>{getColorHex()}</span>
         </Button>
       </ColorPicker>
       {description ? (
