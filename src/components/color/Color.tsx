@@ -88,6 +88,10 @@ function Color({
     setIsPickerVisible(false);
   }
 
+  useEffect(() => {
+    if (getColorHex() !== initColor) setCurrentColor(initColor);
+  }, [isPickerVisible]);
+
   return (
     <div
       className="color header-hover"
