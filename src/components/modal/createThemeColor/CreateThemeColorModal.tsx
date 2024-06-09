@@ -1,17 +1,17 @@
 "use client";
-import { createColor } from "@/src/api/color";
+import { createThemeColor } from "@/src/api/color";
 import { useModalStore } from "@/src/store/modal";
 import { useSettingsStore } from "@/src/store/settings";
-import { ColorType } from "@/src/types/color";
+import { ThemeColorType } from "@/src/types/color";
 import { ColorPicker, Form, Input } from "antd";
 import { createSchemaFieldRule } from "antd-zod";
 import { useTransition } from "react";
 import FormModal from "../FormModal";
-import { ColorFormSchema } from "./ColorFormSchema";
+import { ColorFormSchema } from "./ThemeColorFormSchema";
 
 const rule = createSchemaFieldRule(ColorFormSchema);
 
-function CreateColorModal({ params }: { params: { id: string } }) {
+function CreateThemeColorModal({ params }: { params: { id: string } }) {
   const setMessage = useSettingsStore((state) => state.setMessage);
   const setNotification = useSettingsStore((state) => state.setNotification);
   const [isPending, startTransition] = useTransition();
@@ -19,27 +19,28 @@ function CreateColorModal({ params }: { params: { id: string } }) {
   const modalState = useModalStore((state) => state.modalState);
   const [form] = Form.useForm();
 
-  function onSubmit(values: ColorType) {
+  function onSubmit(values: ThemeColorType) {
     const newColor = {
       ...values,
-      type: modalState.data?.colorType as ColorType["type"],
+      themeId: modalState.data?.themeId as string,
+      themeColumnId: modalState.data?.themeColumnId as string,
     };
     const formValues = {
       color: newColor,
       projectId: params.id,
     };
     startTransition(async () => {
-      const res = await createColor(formValues);
+      const res = await createThemeColor(formValues);
       if ("id" in res) {
         if (modalState.updateLocalState) {
-          const { id, name, description, color, type, position } = res;
+          const { id, name, description, color, themeColumnId, themeId } = res;
           modalState.updateLocalState({
             id,
             name,
             description,
             color,
-            type: type as ColorType["type"],
-            position,
+            themeColumnId,
+            themeId,
           });
         }
         setModalState({
@@ -71,8 +72,8 @@ function CreateColorModal({ params }: { params: { id: string } }) {
 
   return (
     <FormModal
-      title="Create new color"
-      isOpen={modalState.id === "color"}
+      title={"Create new theme color"}
+      isOpen={modalState.id === "theme-color"}
       closeModal={() =>
         setModalState({
           id: "",
@@ -101,4 +102,4 @@ function CreateColorModal({ params }: { params: { id: string } }) {
   );
 }
 
-export default CreateColorModal;
+export default CreateThemeColorModal;

@@ -19,11 +19,17 @@ function ThemeColorsCard({
   colors,
   name,
   themeColumn,
+  id,
+  setLocalThemeColor,
+  localThemeColors,
 }: {
   colors: (ThemeColorType | null)[];
   name: string;
   type: ThemeTypeType;
   themeColumn: ThemeColumnType[];
+  id: string;
+  setLocalThemeColor: (arg: any) => void;
+  localThemeColors: ThemeColorType[];
 }) {
   function handleDragEnd(params: any) {
     console.log(params);
@@ -40,21 +46,6 @@ function ThemeColorsCard({
             innerRef={provided.innerRef}
             droppableProps={provided.droppableProps}
           >
-            {/* {colors.map((color, index) => {
-              if (color) {
-                return (
-                  <Color
-                    key={index}
-                    color={color.color}
-                    name={color.name}
-                    description={color.description}
-                    position={index}
-                    id="color"
-                  />
-                );
-              }
-              return <>No color</>;
-            })} */}
             {themeColumn.map((column, index) => {
               const color = colors
                 ? colors.find((c) => c?.themeColumnId === column.id)
@@ -76,6 +67,10 @@ function ThemeColorsCard({
                     key={index}
                     columnName={column.name}
                     id={column.id}
+                    themeId={id}
+                    themeColumnId={column.id}
+                    setLocalThemeColor={setLocalThemeColor}
+                    localThemeColors={localThemeColors}
                   />
                 );
               }

@@ -1,7 +1,9 @@
 "use client";
+import { deleteColor } from "@/src/api/color";
 import { isVeryLightColor } from "@/src/lib/utils";
 import { ColorCompType } from "@/src/types/color";
 import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import {
   Button,
   ColorPicker,
@@ -10,11 +12,8 @@ import {
   Typography,
 } from "antd";
 import { useEffect, useState } from "react";
-import "./color.scss";
-
-import { deleteColor } from "@/src/api/color";
-import { CSS } from "@dnd-kit/utilities";
 import HeaderWithOptions from "../headerWithOptions/HeaderWithOptions";
+import "./color.scss";
 
 type Color = GetProp<ColorPickerProps, "value">;
 

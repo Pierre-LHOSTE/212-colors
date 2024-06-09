@@ -9,7 +9,11 @@ interface ModalStateType {
   mode: "add" | "edit";
   editData?: ColorType | ThemeType | ThemeColumnType | ThemeColorType;
   updateLocalState?: (arg: any) => void;
-  data?: string;
+  data?: {
+    colorType?: ColorType["type"];
+    themeId?: string;
+    themeColumnId?: string;
+  };
 }
 
 interface ModalStoreType {

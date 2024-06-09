@@ -1,7 +1,7 @@
 "use server";
 import prisma from "@/src/lib/prisma";
 import { auth } from "../lib/auth";
-import { ColorType } from "../types/color";
+import { ColorType, ThemeColorType } from "../types/color";
 import { ThemeColumnType } from "../types/theme";
 
 export async function createColor({
@@ -104,6 +104,37 @@ export async function deleteColor(id: string) {
       },
     });
     return { success: true };
+  } catch (error: any) {
+    console.error(error);
+    return { error: true, message: error.message };
+  }
+}
+
+export async function createThemeColor({
+  color,
+  projectId,
+}: {
+  color: ThemeColorType;
+  projectId: string;
+}) {
+  const session = await auth();
+  if (!session?.user?.id) {
+    return { error: true, message: "User not found" };
+  }
+  try {
+    const { name, description, themeId, themeColumnId } = color;
+    const res = await prisma.themeColor.create({
+      data: {
+        name,
+        description,
+        color: color.color,
+        ownerId: session.user.id,
+        projectId,
+        themeId,
+        themeColumnId,
+      },
+    });
+    return res;
   } catch (error: any) {
     console.error(error);
     return { error: true, message: error.message };

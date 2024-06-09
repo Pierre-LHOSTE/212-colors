@@ -39,6 +39,9 @@ function ThemesList({
           themeColumn={localThemeColumns}
           name={theme.name}
           type={theme.type as ThemeTypeType}
+          id={theme.id}
+          setLocalThemeColor={setLocalThemeColor}
+          localThemeColors={localThemeColor}
         />
       ))}
       <MainCard className="theme-color-card" title={""} direction="horizontal">
