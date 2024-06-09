@@ -3,6 +3,7 @@ import prisma from "@/src/lib/prisma";
 import { revalidateTag } from "next/cache";
 import { auth } from "../lib/auth";
 import { ColorType, ThemeColorType } from "../types/color";
+import { ProjectButtonType } from "../types/project";
 import { ThemeColumnType } from "../types/theme";
 
 export async function createColor({
@@ -75,8 +76,8 @@ export async function getColors(projectId: string) {
 }
 
 export async function reOrder(
-  newArray: ColorType[] | ThemeColumnType[],
-  dataType: "color" | "themeColumn"
+  newArray: ColorType[] | ThemeColumnType[] | ProjectButtonType[],
+  dataType: "color" | "themeColumn" | "project"
 ) {
   try {
     console.log(`Reordering ${dataType}s`);

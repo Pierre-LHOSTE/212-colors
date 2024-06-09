@@ -1,7 +1,8 @@
 import { isVeryLightColor } from "@/src/lib/utils";
 import { useSettingsStore } from "@/src/store/settings";
 import { ProjectButtonType } from "@/src/types/project";
-import { Draggable } from "@hello-pangea/dnd";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import Link from "next/link";
 import "./project-button.scss";
 
@@ -19,30 +20,44 @@ function ProjectButton({
   const initials = getInitials(name);
   const activeSection = useSettingsStore((state) => state.activeSection);
 
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({
+    id,
+  });
+
   const elementColor = isVeryLightColor(color) ? "dark" : "light";
 
+  const style: React.CSSProperties = {
+    transition,
+    transform: CSS.Translate.toString(transform),
+    opacity: isDragging ? 0.2 : undefined,
+  };
+
   return (
-    <Draggable draggableId={id} index={index}>
-      {(provided) => (
-        <div
-          ref={provided.innerRef}
-          {...provided.draggableProps}
-          className={`project-icon${active ? " active" : ""}`}
-        >
-          <div
-            {...provided.dragHandleProps}
-            className={`icon-hook ${elementColor}`}
-            style={{ backgroundColor: color }}
-          ></div>
-          <Link
-            href={`/app/project/${id}/${activeSection}`}
-            style={{ backgroundColor: color }}
-          >
-            <span className={elementColor}>{initials}</span>
-          </Link>
-        </div>
-      )}
-    </Draggable>
+    <div
+      className={`project-icon${active ? " active" : ""}`}
+      ref={setNodeRef}
+      {...attributes}
+      style={style}
+    >
+      <div
+        {...listeners}
+        className={`icon-hook ${elementColor}`}
+        style={{ backgroundColor: color }}
+      ></div>
+      <Link
+        href={`/app/project/${id}/${activeSection}`}
+        style={{ backgroundColor: color }}
+      >
+        <span className={elementColor}>{initials}</span>
+      </Link>
+    </div>
   );
 }
 
