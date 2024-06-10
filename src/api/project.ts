@@ -73,3 +73,20 @@ export async function getProjectList() {
     return { error: true, message: error.message };
   }
 }
+
+export async function updateProject(project: any) {
+  try {
+    const res = await prisma.project.update({
+      where: { id: project.id },
+      data: {
+        name: project.name,
+        description: project.description,
+      },
+    });
+    revalidateTag("prisma-project");
+    return res;
+  } catch (error: any) {
+    console.error(error);
+    return { error: true, message: error.message };
+  }
+}
