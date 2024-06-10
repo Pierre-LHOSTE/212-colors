@@ -35,7 +35,7 @@ function CreateColorModal({ params }: { params: { id: string } }) {
       form.resetFields();
       setPreviewColor("#000000");
     }
-  }, [modalState.editItem?.id, form]);
+  }, [modalState.editItem, form]);
 
   function onSubmit(values: ColorType) {
     if (modalState.mode === "add") {

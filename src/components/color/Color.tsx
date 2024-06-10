@@ -59,6 +59,7 @@ function Color({
 
   useEffect(() => {
     setCurrentColor(color as Color);
+    setInitColor(color as Color);
   }, [color]);
 
   const style: React.CSSProperties = {

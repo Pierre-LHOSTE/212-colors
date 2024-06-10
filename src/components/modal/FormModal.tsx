@@ -18,6 +18,7 @@ function FormModal({
   return (
     <>
       <Modal
+        getContainer={false}
         title={title}
         open={isOpen}
         onCancel={() => closeModal()}
