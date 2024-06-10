@@ -2,6 +2,7 @@
 import prisma from "@/src/lib/prisma";
 import { revalidateTag } from "next/cache";
 import { auth } from "../lib/auth";
+import { SectionType } from "../types/section";
 
 export async function createProject({ name }: { name: string }) {
   const session = await auth();
@@ -82,6 +83,41 @@ export async function updateProject(project: any) {
         name: project.name,
         description: project.description,
       },
+    });
+    revalidateTag("prisma-project");
+    return res;
+  } catch (error: any) {
+    console.error(error);
+    return { error: true, message: error.message };
+  }
+}
+
+export async function updateSection({
+  id,
+  section,
+}: {
+  id: string;
+  section: SectionType;
+}) {
+  try {
+    const res = await prisma.project.update({
+      where: { id },
+      data: {
+        [section.name]: section.active,
+      },
+    });
+    revalidateTag("prisma-project");
+    return res;
+  } catch (error: any) {
+    console.error(error);
+    return { error: true, message: error.message };
+  }
+}
+
+export async function deleteProject(id: string) {
+  try {
+    const res = await prisma.project.delete({
+      where: { id },
     });
     revalidateTag("prisma-project");
     return res;
