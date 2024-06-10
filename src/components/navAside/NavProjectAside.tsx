@@ -38,25 +38,33 @@ const items: MenuItem[] = [
   },
 ];
 
-function NavProjectAside({ projectId }: { projectId: string }) {
+function NavProjectAside({
+  projectId,
+  hiddenSections,
+}: {
+  projectId: string;
+  hiddenSections: string[];
+}) {
   const pathname = usePathname();
   const setActiveSection = useSettingsStore((state) => state.setActiveSection);
 
-  const itemsMenu = items.map((item) => {
-    if (item && !("type" in item)) {
-      return {
-        ...item,
-        label: (
-          <Link href={`/app/project/${projectId}/${item.key}`}>
-            {item.label}
-          </Link>
-        ),
-        className: path.basename(pathname) === item.key ? "active" : "",
-      };
-    } else {
-      return item;
-    }
-  });
+  const itemsMenu = items
+    .filter((item) => !hiddenSections.includes(item?.key as string))
+    .map((item) => {
+      if (item && !("type" in item)) {
+        return {
+          ...item,
+          label: (
+            <Link href={`/app/project/${projectId}/${item.key}`}>
+              {item.label}
+            </Link>
+          ),
+          className: path.basename(pathname) === item.key ? "active" : "",
+        };
+      } else {
+        return item;
+      }
+    });
 
   return (
     <aside id="nav-aside">

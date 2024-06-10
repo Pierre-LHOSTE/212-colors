@@ -2,7 +2,6 @@
 import prisma from "@/src/lib/prisma";
 import { revalidateTag } from "next/cache";
 import { auth } from "../lib/auth";
-import { SectionType } from "../types/section";
 
 export async function createProject({ name }: { name: string }) {
   const session = await auth();
@@ -23,8 +22,6 @@ export async function createProject({ name }: { name: string }) {
         name,
         position: maxPosition ? maxPosition.position + 1 : 0,
         ownerId: session.user.id,
-        colorSection: true,
-        themeSection: true,
       },
     });
     revalidateTag("prisma-project");
@@ -94,16 +91,18 @@ export async function updateProject(project: any) {
 
 export async function updateSection({
   id,
-  section,
+  sections,
 }: {
   id: string;
-  section: SectionType;
+  sections: string[];
 }) {
   try {
     const res = await prisma.project.update({
       where: { id },
       data: {
-        [section.name]: section.active,
+        hiddenSections: {
+          set: sections,
+        },
       },
     });
     revalidateTag("prisma-project");
@@ -121,6 +120,21 @@ export async function deleteProject(id: string) {
     });
     revalidateTag("prisma-project");
     return res;
+  } catch (error: any) {
+    console.error(error);
+    return { error: true, message: error.message };
+  }
+}
+
+export async function getHiddenSections(id: string) {
+  try {
+    const project = (await prisma.project.findUnique({
+      where: { id },
+      select: {
+        hiddenSections: true,
+      },
+    })) || { hiddenSections: [] };
+    return project.hiddenSections;
   } catch (error: any) {
     console.error(error);
     return { error: true, message: error.message };

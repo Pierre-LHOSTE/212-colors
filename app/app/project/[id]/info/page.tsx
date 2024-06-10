@@ -20,19 +20,7 @@ async function InfoPage({ params }: { params: { id: string } }) {
       <div className="flex-horizontal">
         <FormInfo project={project} />
         <div className="flex-vertical">
-          <FormSection
-            id={params.id}
-            sections={[
-              {
-                name: "colorSection",
-                active: project.colorSection,
-              },
-              {
-                name: "themeSection",
-                active: project.themeSection,
-              },
-            ]}
-          />
+          <FormSection id={params.id} hiddenSections={project.hiddenSections} />
           <FormAction id={params.id} />
         </div>
       </div>

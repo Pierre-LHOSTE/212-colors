@@ -25,6 +25,5 @@ export interface ProjectType extends ProjectLiteType {
   themeColumns: ThemeColumnType[];
   themes: ThemeType[];
   position: number;
-  colorSection: boolean;
-  themeSection: boolean;
+  hiddenSections: string[];
 }

@@ -59,21 +59,19 @@ model Settings {
 }
 
 model Project {
-  id           String        @id @default(cuid())
-  name         String
-  description  String?
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime?
-  owner        User          @relation(fields: [ownerId], references: [id])
-  ownerId      String
-  colors       Color[]
-  themeColors  ThemeColor[]
-  themeColumns ThemeColumn[]
-  themes       Theme[]
-  position     Int
-
-  colorSection Boolean
-  themeSection Boolean
+  id             String        @id @default(cuid())
+  name           String
+  description    String?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime?
+  owner          User          @relation(fields: [ownerId], references: [id])
+  ownerId        String
+  colors         Color[]
+  themeColors    ThemeColor[]
+  themeColumns   ThemeColumn[]
+  themes         Theme[]
+  position       Int
+  hiddenSections String[]
 
   @@map("projects")
 }
