@@ -1,5 +1,6 @@
 "use client";
 import { deleteThemeColumn } from "@/src/api/theme";
+import { useModalStore } from "@/src/store/modal";
 import { ThemeColumnType } from "@/src/types/theme";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
@@ -10,11 +11,13 @@ import "./theme-column.scss";
 function ThemeColumn({
   themeColumn,
   deleteLocalThemeColumn,
+  updateLocalState,
 }: {
   themeColumn: ThemeColumnType;
   deleteLocalThemeColumn?: (id: string) => void;
+  updateLocalState: (themeColumn: ThemeColumnType) => void;
 }) {
-  const { name, id, description } = themeColumn;
+  const setModalState = useModalStore((state) => state.setModalState);
   const {
     attributes,
     listeners,
@@ -23,7 +26,7 @@ function ThemeColumn({
     transition,
     isDragging,
   } = useSortable({
-    id,
+    id: themeColumn.id,
   });
 
   const style: React.CSSProperties = {
@@ -33,9 +36,26 @@ function ThemeColumn({
   };
 
   async function handleDelete() {
-    const res = await deleteThemeColumn(id);
+    const res = await deleteThemeColumn(themeColumn.id);
     if (res.error) return console.error(res.message);
-    if (deleteLocalThemeColumn) deleteLocalThemeColumn(id);
+    if (deleteLocalThemeColumn) deleteLocalThemeColumn(themeColumn.id);
+  }
+
+  function handleEdit() {
+    setModalState({
+      id: "theme-column",
+      mode: "edit",
+      editItem: {
+        id: themeColumn.id,
+        name: themeColumn.name,
+        description: themeColumn.description,
+      },
+      updateLocalState: (themeColumn: ThemeColumnType) => {
+        console.log(themeColumn);
+
+        updateLocalState(themeColumn);
+      },
+    });
   }
 
   return (
@@ -46,17 +66,18 @@ function ThemeColumn({
       style={style}
     >
       <HeaderWithOptions
-        name={name}
+        name={themeColumn.name}
         listeners={listeners}
         handleDelete={handleDelete}
+        handleEdit={handleEdit}
       />
-      {description ? (
+      {themeColumn.description ? (
         <Typography.Paragraph
           editable={{
             triggerType: ["text"],
           }}
         >
-          {description}
+          {themeColumn.description}
         </Typography.Paragraph>
       ) : null}
     </div>

@@ -163,3 +163,22 @@ export async function deleteThemeColumn(id: string) {
     return { error: true, message: error.message };
   }
 }
+
+export async function updateThemeColumn(themeColumn: ThemeColumnType) {
+  try {
+    const { id, name, description } = themeColumn;
+    const res = await prisma.themeColumn.update({
+      where: {
+        id,
+      },
+      data: {
+        name,
+        description,
+      },
+    });
+    return res;
+  } catch (error: any) {
+    console.error(error);
+    return { error: true, message: error.message };
+  }
+}

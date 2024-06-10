@@ -1,12 +1,12 @@
 "use client";
 
-import { createThemeColumn } from "@/src/api/theme";
+import { createThemeColumn, updateThemeColumn } from "@/src/api/theme";
 import { useModalStore } from "@/src/store/modal";
 import { useSettingsStore } from "@/src/store/settings";
 import { ThemeColumnType } from "@/src/types/theme";
 import { Form, Input } from "antd";
 import { createSchemaFieldRule } from "antd-zod";
-import { useTransition } from "react";
+import { useEffect, useTransition } from "react";
 import FormModal from "../FormModal";
 import { ThemeColumnFormSchema } from "./ThemeColumnFormSchema";
 
@@ -20,45 +20,90 @@ function CreateThemeColumnModal({ params }: { params: { id: string } }) {
   const modalState = useModalStore((state) => state.modalState);
   const [form] = Form.useForm();
 
+  useEffect(() => {
+    const editItem = modalState?.editItem;
+    if (editItem) {
+      if (editItem.name) form.setFieldValue("name", editItem.name);
+      if (editItem.description)
+        form.setFieldValue("description", editItem.description);
+    } else {
+      form.resetFields();
+    }
+  }, [modalState.editItem, form]);
+
   function onSubmit(values: ThemeColumnType) {
-    const newThemeColumn = values;
-    const formValues = {
-      themeColumn: newThemeColumn,
-      projectId: params.id,
-    };
-    startTransition(async () => {
-      const res = await createThemeColumn(formValues);
-      if ("id" in res) {
-        if (modalState.updateLocalState) {
-          const { id, name, description, position } = res;
-          modalState.updateLocalState({
-            id,
-            name,
-            description,
-            position,
-            colors: [],
+    if (modalState.mode === "add") {
+      const newThemeColumn = values;
+      const formValues = {
+        themeColumn: newThemeColumn,
+        projectId: params.id,
+      };
+      startTransition(async () => {
+        const res = await createThemeColumn(formValues);
+        if ("id" in res) {
+          if (modalState.updateLocalState) {
+            const { id, name, description } = res;
+            modalState.updateLocalState({
+              id,
+              name,
+              description,
+              colors: [],
+            });
+          }
+          setModalState({
+            id: "",
+          });
+          setMessage({
+            type: "success",
+            content: "ThemeColumn created",
+          });
+          form.resetFields();
+        } else {
+          setMessage({
+            type: "error",
+            content: "Failed to create ThemeColumn",
+          });
+          setNotification({
+            type: "error",
+            message: "Error",
+            description: <>{res.message || "An error occurred"}</>,
           });
         }
-        setModalState({
-          id: "",
-        });
-        setMessage({
-          type: "success",
-          content: "ThemeColumn created",
-        });
-        form.resetFields();
-      } else {
-        setMessage({
-          type: "error",
-          content: "Failed to create ThemeColumn",
-        });
-        setNotification({
-          type: "error",
-          message: "Error",
-          description: <>{res.message || "An error occurred"}</>,
-        });
-      }
-    });
+      });
+    } else {
+      values.id = modalState.editItem.id as string;
+      startTransition(async () => {
+        const res = await updateThemeColumn(values);
+        if ("id" in res) {
+          if (modalState.updateLocalState) {
+            const { id, name, description } = res;
+            modalState.updateLocalState({
+              id,
+              name,
+              description,
+            });
+          }
+          setModalState({
+            id: "",
+          });
+          setMessage({
+            type: "success",
+            content: "ThemeColumn updated",
+          });
+          form.resetFields();
+        } else {
+          setMessage({
+            type: "error",
+            content: "Failed to update ThemeColumn",
+          });
+          setNotification({
+            type: "error",
+            message: "Error",
+            description: <>{res.message || "An error occurred"}</>,
+          });
+        }
+      });
+    }
   }
 
   return (
@@ -68,6 +113,7 @@ function CreateThemeColumnModal({ params }: { params: { id: string } }) {
       closeModal={() =>
         setModalState({
           id: "",
+          editItem: null,
         })
       }
       submitForm={() => form.submit()}

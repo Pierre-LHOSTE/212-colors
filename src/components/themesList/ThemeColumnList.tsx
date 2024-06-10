@@ -102,6 +102,18 @@ function ThemeColumnList({
     return item;
   }
 
+  function updateLocalState(themeColumn: ThemeColumnType) {
+    console.log("GO UPDATE");
+
+    console.log(themeColumn);
+
+    setLocalThemeColumns(
+      localThemeColumns.map((item) =>
+        item.id === themeColumn.id ? Object.assign({}, item, themeColumn) : item
+      )
+    );
+  }
+
   return (
     <DndContext
       sensors={sensors}
@@ -121,13 +133,21 @@ function ThemeColumnList({
               key={themeColumn.id}
               themeColumn={themeColumn}
               deleteLocalThemeColumn={deleteLocalThemeColumn}
+              updateLocalState={updateLocalState}
             />
           ))}
         </SortableContext>
       </MainCard>
       <DragOverlay adjustScale={false}>
         {activeId ? (
-          <>{<ThemeColumn themeColumn={findThemeColumnData(activeId)} />}</>
+          <>
+            {
+              <ThemeColumn
+                themeColumn={findThemeColumnData(activeId)}
+                updateLocalState={updateLocalState}
+              />
+            }
+          </>
         ) : null}
       </DragOverlay>
     </DndContext>
