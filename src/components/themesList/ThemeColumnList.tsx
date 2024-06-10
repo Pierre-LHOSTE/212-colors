@@ -36,6 +36,7 @@ function ThemeColumnList({
 
   function createThemeColumn() {
     setModalState({
+      mode: "add",
       id: "theme-column",
       updateLocalState: (themeColumn: ThemeColumnType) =>
         setLocalThemeColumns([...localThemeColumns, themeColumn]),

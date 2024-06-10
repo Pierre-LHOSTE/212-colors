@@ -13,6 +13,7 @@ function NewProjectButton({
 
   function createProject() {
     setModalState({
+      mode: "add",
       id: "project",
       updateLocalState: addProject,
     });

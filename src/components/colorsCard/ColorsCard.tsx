@@ -118,6 +118,7 @@ function ColorsCard({
         direction={direction}
         createAction={() =>
           setModalState({
+            mode: "add",
             data: { colorType: cardId },
             id: "color",
             updateLocalState: (color: ColorType) =>

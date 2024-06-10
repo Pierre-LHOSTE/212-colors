@@ -50,6 +50,7 @@ function ThemesList({
           icon={<IconPlus />}
           onClick={() =>
             setModalState({
+              mode: "add",
               id: "theme",
               updateLocalState: (theme: ThemeType) =>
                 setLocalThemes([...localThemes, theme]),
