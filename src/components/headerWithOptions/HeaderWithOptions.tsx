@@ -17,7 +17,7 @@ function HeaderWithOptions({
   name: string | null;
   handleDelete?: () => void;
   handleEdit?: () => void;
-  listeners: any;
+  listeners?: any;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -43,7 +43,9 @@ function HeaderWithOptions({
         {name}
       </Typography.Title>
       <div className={`color-actions${open ? " open" : ""}`}>
-        <Button type="text" icon={<IconGripVertical />} {...listeners} />
+        {listeners ? (
+          <Button type="text" icon={<IconGripVertical />} {...listeners} />
+        ) : null}
         {handleDelete ? (
           <Popover
             content={

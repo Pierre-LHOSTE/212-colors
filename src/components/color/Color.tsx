@@ -22,6 +22,7 @@ interface ColorPropsType extends ColorCompType {
   deleteLocalColor?: (colorId: string) => void;
   isThemeColor?: boolean;
   updateLocalState?: (color: any) => void;
+  noDnd?: boolean;
 }
 
 function Color({
@@ -32,6 +33,7 @@ function Color({
   deleteLocalColor,
   isThemeColor,
   updateLocalState,
+  noDnd = false,
 }: ColorPropsType) {
   const [currentColor, setCurrentColor] = useState<Color>(color as Color);
   const [initColor, setInitColor] = useState<Color>(color as Color);
@@ -128,7 +130,7 @@ function Color({
       <HeaderWithOptions
         name={name}
         handleDelete={handleDelete}
-        listeners={listeners}
+        listeners={noDnd ? null : listeners}
         handleEdit={handleEdit}
       />
       <ColorPicker

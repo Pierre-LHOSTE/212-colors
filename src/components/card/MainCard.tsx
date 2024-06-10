@@ -23,8 +23,6 @@ interface MainCardProps extends MainCardBasicType {
   id?: string;
   className?: string;
   direction?: "horizontal" | "vertical";
-  innerRef?: (element: HTMLDivElement | null) => void;
-  droppableProps?: object;
 }
 
 function MainCard({
@@ -38,13 +36,9 @@ function MainCard({
   noScroll,
   id,
   className,
-  innerRef,
-  droppableProps,
 }: MainCardProps): JSX.Element {
   return (
     <div
-      ref={innerRef}
-      {...droppableProps}
       id={id}
       className={`main-card${className ? ` ${className} ` : ""}${direction === "horizontal" ? " horizontal" : " vertical"}${noPadding ? " no-padding" : ""}`}
     >
