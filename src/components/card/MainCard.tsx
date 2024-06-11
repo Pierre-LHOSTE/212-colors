@@ -1,4 +1,5 @@
 "use client";
+import { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
 import React from "react";
 import "./main-card.scss";
@@ -15,6 +16,7 @@ interface MainCardBasicType {
   children?: React.ReactNode;
   createAction?: () => void;
   showOptionAction?: () => void;
+  dndAction?: SyntheticListenerMap;
 }
 
 interface MainCardProps extends MainCardBasicType {
@@ -33,6 +35,7 @@ function MainCard({
   children,
   createAction,
   showOptionAction,
+  dndAction,
   noPadding,
   noScroll,
   id,
@@ -53,6 +56,7 @@ function MainCard({
                   title={content.title}
                   createAction={content.createAction}
                   showOptionAction={content.showOptionAction}
+                  dndAction={dndAction}
                 >
                   {content.children}
                 </MainCardSection>
@@ -62,6 +66,7 @@ function MainCard({
                 title={title}
                 createAction={createAction}
                 showOptionAction={showOptionAction}
+                dndAction={dndAction}
               >
                 {children}
               </MainCardSection>
@@ -86,6 +91,7 @@ function MainCard({
                   title={content.title}
                   createAction={content.createAction}
                   showOptionAction={content.showOptionAction}
+                  dndAction={dndAction}
                 >
                   {content.children}
                 </MainCardSection>
@@ -95,6 +101,7 @@ function MainCard({
                 title={title}
                 createAction={createAction}
                 showOptionAction={showOptionAction}
+                dndAction={dndAction}
               >
                 {children}
               </MainCardSection>

@@ -1,4 +1,4 @@
-import { IconDots, IconPlus } from "@tabler/icons-react";
+import { IconDots, IconGripVertical, IconPlus } from "@tabler/icons-react";
 import { Button } from "antd";
 import React from "react";
 import "./main-card-section.scss";
@@ -10,11 +10,13 @@ function MainCardSection({
   children,
   createAction,
   showOptionAction,
+  dndAction,
 }: {
   title?: string;
   children: React.ReactNode;
   createAction?: () => void;
   showOptionAction?: () => void;
+  dndAction?: () => void;
 }) {
   return (
     <section className="main-card-section">
@@ -30,6 +32,9 @@ function MainCardSection({
               type="text"
               onClick={() => createAction()}
             />
+          ) : null}
+          {dndAction ? (
+            <Button type="text" icon={<IconGripVertical />} {...dndAction} />
           ) : null}
         </div>
       </header>

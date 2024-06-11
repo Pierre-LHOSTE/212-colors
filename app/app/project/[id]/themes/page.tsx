@@ -1,5 +1,5 @@
 import { getThemeColors, getThemeColumns, getThemes } from "@/src/api/theme";
-import ThemesList from "@/src/components/themesList/ThemesList";
+import ThemesList from "@/src/components/themesList/ThemesPage";
 
 async function ThemesPage({ params }: { params: { id: string } }) {
   const themes = await getThemes(params.id);
