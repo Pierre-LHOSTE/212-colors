@@ -1,5 +1,10 @@
 #profile-section {
-  border-bottom: 2px solid;
+  // border-bottom: 2px solid;
+  .ant-divider {
+    width: 66%;
+    margin: 0 auto;
+    min-width: 0;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -13,6 +18,7 @@
   #profile-section {
     background-color: #fdfdfd;
     background-color: #fafafa;
+    background-color: #fff;
     border-bottom-color: #dedede;
   }
 }

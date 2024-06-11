@@ -1,5 +1,5 @@
 #nav-header {
-  border-bottom: 2px solid;
+  // border-bottom: 2px solid;
 
   #nav-header-wrapper {
     height: 116px;
@@ -41,8 +41,8 @@
 
 @media (prefers-color-scheme: dark) {
   #nav-header {
-    background-color: black;
-    border-bottom-color: black;
+    // background-color: black;
+    // border-bottom-color: black;
 
     #nav-header-wrapper {
       background: #b83536;
@@ -58,8 +58,8 @@
 
 @media (prefers-color-scheme: light) {
   #nav-header {
-    background-color: #dedede;
-    border-bottom-color: #dedede;
+    // background-color: #dedede;
+    // border-bottom-color: #dedede;
 
     #nav-header-wrapper {
       background: #b83536;
