@@ -1,6 +1,7 @@
 "use client";
 import MainCard from "@/src/components/card/MainCard";
 import Color from "@/src/components/color/Color";
+import { useModalStore } from "@/src/store/modal";
 import { ThemeColorType } from "@/src/types/color";
 import { ThemeColumnType, ThemeType } from "@/src/types/theme";
 import { useSortable } from "@dnd-kit/sortable";
@@ -22,13 +23,21 @@ function ThemeColorsCard({
   theme,
   setLocalThemeColor,
   localThemeColors,
+  setLocalThemes,
+  localThemes,
 }: {
   theme: ThemeType;
   colors: (ThemeColorType | null)[];
   themeColumn: ThemeColumnType[];
   setLocalThemeColor: (arg: any) => void;
   localThemeColors: ThemeColorType[];
+  setLocalThemes: (arg: any) => void;
+  localThemes: ThemeType[];
 }) {
+  console.log(theme);
+
+  const setModalState = useModalStore((state) => state.setModalState);
+
   function updateLocalState(color: ThemeColorType) {
     setLocalThemeColor(
       localThemeColors.map((item) =>
@@ -53,6 +62,21 @@ function ThemeColorsCard({
     opacity: isDragging ? 0.2 : undefined,
   };
 
+  function handleEdit() {
+    setModalState({
+      mode: "edit",
+      id: "theme",
+      updateLocalState: (theme: ThemeType) => {
+        setLocalThemes(
+          localThemes.map((item) =>
+            item.id === theme.id ? Object.assign({}, item, theme) : item
+          )
+        );
+      },
+      editItem: theme,
+    });
+  }
+
   return (
     <div ref={setNodeRef} {...attributes} style={style}>
       <MainCard
@@ -60,6 +84,7 @@ function ThemeColorsCard({
         title={theme.name}
         direction="horizontal"
         dndAction={listeners}
+        showOptionAction={handleEdit}
       >
         {themeColumn.map((column, index) => {
           const color = colors

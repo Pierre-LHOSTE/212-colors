@@ -55,6 +55,7 @@ export async function getThemes(projectId: string) {
         name: true,
         description: true,
         position: true,
+        type: true,
       },
       orderBy: {
         position: "asc",
@@ -174,6 +175,26 @@ export async function updateThemeColumn(themeColumn: ThemeColumnType) {
       data: {
         name,
         description,
+      },
+    });
+    return res;
+  } catch (error: any) {
+    console.error(error);
+    return { error: true, message: error.message };
+  }
+}
+
+export async function updateTheme(theme: ThemeType) {
+  try {
+    const { id, name, description, type } = theme;
+    const res = await prisma.theme.update({
+      where: {
+        id,
+      },
+      data: {
+        name,
+        description,
+        type,
       },
     });
     return res;

@@ -105,6 +105,8 @@ function ThemesList({
               theme={theme}
               setLocalThemeColor={setLocalThemeColor}
               localThemeColors={localThemeColor}
+              setLocalThemes={setLocalThemes}
+              localThemes={localThemes}
             />
           ))}
         </SortableContext>
@@ -120,6 +122,8 @@ function ThemesList({
                   themeColumn={localThemeColumns}
                   setLocalThemeColor={setLocalThemeColor}
                   localThemeColors={localThemeColor}
+                  setLocalThemes={setLocalThemes}
+                  localThemes={localThemes}
                 />
               }
             </>

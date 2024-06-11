@@ -1,11 +1,11 @@
 "use client";
-import { createTheme } from "@/src/api/theme";
+import { createTheme, updateTheme } from "@/src/api/theme";
 import { useModalStore } from "@/src/store/modal";
 import { useSettingsStore } from "@/src/store/settings";
 import { ThemeType } from "@/src/types/theme";
 import { Form, Input, Select } from "antd";
 import { createSchemaFieldRule } from "antd-zod";
-import { useTransition } from "react";
+import { useEffect, useTransition } from "react";
 import FormModal from "../FormModal";
 import { ThemeFormSchema } from "./ThemeFormSchema";
 
@@ -19,46 +19,98 @@ function CreateThemeModal({ params }: { params: { id: string } }) {
   const modalState = useModalStore((state) => state.modalState);
   const [form] = Form.useForm();
 
+  useEffect(() => {
+    const editItem = modalState?.editItem;
+    if (editItem) {
+      if (editItem.name) form.setFieldValue("name", editItem.name);
+      if (editItem.description)
+        form.setFieldValue("description", editItem.description);
+      console.log(editItem.type);
+
+      if (editItem.type) form.setFieldValue("type", editItem.type);
+    } else {
+      form.resetFields();
+    }
+  }, [modalState.editItem, form]);
+
   function onSubmit(values: ThemeType) {
-    const newTheme = values;
-    const formValues = {
-      theme: newTheme,
-      projectId: params.id,
-    };
-    startTransition(async () => {
-      const res = await createTheme(formValues);
-      if ("id" in res) {
-        if (modalState.updateLocalState) {
-          const { id, name, description, type, position } = res;
-          modalState.updateLocalState({
-            id,
-            name,
-            description,
-            type,
-            position,
-            colors: [],
+    if (modalState.mode === "add") {
+      const newTheme = values;
+      const formValues = {
+        theme: newTheme,
+        projectId: params.id,
+      };
+      startTransition(async () => {
+        const res = await createTheme(formValues);
+        if ("id" in res) {
+          if (modalState.updateLocalState) {
+            const { id, name, description, type, position } = res;
+            modalState.updateLocalState({
+              id,
+              name,
+              description,
+              type,
+              position,
+              colors: [],
+            });
+          }
+          setModalState({
+            id: "",
+          });
+          setMessage({
+            type: "success",
+            content: "Theme created",
+          });
+          form.resetFields();
+        } else {
+          setMessage({
+            type: "error",
+            content: "Failed to create theme",
+          });
+          setNotification({
+            type: "error",
+            message: "Error",
+            description: <>{res.message || "An error occurred"}</>,
           });
         }
-        setModalState({
-          id: "",
-        });
-        setMessage({
-          type: "success",
-          content: "Theme created",
-        });
-        form.resetFields();
-      } else {
-        setMessage({
-          type: "error",
-          content: "Failed to create theme",
-        });
-        setNotification({
-          type: "error",
-          message: "Error",
-          description: <>{res.message || "An error occurred"}</>,
-        });
-      }
-    });
+      });
+    } else {
+      values.id = modalState.editItem.id as string;
+      startTransition(async () => {
+        const res = await updateTheme(values);
+        if ("id" in res) {
+          if (modalState.updateLocalState) {
+            const { id, name, description, type, position } = res;
+            modalState.updateLocalState({
+              id,
+              name,
+              description,
+              type,
+              position,
+              colors: [],
+            });
+          }
+          setModalState({
+            id: "",
+          });
+          setMessage({
+            type: "success",
+            content: "Theme updated",
+          });
+          form.resetFields();
+        } else {
+          setMessage({
+            type: "error",
+            content: "Failed to update theme",
+          });
+          setNotification({
+            type: "error",
+            message: "Error",
+            description: <>{res.message || "An error occurred"}</>,
+          });
+        }
+      });
+    }
   }
 
   return (
@@ -68,6 +120,7 @@ function CreateThemeModal({ params }: { params: { id: string } }) {
       closeModal={() =>
         setModalState({
           id: "",
+          editItem: null,
         })
       }
       submitForm={() => form.submit()}
