@@ -36,7 +36,7 @@ function ProjectList() {
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
-    })
+    }),
   );
 
   function updateProjectPosition(event: DragMoveEvent | DragEndEvent) {
@@ -44,10 +44,10 @@ function ProjectList() {
 
     if (active && over && active.id !== over.id) {
       const activeItemIndex = projectsList.findIndex(
-        (item) => item.id === active.id
+        (item) => item.id === active.id,
       );
       const overItemIndex = projectsList.findIndex(
-        (item) => item.id === over.id
+        (item) => item.id === over.id,
       );
 
       const newArray = arrayMove(projectsList, activeItemIndex, overItemIndex);
@@ -64,7 +64,7 @@ function ProjectList() {
   }
 
   function findProjectData(
-    id: UniqueIdentifier | undefined
+    id: UniqueIdentifier | undefined,
   ): ProjectButtonType {
     const item = projectsList.find((item) => item.id === id);
     if (!item)

@@ -33,13 +33,13 @@ export const useDataStore = create<DataStateType>((set) => ({
     updatedAt: null,
   },
   setProject: (
-    project: ProjectType | ((prevState: ProjectType) => ProjectType)
+    project: ProjectType | ((prevState: ProjectType) => ProjectType),
   ) =>
     set((state) => ({
       project: typeof project === "function" ? project(state.project) : project,
     })),
   setHiddenSections: (
-    hiddenSections: string[] | ((prevState: string[]) => string[])
+    hiddenSections: string[] | ((prevState: string[]) => string[]),
   ) =>
     set((state) => ({
       project: {
@@ -54,7 +54,7 @@ export const useDataStore = create<DataStateType>((set) => ({
   setProjectsList: (
     projectsList:
       | ProjectButtonType[]
-      | ((prevState: ProjectButtonType[]) => ProjectButtonType[])
+      | ((prevState: ProjectButtonType[]) => ProjectButtonType[]),
   ) =>
     set((state) => ({
       projectsList:
@@ -64,14 +64,14 @@ export const useDataStore = create<DataStateType>((set) => ({
     })),
   colors: [],
   setColors: (
-    colors: ColorType[] | ((prevState: ColorType[]) => ColorType[])
+    colors: ColorType[] | ((prevState: ColorType[]) => ColorType[]),
   ) =>
     set((state) => ({
       colors: typeof colors === "function" ? colors(state.colors) : colors,
     })),
   themes: [],
   setThemes: (
-    themes: ThemeType[] | ((prevState: ThemeType[]) => ThemeType[])
+    themes: ThemeType[] | ((prevState: ThemeType[]) => ThemeType[]),
   ) =>
     set((state) => ({
       themes: typeof themes === "function" ? themes(state.themes) : themes,
@@ -80,7 +80,7 @@ export const useDataStore = create<DataStateType>((set) => ({
   setThemeColumns: (
     themeColumns:
       | ThemeColumnType[]
-      | ((prevState: ThemeColumnType[]) => ThemeColumnType[])
+      | ((prevState: ThemeColumnType[]) => ThemeColumnType[]),
   ) =>
     set((state) => ({
       themeColumns:
@@ -92,7 +92,7 @@ export const useDataStore = create<DataStateType>((set) => ({
   setThemeColors: (
     themeColors:
       | ThemeColorType[]
-      | ((prevState: ThemeColorType[]) => ThemeColorType[])
+      | ((prevState: ThemeColorType[]) => ThemeColorType[]),
   ) =>
     set((state) => ({
       themeColors:

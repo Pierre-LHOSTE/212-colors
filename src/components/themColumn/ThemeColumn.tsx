@@ -33,7 +33,7 @@ function ThemeColumn({ themeColumn }: { themeColumn: ThemeColumnType }) {
     const res = await deleteThemeColumn(themeColumn.id);
     if (res.error) return console.error(res.message);
     setThemeColumns((themeColumns) =>
-      themeColumns.filter((item) => item.id !== themeColumn.id)
+      themeColumns.filter((item) => item.id !== themeColumn.id),
     );
   }
 
@@ -51,8 +51,8 @@ function ThemeColumn({ themeColumn }: { themeColumn: ThemeColumnType }) {
           themeColumns.map((item) =>
             item.id === themeColumn.id
               ? Object.assign({}, item, themeColumn)
-              : item
-          )
+              : item,
+          ),
         );
       },
     });

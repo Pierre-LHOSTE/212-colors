@@ -22,7 +22,7 @@ function ThemesPage({ params }: { params: { id: string } }) {
   async function fetchData(
     fetchFunction: (id: string) => Promise<any>,
     setData: (data: any) => void,
-    errorMessage: string
+    errorMessage: string,
   ) {
     const data = await fetchFunction(params.id);
     if (!data) {

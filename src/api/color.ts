@@ -77,7 +77,7 @@ export async function getColors(projectId: string) {
 
 export async function reOrder(
   newArray: ColorType[] | ThemeColumnType[] | ProjectButtonType[],
-  dataType: "color" | "themeColumn" | "project" | "theme"
+  dataType: "color" | "themeColumn" | "project" | "theme",
 ) {
   try {
     const promises = newArray.map((item, index) => {

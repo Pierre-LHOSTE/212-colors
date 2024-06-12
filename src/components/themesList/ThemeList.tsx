@@ -35,7 +35,7 @@ function ThemesList() {
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
-    })
+    }),
   );
 
   function handleDragStart(event: DragStartEvent) {
@@ -106,7 +106,7 @@ function ThemesList() {
                 <ThemeColorsCard
                   theme={findThemesData(activeId)}
                   colors={themeColors.filter(
-                    (color) => color.themeId === activeId
+                    (color) => color.themeId === activeId,
                   )}
                   themeColumns={themeColumns}
                   setThemeColors={setThemeColors}

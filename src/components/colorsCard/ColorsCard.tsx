@@ -38,7 +38,7 @@ function ColorsCard({
   name: string;
   direction: DirectionType;
   setColors: (
-    colors: ColorType[] | ((colors: ColorType[]) => ColorType[])
+    colors: ColorType[] | ((colors: ColorType[]) => ColorType[]),
   ) => void;
 }) {
   const setModalState = useModalStore((state) => state.setModalState);
@@ -63,7 +63,7 @@ function ColorsCard({
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
-    })
+    }),
   );
 
   function handleDragStart(event: DragStartEvent) {
@@ -94,8 +94,8 @@ function ColorsCard({
   function updateState(color: ColorType) {
     setColors((colors: ColorType[]) =>
       colors.map((item) =>
-        item.id === color.id ? Object.assign({}, item, color) : item
-      )
+        item.id === color.id ? Object.assign({}, item, color) : item,
+      ),
     );
   }
 

@@ -30,7 +30,7 @@ const preview: Preview = {
   decorators: [
     (Story) => {
       const isDarkTheme = window.matchMedia(
-        "(prefers-color-scheme: dark)"
+        "(prefers-color-scheme: dark)",
       ).matches;
       return (
         <ConfigProvider theme={isDarkTheme ? darkTheme : lightTheme}>

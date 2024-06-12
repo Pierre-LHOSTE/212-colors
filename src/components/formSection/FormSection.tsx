@@ -26,7 +26,7 @@ function FormSection({ id }: { id: string }) {
     setHiddenSections((prevState) =>
       e.target.checked
         ? prevState.filter((section) => section !== name)
-        : [...prevState, name]
+        : [...prevState, name],
     );
   }
 

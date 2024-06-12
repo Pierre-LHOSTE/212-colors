@@ -39,8 +39,8 @@ function ThemeColorsCard({
   function updateState(color: ThemeColorType) {
     setThemeColors(
       themeColors.map((item) =>
-        item.id === color.id ? Object.assign({}, item, color) : item
-      )
+        item.id === color.id ? Object.assign({}, item, color) : item,
+      ),
     );
   }
   const {
@@ -67,8 +67,8 @@ function ThemeColorsCard({
       updateStateCallBack: (theme: ThemeType) => {
         setThemes(
           themes.map((item) =>
-            item.id === theme.id ? Object.assign({}, item, theme) : item
-          )
+            item.id === theme.id ? Object.assign({}, item, theme) : item,
+          ),
         );
       },
       editItem: theme,

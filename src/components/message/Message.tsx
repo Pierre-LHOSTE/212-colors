@@ -13,7 +13,7 @@ function Message() {
       messageApi[message.type || "info"](
         message.content,
         message.duration,
-        message.onClose
+        message.onClose,
       );
     }
   }, [message, messageApi]);

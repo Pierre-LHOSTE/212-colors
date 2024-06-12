@@ -56,7 +56,7 @@ function Color({
   const elementColor = isVeryLightColor(
     typeof currentColor === "string"
       ? currentColor
-      : currentColor?.toHexString()
+      : currentColor?.toHexString(),
   )
     ? "dark"
     : "light";
@@ -77,7 +77,7 @@ function Color({
       const res = await deleteThemeColor(id);
       if (res.error) return console.error(res.message);
       setThemeColors((themeColors) =>
-        themeColors.filter((item) => item.id !== id)
+        themeColors.filter((item) => item.id !== id),
       );
     } else {
       const res = await deleteColor(id);

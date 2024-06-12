@@ -16,7 +16,7 @@ function FormAction({ id }: { id: string }) {
       return;
     }
     setProjectsList((prevState) =>
-      prevState.filter((project) => project.id !== id)
+      prevState.filter((project) => project.id !== id),
     );
     router.push("/app");
   }
