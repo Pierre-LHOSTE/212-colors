@@ -28,13 +28,6 @@ function ThemeColorsCard({
 }) {
   const setModalState = useModalStore((state) => state.setModalState);
 
-  function updateState(color: ThemeColorType) {
-    setThemeColors(
-      themeColors.map((item) =>
-        item.id === color.id ? Object.assign({}, item, color) : item
-      )
-    );
-  }
   const {
     attributes,
     listeners,
@@ -45,6 +38,14 @@ function ThemeColorsCard({
   } = useSortable({
     id: theme.id,
   });
+
+  function updateState(color: ThemeColorType) {
+    setThemeColors(
+      themeColors.map((item) =>
+        item.id === color.id ? Object.assign({}, item, color) : item
+      )
+    );
+  }
 
   const style: React.CSSProperties = {
     transition,

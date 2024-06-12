@@ -64,7 +64,7 @@ function NavProjectAside() {
 
   return (
     <aside id="nav-aside">
-      <NavHeader title="Lorem Ipsum" />
+      <NavHeader />
       <Menu
         id="main-nav"
         onClick={({ key }) => setActiveSection(key)}

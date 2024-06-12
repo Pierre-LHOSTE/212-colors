@@ -3,7 +3,7 @@ import { deleteColor, deleteThemeColor, updateColorHex } from "@/src/api/color";
 import { isVeryLightColor } from "@/src/lib/utils";
 import { useDataStore } from "@/src/store/data";
 import { useModalStore } from "@/src/store/modal";
-import type { ColorType } from "@/src/types/color";
+import type { ColorType, ThemeColorType } from "@/src/types/color";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import {
@@ -19,9 +19,9 @@ import "./color.scss";
 
 type Color = GetProp<ColorPickerProps, "value">;
 
-interface ColorPropsType extends ColorType {
+interface ColorPropsType extends Omit<ColorType, "type"> {
   isThemeColor?: boolean;
-  updateState?: (color: ColorType) => void;
+  updateState?: (color: any) => void;
   noDnd?: boolean;
 }
 
