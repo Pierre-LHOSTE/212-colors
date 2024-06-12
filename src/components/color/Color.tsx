@@ -3,7 +3,7 @@ import { deleteColor, deleteThemeColor, updateColorHex } from "@/src/api/color";
 import { isVeryLightColor } from "@/src/lib/utils";
 import { useDataStore } from "@/src/store/data";
 import { useModalStore } from "@/src/store/modal";
-import type { ColorCompType, ColorType } from "@/src/types/color";
+import type { ColorType } from "@/src/types/color";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import {
@@ -19,7 +19,7 @@ import "./color.scss";
 
 type Color = GetProp<ColorPickerProps, "value">;
 
-interface ColorPropsType extends ColorCompType {
+interface ColorPropsType extends ColorType {
   isThemeColor?: boolean;
   updateState?: (color: ColorType) => void;
   noDnd?: boolean;
@@ -56,7 +56,7 @@ function Color({
   const elementColor = isVeryLightColor(
     typeof currentColor === "string"
       ? currentColor
-      : currentColor?.toHexString(),
+      : currentColor?.toHexString()
   )
     ? "dark"
     : "light";
@@ -77,7 +77,7 @@ function Color({
       const res = await deleteThemeColor(id);
       if (res.error) return console.error(res.message);
       setThemeColors((themeColors) =>
-        themeColors.filter((item) => item.id !== id),
+        themeColors.filter((item) => item.id !== id)
       );
     } else {
       const res = await deleteColor(id);

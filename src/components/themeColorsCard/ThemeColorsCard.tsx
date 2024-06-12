@@ -9,14 +9,6 @@ import { CSS } from "@dnd-kit/utilities";
 import NoColor from "../noColor/NoColor";
 import "./theme-colors-card.scss";
 
-type ThemeTypeType = "light" | "dark";
-
-interface colorType {
-  name?: string;
-  description?: string;
-  color: string;
-}
-
 function ThemeColorsCard({
   colors,
   themeColors,
@@ -39,8 +31,8 @@ function ThemeColorsCard({
   function updateState(color: ThemeColorType) {
     setThemeColors(
       themeColors.map((item) =>
-        item.id === color.id ? Object.assign({}, item, color) : item,
-      ),
+        item.id === color.id ? Object.assign({}, item, color) : item
+      )
     );
   }
   const {
@@ -67,8 +59,8 @@ function ThemeColorsCard({
       updateStateCallBack: (theme: ThemeType) => {
         setThemes(
           themes.map((item) =>
-            item.id === theme.id ? Object.assign({}, item, theme) : item,
-          ),
+            item.id === theme.id ? Object.assign({}, item, theme) : item
+          )
         );
       },
       editItem: theme,

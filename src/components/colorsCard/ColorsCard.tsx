@@ -2,7 +2,7 @@
 import { reOrder as reOrderApi } from "@/src/api/color";
 import MainCard from "@/src/components/card/MainCard";
 import Color from "@/src/components/color/Color";
-import { ColorType, ColorTypeType } from "@/src/types/color";
+import { ColorType } from "@/src/types/color";
 import { useState } from "react";
 import "./colors-card.scss";
 
@@ -38,11 +38,11 @@ function ColorsCard({
   name: string;
   direction: DirectionType;
   setColors: (
-    colors: ColorType[] | ((colors: ColorType[]) => ColorType[]),
+    colors: ColorType[] | ((colors: ColorType[]) => ColorType[])
   ) => void;
 }) {
   const setModalState = useModalStore((state) => state.setModalState);
-  const cardId = name.toLowerCase() as ColorTypeType;
+  const cardId = name.toLowerCase() as ColorType["type"];
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
 
   function findColorData(id: UniqueIdentifier | undefined): ColorType {
@@ -63,7 +63,7 @@ function ColorsCard({
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
-    }),
+    })
   );
 
   function handleDragStart(event: DragStartEvent) {
@@ -94,8 +94,8 @@ function ColorsCard({
   function updateState(color: ColorType) {
     setColors((colors: ColorType[]) =>
       colors.map((item) =>
-        item.id === color.id ? Object.assign({}, item, color) : item,
-      ),
+        item.id === color.id ? Object.assign({}, item, color) : item
+      )
     );
   }
 
