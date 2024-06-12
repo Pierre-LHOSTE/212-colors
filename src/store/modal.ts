@@ -7,7 +7,7 @@ interface ModalStateType {
   id: string;
   mode: "add" | "edit";
   editItem?: any;
-  updateLocalState?: (arg: any) => void;
+  updateStateCallBack?: (arg: any) => void;
   data?: {
     colorType?: ColorType["type"];
     themeId?: string;

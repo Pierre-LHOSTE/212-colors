@@ -2,28 +2,20 @@
 import { Button } from "antd";
 import "./no-color.scss";
 
+import { useDataStore } from "@/src/store/data";
 import { useModalStore } from "@/src/store/modal";
 import { ThemeColorType } from "@/src/types/color";
 import { IconPlus } from "@tabler/icons-react";
 import HeaderWithOptions from "../headerWithOptions/HeaderWithOptions";
 
 interface ColorPropsType {
-  columnName: string;
-  id: string;
-  deleteLocalColor?: (colorId: string) => void;
   themeId: string;
   themeColumnId: string;
-  setLocalThemeColor: (arg: any) => void;
-  localThemeColors: ThemeColorType[];
 }
 
-function NoColor({
-  themeId,
-  themeColumnId,
-  setLocalThemeColor,
-  localThemeColors,
-}: ColorPropsType) {
+function NoColor({ themeId, themeColumnId }: ColorPropsType) {
   const setModalState = useModalStore((state) => state.setModalState);
+  const setThemeColors = useDataStore((state) => state.setThemeColors);
 
   async function createThemeColor() {
     setModalState({
@@ -33,8 +25,8 @@ function NoColor({
         themeColumnId,
       },
       mode: "add",
-      updateLocalState: (color: ThemeColorType) =>
-        setLocalThemeColor([...localThemeColors, color]),
+      updateStateCallBack: (color: ThemeColorType) =>
+        setThemeColors((themeColors) => [...themeColors, color]),
     });
   }
 

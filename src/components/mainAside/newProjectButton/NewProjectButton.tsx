@@ -1,21 +1,23 @@
+import { useDataStore } from "@/src/store/data";
 import { useModalStore } from "@/src/store/modal";
+import { ProjectButtonType } from "@/src/types/project";
 import { IconPlus } from "@tabler/icons-react";
 import { Button } from "antd";
 import "./new-project-button.scss";
 
-function NewProjectButton({
-  addProject,
-}: {
-  addProject: (projects: any) => void;
-}) {
-  const modalState = useModalStore((state) => state.modalState);
+function NewProjectButton() {
   const setModalState = useModalStore((state) => state.setModalState);
+  const setProjectsList = useDataStore((state) => state.setProjectsList);
 
   function createProject() {
     setModalState({
       mode: "add",
       id: "project",
-      updateLocalState: addProject,
+      updateStateCallBack: (newProject: ProjectButtonType) =>
+        setProjectsList((prevProjectsList) => [
+          ...prevProjectsList,
+          newProject,
+        ]),
     });
   }
 

@@ -1,5 +1,6 @@
 "use client";
 import { reOrder as reOrderApi } from "@/src/api/color";
+import { useDataStore } from "@/src/store/data";
 import { useModalStore } from "@/src/store/modal";
 import { ThemeColumnType } from "@/src/types/theme";
 import {
@@ -24,27 +25,20 @@ import { useState } from "react";
 import MainCard from "../card/MainCard";
 import ThemeColumn from "../themColumn/ThemeColumn";
 
-function ThemeColumnList({
-  localThemeColumns,
-  setLocalThemeColumns,
-}: {
-  localThemeColumns: ThemeColumnType[];
-  setLocalThemeColumns: (themeColumns: ThemeColumnType[]) => void;
-}) {
+function ThemeColumnList() {
   const setModalState = useModalStore((state) => state.setModalState);
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
+
+  const setThemeColumns = useDataStore((state) => state.setThemeColumns);
+  const themeColumns = useDataStore((state) => state.themeColumns);
 
   function createThemeColumn() {
     setModalState({
       mode: "add",
       id: "theme-column",
-      updateLocalState: (themeColumn: ThemeColumnType) =>
-        setLocalThemeColumns([...localThemeColumns, themeColumn]),
+      updateStateCallBack: (themeColumn: ThemeColumnType) =>
+        setThemeColumns((themeColumns) => [...themeColumns, themeColumn]),
     });
-  }
-
-  function deleteLocalThemeColumn(id: string) {
-    setLocalThemeColumns(localThemeColumns.filter((item) => item.id !== id));
   }
 
   const sensors = useSensors(
@@ -58,21 +52,17 @@ function ThemeColumnList({
     const { active, over } = event;
 
     if (active && over && active.id !== over.id) {
-      const activeItemIndex = localThemeColumns.findIndex(
+      const activeItemIndex = themeColumns.findIndex(
         (item) => item.id === active.id
       );
-      const overItemIndex = localThemeColumns.findIndex(
+      const overItemIndex = themeColumns.findIndex(
         (item) => item.id === over.id
       );
 
-      const newArray = arrayMove(
-        localThemeColumns,
-        activeItemIndex,
-        overItemIndex
-      );
+      const newArray = arrayMove(themeColumns, activeItemIndex, overItemIndex);
 
       reOrderApi(newArray, "themeColumn");
-      setLocalThemeColumns(newArray);
+      setThemeColumns(newArray);
     }
   }
 
@@ -90,7 +80,7 @@ function ThemeColumnList({
   function findThemeColumnData(
     id: UniqueIdentifier | undefined
   ): ThemeColumnType {
-    const item = localThemeColumns.find((item) => item.id === id);
+    const item = themeColumns.find((item) => item.id === id);
     if (!item)
       return {
         name: "",
@@ -100,18 +90,6 @@ function ThemeColumnList({
         position: 0,
       };
     return item;
-  }
-
-  function updateLocalState(themeColumn: ThemeColumnType) {
-    console.log("GO UPDATE");
-
-    console.log(themeColumn);
-
-    setLocalThemeColumns(
-      localThemeColumns.map((item) =>
-        item.id === themeColumn.id ? Object.assign({}, item, themeColumn) : item
-      )
-    );
   }
 
   return (
@@ -127,27 +105,15 @@ function ThemeColumnList({
         direction="horizontal"
         createAction={createThemeColumn}
       >
-        <SortableContext items={localThemeColumns.map((i) => i.id)}>
-          {localThemeColumns.map((themeColumn, index) => (
-            <ThemeColumn
-              key={themeColumn.id}
-              themeColumn={themeColumn}
-              deleteLocalThemeColumn={deleteLocalThemeColumn}
-              updateLocalState={updateLocalState}
-            />
+        <SortableContext items={themeColumns.map((i) => i.id)}>
+          {themeColumns.map((themeColumn, index) => (
+            <ThemeColumn key={themeColumn.id} themeColumn={themeColumn} />
           ))}
         </SortableContext>
       </MainCard>
       <DragOverlay adjustScale={false}>
         {activeId ? (
-          <>
-            {
-              <ThemeColumn
-                themeColumn={findThemeColumnData(activeId)}
-                updateLocalState={updateLocalState}
-              />
-            }
-          </>
+          <>{<ThemeColumn themeColumn={findThemeColumnData(activeId)} />}</>
         ) : null}
       </DragOverlay>
     </DndContext>

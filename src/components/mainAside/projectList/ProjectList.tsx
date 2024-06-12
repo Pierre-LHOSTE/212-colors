@@ -1,10 +1,10 @@
-import { getProjectList } from "@/src/api/project";
-import { ProjectButtonType, ProjectType } from "@/src/types/project";
+import { ProjectButtonType } from "@/src/types/project";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./project-list.scss";
 
 import { reOrder } from "@/src/api/color";
+import { useDataStore } from "@/src/store/data";
 import {
   DndContext,
   DragEndEvent,
@@ -29,22 +29,8 @@ import ProjectButton from "../projectButton/ProjectButton";
 function ProjectList() {
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const pathname = usePathname();
-  const [projects, setProjects] = useState<ProjectButtonType[]>([]);
-
-  useEffect(() => {
-    async function fetchData() {
-      const res = await getProjectList();
-      if ("error" in res) {
-        return console.error(res.message);
-      }
-      setProjects(res);
-    }
-    fetchData();
-  }, []);
-
-  function addProject(newProject: ProjectType) {
-    setProjects([...projects, newProject]);
-  }
+  const projectsList = useDataStore((state) => state.projectsList);
+  const setProjectsList = useDataStore((state) => state.setProjectsList);
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -57,15 +43,17 @@ function ProjectList() {
     const { active, over } = event;
 
     if (active && over && active.id !== over.id) {
-      const activeItemIndex = projects.findIndex(
+      const activeItemIndex = projectsList.findIndex(
         (item) => item.id === active.id
       );
-      const overItemIndex = projects.findIndex((item) => item.id === over.id);
+      const overItemIndex = projectsList.findIndex(
+        (item) => item.id === over.id
+      );
 
-      const newArray = arrayMove(projects, activeItemIndex, overItemIndex);
+      const newArray = arrayMove(projectsList, activeItemIndex, overItemIndex);
 
       reOrder(newArray, "project");
-      setProjects(newArray);
+      setProjectsList(newArray);
     }
   }
 
@@ -78,7 +66,7 @@ function ProjectList() {
   function findProjectData(
     id: UniqueIdentifier | undefined
   ): ProjectButtonType {
-    const item = projects.find((item) => item.id === id);
+    const item = projectsList.find((item) => item.id === id);
     if (!item)
       return {
         id: "",
@@ -102,9 +90,9 @@ function ProjectList() {
       onDragEnd={handleDragEnd}
     >
       <nav id="projects-list">
-        <SortableContext items={projects.map((i) => i.id)}>
-          {projects
-            ? projects.map((project, i) => (
+        <SortableContext items={projectsList.map((i) => i.id)}>
+          {projectsList
+            ? projectsList.map((project, i) => (
                 <ProjectButton
                   key={project.id}
                   project={project}
@@ -114,7 +102,7 @@ function ProjectList() {
               ))
             : null}
         </SortableContext>
-        <NewProjectButton addProject={addProject} />
+        <NewProjectButton />
       </nav>
       <DragOverlay adjustScale={false}>
         {activeId ? (

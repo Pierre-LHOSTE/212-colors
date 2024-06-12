@@ -1,5 +1,7 @@
 "use client";
 import { updateProject } from "@/src/api/project";
+import { useDataStore } from "@/src/store/data";
+import { ProjectType } from "@/src/types/project";
 import { Button, Form, Input } from "antd";
 import { createSchemaFieldRule } from "antd-zod";
 import { useEffect, useState, useTransition } from "react";
@@ -8,39 +10,37 @@ import { InfoFormSchema } from "./InfoFormSchema";
 
 const rule = createSchemaFieldRule(InfoFormSchema);
 
-function FormInfo({ project }: { project: any }) {
+function FormInfo({ project }: { project: ProjectType }) {
   const [form] = Form.useForm();
   const [isPending, startTransition] = useTransition();
-  const [localProject, setLocalProject] = useState(project);
   const [changed, setChanged] = useState(false);
+  const setProject = useDataStore((state) => state.setProject);
 
   useEffect(() => {
     form.setFieldsValue({
-      name: localProject.name,
-      description: localProject.description,
+      name: project.name,
+      description: project.description,
     });
-  }, [project]);
+  }, [form, project]);
 
   function onSubmit(values: any) {
-    console.log(values);
     const newProject = {
       ...values,
-      id: localProject.id,
+      id: project.id,
     };
     startTransition(async () => {
       const res = await updateProject(newProject);
       if ("id" in res) {
-        setLocalProject(res);
+        setProject(res);
       }
     });
   }
 
   function checkChanges() {
-    console.log("checkChanges");
     const fieldsValue = form.getFieldsValue();
     const projectValue = {
-      name: localProject.name,
-      description: localProject.description,
+      name: project.name,
+      description: project.description,
     };
     setChanged(JSON.stringify(fieldsValue) !== JSON.stringify(projectValue));
   }

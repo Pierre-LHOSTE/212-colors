@@ -19,28 +19,26 @@ interface colorType {
 
 function ThemeColorsCard({
   colors,
-  themeColumn,
+  themeColors,
   theme,
-  setLocalThemeColor,
-  localThemeColors,
-  setLocalThemes,
-  localThemes,
+  setThemeColors,
+  themeColumns,
+  setThemes,
+  themes,
 }: {
   theme: ThemeType;
   colors: (ThemeColorType | null)[];
-  themeColumn: ThemeColumnType[];
-  setLocalThemeColor: (arg: any) => void;
-  localThemeColors: ThemeColorType[];
-  setLocalThemes: (arg: any) => void;
-  localThemes: ThemeType[];
+  themeColumns: ThemeColumnType[];
+  setThemeColors: (arg: any) => void;
+  themeColors: ThemeColorType[];
+  setThemes: (arg: any) => void;
+  themes: ThemeType[];
 }) {
-  console.log(theme);
-
   const setModalState = useModalStore((state) => state.setModalState);
 
-  function updateLocalState(color: ThemeColorType) {
-    setLocalThemeColor(
-      localThemeColors.map((item) =>
+  function updateState(color: ThemeColorType) {
+    setThemeColors(
+      themeColors.map((item) =>
         item.id === color.id ? Object.assign({}, item, color) : item
       )
     );
@@ -66,9 +64,9 @@ function ThemeColorsCard({
     setModalState({
       mode: "edit",
       id: "theme",
-      updateLocalState: (theme: ThemeType) => {
-        setLocalThemes(
-          localThemes.map((item) =>
+      updateStateCallBack: (theme: ThemeType) => {
+        setThemes(
+          themes.map((item) =>
             item.id === theme.id ? Object.assign({}, item, theme) : item
           )
         );
@@ -86,7 +84,7 @@ function ThemeColorsCard({
         dndAction={listeners}
         showOptionAction={handleEdit}
       >
-        {themeColumn.map((column, index) => {
+        {themeColumns.map((column, index) => {
           const color = colors
             ? colors.find((c) => c?.themeColumnId === column.id)
             : null;
@@ -101,24 +99,15 @@ function ThemeColorsCard({
                 position={index}
                 id={color.id}
                 isThemeColor
-                deleteLocalColor={() =>
-                  setLocalThemeColor(
-                    localThemeColors.filter((c) => c.id !== color.id)
-                  )
-                }
-                updateLocalState={updateLocalState}
+                updateState={updateState}
               />
             );
           } else {
             return (
               <NoColor
                 key={index}
-                columnName={column.name}
-                id={column.id}
                 themeId={theme.id}
                 themeColumnId={column.id}
-                setLocalThemeColor={setLocalThemeColor}
-                localThemeColors={localThemeColors}
               />
             );
           }

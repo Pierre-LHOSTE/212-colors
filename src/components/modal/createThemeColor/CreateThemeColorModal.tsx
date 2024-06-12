@@ -1,5 +1,6 @@
 "use client";
 import { createThemeColor, updateColor } from "@/src/api/color";
+import { useDataStore } from "@/src/store/data";
 import { useModalStore } from "@/src/store/modal";
 import { useSettingsStore } from "@/src/store/settings";
 import { ThemeColorType } from "@/src/types/color";
@@ -11,7 +12,7 @@ import { ColorFormSchema } from "./ThemeColorFormSchema";
 
 const rule = createSchemaFieldRule(ColorFormSchema);
 
-function CreateThemeColorModal({ params }: { params: { id: string } }) {
+function CreateThemeColorModal() {
   const setMessage = useSettingsStore((state) => state.setMessage);
   const setNotification = useSettingsStore((state) => state.setNotification);
   const [isPending, startTransition] = useTransition();
@@ -19,6 +20,7 @@ function CreateThemeColorModal({ params }: { params: { id: string } }) {
   const modalState = useModalStore((state) => state.modalState);
   const [form] = Form.useForm();
   const [previewColor, setPreviewColor] = useState("#000000");
+  const project = useDataStore((state) => state.project);
 
   useEffect(() => {
     const editItem = modalState?.editItem;
@@ -46,15 +48,15 @@ function CreateThemeColorModal({ params }: { params: { id: string } }) {
       };
       const formValues = {
         color: newColor,
-        projectId: params.id,
+        projectId: project.id,
       };
       startTransition(async () => {
         const res = await createThemeColor(formValues);
         if ("id" in res) {
-          if (modalState.updateLocalState) {
+          if (modalState.updateStateCallBack) {
             const { id, name, description, color, themeColumnId, themeId } =
               res;
-            modalState.updateLocalState({
+            modalState.updateStateCallBack({
               id,
               name,
               description,
@@ -87,11 +89,10 @@ function CreateThemeColorModal({ params }: { params: { id: string } }) {
       values.id = modalState.editItem.id as string;
       startTransition(async () => {
         const res = await updateColor({ color: values, isThemeColor: true });
-        console.log("🚀 ~ res:", res);
         if ("id" in res) {
-          if (modalState.updateLocalState) {
+          if (modalState.updateStateCallBack) {
             const { id, name, description, color } = res;
-            modalState.updateLocalState({
+            modalState.updateStateCallBack({
               id,
               name,
               description,
@@ -121,7 +122,7 @@ function CreateThemeColorModal({ params }: { params: { id: string } }) {
     }
   }
 
-  function updateLocalColor(e: any) {
+  function updateCurrentColor(e: any) {
     const hex = e.toHexString();
     form.setFieldsValue({ color: hex });
     setPreviewColor(hex);
@@ -152,7 +153,7 @@ function CreateThemeColorModal({ params }: { params: { id: string } }) {
         <Form.Item label="Couleur" name="color" rules={[rule]}>
           <ColorPicker
             showText
-            onChange={updateLocalColor}
+            onChange={updateCurrentColor}
             value={previewColor}
             defaultValue={"#000"}
           />

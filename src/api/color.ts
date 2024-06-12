@@ -205,8 +205,6 @@ export async function updateColor({
   color: ColorType | ThemeColorType;
   isThemeColor?: boolean;
 }) {
-  console.log("Update color...", color);
-
   try {
     if (isThemeColor) {
       const res = await prisma.themeColor.update({

@@ -1,5 +1,6 @@
 "use client";
 import { createTheme, updateTheme } from "@/src/api/theme";
+import { useDataStore } from "@/src/store/data";
 import { useModalStore } from "@/src/store/modal";
 import { useSettingsStore } from "@/src/store/settings";
 import { ThemeType } from "@/src/types/theme";
@@ -11,13 +12,14 @@ import { ThemeFormSchema } from "./ThemeFormSchema";
 
 const rule = createSchemaFieldRule(ThemeFormSchema);
 
-function CreateThemeModal({ params }: { params: { id: string } }) {
+function CreateThemeModal() {
   const setMessage = useSettingsStore((state) => state.setMessage);
   const setNotification = useSettingsStore((state) => state.setNotification);
   const [isPending, startTransition] = useTransition();
   const setModalState = useModalStore((state) => state.setModalState);
   const modalState = useModalStore((state) => state.modalState);
   const [form] = Form.useForm();
+  const project = useDataStore((state) => state.project);
 
   useEffect(() => {
     const editItem = modalState?.editItem;
@@ -25,7 +27,6 @@ function CreateThemeModal({ params }: { params: { id: string } }) {
       if (editItem.name) form.setFieldValue("name", editItem.name);
       if (editItem.description)
         form.setFieldValue("description", editItem.description);
-      console.log(editItem.type);
 
       if (editItem.type) form.setFieldValue("type", editItem.type);
     } else {
@@ -38,14 +39,14 @@ function CreateThemeModal({ params }: { params: { id: string } }) {
       const newTheme = values;
       const formValues = {
         theme: newTheme,
-        projectId: params.id,
+        projectId: project.id,
       };
       startTransition(async () => {
         const res = await createTheme(formValues);
         if ("id" in res) {
-          if (modalState.updateLocalState) {
+          if (modalState.updateStateCallBack) {
             const { id, name, description, type, position } = res;
-            modalState.updateLocalState({
+            modalState.updateStateCallBack({
               id,
               name,
               description,
@@ -79,9 +80,9 @@ function CreateThemeModal({ params }: { params: { id: string } }) {
       startTransition(async () => {
         const res = await updateTheme(values);
         if ("id" in res) {
-          if (modalState.updateLocalState) {
+          if (modalState.updateStateCallBack) {
             const { id, name, description, type, position } = res;
-            modalState.updateLocalState({
+            modalState.updateStateCallBack({
               id,
               name,
               description,

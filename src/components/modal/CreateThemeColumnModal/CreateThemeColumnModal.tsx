@@ -1,6 +1,7 @@
 "use client";
 
 import { createThemeColumn, updateThemeColumn } from "@/src/api/theme";
+import { useDataStore } from "@/src/store/data";
 import { useModalStore } from "@/src/store/modal";
 import { useSettingsStore } from "@/src/store/settings";
 import { ThemeColumnType } from "@/src/types/theme";
@@ -12,13 +13,14 @@ import { ThemeColumnFormSchema } from "./ThemeColumnFormSchema";
 
 const rule = createSchemaFieldRule(ThemeColumnFormSchema);
 
-function CreateThemeColumnModal({ params }: { params: { id: string } }) {
+function CreateThemeColumnModal() {
   const setMessage = useSettingsStore((state) => state.setMessage);
   const setNotification = useSettingsStore((state) => state.setNotification);
   const [isPending, startTransition] = useTransition();
   const setModalState = useModalStore((state) => state.setModalState);
   const modalState = useModalStore((state) => state.modalState);
   const [form] = Form.useForm();
+  const project = useDataStore((state) => state.project);
 
   useEffect(() => {
     const editItem = modalState?.editItem;
@@ -36,14 +38,14 @@ function CreateThemeColumnModal({ params }: { params: { id: string } }) {
       const newThemeColumn = values;
       const formValues = {
         themeColumn: newThemeColumn,
-        projectId: params.id,
+        projectId: project.id,
       };
       startTransition(async () => {
         const res = await createThemeColumn(formValues);
         if ("id" in res) {
-          if (modalState.updateLocalState) {
+          if (modalState.updateStateCallBack) {
             const { id, name, description } = res;
-            modalState.updateLocalState({
+            modalState.updateStateCallBack({
               id,
               name,
               description,
@@ -75,9 +77,9 @@ function CreateThemeColumnModal({ params }: { params: { id: string } }) {
       startTransition(async () => {
         const res = await updateThemeColumn(values);
         if ("id" in res) {
-          if (modalState.updateLocalState) {
+          if (modalState.updateStateCallBack) {
             const { id, name, description } = res;
-            modalState.updateLocalState({
+            modalState.updateStateCallBack({
               id,
               name,
               description,

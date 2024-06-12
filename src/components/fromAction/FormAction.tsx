@@ -1,11 +1,13 @@
 "use client";
 import { deleteProject } from "@/src/api/project";
+import { useDataStore } from "@/src/store/data";
 import { Button, Popconfirm } from "antd";
 import { useRouter } from "next/navigation";
 import MainCard from "../card/MainCard";
 
 function FormAction({ id }: { id: string }) {
   const router = useRouter();
+  const setProjectsList = useDataStore((state) => state.setProjectsList);
 
   async function handleClick() {
     const res = await deleteProject(id);
@@ -13,6 +15,9 @@ function FormAction({ id }: { id: string }) {
       console.error(res.message);
       return;
     }
+    setProjectsList((prevState) =>
+      prevState.filter((project) => project.id !== id)
+    );
     router.push("/app");
   }
 

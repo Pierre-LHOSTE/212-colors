@@ -1,5 +1,6 @@
 "use client";
 import { createColor, updateColor } from "@/src/api/color";
+import { useDataStore } from "@/src/store/data";
 import { useModalStore } from "@/src/store/modal";
 import { useSettingsStore } from "@/src/store/settings";
 import { ColorType } from "@/src/types/color";
@@ -11,7 +12,7 @@ import { ColorFormSchema } from "./ColorFormSchema";
 
 const rule = createSchemaFieldRule(ColorFormSchema);
 
-function CreateColorModal({ params }: { params: { id: string } }) {
+function CreateColorModal() {
   const setMessage = useSettingsStore((state) => state.setMessage);
   const setNotification = useSettingsStore((state) => state.setNotification);
   const [isPending, startTransition] = useTransition();
@@ -19,6 +20,7 @@ function CreateColorModal({ params }: { params: { id: string } }) {
   const modalState = useModalStore((state) => state.modalState);
   const [form] = Form.useForm();
   const [previewColor, setPreviewColor] = useState("#000000");
+  const project = useDataStore((state) => state.project);
 
   useEffect(() => {
     const editItem = modalState?.editItem;
@@ -45,14 +47,14 @@ function CreateColorModal({ params }: { params: { id: string } }) {
       };
       const formValues = {
         color: newColor,
-        projectId: params.id,
+        projectId: project.id,
       };
       startTransition(async () => {
         const res = await createColor(formValues);
         if ("id" in res) {
-          if (modalState.updateLocalState) {
+          if (modalState.updateStateCallBack) {
             const { id, name, description, color, type, position } = res;
-            modalState.updateLocalState({
+            modalState.updateStateCallBack({
               id,
               name,
               description,
@@ -86,9 +88,9 @@ function CreateColorModal({ params }: { params: { id: string } }) {
       startTransition(async () => {
         const res = await updateColor({ color: values });
         if ("id" in res) {
-          if (modalState.updateLocalState) {
+          if (modalState.updateStateCallBack) {
             const { id, name, description, color } = res;
-            modalState.updateLocalState({
+            modalState.updateStateCallBack({
               id,
               name,
               description,

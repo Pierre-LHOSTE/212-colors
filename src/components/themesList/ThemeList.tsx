@@ -1,15 +1,15 @@
 import { reOrder } from "@/src/api/color";
-import { ThemeColorType } from "@/src/types/color";
-import { ThemeColumnType, ThemeType } from "@/src/types/theme";
+import { useDataStore } from "@/src/store/data";
+import type { ThemeType } from "@/src/types/theme";
 import {
   DndContext,
-  DragEndEvent,
-  DragMoveEvent,
+  type DragEndEvent,
+  type DragMoveEvent,
   DragOverlay,
-  DragStartEvent,
+  type DragStartEvent,
   KeyboardSensor,
   PointerSensor,
-  UniqueIdentifier,
+  type UniqueIdentifier,
   closestCorners,
   useSensor,
   useSensors,
@@ -22,18 +22,13 @@ import {
 import { useState } from "react";
 import ThemeColorsCard from "../themeColorsCard/ThemeColorsCard";
 
-function ThemesList({
-  localThemes,
-  themeColors,
-  localThemeColumns,
-  setLocalThemes,
-}: {
-  localThemes: ThemeType[];
-  themeColors: ThemeColorType[];
-  localThemeColumns: ThemeColumnType[];
-  setLocalThemes: (themes: ThemeType[]) => void;
-}) {
-  const [localThemeColor, setLocalThemeColor] = useState(themeColors);
+function ThemesList() {
+  const setThemeColors = useDataStore((state) => state.setThemeColors);
+  const themeColors = useDataStore((state) => state.themeColors);
+  const setThemes = useDataStore((state) => state.setThemes);
+  const themes = useDataStore((state) => state.themes);
+  const themeColumns = useDataStore((state) => state.themeColumns);
+
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
 
   const sensors = useSensors(
@@ -58,22 +53,18 @@ function ThemesList({
     const { active, over } = event;
 
     if (active && over && active.id !== over.id) {
-      const activeItemIndex = localThemes.findIndex(
-        (item) => item.id === active.id
-      );
-      const overItemIndex = localThemes.findIndex(
-        (item) => item.id === over.id
-      );
+      const activeItemIndex = themes.findIndex((item) => item.id === active.id);
+      const overItemIndex = themes.findIndex((item) => item.id === over.id);
 
-      const newArray = arrayMove(localThemes, activeItemIndex, overItemIndex);
+      const newArray = arrayMove(themes, activeItemIndex, overItemIndex);
 
       reOrder(newArray, "theme");
-      setLocalThemes(newArray);
+      setThemes(newArray);
     }
   }
 
   function findThemesData(id: UniqueIdentifier | undefined): ThemeType {
-    const item = localThemes.find((item) => item.id === id);
+    const item = themes.find((item) => item.id === id);
     if (!item)
       return {
         id: "",
@@ -94,19 +85,17 @@ function ThemesList({
         onDragStart={handleDragStart}
         onDragEnd={handleDragEnd}
       >
-        <SortableContext items={localThemes.map((i) => i.id)}>
-          {localThemes.map((theme) => (
+        <SortableContext items={themes.map((i) => i.id)}>
+          {themes.map((theme) => (
             <ThemeColorsCard
               key={theme.id}
-              colors={localThemeColor.filter(
-                (color) => color.themeId === theme.id
-              )}
-              themeColumn={localThemeColumns}
+              colors={themeColors.filter((color) => color.themeId === theme.id)}
+              themeColumns={themeColumns}
               theme={theme}
-              setLocalThemeColor={setLocalThemeColor}
-              localThemeColors={localThemeColor}
-              setLocalThemes={setLocalThemes}
-              localThemes={localThemes}
+              setThemeColors={setThemeColors}
+              themeColors={themeColors}
+              setThemes={setThemes}
+              themes={themes}
             />
           ))}
         </SortableContext>
@@ -116,14 +105,14 @@ function ThemesList({
               {
                 <ThemeColorsCard
                   theme={findThemesData(activeId)}
-                  colors={localThemeColor.filter(
+                  colors={themeColors.filter(
                     (color) => color.themeId === activeId
                   )}
-                  themeColumn={localThemeColumns}
-                  setLocalThemeColor={setLocalThemeColor}
-                  localThemeColors={localThemeColor}
-                  setLocalThemes={setLocalThemes}
-                  localThemes={localThemes}
+                  themeColumns={themeColumns}
+                  setThemeColors={setThemeColors}
+                  themeColors={themeColors}
+                  setThemes={setThemes}
+                  themes={themes}
                 />
               }
             </>

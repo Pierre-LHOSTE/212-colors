@@ -1,4 +1,5 @@
 "use client";
+import { useDataStore } from "@/src/store/data";
 import { useSettingsStore } from "@/src/store/settings";
 import {
   IconDeviceDesktop,
@@ -38,24 +39,19 @@ const items: MenuItem[] = [
   },
 ];
 
-function NavProjectAside({
-  projectId,
-  hiddenSections,
-}: {
-  projectId: string;
-  hiddenSections: string[];
-}) {
+function NavProjectAside() {
   const pathname = usePathname();
   const setActiveSection = useSettingsStore((state) => state.setActiveSection);
+  const project = useDataStore((state) => state.project);
 
   const itemsMenu = items
-    .filter((item) => !hiddenSections.includes(item?.key as string))
+    .filter((item) => !project.hiddenSections.includes(item?.key as string))
     .map((item) => {
       if (item && !("type" in item)) {
         return {
           ...item,
           label: (
-            <Link href={`/app/project/${projectId}/${item.key}`}>
+            <Link href={`/app/project/${project.id}/${item.key}`}>
               {item.label}
             </Link>
           ),

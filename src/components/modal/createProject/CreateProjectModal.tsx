@@ -23,9 +23,9 @@ function CreateProjectModal() {
     startTransition(async () => {
       const res = await createProject(values);
       if ("id" in res) {
-        if (modalState.updateLocalState) {
+        if (modalState.updateStateCallBack) {
           const { id, name, position } = res;
-          modalState.updateLocalState({
+          modalState.updateStateCallBack({
             id,
             name,
             position,

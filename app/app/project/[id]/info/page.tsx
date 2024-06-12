@@ -1,26 +1,19 @@
-import { getProjectById } from "@/src/api/project";
+"use client";
 import FormInfo from "@/src/components/formInfo/FormInfo";
 import FormSection from "@/src/components/formSection/FormSection";
 import FormAction from "@/src/components/fromAction/FormAction";
+import { useDataStore } from "@/src/store/data";
 import "./page.scss";
 
-async function InfoPage({ params }: { params: { id: string } }) {
-  const project = await getProjectById(params.id);
-
-  if (!project) {
-    return <div>Project not found</div>;
-  }
-
-  if ("error" in project) {
-    return <div>{project.message}</div>;
-  }
+function InfoPage({ params }: { params: { id: string } }) {
+  const project = useDataStore((state) => state.project);
 
   return (
     <div id="informations-page">
       <div className="flex-horizontal">
         <FormInfo project={project} />
         <div className="flex-vertical">
-          <FormSection id={params.id} hiddenSections={project.hiddenSections} />
+          <FormSection id={params.id} />
           <FormAction id={params.id} />
         </div>
       </div>

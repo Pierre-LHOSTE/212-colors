@@ -1,15 +1,16 @@
 "use client";
 import { deleteColor, deleteThemeColor, updateColorHex } from "@/src/api/color";
 import { isVeryLightColor } from "@/src/lib/utils";
+import { useDataStore } from "@/src/store/data";
 import { useModalStore } from "@/src/store/modal";
-import { ColorCompType } from "@/src/types/color";
+import type { ColorCompType, ColorType } from "@/src/types/color";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import {
   Button,
   ColorPicker,
-  ColorPickerProps,
-  GetProp,
+  type ColorPickerProps,
+  type GetProp,
   Typography,
 } from "antd";
 import { useEffect, useState } from "react";
@@ -19,9 +20,8 @@ import "./color.scss";
 type Color = GetProp<ColorPickerProps, "value">;
 
 interface ColorPropsType extends ColorCompType {
-  deleteLocalColor?: (colorId: string) => void;
   isThemeColor?: boolean;
-  updateLocalState?: (color: any) => void;
+  updateState?: (color: ColorType) => void;
   noDnd?: boolean;
 }
 
@@ -30,15 +30,17 @@ function Color({
   color,
   description,
   id,
-  deleteLocalColor,
   isThemeColor,
-  updateLocalState,
+  updateState,
   noDnd = false,
 }: ColorPropsType) {
+  const setModalState = useModalStore((state) => state.setModalState);
+  const setColors = useDataStore((state) => state.setColors);
+  const setThemeColors = useDataStore((state) => state.setThemeColors);
+
   const [currentColor, setCurrentColor] = useState<Color>(color as Color);
   const [initColor, setInitColor] = useState<Color>(color as Color);
   const [isPickerVisible, setIsPickerVisible] = useState(false);
-  const setModalState = useModalStore((state) => state.setModalState);
 
   const {
     attributes,
@@ -74,11 +76,13 @@ function Color({
     if (isThemeColor) {
       const res = await deleteThemeColor(id);
       if (res.error) return console.error(res.message);
-      if (deleteLocalColor) deleteLocalColor(id);
+      setThemeColors((themeColors) =>
+        themeColors.filter((item) => item.id !== id)
+      );
     } else {
       const res = await deleteColor(id);
       if (res.error) return console.error(res.message);
-      if (deleteLocalColor) deleteLocalColor(id);
+      setColors((colors) => colors.filter((item) => item.id !== id));
     }
   }
 
@@ -112,13 +116,15 @@ function Color({
         description,
         color: getColorHex(),
       },
-      updateLocalState,
+      updateStateCallBack: (color: ColorType) => {
+        if (updateState) updateState(color);
+      },
     });
   }
 
   useEffect(() => {
     if (getColorHex() !== color) setCurrentColor(initColor);
-  }, [isPickerVisible]);
+  }, [color, initColor]);
 
   return (
     <div

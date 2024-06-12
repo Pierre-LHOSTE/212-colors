@@ -1,11 +1,14 @@
+import { useDataStore } from "@/src/store/data";
 import "./nav-header.scss";
 
-function NavHeader({ title }: { title: string }) {
+function NavHeader() {
+  const project = useDataStore((state) => state.project);
+
   return (
     <header id="nav-header">
       <div id="nav-header-wrapper">
         <div>
-          <span>{title}</span>
+          <span>{project.name}</span>
         </div>
       </div>
     </header>

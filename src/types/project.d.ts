@@ -1,7 +1,3 @@
-import { ColorType, ThemeColorType } from "./color";
-import { ThemeColumnType, ThemeType } from "./theme";
-import { UserType } from "./user";
-
 export interface ProjectLiteType {
   id: string;
   name: string;
@@ -15,15 +11,15 @@ export interface ProjectButtonType extends ProjectLiteType {
 }
 
 export interface ProjectType extends ProjectLiteType {
-  description?: string;
+  description: string | null;
   createdAt: Date;
-  updatedAt?: Date;
-  owner: UserType;
+  updatedAt: Date | null;
+  // owner: UserType;
   ownerId: string;
-  colors: ColorType[];
-  themeColors: ThemeColorType[];
-  themeColumns: ThemeColumnType[];
-  themes: ThemeType[];
+  // colors: ColorType[];
+  // themeColors: ThemeColorType[];
+  // themeColumns: ThemeColumnType[];
+  // themes: ThemeType[];
   position: number;
   hiddenSections: string[];
 }
