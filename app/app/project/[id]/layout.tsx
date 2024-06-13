@@ -1,6 +1,6 @@
 "use client";
 import { getProjectById } from "@/src/api/project";
-import Header from "@/src/components/app/header/Header";
+import Header from "@/src/components/header/Header";
 import CreateThemeColumnModal from "@/src/components/modal/CreateThemeColumnModal/CreateThemeColumnModal";
 import CreateColorModal from "@/src/components/modal/createColor/CreateColorModal";
 import CreateThemeModal from "@/src/components/modal/createTheme/CreateThemeModal";

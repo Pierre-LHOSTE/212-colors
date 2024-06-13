@@ -2,20 +2,20 @@
 import { reOrder as reOrderApi } from "@/src/api/color";
 import MainCard from "@/src/components/card/MainCard";
 import Color from "@/src/components/color/Color";
-import { ColorType } from "@/src/types/color";
+import type { ColorType } from "@/src/types/color";
 import { useEffect, useState } from "react";
 import "./colors-card.scss";
 
 import { useModalStore } from "@/src/store/modal";
 import {
   DndContext,
-  DragEndEvent,
-  DragMoveEvent,
+  type DragEndEvent,
+  type DragMoveEvent,
   DragOverlay,
-  DragStartEvent,
+  type DragStartEvent,
   KeyboardSensor,
   PointerSensor,
-  UniqueIdentifier,
+  type UniqueIdentifier,
   closestCorners,
   useSensor,
   useSensors,

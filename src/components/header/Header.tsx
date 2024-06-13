@@ -2,7 +2,7 @@
 import "./header.scss";
 
 function Header() {
-  return <header id="header"></header>;
+  return <header id="header" />;
 }
 
 export default Header;
