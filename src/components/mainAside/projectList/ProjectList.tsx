@@ -1,4 +1,4 @@
-import { ProjectButtonType } from "@/src/types/project";
+import type { ProjectButtonType } from "@/src/types/project";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import "./project-list.scss";
@@ -7,47 +7,36 @@ import { reOrder } from "@/src/api/color";
 import { useDataStore } from "@/src/store/data";
 import {
   DndContext,
-  DragEndEvent,
-  DragMoveEvent,
+  type DragEndEvent,
+  type DragMoveEvent,
   DragOverlay,
-  DragStartEvent,
-  KeyboardSensor,
-  PointerSensor,
-  UniqueIdentifier,
+  type DragStartEvent,
+  type UniqueIdentifier,
   closestCorners,
-  useSensor,
-  useSensors,
 } from "@dnd-kit/core";
-import {
-  SortableContext,
-  arrayMove,
-  sortableKeyboardCoordinates,
-} from "@dnd-kit/sortable";
+import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import NewProjectButton from "../newProjectButton/NewProjectButton";
 import ProjectButton from "../projectButton/ProjectButton";
+import { useCustomSensors } from "@/src/lib/utils";
 
 function ProjectList() {
-  const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
-  const pathname = usePathname();
   const projectsList = useDataStore((state) => state.projectsList);
   const setProjectsList = useDataStore((state) => state.setProjectsList);
 
-  const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    }),
-  );
+  const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
+  const pathname = usePathname();
+
+  const sensors = useCustomSensors();
 
   function updateProjectPosition(event: DragMoveEvent | DragEndEvent) {
     const { active, over } = event;
 
     if (active && over && active.id !== over.id) {
       const activeItemIndex = projectsList.findIndex(
-        (item) => item.id === active.id,
+        (item) => item.id === active.id
       );
       const overItemIndex = projectsList.findIndex(
-        (item) => item.id === over.id,
+        (item) => item.id === over.id
       );
 
       const newArray = arrayMove(projectsList, activeItemIndex, overItemIndex);
@@ -64,7 +53,7 @@ function ProjectList() {
   }
 
   function findProjectData(
-    id: UniqueIdentifier | undefined,
+    id: UniqueIdentifier | undefined
   ): ProjectButtonType {
     const item = projectsList.find((item) => item.id === id);
     if (!item)

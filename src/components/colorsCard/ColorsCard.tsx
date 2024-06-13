@@ -2,7 +2,7 @@
 import { reOrder as reOrderApi } from "@/src/api/color";
 import MainCard from "@/src/components/card/MainCard";
 import Color from "@/src/components/color/Color";
-import type { ColorType } from "@/src/types/color";
+import type { ColorType, ThemeColorType } from "@/src/types/color";
 import { useEffect, useState } from "react";
 import "./colors-card.scss";
 
@@ -13,18 +13,11 @@ import {
   type DragMoveEvent,
   DragOverlay,
   type DragStartEvent,
-  KeyboardSensor,
-  PointerSensor,
   type UniqueIdentifier,
   closestCorners,
-  useSensor,
-  useSensors,
 } from "@dnd-kit/core";
-import {
-  SortableContext,
-  arrayMove,
-  sortableKeyboardCoordinates,
-} from "@dnd-kit/sortable";
+import { SortableContext, arrayMove } from "@dnd-kit/sortable";
+import { useCustomSensors } from "@/src/lib/utils";
 
 type DirectionType = "horizontal" | "vertical";
 
@@ -42,8 +35,11 @@ function ColorsCard({
   ) => void;
 }) {
   const setModalState = useModalStore((state) => state.setModalState);
-  const cardId = name.toLowerCase() as ColorType["type"];
+
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
+  const sensors = useCustomSensors();
+
+  const cardId = name.toLowerCase() as ColorType["type"];
 
   function findColorData(id: UniqueIdentifier | undefined): ColorType {
     const item = colors.find((item) => item.id === id);
@@ -58,13 +54,6 @@ function ColorsCard({
       };
     return item;
   }
-
-  const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    })
-  );
 
   function handleDragStart(event: DragStartEvent) {
     const { active } = event;
@@ -91,7 +80,7 @@ function ColorsCard({
     setActiveId(null);
   }
 
-  function updateState(color: ColorType) {
+  function updateState(color: ColorType | ThemeColorType) {
     setColors((colors: ColorType[]) =>
       colors.map((item) =>
         item.id === color.id ? Object.assign({}, item, color) : item
@@ -123,7 +112,7 @@ function ColorsCard({
       >
         <SortableContext items={colors.map((i) => i.id)}>
           {colors && colors.length > 0
-            ? colors.map((color, index) => (
+            ? colors.map((color) => (
                 <Color key={color.id} color={color} updateState={updateState} />
               ))
             : null}

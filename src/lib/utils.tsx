@@ -1,6 +1,13 @@
 import { colord, extend } from "colord";
 import a11yPlugin from "colord/plugins/a11y";
 import { useSettingsStore } from "../store/settings";
+import {
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import { sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 extend([a11yPlugin]);
 
 export function isVeryLightColor(color: string): boolean {
@@ -42,4 +49,13 @@ export function handleServerError(error: unknown) {
     return { error: true, message: error };
   }
   return { error: true, message: "Unknown error" };
+}
+
+export function useCustomSensors() {
+  return useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
 }

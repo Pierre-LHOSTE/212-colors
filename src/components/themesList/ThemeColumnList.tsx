@@ -9,21 +9,14 @@ import {
   type DragMoveEvent,
   DragOverlay,
   type DragStartEvent,
-  KeyboardSensor,
-  PointerSensor,
   type UniqueIdentifier,
   closestCorners,
-  useSensor,
-  useSensors,
 } from "@dnd-kit/core";
-import {
-  SortableContext,
-  arrayMove,
-  sortableKeyboardCoordinates,
-} from "@dnd-kit/sortable";
+import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { useState } from "react";
 import MainCard from "../card/MainCard";
 import ThemeColumn from "../themColumn/ThemeColumn";
+import { useCustomSensors } from "@/src/lib/utils";
 
 function ThemeColumnList({
   themeColumns,
@@ -34,6 +27,7 @@ function ThemeColumnList({
   const setThemeColumns = useDataStore((state) => state.setThemeColumns);
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
+  const sensors = useCustomSensors();
 
   function createThemeColumn() {
     setModalState({
@@ -43,13 +37,6 @@ function ThemeColumnList({
         setThemeColumns((themeColumns) => [...themeColumns, themeColumn]),
     });
   }
-
-  const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    })
-  );
 
   function updateThemeColumnPosition(event: DragMoveEvent | DragEndEvent) {
     const { active, over } = event;

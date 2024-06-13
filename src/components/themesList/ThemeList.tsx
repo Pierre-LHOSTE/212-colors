@@ -7,21 +7,14 @@ import {
   type DragMoveEvent,
   DragOverlay,
   type DragStartEvent,
-  KeyboardSensor,
-  PointerSensor,
   type UniqueIdentifier,
   closestCorners,
-  useSensor,
-  useSensors,
 } from "@dnd-kit/core";
-import {
-  SortableContext,
-  arrayMove,
-  sortableKeyboardCoordinates,
-} from "@dnd-kit/sortable";
+import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { useState } from "react";
 import ThemeColorsCard from "../themeColorsCard/ThemeColorsCard";
 import type { ThemeColorType } from "@/src/types/color";
+import { useCustomSensors } from "@/src/lib/utils";
 
 function ThemesList({
   themes,
@@ -36,13 +29,7 @@ function ThemesList({
   const setThemes = useDataStore((state) => state.setThemes);
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
-
-  const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    })
-  );
+  const sensors = useCustomSensors();
 
   function handleDragStart(event: DragStartEvent) {
     const { active } = event;
