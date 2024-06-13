@@ -1,10 +1,14 @@
-#overview {
+.overview-colors {
+  overflow: visible;
+
+  .flex-vertical,
+  .flex-horizontal {
+    overflow: visible;
+  }
+
+  .flex-vertical,
   .color {
     flex: 1;
-
-    .color-preview {
-      //   height: 224px;
-    }
   }
 
   .primary-div {
@@ -18,7 +22,15 @@
 
   .secondary-div {
     flex-wrap: wrap;
+    max-height: 512px;
+    height: 100%;
 
+    .color {
+      max-width: 256px;
+    }
+  }
+
+  .special-div {
     .color {
       max-width: 256px;
     }
