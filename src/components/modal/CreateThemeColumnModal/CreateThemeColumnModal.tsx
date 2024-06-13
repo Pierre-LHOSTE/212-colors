@@ -10,6 +10,7 @@ import { createSchemaFieldRule } from "antd-zod";
 import { useEffect, useTransition } from "react";
 import FormModal from "../FormModal";
 import { ThemeColumnFormSchema } from "./ThemeColumnFormSchema";
+import { handleError } from "@/src/lib/utils";
 
 const rule = createSchemaFieldRule(ThemeColumnFormSchema);
 
@@ -57,19 +58,11 @@ function CreateThemeColumnModal() {
           });
           setMessage({
             type: "success",
-            content: "ThemeColumn created",
+            content: "Color type created successfully",
           });
           form.resetFields();
         } else {
-          setMessage({
-            type: "error",
-            content: "Failed to create ThemeColumn",
-          });
-          setNotification({
-            type: "error",
-            message: "Error",
-            description: <>{res.message || "An error occurred"}</>,
-          });
+          handleError(res, "Failed to create color type");
         }
       });
     } else {

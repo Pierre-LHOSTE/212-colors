@@ -5,6 +5,7 @@ import { useDataStore } from "@/src/store/data";
 import "overlayscrollbars/overlayscrollbars.css";
 import { useEffect } from "react";
 import "./layout.scss";
+import { handleError } from "@/src/lib/utils";
 
 export default function Layout({
   children,
@@ -17,8 +18,7 @@ export default function Layout({
     async function fetchProjects() {
       const projects = await getProjectList();
       if ("error" in projects) {
-        console.error(projects.error);
-        return;
+        return handleError(projects, "Failed to fetch projects");
       }
       setProjectsList(projects);
     }

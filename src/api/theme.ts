@@ -1,7 +1,8 @@
 "use server";
 import prisma from "@/src/lib/prisma";
 import { auth } from "../lib/auth";
-import { ThemeColumnType, ThemeType } from "../types/theme";
+import type { ThemeColumnType, ThemeType } from "../types/theme";
+import { handleServerError } from "../lib/utils";
 
 export async function createTheme({
   theme,
@@ -16,7 +17,7 @@ export async function createTheme({
   }
   try {
     const { name, description, type } = theme;
-    let maxPosition = await prisma.theme.findFirst({
+    const maxPosition = await prisma.theme.findFirst({
       where: {
         type,
       },
@@ -38,9 +39,8 @@ export async function createTheme({
       },
     });
     return res;
-  } catch (error: any) {
-    console.error(error);
-    return { error: true, message: error.message };
+  } catch (error: unknown) {
+    return handleServerError(error);
   }
 }
 
@@ -62,9 +62,8 @@ export async function getThemes(projectId: string) {
       },
     });
     return themes as ThemeType[];
-  } catch (error: any) {
-    console.error(error);
-    return { error: true, message: error.message };
+  } catch (error: unknown) {
+    return handleServerError(error);
   }
 }
 
@@ -81,7 +80,7 @@ export async function createThemeColumn({
   }
   try {
     const { name, description } = themeColumn;
-    let maxPosition = await prisma.themeColumn.findFirst({
+    const maxPosition = await prisma.themeColumn.findFirst({
       select: {
         position: true,
       },
@@ -100,9 +99,8 @@ export async function createThemeColumn({
       },
     });
     return res;
-  } catch (error: any) {
-    console.error(error);
-    return { error: true, message: error.message };
+  } catch (error: unknown) {
+    return handleServerError(error);
   }
 }
 
@@ -123,9 +121,8 @@ export async function getThemeColumns(projectId: string) {
       },
     });
     return themeColumns as ThemeColumnType[];
-  } catch (error: any) {
-    console.error(error);
-    return { error: true, message: error.message };
+  } catch (error: unknown) {
+    return handleServerError(error);
   }
 }
 
@@ -145,12 +142,10 @@ export async function getThemeColors(projectId: string) {
       },
     });
     return themeColors;
-  } catch (error: any) {
-    console.error(error);
-    return { error: true, message: error.message };
+  } catch (error: unknown) {
+    return handleServerError(error);
   }
 }
-
 export async function deleteThemeColumn(id: string) {
   try {
     await prisma.themeColumn.delete({
@@ -159,12 +154,10 @@ export async function deleteThemeColumn(id: string) {
       },
     });
     return { success: true };
-  } catch (error: any) {
-    console.error(error);
-    return { error: true, message: error.message };
+  } catch (error: unknown) {
+    return handleServerError(error);
   }
 }
-
 export async function updateThemeColumn(themeColumn: ThemeColumnType) {
   try {
     const { id, name, description } = themeColumn;
@@ -178,12 +171,10 @@ export async function updateThemeColumn(themeColumn: ThemeColumnType) {
       },
     });
     return res;
-  } catch (error: any) {
-    console.error(error);
-    return { error: true, message: error.message };
+  } catch (error: unknown) {
+    return handleServerError(error);
   }
 }
-
 export async function updateTheme(theme: ThemeType) {
   try {
     const { id, name, description, type } = theme;
@@ -198,8 +189,19 @@ export async function updateTheme(theme: ThemeType) {
       },
     });
     return res;
-  } catch (error: any) {
-    console.error(error);
-    return { error: true, message: error.message };
+  } catch (error: unknown) {
+    return handleServerError(error);
+  }
+}
+export async function deleteTheme(id: string) {
+  try {
+    await prisma.theme.delete({
+      where: {
+        id,
+      },
+    });
+    return { success: true };
+  } catch (error: unknown) {
+    return handleServerError(error);
   }
 }

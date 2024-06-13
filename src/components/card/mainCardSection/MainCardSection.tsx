@@ -1,4 +1,4 @@
-import { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities";
+import type { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities";
 import {
   IconDotsVertical,
   IconGripVertical,
@@ -16,25 +16,25 @@ function MainCardSection({
   title,
   children,
   createAction,
-  showOptionAction,
+  showEditAction,
+  deleteAction,
   dndAction,
 }: {
   title?: string;
   children: React.ReactNode;
   createAction?: () => void;
-  showOptionAction?: () => void;
+  showEditAction?: () => void;
+  deleteAction?: () => void;
   dndAction?: SyntheticListenerMap;
 }) {
   const [open, setOpen] = React.useState(false);
 
   function handleEditFunc() {
-    if (showOptionAction) {
-      showOptionAction();
+    if (showEditAction) {
+      showEditAction();
     }
     setOpen(false);
   }
-
-  function handleDelete() {}
 
   function handleOpenChange(newOpen: boolean) {
     setOpen(newOpen);
@@ -53,24 +53,26 @@ function MainCardSection({
               {...dndAction}
             />
           ) : null}
-          {showOptionAction ? (
+          {showEditAction || deleteAction ? (
             <Popover
               content={
                 <>
-                  <Button
-                    type="text"
-                    icon={<IconPencil />}
-                    onClick={handleEditFunc}
-                  >
-                    Edit
-                  </Button>
-                  {handleDelete ? (
+                  {showEditAction ? (
+                    <Button
+                      type="text"
+                      icon={<IconPencil />}
+                      onClick={handleEditFunc}
+                    >
+                      Edit
+                    </Button>
+                  ) : null}
+                  {deleteAction ? (
                     <Popconfirm
                       title="Delete the color"
                       description="Are you sure to delete this color?"
                       okText="Yes"
                       cancelText="No"
-                      onConfirm={handleDelete}
+                      onConfirm={deleteAction}
                     >
                       <Button type="primary" icon={<IconTrash />}>
                         Delete

@@ -3,7 +3,7 @@ import { reOrder as reOrderApi } from "@/src/api/color";
 import MainCard from "@/src/components/card/MainCard";
 import Color from "@/src/components/color/Color";
 import { ColorType } from "@/src/types/color";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./colors-card.scss";
 
 import { useModalStore } from "@/src/store/modal";
@@ -124,15 +124,13 @@ function ColorsCard({
         <SortableContext items={colors.map((i) => i.id)}>
           {colors && colors.length > 0
             ? colors.map((color, index) => (
-                <Color key={color.id} {...color} updateState={updateState} />
+                <Color key={color.id} color={color} updateState={updateState} />
               ))
             : null}
         </SortableContext>
       </MainCard>
       <DragOverlay adjustScale={false}>
-        {activeId ? (
-          <>{<Color {...findColorData(activeId)} id={activeId.toString()} />}</>
-        ) : null}
+        {activeId ? <>{<Color color={findColorData(activeId)} />}</> : null}
       </DragOverlay>
     </DndContext>
   );

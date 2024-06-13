@@ -1,6 +1,7 @@
 "use client";
 import { getThemeColors, getThemeColumns, getThemes } from "@/src/api/theme";
 import ThemesList from "@/src/components/themesList/ThemesPage";
+import { handleError } from "@/src/lib/utils";
 import { useDataStore } from "@/src/store/data";
 import { useEffect } from "react";
 
@@ -20,18 +21,21 @@ function ThemesPage({ params }: { params: { id: string } }) {
   }, [params.id]);
 
   async function fetchData(
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     fetchFunction: (id: string) => Promise<any>,
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     setData: (data: any) => void,
-    errorMessage: string,
+    errorMessage: string
   ) {
     const data = await fetchFunction(params.id);
     if (!data) {
-      console.error(`${errorMessage} not found`);
-      return;
+      return handleError({
+        error: true,
+        message: `${errorMessage} not found`,
+      });
     }
     if ("error" in data) {
-      console.error(data.error);
-      return;
+      return handleError(data, `Failed to fetch ${errorMessage}`);
     }
     setData(data);
   }
@@ -50,9 +54,9 @@ function ThemesPage({ params }: { params: { id: string } }) {
   return (
     <div className="flex-vertical">
       <ThemesList
-        themes={themes}
-        themeColumns={themeColumns}
-        themeColors={themeColors}
+      // themes={themes}
+      // themeColumns={themeColumns}
+      // themeColors={themeColors}
       />
     </div>
   );

@@ -1,7 +1,7 @@
 "use client";
-import { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities";
+import type { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
-import React from "react";
+import type React from "react";
 import "./main-card.scss";
 import MainCardSection from "./mainCardSection/MainCardSection";
 
@@ -9,13 +9,14 @@ interface MainCardSectionType {
   title: string;
   children: React.ReactNode;
   createAction?: () => void;
-  showOptionAction?: () => void;
+  showEditAction?: () => void;
 }
 interface MainCardBasicType {
   title?: string;
   children?: React.ReactNode;
   createAction?: () => void;
-  showOptionAction?: () => void;
+  showEditAction?: () => void;
+  deleteAction?: () => void;
   dndAction?: SyntheticListenerMap;
 }
 
@@ -34,7 +35,8 @@ function MainCard({
   title,
   children,
   createAction,
-  showOptionAction,
+  showEditAction,
+  deleteAction,
   dndAction,
   noPadding,
   noScroll,
@@ -46,26 +48,28 @@ function MainCard({
       id={id}
       className={`main-card${className ? ` ${className} ` : ""}${direction === "horizontal" ? " horizontal" : " vertical"}${noPadding ? " no-padding" : ""}`}
     >
-      <div className={`main-card-wrapper`}>
+      <div className="main-card-wrapper">
         {noScroll ? (
           <div className="main-card-sections-scroll">
             {sections && sections.length > 0 ? (
               sections.map((content: MainCardSectionType, index: number) => (
                 <MainCardSection
-                  key={index}
+                  key={content.title.toLocaleLowerCase().replace(" ", "-")}
                   title={content.title}
                   createAction={content.createAction}
-                  showOptionAction={content.showOptionAction}
+                  showEditAction={content.showEditAction}
+                  deleteAction={deleteAction}
                   dndAction={dndAction}
                 >
                   {content.children}
                 </MainCardSection>
               ))
-            ) : title || createAction || showOptionAction ? (
+            ) : title || createAction || showEditAction ? (
               <MainCardSection
                 title={title}
                 createAction={createAction}
-                showOptionAction={showOptionAction}
+                showEditAction={showEditAction}
+                deleteAction={deleteAction}
                 dndAction={dndAction}
               >
                 {children}
@@ -87,20 +91,22 @@ function MainCard({
             {sections && sections.length > 0 ? (
               sections.map((content: MainCardSectionType, index: number) => (
                 <MainCardSection
-                  key={index}
+                  key={content.title.toLocaleLowerCase().replace(" ", "-")}
                   title={content.title}
                   createAction={content.createAction}
-                  showOptionAction={content.showOptionAction}
+                  showEditAction={content.showEditAction}
+                  deleteAction={deleteAction}
                   dndAction={dndAction}
                 >
                   {content.children}
                 </MainCardSection>
               ))
-            ) : title || createAction || showOptionAction ? (
+            ) : title || createAction || showEditAction ? (
               <MainCardSection
                 title={title}
                 createAction={createAction}
-                showOptionAction={showOptionAction}
+                showEditAction={showEditAction}
+                deleteAction={deleteAction}
                 dndAction={dndAction}
               >
                 {children}

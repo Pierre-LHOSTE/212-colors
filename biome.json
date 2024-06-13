@@ -16,8 +16,7 @@
       "bracketSpacing": true,
       "jsxQuoteStyle": "double",
       "quoteProperties": "asNeeded",
-      "semicolons": "always",
-      "trailingComma": "all"
+      "semicolons": "always"
     }
   },
   "json": {
@@ -27,5 +26,12 @@
   },
   "organizeImports": {
     "enabled": false
+  },
+  "linter": {
+    "rules": {
+      "correctness": {
+        "useExhaustiveDependencies": "off"
+      }
+    }
   }
 }

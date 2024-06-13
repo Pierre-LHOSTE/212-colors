@@ -1,6 +1,6 @@
 "use client";
 import { deleteColor, deleteThemeColor, updateColorHex } from "@/src/api/color";
-import { isVeryLightColor } from "@/src/lib/utils";
+import { handleError, isVeryLightColor } from "@/src/lib/utils";
 import { useDataStore } from "@/src/store/data";
 import { useModalStore } from "@/src/store/modal";
 import type { ColorType, ThemeColorType } from "@/src/types/color";
@@ -16,30 +16,31 @@ import {
 import { useEffect, useState } from "react";
 import HeaderWithOptions from "../headerWithOptions/HeaderWithOptions";
 import "./color.scss";
+import { useSettingsStore } from "@/src/store/settings";
 
 type Color = GetProp<ColorPickerProps, "value">;
 
-interface ColorPropsType extends Omit<ColorType, "type"> {
+interface ColorPropsType {
+  color: Omit<ColorType, "type" | "position">;
   isThemeColor?: boolean;
-  updateState?: (color: any) => void;
+  updateState?: (color: ColorType | ThemeColorType) => void;
   noDnd?: boolean;
 }
 
 function Color({
-  name,
   color,
-  description,
-  id,
   isThemeColor,
   updateState,
   noDnd = false,
 }: ColorPropsType) {
+  const { id, name, description, color: colorHex } = color;
   const setModalState = useModalStore((state) => state.setModalState);
   const setColors = useDataStore((state) => state.setColors);
   const setThemeColors = useDataStore((state) => state.setThemeColors);
+  const setMessage = useSettingsStore((state) => state.setMessage);
 
-  const [currentColor, setCurrentColor] = useState<Color>(color as Color);
-  const [initColor, setInitColor] = useState<Color>(color as Color);
+  const [currentColor, setCurrentColor] = useState<Color>(colorHex as Color);
+  const [initColor, setInitColor] = useState<Color>(colorHex as Color);
   const [isPickerVisible, setIsPickerVisible] = useState(false);
 
   const {
@@ -50,7 +51,7 @@ function Color({
     transition,
     isDragging,
   } = useSortable({
-    id,
+    id: color.id,
   });
 
   const elementColor = isVeryLightColor(
@@ -62,9 +63,9 @@ function Color({
     : "light";
 
   useEffect(() => {
-    setCurrentColor(color as Color);
-    setInitColor(color as Color);
-  }, [color]);
+    setCurrentColor(colorHex as Color);
+    setInitColor(colorHex as Color);
+  }, [colorHex]);
 
   const style: React.CSSProperties = {
     transition,
@@ -75,13 +76,25 @@ function Color({
   async function handleDelete() {
     if (isThemeColor) {
       const res = await deleteThemeColor(id);
-      if (res.error) return console.error(res.message);
+      if ("error" in res) {
+        return handleError(res, "Failed to delete theme color");
+      }
       setThemeColors((themeColors) =>
         themeColors.filter((item) => item.id !== id)
       );
+      setMessage({
+        type: "success",
+        content: "Theme color deleted successfully",
+      });
     } else {
       const res = await deleteColor(id);
-      if (res.error) return console.error(res.message);
+      if ("error" in res) {
+        return handleError(res, "Failed to delete color");
+      }
+      setMessage({
+        type: "success",
+        content: "Color deleted successfully",
+      });
       setColors((colors) => colors.filter((item) => item.id !== id));
     }
   }
@@ -93,16 +106,24 @@ function Color({
   }
 
   async function updateColor() {
+    const newColor = getColorHex();
     const res = await updateColorHex({
-      color: getColorHex(),
+      color: newColor,
       id,
       isThemeColor,
     });
-    if (res.error) {
+    if ("error" in res) {
       setCurrentColor(initColor);
-      return console.error(res.message);
+      return handleError(res, "Failed to update color");
     }
-    setInitColor(getColorHex());
+    setMessage({
+      type: "success",
+      content: "Color updated successfully",
+    });
+    if (updateState) {
+      updateState({ ...color, color: newColor } as ColorType | ThemeColorType);
+    }
+    setInitColor(newColor);
     setIsPickerVisible(false);
   }
 
@@ -123,8 +144,8 @@ function Color({
   }
 
   useEffect(() => {
-    if (getColorHex() !== color) setCurrentColor(initColor);
-  }, [color, initColor]);
+    if (getColorHex() !== colorHex) setCurrentColor(initColor);
+  }, [color, initColor, colorHex]);
 
   return (
     <div

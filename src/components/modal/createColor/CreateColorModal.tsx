@@ -3,12 +3,13 @@ import { createColor, updateColor } from "@/src/api/color";
 import { useDataStore } from "@/src/store/data";
 import { useModalStore } from "@/src/store/modal";
 import { useSettingsStore } from "@/src/store/settings";
-import { ColorType } from "@/src/types/color";
+import type { ColorType } from "@/src/types/color";
 import { ColorPicker, Form, Input } from "antd";
 import { createSchemaFieldRule } from "antd-zod";
 import { useEffect, useState, useTransition } from "react";
 import FormModal from "../FormModal";
 import { ColorFormSchema } from "./ColorFormSchema";
+import { handleError } from "@/src/lib/utils";
 
 const rule = createSchemaFieldRule(ColorFormSchema);
 
@@ -72,15 +73,7 @@ function CreateColorModal() {
           });
           form.resetFields();
         } else {
-          setMessage({
-            type: "error",
-            content: "Failed to create color",
-          });
-          setNotification({
-            type: "error",
-            message: "Error",
-            description: <>{res.message || "An error occurred"}</>,
-          });
+          handleError(res, "Failed to create color");
         }
       });
     } else {
@@ -106,21 +99,13 @@ function CreateColorModal() {
           });
           form.resetFields();
         } else {
-          setMessage({
-            type: "error",
-            content: "Failed to update color",
-          });
-          setNotification({
-            type: "error",
-            message: "Error",
-            description: <>{res.message || "An error occurred"}</>,
-          });
+          handleError(res, "Failed to update color");
         }
       });
     }
   }
 
-  function updateCurrentColor(e: any) {
+  function updateCurrentColor(e: { toHexString: () => string }) {
     const hex = e.toHexString();
     form.setFieldsValue({ color: hex });
     setPreviewColor(hex);

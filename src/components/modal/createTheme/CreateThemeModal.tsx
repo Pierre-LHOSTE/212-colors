@@ -9,6 +9,7 @@ import { createSchemaFieldRule } from "antd-zod";
 import { useEffect, useTransition } from "react";
 import FormModal from "../FormModal";
 import { ThemeFormSchema } from "./ThemeFormSchema";
+import { handleError } from "@/src/lib/utils";
 
 const rule = createSchemaFieldRule(ThemeFormSchema);
 
@@ -64,15 +65,7 @@ function CreateThemeModal() {
           });
           form.resetFields();
         } else {
-          setMessage({
-            type: "error",
-            content: "Failed to create theme",
-          });
-          setNotification({
-            type: "error",
-            message: "Error",
-            description: <>{res.message || "An error occurred"}</>,
-          });
+          handleError(res, "Failed to create theme");
         }
       });
     } else {

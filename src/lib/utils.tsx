@@ -1,5 +1,6 @@
 import { colord, extend } from "colord";
 import a11yPlugin from "colord/plugins/a11y";
+import { useSettingsStore } from "../store/settings";
 extend([a11yPlugin]);
 
 export function isVeryLightColor(color: string): boolean {
@@ -10,4 +11,35 @@ export function isVeryLightColor(color: string): boolean {
   }
 
   return false;
+}
+
+export function handleError(
+  res: { error?: boolean; message: string; success?: undefined },
+  message?: string
+) {
+  const setMessage = useSettingsStore.getState().setMessage;
+  const setNotification = useSettingsStore.getState().setNotification;
+
+  setMessage({
+    type: "error",
+    content: message || "An error occurred",
+  });
+  setNotification({
+    type: "error",
+    message: "Error",
+    description: <>{res.message || message || "An error occurred"}</>,
+  });
+
+  console.error(message, res);
+}
+
+export function handleServerError(error: unknown) {
+  console.error(error);
+  if (error instanceof Error) {
+    return { error: true, message: error.message };
+  }
+  if (typeof error === "string") {
+    return { error: true, message: error };
+  }
+  return { error: true, message: "Unknown error" };
 }

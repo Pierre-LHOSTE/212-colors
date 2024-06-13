@@ -6,6 +6,7 @@ import CreateColorModal from "@/src/components/modal/createColor/CreateColorModa
 import CreateThemeModal from "@/src/components/modal/createTheme/CreateThemeModal";
 import CreateThemeColorModal from "@/src/components/modal/createThemeColor/CreateThemeColorModal";
 import NavProjectAside from "@/src/components/navAside/NavProjectAside";
+import { handleError } from "@/src/lib/utils";
 import { useDataStore } from "@/src/store/data";
 import { useEffect } from "react";
 
@@ -22,12 +23,13 @@ export default function Layout({
     async function fetchProjects() {
       const project = await getProjectById(params.id);
       if (!project) {
-        console.error("Project not found");
-        return;
+        return handleError({
+          error: true,
+          message: "Project not found",
+        });
       }
       if ("error" in project) {
-        console.error(project.error);
-        return;
+        return handleError(project, "Failed to fetch project");
       }
       setProject(project);
     }

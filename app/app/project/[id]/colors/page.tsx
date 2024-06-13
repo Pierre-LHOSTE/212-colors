@@ -1,8 +1,9 @@
 "use client";
 import { getColors } from "@/src/api/color";
 import ColorsCard from "@/src/components/colorsCard/ColorsCard";
+import { handleError } from "@/src/lib/utils";
 import { useDataStore } from "@/src/store/data";
-import { ColorType } from "@/src/types/color";
+import type { ColorType } from "@/src/types/color";
 import { useEffect, useState } from "react";
 
 function ColorsPage() {
@@ -24,12 +25,13 @@ function ColorsPage() {
     async function fetchColors() {
       const colors = await getColors(project.id);
       if (!colors) {
-        console.error("Colors not found");
-        return;
+        return handleError({
+          error: true,
+          message: "Colors not found",
+        });
       }
       if ("error" in colors) {
-        console.error(colors.error);
-        return;
+        return handleError(colors, "Failed to fetch colors");
       }
       setColors(colors);
     }

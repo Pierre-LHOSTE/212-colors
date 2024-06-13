@@ -2,24 +2,24 @@
 import { createProject } from "@/src/api/project";
 import { useModalStore } from "@/src/store/modal";
 import { useSettingsStore } from "@/src/store/settings";
-import { ThemeType } from "@/src/types/theme";
 import { Form, Input } from "antd";
 import { createSchemaFieldRule } from "antd-zod";
 import { useTransition } from "react";
 import FormModal from "../FormModal";
 import { ProjectFormSchema } from "./ProjectFormSchema";
+import { handleError } from "@/src/lib/utils";
+import { ProjectType } from "@/src/types/project";
 
 const rule = createSchemaFieldRule(ProjectFormSchema);
 
 function CreateProjectModal() {
   const setMessage = useSettingsStore((state) => state.setMessage);
-  const setNotification = useSettingsStore((state) => state.setNotification);
   const [isPending, startTransition] = useTransition();
   const setModalState = useModalStore((state) => state.setModalState);
   const modalState = useModalStore((state) => state.modalState);
   const [form] = Form.useForm();
 
-  function onSubmit(values: ThemeType) {
+  function onSubmit(values: ProjectType) {
     startTransition(async () => {
       const res = await createProject(values);
       if ("id" in res) {
@@ -36,19 +36,11 @@ function CreateProjectModal() {
         });
         setMessage({
           type: "success",
-          content: "Theme created",
+          content: "Project created successfully",
         });
         form.resetFields();
       } else {
-        setMessage({
-          type: "error",
-          content: "Failed to create theme",
-        });
-        setNotification({
-          type: "error",
-          message: "Error",
-          description: <>{res.message || "An error occurred"}</>,
-        });
+        handleError(res, "Failed to create project");
       }
     });
   }

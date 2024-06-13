@@ -1,12 +1,14 @@
 "use client";
 import { updateProject } from "@/src/api/project";
 import { useDataStore } from "@/src/store/data";
-import { ProjectType } from "@/src/types/project";
+import type { ProjectType } from "@/src/types/project";
 import { Button, Form, Input } from "antd";
 import { createSchemaFieldRule } from "antd-zod";
 import { useEffect, useState, useTransition } from "react";
 import MainCard from "../card/MainCard";
 import { InfoFormSchema } from "./InfoFormSchema";
+import { handleError } from "@/src/lib/utils";
+import { useSettingsStore } from "@/src/store/settings";
 
 const rule = createSchemaFieldRule(InfoFormSchema);
 
@@ -15,6 +17,7 @@ function FormInfo({ project }: { project: ProjectType }) {
   const [isPending, startTransition] = useTransition();
   const [changed, setChanged] = useState(false);
   const setProject = useDataStore((state) => state.setProject);
+  const setMessage = useSettingsStore((state) => state.setMessage);
 
   useEffect(() => {
     form.setFieldsValue({
@@ -23,7 +26,7 @@ function FormInfo({ project }: { project: ProjectType }) {
     });
   }, [form, project]);
 
-  function onSubmit(values: any) {
+  function onSubmit(values: ProjectType) {
     const newProject = {
       ...values,
       id: project.id,
@@ -32,6 +35,12 @@ function FormInfo({ project }: { project: ProjectType }) {
       const res = await updateProject(newProject);
       if ("id" in res) {
         setProject(res);
+        setMessage({
+          type: "success",
+          content: "Project updated",
+        });
+      } else {
+        handleError(res, "Failed to update project");
       }
     });
   }

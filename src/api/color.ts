@@ -2,9 +2,10 @@
 import prisma from "@/src/lib/prisma";
 import { revalidateTag } from "next/cache";
 import { auth } from "../lib/auth";
-import { ColorType, ThemeColorType } from "../types/color";
-import { ProjectButtonType } from "../types/project";
-import { ThemeColumnType } from "../types/theme";
+import type { ColorType, ThemeColorType } from "../types/color";
+import type { ProjectButtonType } from "../types/project";
+import type { ThemeColumnType } from "../types/theme";
+import { handleServerError } from "../lib/utils";
 
 export async function createColor({
   color,
@@ -19,7 +20,7 @@ export async function createColor({
   }
   try {
     const { name, description, type } = color;
-    let maxPosition = await prisma.color.findFirst({
+    const maxPosition = await prisma.color.findFirst({
       where: {
         type,
       },
@@ -43,9 +44,8 @@ export async function createColor({
     });
     revalidateTag("prisma-color");
     return res;
-  } catch (error: any) {
-    console.error(error);
-    return { error: true, message: error.message };
+  } catch (error: unknown) {
+    return handleServerError(error);
   }
 }
 
@@ -69,18 +69,18 @@ export async function getColors(projectId: string) {
     });
     revalidateTag("prisma-color");
     return colors as ColorType[];
-  } catch (error: any) {
-    console.error(error);
-    return { error: true, message: error.message };
+  } catch (error: unknown) {
+    return handleServerError(error);
   }
 }
 
 export async function reOrder(
   newArray: ColorType[] | ThemeColumnType[] | ProjectButtonType[],
-  dataType: "color" | "themeColumn" | "project" | "theme",
+  dataType: "color" | "themeColumn" | "project" | "theme"
 ) {
   try {
     const promises = newArray.map((item, index) => {
+      // biome-ignore lint/suspicious/noExplicitAny: <explanation>
       return (prisma[dataType] as any).update({
         where: {
           id: item.id,
@@ -93,9 +93,8 @@ export async function reOrder(
     await Promise.all(promises);
     revalidateTag("prisma-${dataType}");
     return { success: true };
-  } catch (error: any) {
-    console.error(error);
-    return { error: true, message: error.message };
+  } catch (error: unknown) {
+    return handleServerError(error);
   }
 }
 
@@ -108,9 +107,8 @@ export async function deleteColor(id: string) {
     });
     revalidateTag("prisma-color");
     return { success: true };
-  } catch (error: any) {
-    console.error(error);
-    return { error: true, message: error.message };
+  } catch (error: unknown) {
+    return handleServerError(error);
   }
 }
 
@@ -140,9 +138,8 @@ export async function createThemeColor({
     });
     revalidateTag("prisma-themeColor");
     return res;
-  } catch (error: any) {
-    console.error(error);
-    return { error: true, message: error.message };
+  } catch (error: unknown) {
+    return handleServerError(error);
   }
 }
 
@@ -155,11 +152,11 @@ export async function deleteThemeColor(id: string) {
     });
     revalidateTag("prisma-themeColor");
     return { success: true };
-  } catch (error: any) {
-    console.error(error);
-    return { error: true, message: error.message };
+  } catch (error: unknown) {
+    return handleServerError(error);
   }
 }
+
 export async function updateColorHex({
   id,
   color,
@@ -192,9 +189,8 @@ export async function updateColorHex({
     }
     revalidateTag("prisma-color");
     return { success: true };
-  } catch (error: any) {
-    console.error(error);
-    return { error: true, message: error.message };
+  } catch (error: unknown) {
+    return handleServerError(error);
   }
 }
 
@@ -225,28 +221,26 @@ export async function updateColor({
       });
       revalidateTag("prisma-themeColor");
       return res;
-    } else {
-      const res = await prisma.color.update({
-        where: {
-          id: color.id,
-        },
-        data: {
-          name: color.name,
-          description: color.description,
-          color: color.color,
-        },
-        select: {
-          id: true,
-          name: true,
-          description: true,
-          color: true,
-        },
-      });
-      revalidateTag("prisma-color");
-      return res;
     }
-  } catch (error: any) {
-    console.error(error);
-    return { error: true, message: error.message };
+    const res = await prisma.color.update({
+      where: {
+        id: color.id,
+      },
+      data: {
+        name: color.name,
+        description: color.description,
+        color: color.color,
+      },
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        color: true,
+      },
+    });
+    revalidateTag("prisma-color");
+    return res;
+  } catch (error: unknown) {
+    return handleServerError(error);
   }
 }

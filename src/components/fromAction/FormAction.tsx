@@ -4,19 +4,25 @@ import { useDataStore } from "@/src/store/data";
 import { Button, Popconfirm } from "antd";
 import { useRouter } from "next/navigation";
 import MainCard from "../card/MainCard";
+import { handleError } from "@/src/lib/utils";
+import { useSettingsStore } from "@/src/store/settings";
 
 function FormAction({ id }: { id: string }) {
   const router = useRouter();
   const setProjectsList = useDataStore((state) => state.setProjectsList);
+  const setMessage = useSettingsStore((state) => state.setMessage);
 
   async function handleClick() {
     const res = await deleteProject(id);
     if ("error" in res) {
-      console.error(res.message);
-      return;
+      return handleError(res, "Failed to delete project");
     }
+    setMessage({
+      type: "success",
+      content: "Project deleted successfully",
+    });
     setProjectsList((prevState) =>
-      prevState.filter((project) => project.id !== id),
+      prevState.filter((project) => project.id !== id)
     );
     router.push("/app");
   }

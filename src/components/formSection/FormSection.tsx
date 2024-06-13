@@ -2,14 +2,17 @@
 import { updateSection } from "@/src/api/project";
 import { useDataStore } from "@/src/store/data";
 import { Checkbox } from "antd";
-import { CheckboxChangeEvent } from "antd/es/checkbox";
+import type { CheckboxChangeEvent } from "antd/es/checkbox";
 import MainCard from "../card/MainCard";
+import { handleError } from "@/src/lib/utils";
+import { useSettingsStore } from "@/src/store/settings";
 
 const sections = ["colors", "themes"];
 
 function FormSection({ id }: { id: string }) {
   const hiddenSections = useDataStore((state) => state.project.hiddenSections);
   const setHiddenSections = useDataStore((state) => state.setHiddenSections);
+  const setMessage = useSettingsStore((state) => state.setMessage);
 
   async function handleChange(e: CheckboxChangeEvent, name: string) {
     const newHiddenSections = e.target.checked
@@ -20,13 +23,16 @@ function FormSection({ id }: { id: string }) {
       sections: newHiddenSections,
     });
     if ("error" in res) {
-      console.error(res.message);
-      return;
+      handleError(res, "Failed to update section");
     }
+    setMessage({
+      type: "success",
+      content: "Section updated",
+    });
     setHiddenSections((prevState) =>
       e.target.checked
         ? prevState.filter((section) => section !== name)
-        : [...prevState, name],
+        : [...prevState, name]
     );
   }
 

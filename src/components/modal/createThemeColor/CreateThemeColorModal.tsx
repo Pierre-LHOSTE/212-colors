@@ -9,6 +9,7 @@ import { createSchemaFieldRule } from "antd-zod";
 import { useEffect, useState, useTransition } from "react";
 import FormModal from "../FormModal";
 import { ColorFormSchema } from "./ThemeColorFormSchema";
+import { handleError } from "@/src/lib/utils";
 
 const rule = createSchemaFieldRule(ColorFormSchema);
 
@@ -70,19 +71,11 @@ function CreateThemeColorModal() {
           });
           setMessage({
             type: "success",
-            content: "Color created",
+            content: "Theme color created",
           });
           form.resetFields();
         } else {
-          setMessage({
-            type: "error",
-            content: "Failed to create color",
-          });
-          setNotification({
-            type: "error",
-            message: "Error",
-            description: <>{res.message || "An error occurred"}</>,
-          });
+          handleError(res, "Failed to create theme color");
         }
       });
     } else {

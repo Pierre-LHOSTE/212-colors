@@ -2,16 +2,16 @@
 import { reOrder as reOrderApi } from "@/src/api/color";
 import { useDataStore } from "@/src/store/data";
 import { useModalStore } from "@/src/store/modal";
-import { ThemeColumnType } from "@/src/types/theme";
+import type { ThemeColumnType } from "@/src/types/theme";
 import {
   DndContext,
-  DragEndEvent,
-  DragMoveEvent,
+  type DragEndEvent,
+  type DragMoveEvent,
   DragOverlay,
-  DragStartEvent,
+  type DragStartEvent,
   KeyboardSensor,
   PointerSensor,
-  UniqueIdentifier,
+  type UniqueIdentifier,
   closestCorners,
   useSensor,
   useSensors,
@@ -45,7 +45,7 @@ function ThemeColumnList() {
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
-    }),
+    })
   );
 
   function updateThemeColumnPosition(event: DragMoveEvent | DragEndEvent) {
@@ -53,10 +53,10 @@ function ThemeColumnList() {
 
     if (active && over && active.id !== over.id) {
       const activeItemIndex = themeColumns.findIndex(
-        (item) => item.id === active.id,
+        (item) => item.id === active.id
       );
       const overItemIndex = themeColumns.findIndex(
-        (item) => item.id === over.id,
+        (item) => item.id === over.id
       );
 
       const newArray = arrayMove(themeColumns, activeItemIndex, overItemIndex);
@@ -78,7 +78,7 @@ function ThemeColumnList() {
   }
 
   function findThemeColumnData(
-    id: UniqueIdentifier | undefined,
+    id: UniqueIdentifier | undefined
   ): ThemeColumnType {
     const item = themeColumns.find((item) => item.id === id);
     if (!item)

@@ -2,16 +2,19 @@
 import { deleteThemeColumn } from "@/src/api/theme";
 import { useDataStore } from "@/src/store/data";
 import { useModalStore } from "@/src/store/modal";
-import { ThemeColumnType } from "@/src/types/theme";
+import type { ThemeColumnType } from "@/src/types/theme";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Typography } from "antd";
 import HeaderWithOptions from "../headerWithOptions/HeaderWithOptions";
 import "./theme-column.scss";
+import { useSettingsStore } from "@/src/store/settings";
+import { handleError } from "@/src/lib/utils";
 
 function ThemeColumn({ themeColumn }: { themeColumn: ThemeColumnType }) {
   const setModalState = useModalStore((state) => state.setModalState);
   const setThemeColumns = useDataStore((state) => state.setThemeColumns);
+  const setMessage = useSettingsStore((state) => state.setMessage);
   const {
     attributes,
     listeners,
@@ -31,9 +34,15 @@ function ThemeColumn({ themeColumn }: { themeColumn: ThemeColumnType }) {
 
   async function handleDelete() {
     const res = await deleteThemeColumn(themeColumn.id);
-    if (res.error) return console.error(res.message);
+    if ("error" in res) {
+      return handleError(res, "Failed to delete theme column");
+    }
+    setMessage({
+      type: "success",
+      content: "Theme column deleted successfully",
+    });
     setThemeColumns((themeColumns) =>
-      themeColumns.filter((item) => item.id !== themeColumn.id),
+      themeColumns.filter((item) => item.id !== themeColumn.id)
     );
   }
 
@@ -51,8 +60,8 @@ function ThemeColumn({ themeColumn }: { themeColumn: ThemeColumnType }) {
           themeColumns.map((item) =>
             item.id === themeColumn.id
               ? Object.assign({}, item, themeColumn)
-              : item,
-          ),
+              : item
+          )
         );
       },
     });
