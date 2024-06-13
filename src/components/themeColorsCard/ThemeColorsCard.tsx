@@ -14,7 +14,6 @@ import { useSettingsStore } from "@/src/store/settings";
 
 function ThemeColorsCard({
   colors,
-  themeColors,
   theme,
   setThemeColors,
   themeColumns,
@@ -27,7 +26,6 @@ function ThemeColorsCard({
   setThemeColors: (
     arg: ThemeColorType[] | ((arg: ThemeColorType[]) => ThemeColorType[])
   ) => void;
-  themeColors: ThemeColorType[];
   setThemes: (arg: ThemeType[] | ((arg: ThemeType[]) => ThemeType[])) => void;
   themes: ThemeType[];
 }) {

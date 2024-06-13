@@ -1,6 +1,6 @@
 import { reOrder } from "@/src/api/color";
 import { useDataStore } from "@/src/store/data";
-import type { ThemeType } from "@/src/types/theme";
+import type { ThemeColumnType, ThemeType } from "@/src/types/theme";
 import {
   DndContext,
   type DragEndEvent,
@@ -21,13 +21,19 @@ import {
 } from "@dnd-kit/sortable";
 import { useState } from "react";
 import ThemeColorsCard from "../themeColorsCard/ThemeColorsCard";
+import type { ThemeColorType } from "@/src/types/color";
 
-function ThemesList() {
+function ThemesList({
+  themes,
+  themeColumns,
+  themeColors,
+}: {
+  themes: ThemeType[];
+  themeColumns: ThemeColumnType[];
+  themeColors: ThemeColorType[];
+}) {
   const setThemeColors = useDataStore((state) => state.setThemeColors);
-  const themeColors = useDataStore((state) => state.themeColors);
   const setThemes = useDataStore((state) => state.setThemes);
-  const themes = useDataStore((state) => state.themes);
-  const themeColumns = useDataStore((state) => state.themeColumns);
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
 
@@ -35,7 +41,7 @@ function ThemesList() {
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
-    }),
+    })
   );
 
   function handleDragStart(event: DragStartEvent) {
@@ -93,7 +99,6 @@ function ThemesList() {
               themeColumns={themeColumns}
               theme={theme}
               setThemeColors={setThemeColors}
-              themeColors={themeColors}
               setThemes={setThemes}
               themes={themes}
             />
@@ -106,11 +111,10 @@ function ThemesList() {
                 <ThemeColorsCard
                   theme={findThemesData(activeId)}
                   colors={themeColors.filter(
-                    (color) => color.themeId === activeId,
+                    (color) => color.themeId === activeId
                   )}
                   themeColumns={themeColumns}
                   setThemeColors={setThemeColors}
-                  themeColors={themeColors}
                   setThemes={setThemes}
                   themes={themes}
                 />

@@ -54,9 +54,9 @@ function ThemesPage({ params }: { params: { id: string } }) {
   return (
     <div className="flex-vertical">
       <ThemesList
-      // themes={themes}
-      // themeColumns={themeColumns}
-      // themeColors={themeColors}
+        themes={themes}
+        themeColumns={themeColumns}
+        themeColors={themeColors}
       />
     </div>
   );

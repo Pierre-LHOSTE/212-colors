@@ -25,12 +25,15 @@ import { useState } from "react";
 import MainCard from "../card/MainCard";
 import ThemeColumn from "../themColumn/ThemeColumn";
 
-function ThemeColumnList() {
+function ThemeColumnList({
+  themeColumns,
+}: {
+  themeColumns: ThemeColumnType[];
+}) {
   const setModalState = useModalStore((state) => state.setModalState);
-  const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
-
   const setThemeColumns = useDataStore((state) => state.setThemeColumns);
-  const themeColumns = useDataStore((state) => state.themeColumns);
+
+  const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
 
   function createThemeColumn() {
     setModalState({
@@ -50,7 +53,6 @@ function ThemeColumnList() {
 
   function updateThemeColumnPosition(event: DragMoveEvent | DragEndEvent) {
     const { active, over } = event;
-
     if (active && over && active.id !== over.id) {
       const activeItemIndex = themeColumns.findIndex(
         (item) => item.id === active.id
@@ -58,9 +60,7 @@ function ThemeColumnList() {
       const overItemIndex = themeColumns.findIndex(
         (item) => item.id === over.id
       );
-
       const newArray = arrayMove(themeColumns, activeItemIndex, overItemIndex);
-
       reOrderApi(newArray, "themeColumn");
       setThemeColumns(newArray);
     }
