@@ -1,0 +1,43 @@
+.overview-theme-card {
+  overflow: visible;
+  //   padding: 16px;
+  //   border-radius: 16px;
+
+  //   &.dark {
+  //     background-color: black;
+  //     * {
+  //       color: white;
+  //     }
+  //   }
+
+  //   &.light {
+  //     background-color: white;
+
+  //     button.ant-btn {
+  //       outline-color: rgba(0, 0, 0, 0.025) !important;
+  //     }
+
+  //     * {
+  //       color: black;
+  //     }
+  //   }
+
+  .flex-horizontal {
+    overflow: visible;
+    // flex-wrap: wrap;
+
+    .color {
+      min-width: 128px !important;
+      //   max-width: 128px !important;
+      flex: 1;
+      //   aspect-ratio: 1;
+    }
+
+    .empty {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0.5;
+    }
+  }
+}

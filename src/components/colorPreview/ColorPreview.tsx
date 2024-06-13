@@ -5,9 +5,14 @@ import { type ColorPickerProps, type GetProp, Typography, Button } from "antd";
 import { useEffect, useState } from "react";
 import HeaderWithOptions from "../headerWithOptions/HeaderWithOptions";
 import "./color-preview.scss";
+import type { ThemeColor } from "@prisma/client";
 type Color = GetProp<ColorPickerProps, "value">;
 
-export default function ColorPreview({ color }: { color: ColorType }) {
+export default function ColorPreview({
+  color,
+}: {
+  color: ColorType | ThemeColor;
+}) {
   const { id, name, description, color: colorHex } = color;
 
   const [currentColor, setCurrentColor] = useState<Color>(colorHex as Color);

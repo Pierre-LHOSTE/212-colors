@@ -6,33 +6,34 @@
     overflow: visible;
   }
 
-  .flex-vertical,
-  .color {
-    flex: 1;
-  }
-
   .primary-div {
-    flex: 0 1 auto;
-
     .color {
-      height: 512px;
-      width: 512px;
+      width: 100%;
+      max-width: none;
+      height: 256px;
     }
   }
 
   .secondary-div {
     flex-wrap: wrap;
-    max-height: 512px;
     height: 100%;
 
     .color {
-      max-width: 256px;
+      max-width: none;
+      flex: 1;
     }
   }
 
   .special-div {
-    .color {
-      max-width: 256px;
-    }
+    flex-wrap: wrap;
+    height: 100%;
   }
+}
+
+#overview .flex-vertical > .main-card:last-child {
+  flex: 1;
+}
+
+.overview-themes {
+  overflow: visible;
 }
