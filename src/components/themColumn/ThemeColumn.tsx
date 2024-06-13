@@ -85,13 +85,7 @@ export default function ThemeColumn({
         handleEdit={handleEdit}
       />
       {themeColumn.description ? (
-        <Typography.Paragraph
-          editable={{
-            triggerType: ["text"],
-          }}
-        >
-          {themeColumn.description}
-        </Typography.Paragraph>
+        <Typography.Paragraph>{themeColumn.description}</Typography.Paragraph>
       ) : null}
     </div>
   );

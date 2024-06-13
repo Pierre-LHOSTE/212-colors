@@ -1,7 +1,6 @@
 "use client";
 import { Button } from "antd";
 import "./no-color.scss";
-
 import { useDataStore } from "@/src/store/data";
 import { useModalStore } from "@/src/store/modal";
 import type { ThemeColorType } from "@/src/types/color";

@@ -1,6 +1,6 @@
-import { ColorType, ThemeColorType } from "./color";
-import { ProjectType } from "./project";
-import { ThemeColumnType, ThemeType } from "./theme";
+import type { ColorType, ThemeColorType } from "./color";
+import type { ProjectType } from "./project";
+import type { ThemeColumnType, ThemeType } from "./theme";
 
 export interface UserType {
   id: string;

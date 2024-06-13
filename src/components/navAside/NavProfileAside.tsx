@@ -3,7 +3,6 @@ import { IconAdjustmentsAlt, IconEdit } from "@tabler/icons-react";
 import { Menu, type MenuProps } from "antd";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import path from "path";
 import "./nav-aside.scss";
 import NavHeader from "./navHeader/NavHeader";
 
@@ -24,12 +23,13 @@ const items: MenuItem[] = [
 
 export default function NavProfileAside() {
   const pathname = usePathname();
+  const currentPath = pathname.split("/").pop();
 
   const itemsMenu = items.map((item) => {
     if (item && !("type" in item)) {
       return {
         ...item,
-        className: path.basename(pathname) === item.key ? "active" : "",
+        className: currentPath === item.key ? "active" : "",
       };
     }
     return item;

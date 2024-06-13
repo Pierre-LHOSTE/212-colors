@@ -1,0 +1,26 @@
+#overview {
+  .color {
+    flex: 1;
+
+    .color-preview {
+      //   height: 224px;
+    }
+  }
+
+  .primary-div {
+    flex: 0 1 auto;
+
+    .color {
+      height: 512px;
+      width: 512px;
+    }
+  }
+
+  .secondary-div {
+    flex-wrap: wrap;
+
+    .color {
+      max-width: 256px;
+    }
+  }
+}

@@ -87,6 +87,7 @@ export async function reOrder(
         },
         data: {
           position: index,
+          updatedAt: new Date(),
         },
       });
     });
@@ -174,6 +175,7 @@ export async function updateColorHex({
         },
         data: {
           color,
+          updatedAt: new Date(),
         },
       });
       revalidateTag("prisma-themeColor");
@@ -184,6 +186,7 @@ export async function updateColorHex({
         },
         data: {
           color,
+          updatedAt: new Date(),
         },
       });
     }
@@ -211,6 +214,7 @@ export async function updateColor({
           name: color.name,
           description: color.description,
           color: color.color,
+          updatedAt: new Date(),
         },
         select: {
           id: true,
@@ -230,6 +234,7 @@ export async function updateColor({
         name: color.name,
         description: color.description,
         color: color.color,
+        updatedAt: new Date(),
       },
       select: {
         id: true,

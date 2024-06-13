@@ -37,66 +37,68 @@ export default function MainCardSection(props: PropsType) {
 
   return (
     <section className="main-card-section">
-      <header className="card-header">
-        <h3>{title ? title : ""}</h3>
-        <div className={`card-actions${open ? " open" : ""}`}>
-          {dndAction ? (
-            <Button
-              style={{ opacity: 0.5 }}
-              type="text"
-              icon={<IconGripVertical />}
-              {...dndAction}
-            />
-          ) : null}
-          {showEditAction || deleteAction ? (
-            <Popover
-              content={
-                <>
-                  {showEditAction ? (
-                    <Button
-                      type="text"
-                      icon={<IconPencil />}
-                      onClick={handleEditFunc}
-                    >
-                      Edit
-                    </Button>
-                  ) : null}
-                  {deleteAction ? (
-                    <Popconfirm
-                      title="Delete the color"
-                      description="Are you sure to delete this color?"
-                      okText="Yes"
-                      cancelText="No"
-                      onConfirm={deleteAction}
-                    >
-                      <Button type="primary" icon={<IconTrash />}>
-                        Delete
-                      </Button>
-                    </Popconfirm>
-                  ) : null}
-                </>
-              }
-              title=""
-              trigger="click"
-              open={open}
-              onOpenChange={handleOpenChange}
-            >
+      {title || dndAction || showEditAction || deleteAction || createAction ? (
+        <header className="card-header">
+          {title ? <h3>{title}</h3> : null}
+          <div className={`card-actions${open ? " open" : ""}`}>
+            {dndAction ? (
               <Button
                 style={{ opacity: 0.5 }}
                 type="text"
-                icon={<IconDotsVertical />}
+                icon={<IconGripVertical />}
+                {...dndAction}
               />
-            </Popover>
-          ) : null}
-          {createAction ? (
-            <Button
-              icon={<IconPlus size={iconSize} />}
-              type="text"
-              onClick={() => createAction()}
-            />
-          ) : null}
-        </div>
-      </header>
+            ) : null}
+            {showEditAction || deleteAction ? (
+              <Popover
+                content={
+                  <>
+                    {showEditAction ? (
+                      <Button
+                        type="text"
+                        icon={<IconPencil />}
+                        onClick={handleEditFunc}
+                      >
+                        Edit
+                      </Button>
+                    ) : null}
+                    {deleteAction ? (
+                      <Popconfirm
+                        title="Delete the color"
+                        description="Are you sure to delete this color?"
+                        okText="Yes"
+                        cancelText="No"
+                        onConfirm={deleteAction}
+                      >
+                        <Button type="primary" icon={<IconTrash />}>
+                          Delete
+                        </Button>
+                      </Popconfirm>
+                    ) : null}
+                  </>
+                }
+                title=""
+                trigger="click"
+                open={open}
+                onOpenChange={handleOpenChange}
+              >
+                <Button
+                  style={{ opacity: 0.5 }}
+                  type="text"
+                  icon={<IconDotsVertical />}
+                />
+              </Popover>
+            ) : null}
+            {createAction ? (
+              <Button
+                icon={<IconPlus size={iconSize} />}
+                type="text"
+                onClick={() => createAction()}
+              />
+            ) : null}
+          </div>
+        </header>
+      ) : null}
       <div className="main-card-section-content">{children}</div>
     </section>
   );

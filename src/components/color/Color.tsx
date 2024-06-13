@@ -194,13 +194,7 @@ export default function Color(props: PropsType) {
         </Button>
       </ColorPicker>
       {description ? (
-        <Typography.Paragraph
-          editable={{
-            triggerType: ["text"],
-          }}
-        >
-          {description}
-        </Typography.Paragraph>
+        <Typography.Paragraph>{description}</Typography.Paragraph>
       ) : null}
     </div>
   );

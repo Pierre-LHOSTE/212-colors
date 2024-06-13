@@ -27,14 +27,7 @@ export default function HeaderWithOptions(props: PropsType) {
 
   return (
     <header className="header-with-options">
-      <Typography.Title
-        level={4}
-        editable={{
-          triggerType: ["text"],
-        }}
-      >
-        {name}
-      </Typography.Title>
+      <Typography.Title level={4}>{name}</Typography.Title>
       <div className={`color-actions${open ? " open" : ""}`}>
         {listeners ? (
           <Button type="text" icon={<IconGripVertical />} {...listeners} />

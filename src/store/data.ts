@@ -27,9 +27,10 @@ export const useDataStore = create<DataStateType>((set) => ({
     description: "",
     hiddenSections: [],
     position: 0,
-    ownerId: "",
     createdAt: new Date(),
+    ownerId: "",
     updatedAt: null,
+    colors: [],
   },
   setProject: (project: SetStateAction<ProjectType>) =>
     set((state) => ({

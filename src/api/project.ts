@@ -37,6 +37,16 @@ export async function getProjectById(id: string) {
   try {
     const project = await prisma.project.findUnique({
       where: { id },
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        position: true,
+        hiddenSections: true,
+        createdAt: true,
+        updatedAt: true,
+        ownerId: true,
+      },
     });
     return project;
   } catch (error: unknown) {
@@ -78,6 +88,7 @@ export async function updateProject(project: ProjectType) {
       data: {
         name: project.name,
         description: project.description,
+        updatedAt: new Date(),
       },
     });
     revalidateTag("prisma-project");
@@ -101,6 +112,7 @@ export async function updateSection({
         hiddenSections: {
           set: sections,
         },
+        updatedAt: new Date(),
       },
     });
     revalidateTag("prisma-project");

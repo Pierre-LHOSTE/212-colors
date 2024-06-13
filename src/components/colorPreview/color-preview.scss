@@ -1,0 +1,50 @@
+.color {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 186px;
+  min-height: 96px;
+
+  .color-preview {
+    // max-height: 512px;
+    // max-width: 512px;
+    border-radius: 16px;
+    outline: 8px solid;
+    padding: 16px;
+    display: flex;
+    align-items: end;
+    box-shadow: none;
+    flex: 1;
+
+    span {
+      font-size: 18px;
+      font-weight: 800;
+      font-family: "JetBrains Mono";
+
+      &.dark {
+        color: #000;
+      }
+      &.light {
+        color: #fff;
+      }
+    }
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .color {
+    .color-preview {
+      outline-color: #0f1319;
+      background-color: rgba($color: #fff, $alpha: 0.2);
+    }
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .color {
+    .color-preview {
+      outline-color: rgba($color: #000, $alpha: 0.025);
+      background-color: rgba($color: #000, $alpha: 0.2);
+    }
+  }
+}

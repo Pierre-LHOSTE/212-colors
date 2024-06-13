@@ -1,3 +1,7 @@
+import type { ColorType, ThemeColorType } from "./color";
+import type { ThemeColumnType, ThemeType } from "./theme";
+import type { UserType } from "./user";
+
 export interface ProjectLiteType {
   id: string;
   name: string;
@@ -12,8 +16,8 @@ export interface ProjectButtonType extends ProjectLiteType {
 
 export interface ProjectType extends ProjectLiteType {
   description: string | null;
+  hiddenSections: string[];
   createdAt: Date;
   updatedAt: Date | null;
   ownerId: string;
-  hiddenSections: string[];
 }

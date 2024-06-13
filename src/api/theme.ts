@@ -168,6 +168,7 @@ export async function updateThemeColumn(themeColumn: ThemeColumnType) {
       data: {
         name,
         description,
+        updatedAt: new Date(),
       },
     });
     return res;
@@ -186,6 +187,7 @@ export async function updateTheme(theme: ThemeType) {
         name,
         description,
         type,
+        updatedAt: new Date(),
       },
     });
     return res;
