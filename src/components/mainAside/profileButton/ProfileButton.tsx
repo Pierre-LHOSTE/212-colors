@@ -2,7 +2,11 @@ import { IconUser } from "@tabler/icons-react";
 import Link from "next/link";
 import "./profile-button.scss";
 
-function ProfileButton({ active = false }: { active?: boolean }) {
+export default function ProfileButton({
+  active = false,
+}: {
+  active?: boolean;
+}) {
   return (
     <div id="profile-icon" className={active ? " active" : ""}>
       <Link
@@ -16,5 +20,3 @@ function ProfileButton({ active = false }: { active?: boolean }) {
     </div>
   );
 }
-
-export default ProfileButton;

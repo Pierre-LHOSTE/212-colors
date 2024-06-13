@@ -2,7 +2,7 @@ import { Divider } from "antd";
 import ProfileButton from "../profileButton/ProfileButton";
 import "./profile-section.scss";
 
-function ProfileSection() {
+export default function ProfileSection() {
   return (
     <div id="profile-section">
       <div style={{ height: "36px" }} />
@@ -11,5 +11,3 @@ function ProfileSection() {
     </div>
   );
 }
-
-export default ProfileSection;

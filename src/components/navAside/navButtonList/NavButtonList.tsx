@@ -4,7 +4,7 @@ import "./nav-button-list.scss";
 
 const iconSize = 24;
 
-function NavButtonList() {
+export default function NavButtonList() {
   return (
     <div id="nav-button-list">
       <NavButton
@@ -20,5 +20,3 @@ function NavButtonList() {
     </div>
   );
 }
-
-export default NavButtonList;

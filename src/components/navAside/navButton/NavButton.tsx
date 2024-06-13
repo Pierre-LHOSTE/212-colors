@@ -1,17 +1,9 @@
 import { Button } from "antd";
 import "./nav-button.scss";
+import type { PropsType } from "./props";
 
-import React from "react";
-
-function NavButton({
-  text,
-  icon,
-  active,
-}: {
-  text: string;
-  icon: React.ReactNode;
-  active?: boolean;
-}) {
+export default function NavButton(props: PropsType) {
+  const { text, active, icon } = props;
   return (
     <Button
       className={`nav-button${active ? " active" : ""}`}
@@ -22,5 +14,3 @@ function NavButton({
     </Button>
   );
 }
-
-export default NavButton;

@@ -1,11 +1,11 @@
 import { useDataStore } from "@/src/store/data";
 import { useModalStore } from "@/src/store/modal";
-import { ProjectButtonType } from "@/src/types/project";
+import type { ProjectButtonType } from "@/src/types/project";
 import { IconPlus } from "@tabler/icons-react";
 import { Button } from "antd";
 import "./new-project-button.scss";
 
-function NewProjectButton() {
+export default function NewProjectButton() {
   const setModalState = useModalStore((state) => state.setModalState);
   const setProjectsList = useDataStore((state) => state.setProjectsList);
 
@@ -32,5 +32,3 @@ function NewProjectButton() {
     </div>
   );
 }
-
-export default NewProjectButton;

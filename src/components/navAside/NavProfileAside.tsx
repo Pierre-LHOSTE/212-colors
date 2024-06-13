@@ -1,6 +1,6 @@
 "use client";
 import { IconAdjustmentsAlt, IconEdit } from "@tabler/icons-react";
-import { Menu, MenuProps } from "antd";
+import { Menu, type MenuProps } from "antd";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import path from "path";
@@ -22,7 +22,7 @@ const items: MenuItem[] = [
   },
 ];
 
-function NavProfileAside() {
+export default function NavProfileAside() {
   const pathname = usePathname();
 
   const itemsMenu = items.map((item) => {
@@ -31,9 +31,8 @@ function NavProfileAside() {
         ...item,
         className: path.basename(pathname) === item.key ? "active" : "",
       };
-    } else {
-      return item;
     }
+    return item;
   });
 
   return (
@@ -49,5 +48,3 @@ function NavProfileAside() {
     </aside>
   );
 }
-
-export default NavProfileAside;

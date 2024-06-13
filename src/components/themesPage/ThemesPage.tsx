@@ -1,23 +1,17 @@
 "use client";
 import { useDataStore } from "@/src/store/data";
 import { useModalStore } from "@/src/store/modal";
-import type { ThemeColumnType, ThemeType } from "@/src/types/theme";
+import type { ThemeType } from "@/src/types/theme";
 import { IconPlus } from "@tabler/icons-react";
 import { Button } from "antd";
 import MainCard from "../card/MainCard";
-import ThemeColumnList from "./ThemeColumnList";
-import ThemesList from "./ThemeList";
-import type { ThemeColorType } from "@/src/types/color";
+import ThemeColumnList from "../themesList/ThemeColumnList";
+import ThemesList from "../themesList/ThemeList";
+import type { PropsType } from "./props";
 
-function ThemesPage({
-  themes,
-  themeColumns,
-  themeColors,
-}: {
-  themes: ThemeType[];
-  themeColumns: ThemeColumnType[];
-  themeColors: ThemeColorType[];
-}) {
+export default function ThemesPage(props: PropsType) {
+  const { themeColumns, themes, themeColors } = props;
+
   const setModalState = useModalStore((state) => state.setModalState);
   const setThemes = useDataStore((state) => state.setThemes);
 
@@ -48,5 +42,3 @@ function ThemesPage({
     </>
   );
 }
-
-export default ThemesPage;

@@ -13,7 +13,7 @@ import { handleError } from "@/src/lib/utils";
 
 const rule = createSchemaFieldRule(ColorFormSchema);
 
-function CreateColorModal() {
+export default function CreateColorModal() {
   const setMessage = useSettingsStore((state) => state.setMessage);
   const [isPending, startTransition] = useTransition();
   const setModalState = useModalStore((state) => state.setModalState);
@@ -147,5 +147,3 @@ function CreateColorModal() {
     </FormModal>
   );
 }
-
-export default CreateColorModal;

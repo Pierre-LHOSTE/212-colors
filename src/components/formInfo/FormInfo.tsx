@@ -12,7 +12,7 @@ import { useSettingsStore } from "@/src/store/settings";
 
 const rule = createSchemaFieldRule(InfoFormSchema);
 
-function FormInfo({ project }: { project: ProjectType }) {
+export default function FormInfo({ project }: { project: ProjectType }) {
   const [form] = Form.useForm();
   const [isPending, startTransition] = useTransition();
   const [changed, setChanged] = useState(false);
@@ -79,5 +79,3 @@ function FormInfo({ project }: { project: ProjectType }) {
     </MainCard>
   );
 }
-
-export default FormInfo;

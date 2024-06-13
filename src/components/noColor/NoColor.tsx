@@ -4,16 +4,13 @@ import "./no-color.scss";
 
 import { useDataStore } from "@/src/store/data";
 import { useModalStore } from "@/src/store/modal";
-import { ThemeColorType } from "@/src/types/color";
+import type { ThemeColorType } from "@/src/types/color";
 import { IconPlus } from "@tabler/icons-react";
 import HeaderWithOptions from "../headerWithOptions/HeaderWithOptions";
+import type { PropsType } from "./props";
 
-interface ColorPropsType {
-  themeId: string;
-  themeColumnId: string;
-}
-
-function NoColor({ themeId, themeColumnId }: ColorPropsType) {
+export default function NoColor(props: PropsType) {
+  const { themeId, themeColumnId } = props;
   const setModalState = useModalStore((state) => state.setModalState);
   const setThemeColors = useDataStore((state) => state.setThemeColors);
 
@@ -39,5 +36,3 @@ function NoColor({ themeId, themeColumnId }: ColorPropsType) {
     </div>
   );
 }
-
-export default NoColor;

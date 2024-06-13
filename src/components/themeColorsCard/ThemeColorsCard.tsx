@@ -3,7 +3,7 @@ import MainCard from "@/src/components/card/MainCard";
 import Color from "@/src/components/color/Color";
 import { useModalStore } from "@/src/store/modal";
 import type { ColorType, ThemeColorType } from "@/src/types/color";
-import type { ThemeColumnType, ThemeType } from "@/src/types/theme";
+import type { ThemeType } from "@/src/types/theme";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import NoColor from "../noColor/NoColor";
@@ -11,24 +11,12 @@ import "./theme-colors-card.scss";
 import { deleteTheme } from "@/src/api/theme";
 import { handleError } from "@/src/lib/utils";
 import { useSettingsStore } from "@/src/store/settings";
+import type { PropsType } from "./props";
 
-function ThemeColorsCard({
-  colors,
-  theme,
-  setThemeColors,
-  themeColumns,
-  setThemes,
-  themes,
-}: {
-  theme: ThemeType;
-  colors: (ThemeColorType | null)[];
-  themeColumns: ThemeColumnType[];
-  setThemeColors: (
-    arg: ThemeColorType[] | ((arg: ThemeColorType[]) => ThemeColorType[])
-  ) => void;
-  setThemes: (arg: ThemeType[] | ((arg: ThemeType[]) => ThemeType[])) => void;
-  themes: ThemeType[];
-}) {
+export default function ThemeColorsCard(props: PropsType) {
+  const { theme, colors, themeColumns, setThemeColors, setThemes, themes } =
+    props;
+
   const setModalState = useModalStore((state) => state.setModalState);
   const setMessage = useSettingsStore((state) => state.setMessage);
 
@@ -125,5 +113,3 @@ function ThemeColorsCard({
     </div>
   );
 }
-
-export default ThemeColorsCard;

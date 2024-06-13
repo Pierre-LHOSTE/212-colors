@@ -9,24 +9,19 @@ import {
 import { Button, Popconfirm, Popover } from "antd";
 import React from "react";
 import "./main-card-section.scss";
+import type { PropsType } from "./props";
 
 const iconSize = 16;
 
-function MainCardSection({
-  title,
-  children,
-  createAction,
-  showEditAction,
-  deleteAction,
-  dndAction,
-}: {
-  title?: string;
-  children: React.ReactNode;
-  createAction?: () => void;
-  showEditAction?: () => void;
-  deleteAction?: () => void;
-  dndAction?: SyntheticListenerMap;
-}) {
+export default function MainCardSection(props: PropsType) {
+  const {
+    title,
+    children,
+    createAction,
+    showEditAction,
+    deleteAction,
+    dndAction,
+  } = props;
   const [open, setOpen] = React.useState(false);
 
   function handleEditFunc() {
@@ -106,5 +101,3 @@ function MainCardSection({
     </section>
   );
 }
-
-export default MainCardSection;

@@ -7,7 +7,7 @@ import {
   IconLayoutNavbar,
   IconPalette,
 } from "@tabler/icons-react";
-import { Menu, MenuProps } from "antd";
+import { Menu, type MenuProps } from "antd";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import path from "path";
@@ -39,7 +39,7 @@ const items: MenuItem[] = [
   },
 ];
 
-function NavProjectAside() {
+export default function NavProjectAside() {
   const pathname = usePathname();
   const setActiveSection = useSettingsStore((state) => state.setActiveSection);
   const project = useDataStore((state) => state.project);
@@ -57,9 +57,8 @@ function NavProjectAside() {
           ),
           className: path.basename(pathname) === item.key ? "active" : "",
         };
-      } else {
-        return item;
       }
+      return item;
     });
 
   return (
@@ -75,5 +74,3 @@ function NavProjectAside() {
     </aside>
   );
 }
-
-export default NavProjectAside;

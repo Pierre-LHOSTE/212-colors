@@ -9,7 +9,7 @@ import { useSettingsStore } from "@/src/store/settings";
 
 const sections = ["colors", "themes"];
 
-function FormSection({ id }: { id: string }) {
+export default function FormSection({ id }: { id: string }) {
   const hiddenSections = useDataStore((state) => state.project.hiddenSections);
   const setHiddenSections = useDataStore((state) => state.setHiddenSections);
   const setMessage = useSettingsStore((state) => state.setMessage);
@@ -53,5 +53,3 @@ function FormSection({ id }: { id: string }) {
     </MainCard>
   );
 }
-
-export default FormSection;

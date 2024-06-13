@@ -7,26 +7,26 @@ import { reOrder } from "@/src/api/color";
 import { useDataStore } from "@/src/store/data";
 import {
   DndContext,
+  DragOverlay,
+  closestCorners,
   type DragEndEvent,
   type DragMoveEvent,
-  DragOverlay,
   type DragStartEvent,
   type UniqueIdentifier,
-  closestCorners,
 } from "@dnd-kit/core";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import NewProjectButton from "../newProjectButton/NewProjectButton";
 import ProjectButton from "../projectButton/ProjectButton";
-import { useCustomSensors } from "@/src/lib/utils";
+import useDndSensors from "@/src/lib/hooks";
 
-function ProjectList() {
+export default function ProjectList() {
   const projectsList = useDataStore((state) => state.projectsList);
   const setProjectsList = useDataStore((state) => state.setProjectsList);
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const pathname = usePathname();
 
-  const sensors = useCustomSensors();
+  const sensors = useDndSensors();
 
   function updateProjectPosition(event: DragMoveEvent | DragEndEvent) {
     const { active, over } = event;
@@ -85,7 +85,6 @@ function ProjectList() {
                 <ProjectButton
                   key={project.id}
                   project={project}
-                  index={i}
                   active={pathname.startsWith(`/app/project/${project.id}`)}
                 />
               ))
@@ -99,7 +98,6 @@ function ProjectList() {
             {
               <ProjectButton
                 project={findProjectData(activeId)}
-                index={0}
                 active={pathname.startsWith(`/app/project/${activeId}`)}
               />
             }
@@ -109,5 +107,3 @@ function ProjectList() {
     </DndContext>
   );
 }
-
-export default ProjectList;

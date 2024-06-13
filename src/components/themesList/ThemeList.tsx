@@ -1,35 +1,28 @@
 import { reOrder } from "@/src/api/color";
 import { useDataStore } from "@/src/store/data";
-import type { ThemeColumnType, ThemeType } from "@/src/types/theme";
+import type { ThemeType } from "@/src/types/theme";
 import {
   DndContext,
+  DragOverlay,
+  closestCorners,
   type DragEndEvent,
   type DragMoveEvent,
-  DragOverlay,
   type DragStartEvent,
   type UniqueIdentifier,
-  closestCorners,
 } from "@dnd-kit/core";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { useState } from "react";
 import ThemeColorsCard from "../themeColorsCard/ThemeColorsCard";
-import type { ThemeColorType } from "@/src/types/color";
-import { useCustomSensors } from "@/src/lib/utils";
+import useDndSensors from "@/src/lib/hooks";
+import type { PropsType } from "./props";
 
-function ThemesList({
-  themes,
-  themeColumns,
-  themeColors,
-}: {
-  themes: ThemeType[];
-  themeColumns: ThemeColumnType[];
-  themeColors: ThemeColorType[];
-}) {
+export default function ThemesList(props: PropsType) {
+  const { themes, themeColumns, themeColors } = props;
   const setThemeColors = useDataStore((state) => state.setThemeColors);
   const setThemes = useDataStore((state) => state.setThemes);
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
-  const sensors = useCustomSensors();
+  const sensors = useDndSensors();
 
   function handleDragStart(event: DragStartEvent) {
     const { active } = event;
@@ -113,5 +106,3 @@ function ThemesList({
     </>
   );
 }
-
-export default ThemesList;

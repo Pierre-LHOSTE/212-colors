@@ -1,20 +1,9 @@
 import { Button, Modal } from "antd";
+import type { PropsType } from "./props";
 
-interface FormModalProps {
-  children: React.ReactNode;
-  isOpen: boolean;
-  closeModal: () => void;
-  submitForm: () => void;
-  title: string;
-}
+export default function FormModal(props: PropsType) {
+  const { title, isOpen, closeModal, submitForm, children } = props;
 
-function FormModal({
-  children,
-  isOpen,
-  closeModal,
-  submitForm,
-  title,
-}: FormModalProps) {
   return (
     <>
       <Modal
@@ -36,5 +25,3 @@ function FormModal({
     </>
   );
 }
-
-export default FormModal;

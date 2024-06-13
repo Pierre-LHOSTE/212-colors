@@ -1,7 +1,7 @@
 import { useDataStore } from "@/src/store/data";
 import "./nav-header.scss";
 
-function NavHeader() {
+export default function NavHeader() {
   const project = useDataStore((state) => state.project);
 
   return (
@@ -14,5 +14,3 @@ function NavHeader() {
     </header>
   );
 }
-
-export default NavHeader;

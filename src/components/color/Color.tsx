@@ -17,23 +17,14 @@ import { useEffect, useState } from "react";
 import HeaderWithOptions from "../headerWithOptions/HeaderWithOptions";
 import "./color.scss";
 import { useSettingsStore } from "@/src/store/settings";
+import type { PropsType } from "./props";
 
 type Color = GetProp<ColorPickerProps, "value">;
 
-interface ColorPropsType {
-  color: Omit<ColorType, "type" | "position">;
-  isThemeColor?: boolean;
-  updateState?: (color: ColorType | ThemeColorType) => void;
-  noDnd?: boolean;
-}
-
-function Color({
-  color,
-  isThemeColor,
-  updateState,
-  noDnd = false,
-}: ColorPropsType) {
+export default function Color(props: PropsType) {
+  const { color, isThemeColor, noDnd, updateState } = props;
   const { id, name, description, color: colorHex } = color;
+
   const setModalState = useModalStore((state) => state.setModalState);
   const setColors = useDataStore((state) => state.setColors);
   const setThemeColors = useDataStore((state) => state.setThemeColors);
@@ -214,5 +205,3 @@ function Color({
     </div>
   );
 }
-
-export default Color;

@@ -3,41 +3,30 @@ import { reOrder as reOrderApi } from "@/src/api/color";
 import MainCard from "@/src/components/card/MainCard";
 import Color from "@/src/components/color/Color";
 import type { ColorType, ThemeColorType } from "@/src/types/color";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./colors-card.scss";
 
 import { useModalStore } from "@/src/store/modal";
 import {
   DndContext,
+  DragOverlay,
+  closestCorners,
   type DragEndEvent,
   type DragMoveEvent,
-  DragOverlay,
   type DragStartEvent,
   type UniqueIdentifier,
-  closestCorners,
 } from "@dnd-kit/core";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
-import { useCustomSensors } from "@/src/lib/utils";
+import type { PropsType } from "./props";
+import useDndSensors from "@/src/lib/hooks";
 
-type DirectionType = "horizontal" | "vertical";
+export default function ColorsCard(props: PropsType) {
+  const { colors, name, direction, setColors } = props;
 
-function ColorsCard({
-  colors,
-  name,
-  direction,
-  setColors,
-}: {
-  colors: ColorType[];
-  name: string;
-  direction: DirectionType;
-  setColors: (
-    colors: ColorType[] | ((colors: ColorType[]) => ColorType[])
-  ) => void;
-}) {
   const setModalState = useModalStore((state) => state.setModalState);
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
-  const sensors = useCustomSensors();
+  const sensors = useDndSensors();
 
   const cardId = name.toLowerCase() as ColorType["type"];
 
@@ -124,5 +113,3 @@ function ColorsCard({
     </DndContext>
   );
 }
-
-export default ColorsCard;

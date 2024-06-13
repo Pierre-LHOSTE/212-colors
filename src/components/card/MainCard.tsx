@@ -1,48 +1,25 @@
 "use client";
-import type { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
 import type React from "react";
 import "./main-card.scss";
 import MainCardSection from "./mainCardSection/MainCardSection";
+import type { MainCardProps, MainCardSectionType } from "./props";
 
-interface MainCardSectionType {
-  title: string;
-  children: React.ReactNode;
-  createAction?: () => void;
-  showEditAction?: () => void;
-}
-interface MainCardBasicType {
-  title?: string;
-  children?: React.ReactNode;
-  createAction?: () => void;
-  showEditAction?: () => void;
-  deleteAction?: () => void;
-  dndAction?: SyntheticListenerMap;
-}
-
-interface MainCardProps extends MainCardBasicType {
-  sections?: MainCardSectionType[];
-  noPadding?: boolean;
-  noScroll?: boolean;
-  id?: string;
-  className?: string;
-  direction?: "horizontal" | "vertical";
-}
-
-function MainCard({
-  direction,
-  sections,
-  title,
-  children,
-  createAction,
-  showEditAction,
-  deleteAction,
-  dndAction,
-  noPadding,
-  noScroll,
-  id,
-  className,
-}: MainCardProps): JSX.Element {
+export default function MainCard(props: MainCardProps): JSX.Element {
+  const {
+    direction,
+    sections,
+    title,
+    children,
+    createAction,
+    showEditAction,
+    deleteAction,
+    dndAction,
+    noPadding,
+    noScroll,
+    id,
+    className,
+  } = props;
   return (
     <div
       id={id}
@@ -52,7 +29,7 @@ function MainCard({
         {noScroll ? (
           <div className="main-card-sections-scroll">
             {sections && sections.length > 0 ? (
-              sections.map((content: MainCardSectionType, index: number) => (
+              sections.map((content: MainCardSectionType) => (
                 <MainCardSection
                   key={content.title.toLocaleLowerCase().replace(" ", "-")}
                   title={content.title}
@@ -82,14 +59,9 @@ function MainCard({
           <OverlayScrollbarsComponent
             className="main-card-sections-scroll"
             defer={true}
-            options={
-              {
-                // scrollbars: { autoHide: "scroll" },
-              }
-            }
           >
             {sections && sections.length > 0 ? (
-              sections.map((content: MainCardSectionType, index: number) => (
+              sections.map((content: MainCardSectionType) => (
                 <MainCardSection
                   key={content.title.toLocaleLowerCase().replace(" ", "-")}
                   title={content.title}
@@ -120,5 +92,3 @@ function MainCard({
     </div>
   );
 }
-
-export default MainCard;

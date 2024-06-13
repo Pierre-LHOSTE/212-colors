@@ -12,7 +12,7 @@ import type { ProjectType } from "@/src/types/project";
 
 const rule = createSchemaFieldRule(ProjectFormSchema);
 
-function CreateProjectModal() {
+export default function CreateProjectModal() {
   const setMessage = useSettingsStore((state) => state.setMessage);
   const [isPending, startTransition] = useTransition();
   const setModalState = useModalStore((state) => state.setModalState);
@@ -70,5 +70,3 @@ function CreateProjectModal() {
     </FormModal>
   );
 }
-
-export default CreateProjectModal;

@@ -1,4 +1,4 @@
-import { MessageArgsProps, NotificationArgsProps } from "antd";
+import type { MessageArgsProps, NotificationArgsProps } from "antd";
 import { create } from "zustand";
 
 type SetStateFunction<T> = (state: T) => void;

@@ -7,7 +7,7 @@ import MainCard from "../card/MainCard";
 import { handleError } from "@/src/lib/utils";
 import { useSettingsStore } from "@/src/store/settings";
 
-function FormAction({ id }: { id: string }) {
+export default function FormAction({ id }: { id: string }) {
   const router = useRouter();
   const setProjectsList = useDataStore((state) => state.setProjectsList);
   const setMessage = useSettingsStore((state) => state.setMessage);
@@ -43,5 +43,3 @@ function FormAction({ id }: { id: string }) {
     </MainCard>
   );
 }
-
-export default FormAction;

@@ -1,23 +1,18 @@
 import { isVeryLightColor } from "@/src/lib/utils";
 import { useSettingsStore } from "@/src/store/settings";
-import { ProjectButtonType } from "@/src/types/project";
+import type { ProjectButtonType } from "@/src/types/project";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import Link from "next/link";
 import "./project-button.scss";
+import type { PropsType } from "./props";
 
-function ProjectButton({
-  project,
-  index,
-  active,
-}: {
-  project: ProjectButtonType;
-  index: number;
-  active: boolean;
-}) {
+export default function ProjectButton(props: PropsType) {
+  const { project, active } = props;
   const { id, name, colors } = project;
   const color = colors && colors.length > 0 ? colors[0].color : "#000";
   const initials = getInitials(name);
+
   const activeSection = useSettingsStore((state) => state.activeSection);
 
   const {
@@ -50,7 +45,7 @@ function ProjectButton({
         {...listeners}
         className={`icon-hook ${elementColor}`}
         style={{ backgroundColor: color }}
-      ></div>
+      />
       <Link
         href={`/app/project/${id}/${activeSection}`}
         style={{ backgroundColor: color }}
@@ -60,8 +55,6 @@ function ProjectButton({
     </div>
   );
 }
-
-export default ProjectButton;
 
 function getInitials(name: string): string {
   let initials = "";

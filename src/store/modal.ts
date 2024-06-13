@@ -1,12 +1,14 @@
 import { create } from "zustand";
-import { ColorType } from "../types/color";
+import type { ColorType } from "../types/color";
 
 type SetStateFunction<T> = (state: T) => void;
 
 interface ModalStateType {
   id: string;
   mode: "add" | "edit";
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   editItem?: any;
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   updateStateCallBack?: (arg: any) => void;
   data?: {
     colorType?: ColorType["type"];

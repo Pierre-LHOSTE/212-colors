@@ -5,20 +5,20 @@ import { useModalStore } from "@/src/store/modal";
 import type { ThemeColumnType } from "@/src/types/theme";
 import {
   DndContext,
+  DragOverlay,
+  closestCorners,
   type DragEndEvent,
   type DragMoveEvent,
-  DragOverlay,
   type DragStartEvent,
   type UniqueIdentifier,
-  closestCorners,
 } from "@dnd-kit/core";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { useState } from "react";
 import MainCard from "../card/MainCard";
 import ThemeColumn from "../themColumn/ThemeColumn";
-import { useCustomSensors } from "@/src/lib/utils";
+import useDndSensors from "@/src/lib/hooks";
 
-function ThemeColumnList({
+export default function ThemeColumnList({
   themeColumns,
 }: {
   themeColumns: ThemeColumnType[];
@@ -27,7 +27,7 @@ function ThemeColumnList({
   const setThemeColumns = useDataStore((state) => state.setThemeColumns);
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
-  const sensors = useCustomSensors();
+  const sensors = useDndSensors();
 
   function createThemeColumn() {
     setModalState({
@@ -106,5 +106,3 @@ function ThemeColumnList({
     </DndContext>
   );
 }
-
-export default ThemeColumnList;

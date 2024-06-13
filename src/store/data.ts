@@ -1,24 +1,23 @@
 import { create } from "zustand";
-import { ColorType, ThemeColorType } from "../types/color";
-import { ProjectButtonType, ProjectType } from "../types/project";
-import { ThemeColumnType, ThemeType } from "../types/theme";
-
-type SetStateFunction<T> = (state: T | ((prevState: T) => T)) => void;
+import type { ColorType, ThemeColorType } from "../types/color";
+import type { ProjectButtonType, ProjectType } from "../types/project";
+import type { ThemeColumnType, ThemeType } from "../types/theme";
+import type { Dispatch, SetStateAction } from "react";
 
 interface DataStateType {
   project: ProjectType;
-  setProject: SetStateFunction<ProjectType>;
-  setHiddenSections: SetStateFunction<string[]>;
+  setProject: Dispatch<SetStateAction<ProjectType>>;
+  setHiddenSections: Dispatch<SetStateAction<string[]>>;
   projectsList: ProjectButtonType[];
-  setProjectsList: SetStateFunction<ProjectButtonType[]>;
+  setProjectsList: Dispatch<SetStateAction<ProjectButtonType[]>>;
   colors: ColorType[];
-  setColors: SetStateFunction<ColorType[]>;
+  setColors: Dispatch<SetStateAction<ColorType[]>>;
   themes: ThemeType[];
-  setThemes: SetStateFunction<ThemeType[]>;
+  setThemes: Dispatch<SetStateAction<ThemeType[]>>;
   themeColumns: ThemeColumnType[];
-  setThemeColumns: SetStateFunction<ThemeColumnType[]>;
+  setThemeColumns: Dispatch<SetStateAction<ThemeColumnType[]>>;
   themeColors: ThemeColorType[];
-  setThemeColors: SetStateFunction<ThemeColorType[]>;
+  setThemeColors: Dispatch<SetStateAction<ThemeColorType[]>>;
 }
 
 export const useDataStore = create<DataStateType>((set) => ({
@@ -32,15 +31,11 @@ export const useDataStore = create<DataStateType>((set) => ({
     createdAt: new Date(),
     updatedAt: null,
   },
-  setProject: (
-    project: ProjectType | ((prevState: ProjectType) => ProjectType),
-  ) =>
+  setProject: (project: SetStateAction<ProjectType>) =>
     set((state) => ({
       project: typeof project === "function" ? project(state.project) : project,
     })),
-  setHiddenSections: (
-    hiddenSections: string[] | ((prevState: string[]) => string[]),
-  ) =>
+  setHiddenSections: (hiddenSections: SetStateAction<string[]>) =>
     set((state) => ({
       project: {
         ...state.project,
@@ -51,11 +46,7 @@ export const useDataStore = create<DataStateType>((set) => ({
       },
     })),
   projectsList: [],
-  setProjectsList: (
-    projectsList:
-      | ProjectButtonType[]
-      | ((prevState: ProjectButtonType[]) => ProjectButtonType[]),
-  ) =>
+  setProjectsList: (projectsList: SetStateAction<ProjectButtonType[]>) =>
     set((state) => ({
       projectsList:
         typeof projectsList === "function"
@@ -63,25 +54,17 @@ export const useDataStore = create<DataStateType>((set) => ({
           : projectsList,
     })),
   colors: [],
-  setColors: (
-    colors: ColorType[] | ((prevState: ColorType[]) => ColorType[]),
-  ) =>
+  setColors: (colors: SetStateAction<ColorType[]>) =>
     set((state) => ({
       colors: typeof colors === "function" ? colors(state.colors) : colors,
     })),
   themes: [],
-  setThemes: (
-    themes: ThemeType[] | ((prevState: ThemeType[]) => ThemeType[]),
-  ) =>
+  setThemes: (themes: SetStateAction<ThemeType[]>) =>
     set((state) => ({
       themes: typeof themes === "function" ? themes(state.themes) : themes,
     })),
   themeColumns: [],
-  setThemeColumns: (
-    themeColumns:
-      | ThemeColumnType[]
-      | ((prevState: ThemeColumnType[]) => ThemeColumnType[]),
-  ) =>
+  setThemeColumns: (themeColumns: SetStateAction<ThemeColumnType[]>) =>
     set((state) => ({
       themeColumns:
         typeof themeColumns === "function"
@@ -89,11 +72,7 @@ export const useDataStore = create<DataStateType>((set) => ({
           : themeColumns,
     })),
   themeColors: [],
-  setThemeColors: (
-    themeColors:
-      | ThemeColorType[]
-      | ((prevState: ThemeColorType[]) => ThemeColorType[]),
-  ) =>
+  setThemeColors: (themeColors: SetStateAction<ThemeColorType[]>) =>
     set((state) => ({
       themeColors:
         typeof themeColors === "function"

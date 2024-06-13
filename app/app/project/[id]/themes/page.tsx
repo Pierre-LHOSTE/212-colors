@@ -1,6 +1,6 @@
 "use client";
 import { getThemeColors, getThemeColumns, getThemes } from "@/src/api/theme";
-import ThemesList from "@/src/components/themesList/ThemesPage";
+import ThemesList from "@/src/components/themesPage/ThemesPage";
 import { handleError } from "@/src/lib/utils";
 import { useDataStore } from "@/src/store/data";
 import { useEffect } from "react";

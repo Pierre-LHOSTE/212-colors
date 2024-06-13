@@ -11,7 +11,11 @@ import "./theme-column.scss";
 import { useSettingsStore } from "@/src/store/settings";
 import { handleError } from "@/src/lib/utils";
 
-function ThemeColumn({ themeColumn }: { themeColumn: ThemeColumnType }) {
+export default function ThemeColumn({
+  themeColumn,
+}: {
+  themeColumn: ThemeColumnType;
+}) {
   const setModalState = useModalStore((state) => state.setModalState);
   const setThemeColumns = useDataStore((state) => state.setThemeColumns);
   const setMessage = useSettingsStore((state) => state.setMessage);
@@ -92,5 +96,3 @@ function ThemeColumn({ themeColumn }: { themeColumn: ThemeColumnType }) {
     </div>
   );
 }
-
-export default ThemeColumn;

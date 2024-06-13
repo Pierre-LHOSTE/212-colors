@@ -13,7 +13,7 @@ import { handleError } from "@/src/lib/utils";
 
 const rule = createSchemaFieldRule(ThemeFormSchema);
 
-function CreateThemeModal() {
+export default function CreateThemeModal() {
   const setMessage = useSettingsStore((state) => state.setMessage);
   const setNotification = useSettingsStore((state) => state.setNotification);
   const [isPending, startTransition] = useTransition();
@@ -146,5 +146,3 @@ function CreateThemeModal() {
     </FormModal>
   );
 }
-
-export default CreateThemeModal;

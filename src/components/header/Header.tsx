@@ -1,8 +1,6 @@
 "use client";
 import "./header.scss";
 
-function Header() {
+export default function Header() {
   return <header id="header" />;
 }
-
-export default Header;

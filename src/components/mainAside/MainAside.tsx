@@ -4,7 +4,7 @@ import "./main-aside.scss";
 import ProfileSection from "./profileSection/ProfileSection";
 import ProjectList from "./projectList/ProjectList";
 
-function MainAside() {
+export default function MainAside() {
   return (
     <div id="main-aside">
       <ProfileSection />
@@ -13,5 +13,3 @@ function MainAside() {
     </div>
   );
 }
-
-export default MainAside;

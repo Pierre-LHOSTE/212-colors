@@ -7,18 +7,11 @@ import {
 import { Button, Popconfirm, Popover, Typography } from "antd";
 import { useState } from "react";
 import "./header-with-options.scss";
+import type { PropsType } from "./props";
 
-function HeaderWithOptions({
-  name,
-  handleDelete,
-  handleEdit,
-  listeners,
-}: {
-  name: string | null;
-  handleDelete?: () => void;
-  handleEdit?: () => void;
-  listeners?: any;
-}) {
+export default function HeaderWithOptions(props: PropsType) {
+  const { name, handleDelete, handleEdit, listeners } = props;
+
   const [open, setOpen] = useState(false);
 
   const handleOpenChange = (newOpen: boolean) => {
@@ -84,5 +77,3 @@ function HeaderWithOptions({
     </header>
   );
 }
-
-export default HeaderWithOptions;
