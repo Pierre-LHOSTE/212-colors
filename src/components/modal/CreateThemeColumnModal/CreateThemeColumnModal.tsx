@@ -4,7 +4,7 @@ import { createThemeColumn, updateThemeColumn } from "@/src/api/theme";
 import { useDataStore } from "@/src/store/data";
 import { useModalStore } from "@/src/store/modal";
 import { useSettingsStore } from "@/src/store/settings";
-import { ThemeColumnType } from "@/src/types/theme";
+import type { ThemeColumnType } from "@/src/types/theme";
 import { Form, Input } from "antd";
 import { createSchemaFieldRule } from "antd-zod";
 import { useEffect, useTransition } from "react";

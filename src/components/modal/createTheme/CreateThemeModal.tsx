@@ -3,7 +3,7 @@ import { createTheme, updateTheme } from "@/src/api/theme";
 import { useDataStore } from "@/src/store/data";
 import { useModalStore } from "@/src/store/modal";
 import { useSettingsStore } from "@/src/store/settings";
-import { ThemeType } from "@/src/types/theme";
+import type { ThemeType } from "@/src/types/theme";
 import { Form, Input, Select } from "antd";
 import { createSchemaFieldRule } from "antd-zod";
 import { useEffect, useTransition } from "react";

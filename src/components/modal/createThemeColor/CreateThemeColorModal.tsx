@@ -3,7 +3,7 @@ import { createThemeColor, updateColor } from "@/src/api/color";
 import { useDataStore } from "@/src/store/data";
 import { useModalStore } from "@/src/store/modal";
 import { useSettingsStore } from "@/src/store/settings";
-import { ThemeColorType } from "@/src/types/color";
+import type { ThemeColorType } from "@/src/types/color";
 import { ColorPicker, Form, Input } from "antd";
 import { createSchemaFieldRule } from "antd-zod";
 import { useEffect, useState, useTransition } from "react";
@@ -115,7 +115,7 @@ function CreateThemeColorModal() {
     }
   }
 
-  function updateCurrentColor(e: any) {
+  function updateCurrentColor(e: { toHexString: () => string }) {
     const hex = e.toHexString();
     form.setFieldsValue({ color: hex });
     setPreviewColor(hex);

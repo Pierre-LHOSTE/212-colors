@@ -15,7 +15,6 @@ const rule = createSchemaFieldRule(ColorFormSchema);
 
 function CreateColorModal() {
   const setMessage = useSettingsStore((state) => state.setMessage);
-  const setNotification = useSettingsStore((state) => state.setNotification);
   const [isPending, startTransition] = useTransition();
   const setModalState = useModalStore((state) => state.setModalState);
   const modalState = useModalStore((state) => state.modalState);

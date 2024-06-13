@@ -8,7 +8,7 @@ import { useTransition } from "react";
 import FormModal from "../FormModal";
 import { ProjectFormSchema } from "./ProjectFormSchema";
 import { handleError } from "@/src/lib/utils";
-import { ProjectType } from "@/src/types/project";
+import type { ProjectType } from "@/src/types/project";
 
 const rule = createSchemaFieldRule(ProjectFormSchema);
 
