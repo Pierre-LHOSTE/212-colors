@@ -12,7 +12,16 @@ export function AntdConfig({
   const [isDarkTheme, setIsDarkTheme] = useState(false);
 
   useEffect(() => {
-    setIsDarkTheme(window.matchMedia("(prefers-color-scheme: dark)").matches);
+    const darkThemeMediaQuery = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    );
+
+    const themeChangeListener = (e: MediaQueryListEvent) =>
+      setIsDarkTheme(e.matches);
+    setIsDarkTheme(darkThemeMediaQuery.matches);
+    darkThemeMediaQuery.addEventListener("change", themeChangeListener);
+    return () =>
+      darkThemeMediaQuery.removeEventListener("change", themeChangeListener);
   }, []);
 
   return (

@@ -43,7 +43,6 @@ export default function ColorPreview({
 
   return (
     <div className="color header-hover">
-      {/* <HeaderWithOptions name={name} /> */}
       <Button
         type="primary"
         className="color-preview"
@@ -53,9 +52,6 @@ export default function ColorPreview({
       >
         <span className={elementColor}>{getColorHex()}</span>
       </Button>
-      {/* {description ? (
-        <Typography.Paragraph>{description}</Typography.Paragraph>
-      ) : null} */}
     </div>
   );
 }

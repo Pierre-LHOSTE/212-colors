@@ -10,11 +10,13 @@ export default function ColorCard({ colors }: { colors: ColorType[] }) {
       <>
         {primaryColors.length > 0 ? (
           <OverlayScrollbarsComponent className="primary-div" defer={true}>
-            {colors
-              .filter((c) => c.type === "primary")
-              .map((color) => (
-                <ColorPreview key={color.id} color={color} />
-              ))}
+            <div className="primary-div flex-horizontal">
+              {colors
+                .filter((c) => c.type === "primary")
+                .map((color) => (
+                  <ColorPreview key={color.id} color={color} />
+                ))}
+            </div>
           </OverlayScrollbarsComponent>
         ) : null}
       </>
