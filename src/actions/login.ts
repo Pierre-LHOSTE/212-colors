@@ -1,9 +1,9 @@
 "use server";
 
-import { signIn } from "@/src/lib/auth";
+import { signIn, signOut } from "@/src/lib/auth";
 import { LoginSchema } from "@/src/schemas/LoginSchema";
 import { AuthError } from "next-auth";
-import { z } from "zod";
+import type { z } from "zod";
 import { DEFAULT_LOGIN_REDIRECT } from "../lib/routes";
 
 export const login = async (values: z.infer<typeof LoginSchema>) => {
@@ -38,5 +38,13 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
       }
     }
     throw error;
+  }
+};
+
+export const logout = async () => {
+  try {
+    signOut();
+  } catch (error) {
+    console.log(error);
   }
 };

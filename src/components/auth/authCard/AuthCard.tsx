@@ -27,7 +27,7 @@ function AuthCard({
             style={{
               height: height ? `${height}px` : "333px",
             }}
-          ></div>
+          />
           <div
             className="content-card-content"
             style={{

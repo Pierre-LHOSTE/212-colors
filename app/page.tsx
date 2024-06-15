@@ -1,7 +1,9 @@
+"use client";
+import { useRouter } from "next/navigation";
+
 export default function Home() {
-  return (
-    // <App projects={[]}>
-    <></>
-    // </App>
-  );
+  const router = useRouter();
+
+  router.push("/app");
+  return <></>;
 }

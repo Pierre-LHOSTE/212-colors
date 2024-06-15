@@ -4,26 +4,33 @@ import { LoginSchema } from "@/src/schemas/LoginSchema";
 import { Button, Form, Input } from "antd";
 import { createSchemaFieldRule } from "antd-zod";
 import { useState, useTransition } from "react";
+import type { z } from "zod";
 
 const rule = createSchemaFieldRule(LoginSchema);
 
 function LoginForm() {
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
-  function onSubmit(values: any) {
+  const [success, setSuccess] = useState<boolean>(false);
+  function onSubmit(values: z.infer<typeof LoginSchema>) {
     setError(null);
-    setSuccess(null);
+    setSuccess(false);
     startTransition(() => {
-      login(values).then((response: any) => {
-        if (!response) return;
-        if (response.error) {
-          setError(response.error as string);
+      login(values).then(
+        (
+          response:
+            | {
+                error: string;
+              }
+            | undefined
+        ) => {
+          if (!response) return;
+          if (response.error) {
+            setError(response.error as string);
+          }
+          setSuccess(true);
         }
-        if (response.success) {
-          setSuccess(response.success as string);
-        }
-      });
+      );
     });
   }
 

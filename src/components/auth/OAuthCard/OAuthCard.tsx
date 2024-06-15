@@ -55,7 +55,7 @@ function OAuthCard({ authType }: { authType: string }) {
                 ),
               },
         ]}
-      ></MainCard>
+      />
     </div>
   );
 }

@@ -8,9 +8,9 @@ export const RegisterSchema = z.object({
     message: "Email must be a valid email address",
   }),
   password: z.string().min(3, {
-    message: "Password must be at least 6 characters long",
+    message: "Password must be at least 3 characters long",
   }),
   confirmPassword: z.string().min(3, {
-    message: "Password must be at least 6 characters long",
+    message: "Password must be at least 3 characters long",
   }),
 });

@@ -33,37 +33,38 @@ export default function InfoCard({
           title: "",
           children: (
             <Descriptions
+              column={1}
               items={[
                 {
                   key: "created-at",
                   label: "Created at",
                   children: <>{project.createdAt.toLocaleDateString()}</>,
                 },
+                // {
+                //   key: "colors-count",
+                //   label: "Colors",
+                //   children: <>{colors.length}</>,
+                // },
+                // {
+                //   key: "themes-count",
+                //   label: "Themes",
+                //   children: <>{themes.length}</>,
+                // },
                 {
                   key: "updated-at",
                   label: "Updated at",
                   children: <>{project.updatedAt?.toLocaleDateString()}</>,
                 },
-                {
-                  key: "colors-count",
-                  label: "Colors",
-                  children: <>{colors.length}</>,
-                },
-                {
-                  key: "themes-count",
-                  label: "Themes",
-                  children: <>{themes.length}</>,
-                },
-                {
-                  key: "theme-colors-count",
-                  label: "Theme colors",
-                  children: <>{themeColors.length}</>,
-                },
-                {
-                  key: "theme-columns-count",
-                  label: "Theme color types",
-                  children: <>{themeColumns.length}</>,
-                },
+                // {
+                //   key: "theme-colors-count",
+                //   label: "Theme colors",
+                //   children: <>{themeColors.length}</>,
+                // },
+                // {
+                //   key: "theme-columns-count",
+                //   label: "Theme color types",
+                //   children: <>{themeColumns.length}</>,
+                // },
               ]}
             />
           ),

@@ -1,14 +1,19 @@
 "use client";
 import { register } from "@/src/actions/register";
 import { RegisterSchema } from "@/src/schemas/registerSchema";
-import { Button, Form, Input } from "antd";
+import { Button, Form, type FormInstance, Input } from "antd";
 import { createSchemaFieldRule } from "antd-zod";
 import { useState, useTransition } from "react";
+import type { z } from "zod";
 
 const rule = createSchemaFieldRule(RegisterSchema);
 
-const validateConfirmPassword = ({ getFieldValue }: any) => ({
-  validator(_: any, value: any) {
+const validateConfirmPassword = ({
+  getFieldValue,
+}: {
+  getFieldValue: (field: string) => string;
+}) => ({
+  validator(_: unknown, value: string) {
     if (!value || getFieldValue("password") === value) {
       return Promise.resolve();
     }
@@ -21,7 +26,7 @@ function RegisterForm() {
   const [success, setSuccess] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
 
-  function onSubmit(values: any) {
+  function onSubmit(values: z.infer<typeof RegisterSchema>) {
     setError(null);
     setSuccess(null);
     startTransition(() => {
