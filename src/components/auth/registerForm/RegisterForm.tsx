@@ -8,19 +8,6 @@ import type { z } from "zod";
 
 const rule = createSchemaFieldRule(RegisterSchema);
 
-const validateConfirmPassword = ({
-  getFieldValue,
-}: {
-  getFieldValue: (field: string) => string;
-}) => ({
-  validator(_: unknown, value: string) {
-    if (!value || getFieldValue("password") === value) {
-      return Promise.resolve();
-    }
-    return Promise.reject(new Error("The two passwords do not match!"));
-  },
-});
-
 function RegisterForm() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
@@ -76,7 +63,6 @@ function RegisterForm() {
                 required: true,
                 message: "Please confirm your password!",
               },
-              ({ getFieldValue }) => validateConfirmPassword({ getFieldValue }),
             ]}
           >
             <Input.Password />

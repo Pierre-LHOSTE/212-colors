@@ -8,12 +8,7 @@ export const ChangePasswordSchema = z
     newPassword: z.string().min(3),
     confirmNewPassword: z.string().min(3),
   })
-  .superRefine(({ confirmNewPassword, newPassword }, ctx) => {
-    if (confirmNewPassword !== newPassword) {
-      ctx.addIssue({
-        code: "custom",
-        message: "The passwords did not match",
-        path: ["confirmPassword"],
-      });
-    }
+  .refine((data) => data.newPassword === data.confirmNewPassword, {
+    message: "Passwords don't match",
+    path: ["confirmNewPassword"],
   });
