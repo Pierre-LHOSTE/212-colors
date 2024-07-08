@@ -42,9 +42,9 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
 };
 
 export const logout = async () => {
-  try {
-    signOut();
-  } catch (error) {
-    console.log(error);
-  }
+  // try {
+  await signOut();
+  // } catch (error) {
+  //   console.log(error);
+  // }
 };

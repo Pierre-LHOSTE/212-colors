@@ -7,7 +7,7 @@ import "./profile-action.scss";
 
 export default function ProfileAction() {
   async function handleLogout() {
-    logout();
+    await logout();
   }
 
   return (
