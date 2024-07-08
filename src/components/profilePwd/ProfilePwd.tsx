@@ -3,11 +3,30 @@ import { Button, Form, Input } from "antd";
 import MainCard from "../card/MainCard";
 import { createSchemaFieldRule } from "antd-zod";
 import { ChangePasswordSchema } from "./ChangePasswordSchema";
+import type { z } from "zod";
+import { changePassword } from "@/src/actions/changePassword";
+import { useTransition } from "react";
+import { handleError } from "@/src/lib/utils";
+import { useSettingsStore } from "@/src/store/settings";
 
 const rule = createSchemaFieldRule(ChangePasswordSchema);
 
 function ProfilePwd() {
   const [form] = Form.useForm();
+  const [isPending, startTransition] = useTransition();
+  const setMessage = useSettingsStore((state) => state.setMessage);
+
+  async function submit(e: z.infer<typeof ChangePasswordSchema>) {
+    startTransition(async () => {
+      const res = await changePassword(e);
+      if ("success" in res) {
+        form.resetFields();
+        setMessage({ type: "success", content: res.success });
+      } else {
+        handleError(res, "Error changing password");
+      }
+    });
+  }
 
   return (
     <>
@@ -15,7 +34,7 @@ function ProfilePwd() {
         <Form
           layout="vertical"
           name="profile-pwd"
-          onFinish={() => {}}
+          onFinish={submit}
           form={form}
         >
           <Form.Item
