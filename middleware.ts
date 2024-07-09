@@ -15,30 +15,46 @@ export default auth((req) => {
   const isLoggedIn = !!req.auth;
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(API_AUTH_PREFIX);
-  const isPublicRoute = PUBLIC_ROUTES.includes(nextUrl.pathname);
+  const isAuthRoute = AUTH_ROUTES.includes(nextUrl.pathname);
+  const isPublicRoute = PUBLIC_ROUTES.includes(nextUrl.pathname) || isAuthRoute;
   const isAppRoute = APP_ROUTES.some((route) =>
     nextUrl.pathname.startsWith(route),
   );
-  const isAuthRoute = AUTH_ROUTES.includes(nextUrl.pathname);
 
+  let urlType = "UNKNOWN";
   if (isApiAuthRoute) {
+    urlType = "API_AUTH_ROUTE";
+  } else if (isPublicRoute) {
+    urlType = "PUBLIC_ROUTE";
+  } else if (isAppRoute) {
+    urlType = "APP_ROUTE";
+  } else if (isAuthRoute) {
+    urlType = "AUTH_ROUTE";
+  }
+
+  console.log(
+    ` > ${nextUrl.pathname}, ${urlType}, ${isLoggedIn ? "Logged ✓" : "Logged Out"}`,
+  );
+
+  // Si c'est l'API, on ne fait rien
+  if (isApiAuthRoute) {
+    console.log("HERE1");
     return;
   }
 
-  if (isAuthRoute) {
-    if (isLoggedIn) {
-      return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
-    }
-    return;
+  // Si c'est une route de connexion et que l'utilisateur est déjà connecté, on le redirige
+  if (isAuthRoute && isLoggedIn) {
+    console.log("HERE2");
+    return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
   }
 
-  if (!isLoggedIn && !isPublicRoute) {
+  // Si ce n'est pas une route publique ou une route de l'application et que l'utilisateur n'est pas connecté, on le redirige
+  if (!isLoggedIn && (!isPublicRoute || isAppRoute)) {
+    console.log("HERE3");
     return Response.redirect(new URL("/auth/login", nextUrl));
   }
 
-  if (isAppRoute && !isLoggedIn) {
-    return Response.redirect(new URL("/auth/login", nextUrl));
-  }
+  console.log("HERE5");
 
   return;
 });

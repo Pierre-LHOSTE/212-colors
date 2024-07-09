@@ -21,7 +21,7 @@ function ProfilePwd() {
       const res = await changePassword(e);
       if ("success" in res) {
         form.resetFields();
-        setMessage({ type: "success", content: res.success });
+        setMessage({ type: "success", content: res.message });
       } else {
         handleError(res, "Error changing password");
       }

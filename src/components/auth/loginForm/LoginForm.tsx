@@ -15,22 +15,14 @@ function LoginForm() {
   function onSubmit(values: z.infer<typeof LoginSchema>) {
     setError(null);
     setSuccess(false);
-    startTransition(() => {
-      login(values).then(
-        (
-          response:
-            | {
-                error: string;
-              }
-            | undefined
-        ) => {
-          if (!response) return;
-          if (response.error) {
-            setError(response.error as string);
-          }
-          setSuccess(true);
-        }
-      );
+    startTransition(async () => {
+      const res = await login(values);
+      if (!res) return;
+      if ("error" in res) {
+        setError(res.error);
+      } else {
+        setSuccess(true);
+      }
     });
   }
 
