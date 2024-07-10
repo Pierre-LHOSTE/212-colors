@@ -7,17 +7,34 @@
   // border-right: 2px solid;
 }
 
-@media (prefers-color-scheme: dark) {
+@mixin dark-theme {
   #main-aside {
     background-color: #1c1b22;
-    // border-bottom-color: #0f1319;
   }
 }
 
-@media (prefers-color-scheme: light) {
+@mixin light-theme {
   #main-aside {
-    background-color: #f5f5f5;
     background-color: #ffffff;
-    // border-bottom-color: #dedede;
   }
+}
+
+@media (prefers-color-scheme: dark) {
+  .auto-theme {
+    @include dark-theme;
+  }
+}
+
+.dark-theme {
+  @include dark-theme;
+}
+
+@media (prefers-color-scheme: light) {
+  .auto-theme {
+    @include light-theme;
+  }
+}
+
+.light-theme {
+  @include light-theme;
 }

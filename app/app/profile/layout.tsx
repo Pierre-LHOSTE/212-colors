@@ -1,6 +1,3 @@
-import "overlayscrollbars/overlayscrollbars.css";
-import "./layout.scss";
-
 import Header from "@/src/components/header/Header";
 import NavProfileAside from "@/src/components/navAside/NavProfileAside";
 

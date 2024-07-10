@@ -7,18 +7,38 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
+@mixin dark-theme {
   #profile-section {
     background-color: "#1E2126";
     border-bottom-color: #0f1319;
   }
 }
 
-@media (prefers-color-scheme: light) {
+@mixin light-theme {
   #profile-section {
     background-color: #fdfdfd;
     background-color: #fafafa;
     background-color: #fff;
     border-bottom-color: #dedede;
   }
+}
+
+@media (prefers-color-scheme: dark) {
+  .auto-theme {
+    @include dark-theme;
+  }
+}
+
+.dark-theme {
+  @include dark-theme;
+}
+
+@media (prefers-color-scheme: light) {
+  .auto-theme {
+    @include light-theme;
+  }
+}
+
+.light-theme {
+  @include light-theme;
 }

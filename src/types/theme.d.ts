@@ -1,4 +1,4 @@
-import { ThemeColorType } from "./color";
+import type { ThemeColorType } from "./color";
 import { ProjectType } from "./project";
 
 export type ThemeTypeType = "light" | "dark";

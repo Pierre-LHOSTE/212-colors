@@ -15,7 +15,7 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
+@mixin dark-theme {
   .nav-button {
     color: #898a8d;
     &.active {
@@ -24,7 +24,8 @@
     }
   }
 }
-@media (prefers-color-scheme: light) {
+
+@mixin light-theme {
   .nav-button {
     color: #898a8d;
     &.active {
@@ -32,4 +33,24 @@
       color: #000;
     }
   }
+}
+
+@media (prefers-color-scheme: dark) {
+  .auto-theme {
+    @include dark-theme;
+  }
+}
+
+.dark-theme {
+  @include dark-theme;
+}
+
+@media (prefers-color-scheme: light) {
+  .auto-theme {
+    @include light-theme;
+  }
+}
+
+.light-theme {
+  @include light-theme;
 }

@@ -6,7 +6,7 @@ import {
   IconPlus,
   IconTrash,
 } from "@tabler/icons-react";
-import { Button, Popconfirm, Popover } from "antd";
+import { Button, Popconfirm, Popover, Typography } from "antd";
 import React from "react";
 import "./main-card-section.scss";
 import type { PropsType } from "./props";
@@ -39,7 +39,9 @@ export default function MainCardSection(props: PropsType) {
     <section className="main-card-section">
       {title || dndAction || showEditAction || deleteAction || createAction ? (
         <header className="card-header">
-          {title ? <h3>{title}</h3> : null}
+          {title ? (
+            <Typography.Title level={3}>{title}</Typography.Title>
+          ) : null}
           <div className={`card-actions${open ? " open" : ""}`}>
             {dndAction ? (
               <Button

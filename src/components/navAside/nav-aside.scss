@@ -19,7 +19,7 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
+@mixin dark-theme {
   #nav-aside {
     background-color: #13161c;
   }
@@ -28,7 +28,7 @@
   }
 }
 
-@media (prefers-color-scheme: light) {
+@mixin light-theme {
   #nav-aside {
     background-color: #fff;
     background-color: #fafafa;
@@ -36,4 +36,24 @@
   .ant-menu-item.active {
     background-color: rgba($color: #000, $alpha: 0.1);
   }
+}
+
+@media (prefers-color-scheme: dark) {
+  .auto-theme {
+    @include dark-theme;
+  }
+}
+
+.dark-theme {
+  @include dark-theme;
+}
+
+@media (prefers-color-scheme: light) {
+  .auto-theme {
+    @include light-theme;
+  }
+}
+
+.light-theme {
+  @include light-theme;
 }

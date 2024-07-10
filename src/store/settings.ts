@@ -1,9 +1,14 @@
 import type { MessageArgsProps, NotificationArgsProps } from "antd";
 import { create } from "zustand";
+import type { themeType } from "../types/settings";
 
 type SetStateFunction<T> = (state: T) => void;
 
 interface SettingsStoreType {
+  theme: themeType;
+  setTheme: SetStateFunction<themeType>;
+  language: string;
+  setLanguage: SetStateFunction<string>;
   message: MessageArgsProps;
   setMessage: SetStateFunction<MessageArgsProps>;
   notification: NotificationArgsProps;
@@ -13,6 +18,10 @@ interface SettingsStoreType {
 }
 
 export const useSettingsStore = create<SettingsStoreType>((set) => ({
+  theme: "auto",
+  setTheme: (theme: themeType) => set({ theme }),
+  language: "en",
+  setLanguage: (language: string) => set({ language }),
   message: {
     type: "info",
     content: "",

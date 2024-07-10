@@ -29,7 +29,7 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
+@mixin dark-theme {
   #overview .color {
     .color-preview {
       outline-color: #0f1319;
@@ -38,11 +38,27 @@
   }
 }
 
-@media (prefers-color-scheme: light) {
+@mixin light-theme {
   #overview .color {
     .color-preview {
       outline-color: rgba($color: #000, $alpha: 0.025);
       background-color: rgba($color: #000, $alpha: 0.2);
     }
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .auto-theme {
+    @include dark-theme;
+  }
+}
+
+.dark-theme {
+  @include dark-theme;
+}
+
+@media (prefers-color-scheme: light) {
+  .auto-theme {
+    @include light-theme;
   }
 }

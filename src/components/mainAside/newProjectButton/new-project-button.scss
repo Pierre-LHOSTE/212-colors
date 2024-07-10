@@ -5,7 +5,7 @@
   border: none;
 }
 
-@media (prefers-color-scheme: dark) {
+@mixin dark-theme {
   #new-project {
     background-color: rgba($color: #fff, $alpha: 0.025);
 
@@ -18,7 +18,7 @@
   }
 }
 
-@media (prefers-color-scheme: light) {
+@mixin light-theme {
   #new-project {
     background-color: rgba($color: #000, $alpha: 0.025);
 
@@ -29,4 +29,24 @@
       stroke: #000;
     }
   }
+}
+
+@media (prefers-color-scheme: dark) {
+  .auto-theme {
+    @include dark-theme;
+  }
+}
+
+.dark-theme {
+  @include dark-theme;
+}
+
+@media (prefers-color-scheme: light) {
+  .auto-theme {
+    @include light-theme;
+  }
+}
+
+.light-theme {
+  @include light-theme;
 }

@@ -39,11 +39,8 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
+@mixin dark-theme {
   #nav-header {
-    // background-color: black;
-    // border-bottom-color: black;
-
     #nav-header-wrapper {
       background: #b83536;
       background: linear-gradient(135deg, #ff1818, #1e2126);
@@ -56,11 +53,8 @@
   }
 }
 
-@media (prefers-color-scheme: light) {
+@mixin light-theme {
   #nav-header {
-    // background-color: #dedede;
-    // border-bottom-color: #dedede;
-
     #nav-header-wrapper {
       background: #b83536;
       background: linear-gradient(135deg, #ff1818, #1e2126);
@@ -71,4 +65,24 @@
       }
     }
   }
+}
+
+@media (prefers-color-scheme: dark) {
+  .auto-theme {
+    @include dark-theme;
+  }
+}
+
+.dark-theme {
+  @include dark-theme;
+}
+
+@media (prefers-color-scheme: light) {
+  .auto-theme {
+    @include light-theme;
+  }
+}
+
+.light-theme {
+  @include light-theme;
 }
