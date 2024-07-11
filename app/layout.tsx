@@ -6,6 +6,7 @@ import "overlayscrollbars/overlayscrollbars.css";
 import { AntdConfig } from "./AntdConfig";
 import StyledComponentsRegistry from "./AntdRegistry";
 import "./globals.scss";
+import { LangConfig } from "./LangConfig";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,11 +25,13 @@ export default function RootLayout({
       <body className={inter.className}>
         <StyledComponentsRegistry>
           <AntdConfig>
-            {children}
-            <>
-              <Message />
-              <Notification />
-            </>
+            <LangConfig>
+              {children}
+              <>
+                <Message />
+                <Notification />
+              </>
+            </LangConfig>
           </AntdConfig>
         </StyledComponentsRegistry>
       </body>
