@@ -1,14 +1,16 @@
 "use client";
+import { useI18nContext } from "@/src/i18n/i18n-react";
 import { useDataStore } from "@/src/store/data";
 import { useModalStore } from "@/src/store/modal";
 import type { ThemeType } from "@/src/types/theme";
 import { IconPlus } from "@tabler/icons-react";
 import { Button } from "antd";
+import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
 import MainCard from "../card/MainCard";
 import ThemeColumnList from "../themesList/ThemeColumnList";
 import ThemesList from "../themesList/ThemeList";
 import type { PropsType } from "./props";
-import { useI18nContext } from "@/src/i18n/i18n-react";
+import "./theme-page.scss";
 
 export default function ThemesPage(props: PropsType) {
   const { themeColumns, themes, themeColors } = props;
@@ -21,27 +23,30 @@ export default function ThemesPage(props: PropsType) {
   return (
     <>
       <ThemeColumnList themeColumns={themeColumns} />
-      <ThemesList
-        themes={themes}
-        themeColumns={themeColumns}
-        themeColors={themeColors}
-      />
-      <MainCard className="theme-color-card" direction="horizontal">
-        <Button
-          type="text"
-          icon={<IconPlus />}
-          onClick={() =>
-            setModalState({
-              mode: "add",
-              id: "theme",
-              updateStateCallBack: (theme: ThemeType) =>
-                setThemes((themes) => [...themes, theme]),
-            })
-          }
-        >
-          {LL.project.theme.newTheme()}
-        </Button>
-      </MainCard>
+
+      <OverlayScrollbarsComponent id="theme-scroll" defer={true}>
+        <ThemesList
+          themes={themes}
+          themeColumns={themeColumns}
+          themeColors={themeColors}
+        />
+        <MainCard className="theme-color-card" direction="horizontal">
+          <Button
+            type="text"
+            icon={<IconPlus />}
+            onClick={() =>
+              setModalState({
+                mode: "add",
+                id: "theme",
+                updateStateCallBack: (theme: ThemeType) =>
+                  setThemes((themes) => [...themes, theme]),
+              })
+            }
+          >
+            {LL.project.theme.newTheme()}
+          </Button>
+        </MainCard>
+      </OverlayScrollbarsComponent>
     </>
   );
 }
