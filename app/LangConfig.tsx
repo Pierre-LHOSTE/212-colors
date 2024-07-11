@@ -15,13 +15,28 @@ export function LangConfig({
   const language = useSettingsStore((state) => state.language);
   const detectedLocale = detectLocale(navigatorDetector);
   const locale = language === "auto" ? detectedLocale : (language as Locales);
-  // const locale = "fr";
 
   const [localesLoaded, setLocalesLoaded] = useState(false);
+
   useEffect(() => {
-    loadLocaleAsync(locale).then((e) => {
+    loadLocaleAsync(locale).then(() => {
       setLocalesLoaded(true);
     });
+  }, [locale]);
+
+  useEffect(() => {
+    const handleLanguageChange = () => {
+      setLocalesLoaded(false);
+      loadLocaleAsync(locale).then(() => {
+        setLocalesLoaded(true);
+      });
+    };
+
+    window.addEventListener("languageChange", handleLanguageChange);
+
+    return () => {
+      window.removeEventListener("languageChange", handleLanguageChange);
+    };
   }, [locale]);
 
   if (!localesLoaded) {

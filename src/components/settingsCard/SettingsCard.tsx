@@ -1,12 +1,12 @@
 "use client";
+import { updateSettings } from "@/src/api/settings";
+import { useI18nContext } from "@/src/i18n/i18n-react";
+import { handleError } from "@/src/lib/utils";
+import { useSettingsStore } from "@/src/store/settings";
+import type { ThemeType } from "@/src/types/settings";
 import { Select } from "antd";
 import MainCard from "../card/MainCard";
 import "./settings-card.scss";
-import { useSettingsStore } from "@/src/store/settings";
-import { handleError } from "@/src/lib/utils";
-import { updateSettings } from "@/src/api/settings";
-import type { ThemeType } from "@/src/types/settings";
-import { useI18nContext } from "@/src/i18n/i18n-react";
 
 export default function SettingsCard() {
   const theme = useSettingsStore((state) => state.theme);
@@ -38,6 +38,7 @@ export default function SettingsCard() {
       type: "success",
       content: "Language settings updated successfully",
     });
+    window.dispatchEvent(new Event("languageChange"));
   }
 
   return (
