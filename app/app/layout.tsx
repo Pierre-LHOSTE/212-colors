@@ -1,11 +1,13 @@
 "use client";
 import { getProjectList } from "@/src/api/project";
 import MainAside from "@/src/components/mainAside/MainAside";
+import { handleError } from "@/src/lib/utils";
 import { useDataStore } from "@/src/store/data";
+import { useSettingsStore } from "@/src/store/settings";
 import "overlayscrollbars/overlayscrollbars.css";
 import { useEffect } from "react";
 import "./layout.scss";
-import { handleError } from "@/src/lib/utils";
+import { getSettings } from "@/src/api/settings";
 
 export default function Layout({
   children,
@@ -13,6 +15,8 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   const setProjectsList = useDataStore((state) => state.setProjectsList);
+  const setTheme = useSettingsStore((state) => state.setTheme);
+  const setLanguage = useSettingsStore((state) => state.setLanguage);
 
   useEffect(() => {
     async function fetchProjects() {
@@ -23,6 +27,16 @@ export default function Layout({
       setProjectsList(projects);
     }
 
+    async function fetchSettings() {
+      const settings = await getSettings();
+      if ("error" in settings) {
+        return handleError(settings, "Failed to fetch settings");
+      }
+      setLanguage(settings.language);
+      setTheme(settings.theme);
+    }
+
+    fetchSettings();
     fetchProjects();
   }, [setProjectsList]);
 

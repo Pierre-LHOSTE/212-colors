@@ -38,23 +38,18 @@ export default auth((req) => {
 
   // Si c'est l'API, on ne fait rien
   if (isApiAuthRoute) {
-    console.log("HERE1");
     return;
   }
 
   // Si c'est une route de connexion et que l'utilisateur est déjà connecté, on le redirige
   if (isAuthRoute && isLoggedIn) {
-    console.log("HERE2");
     return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl));
   }
 
   // Si ce n'est pas une route publique ou une route de l'application et que l'utilisateur n'est pas connecté, on le redirige
   if (!isLoggedIn && (!isPublicRoute || isAppRoute)) {
-    console.log("HERE3");
     return Response.redirect(new URL("/auth/login", nextUrl));
   }
-
-  console.log("HERE5");
 
   return;
 });

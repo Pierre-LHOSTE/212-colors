@@ -10,7 +10,7 @@ export default function LinksCard() {
       <Link href="" target="_blank">
         Home page
       </Link>
-      <Link href="" target="_blank">
+      <Link href="https://github.com/Pierre-LHOSTE/212-colors" target="_blank">
         Github
       </Link>
     </MainCard>

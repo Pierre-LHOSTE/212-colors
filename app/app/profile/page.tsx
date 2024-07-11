@@ -1,5 +1,4 @@
-import { auth, signOut } from "@/src/lib/auth";
-import { AUTH_ROUTES } from "@/src/lib/routes";
+import { auth } from "@/src/lib/auth";
 import type { UserType } from "@/src/types/user";
 import Profile from "@/src/components/profilePage/Profile";
 
