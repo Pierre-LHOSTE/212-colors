@@ -33,6 +33,7 @@ export function LangConfig({
     };
 
     window.addEventListener("languageChange", handleLanguageChange);
+    window.dispatchEvent(new Event("languageChange"));
 
     return () => {
       window.removeEventListener("languageChange", handleLanguageChange);
