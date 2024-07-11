@@ -1,12 +1,12 @@
 "use client";
 import { deleteProject } from "@/src/api/project";
+import { useI18nContext } from "@/src/i18n/i18n-react";
+import { handleError } from "@/src/lib/utils";
 import { useDataStore } from "@/src/store/data";
+import { useSettingsStore } from "@/src/store/settings";
 import { Button, Popconfirm } from "antd";
 import { useRouter } from "next/navigation";
 import MainCard from "../card/MainCard";
-import { handleError } from "@/src/lib/utils";
-import { useSettingsStore } from "@/src/store/settings";
-import { useI18nContext } from "@/src/i18n/i18n-react";
 
 export default function FormAction({ id }: { id: string }) {
   const router = useRouter();

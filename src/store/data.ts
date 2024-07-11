@@ -1,8 +1,8 @@
+import type { Dispatch, SetStateAction } from "react";
 import { create } from "zustand";
 import type { ColorType, ThemeColorType } from "../types/color";
 import type { ProjectButtonType, ProjectType } from "../types/project";
 import type { ThemeColumnType, ThemeType } from "../types/theme";
-import type { Dispatch, SetStateAction } from "react";
 
 interface DataStateType {
   project: ProjectType;

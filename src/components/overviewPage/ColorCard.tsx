@@ -1,8 +1,8 @@
+import { useI18nContext } from "@/src/i18n/i18n-react";
 import type { ColorType } from "@/src/types/color";
+import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
 import MainCard from "../card/MainCard";
 import ColorPreview from "../colorPreview/ColorPreview";
-import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
-import { useI18nContext } from "@/src/i18n/i18n-react";
 
 export default function ColorCard({ colors }: { colors: ColorType[] }) {
   const { LL } = useI18nContext();

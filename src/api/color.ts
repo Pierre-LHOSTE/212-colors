@@ -2,10 +2,10 @@
 import prisma from "@/src/lib/prisma";
 import { revalidateTag } from "next/cache";
 import { auth } from "../lib/auth";
+import { handleServerError } from "../lib/utils";
 import type { ColorType, ThemeColorType } from "../types/color";
 import type { ProjectButtonType } from "../types/project";
 import type { ThemeColumnType } from "../types/theme";
-import { handleServerError } from "../lib/utils";
 
 export async function createColor({
   color,

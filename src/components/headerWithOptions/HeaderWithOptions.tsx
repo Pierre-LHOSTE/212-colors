@@ -1,3 +1,4 @@
+import { useI18nContext } from "@/src/i18n/i18n-react";
 import {
   IconDotsVertical,
   IconGripVertical,
@@ -8,7 +9,6 @@ import { Button, Popconfirm, Popover, Typography } from "antd";
 import { useState } from "react";
 import "./header-with-options.scss";
 import type { PropsType } from "./props";
-import { useI18nContext } from "@/src/i18n/i18n-react";
 
 export default function HeaderWithOptions(props: PropsType) {
   const { name, handleDelete, handleEdit, listeners } = props;

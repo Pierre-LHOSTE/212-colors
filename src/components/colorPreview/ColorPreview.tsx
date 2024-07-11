@@ -1,11 +1,10 @@
 "use client";
 import { isVeryLightColor } from "@/src/lib/utils";
 import type { ColorType } from "@/src/types/color";
-import { type ColorPickerProps, type GetProp, Typography, Button } from "antd";
-import { useEffect, useState } from "react";
-import HeaderWithOptions from "../headerWithOptions/HeaderWithOptions";
-import "./color-preview.scss";
 import type { ThemeColor } from "@prisma/client";
+import { Button, type ColorPickerProps, type GetProp } from "antd";
+import { useEffect, useState } from "react";
+import "./color-preview.scss";
 type Color = GetProp<ColorPickerProps, "value">;
 
 export default function ColorPreview({

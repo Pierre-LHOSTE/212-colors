@@ -1,6 +1,6 @@
+import Profile from "@/src/components/profilePage/Profile";
 import { auth } from "@/src/lib/auth";
 import type { UserType } from "@/src/types/user";
-import Profile from "@/src/components/profilePage/Profile";
 
 async function ProfilePage() {
   const session = await auth();

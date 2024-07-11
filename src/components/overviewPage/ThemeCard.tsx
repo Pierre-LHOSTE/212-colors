@@ -1,8 +1,8 @@
 import type { ThemeColorType } from "@/src/types/color";
 import type { ThemeColumnType, ThemeType } from "@/src/types/theme";
+import type { ThemeColor } from "@prisma/client";
 import { Typography } from "antd";
 import ColorPreview from "../colorPreview/ColorPreview";
-import type { ThemeColor } from "@prisma/client";
 import "./theme-card.scss";
 
 export default function ThemeCard({

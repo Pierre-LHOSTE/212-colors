@@ -1,7 +1,7 @@
-import { useDataStore } from "@/src/store/data";
-import "./nav-header.scss";
-import { usePathname } from "next/navigation";
 import { useI18nContext } from "@/src/i18n/i18n-react";
+import { useDataStore } from "@/src/store/data";
+import { usePathname } from "next/navigation";
+import "./nav-header.scss";
 
 export default function NavHeader() {
   const pathname = usePathname();

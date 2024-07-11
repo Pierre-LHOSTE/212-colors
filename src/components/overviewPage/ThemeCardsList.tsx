@@ -1,12 +1,8 @@
+import { useI18nContext } from "@/src/i18n/i18n-react";
+import type { ThemeColorType } from "@/src/types/color";
 import type { ThemeColumnType, ThemeType } from "@/src/types/theme";
 import MainCard from "../card/MainCard";
-import { Typography } from "antd";
-import type { ThemeColor } from "@prisma/client";
-import Color from "../color/Color";
-import type { ThemeColorType } from "@/src/types/color";
-import ColorPreview from "../colorPreview/ColorPreview";
 import ThemeCard from "./ThemeCard";
-import { useI18nContext } from "@/src/i18n/i18n-react";
 
 export default function ThemeCardsList({
   themes,

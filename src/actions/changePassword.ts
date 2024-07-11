@@ -8,7 +8,7 @@ import { ChangePasswordSchema } from "../components/profilePwd/ChangePasswordSch
 import { auth } from "../lib/auth";
 
 export const changePassword = async (
-  values: z.infer<typeof ChangePasswordSchema>,
+  values: z.infer<typeof ChangePasswordSchema>
 ) => {
   const session = await auth();
   const validatedFields = ChangePasswordSchema.safeParse(values);

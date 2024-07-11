@@ -1,11 +1,11 @@
 "use client";
+import { useI18nContext } from "@/src/i18n/i18n-react";
 import { IconAdjustmentsAlt, IconEdit } from "@tabler/icons-react";
 import { Menu, type MenuProps } from "antd";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import "./nav-aside.scss";
 import NavHeader from "./navHeader/NavHeader";
-import { useI18nContext } from "@/src/i18n/i18n-react";
 
 type MenuItem = Required<MenuProps>["items"][number];
 

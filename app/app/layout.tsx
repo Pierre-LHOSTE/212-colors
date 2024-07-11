@@ -1,5 +1,6 @@
 "use client";
 import { getProjectList } from "@/src/api/project";
+import { getSettings } from "@/src/api/settings";
 import MainAside from "@/src/components/mainAside/MainAside";
 import { handleError } from "@/src/lib/utils";
 import { useDataStore } from "@/src/store/data";
@@ -7,7 +8,6 @@ import { useSettingsStore } from "@/src/store/settings";
 import "overlayscrollbars/overlayscrollbars.css";
 import { useEffect } from "react";
 import "./layout.scss";
-import { getSettings } from "@/src/api/settings";
 
 export default function Layout({
   children,

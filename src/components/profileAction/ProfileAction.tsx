@@ -1,12 +1,11 @@
 "use client";
-
 import { logout } from "@/src/actions/login";
+import { useI18nContext } from "@/src/i18n/i18n-react";
+import { AUTH_ROUTES } from "@/src/lib/routes";
 import { Button } from "antd";
+import { useRouter } from "next/navigation";
 import MainCard from "../card/MainCard";
 import "./profile-action.scss";
-import { useRouter } from "next/navigation";
-import { AUTH_ROUTES } from "@/src/lib/routes";
-import { useI18nContext } from "@/src/i18n/i18n-react";
 
 export default function ProfileAction() {
   const router = useRouter();

@@ -1,7 +1,7 @@
 import type { UserType } from "@/src/types/user";
-import ProfileCard from "./ProfileCard";
-import ProfilePwd from "../profilePwd/ProfilePwd";
 import ProfileAction from "../profileAction/ProfileAction";
+import ProfilePwd from "../profilePwd/ProfilePwd";
+import ProfileCard from "./ProfileCard";
 
 export default function Profile({ user }: { user: UserType }) {
   return (

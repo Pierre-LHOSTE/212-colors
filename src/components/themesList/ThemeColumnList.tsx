@@ -1,5 +1,7 @@
 "use client";
 import { reOrder as reOrderApi } from "@/src/api/color";
+import { useI18nContext } from "@/src/i18n/i18n-react";
+import useDndSensors from "@/src/lib/hooks";
 import { useDataStore } from "@/src/store/data";
 import { useModalStore } from "@/src/store/modal";
 import type { ThemeColumnType } from "@/src/types/theme";
@@ -16,8 +18,6 @@ import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { useState } from "react";
 import MainCard from "../card/MainCard";
 import ThemeColumn from "../themColumn/ThemeColumn";
-import useDndSensors from "@/src/lib/hooks";
-import { useI18nContext } from "@/src/i18n/i18n-react";
 
 export default function ThemeColumnList({
   themeColumns,

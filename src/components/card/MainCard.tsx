@@ -1,6 +1,5 @@
 "use client";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
-import type React from "react";
 import "./main-card.scss";
 import MainCardSection from "./mainCardSection/MainCardSection";
 import type { MainCardProps, MainCardSectionType } from "./props";

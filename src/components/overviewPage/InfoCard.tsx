@@ -1,9 +1,9 @@
+import { useI18nContext } from "@/src/i18n/i18n-react";
+import type { ColorType, ThemeColorType } from "@/src/types/color";
+import type { ProjectType } from "@/src/types/project";
+import type { ThemeColumnType, ThemeType } from "@/src/types/theme";
 import { Descriptions, Typography } from "antd";
 import MainCard from "../card/MainCard";
-import type { ProjectType } from "@/src/types/project";
-import type { ColorType, ThemeColorType } from "@/src/types/color";
-import type { ThemeColumnType, ThemeType } from "@/src/types/theme";
-import { useI18nContext } from "@/src/i18n/i18n-react";
 
 export default function InfoCard({
   project,

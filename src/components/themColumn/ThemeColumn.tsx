@@ -1,15 +1,15 @@
 "use client";
 import { deleteThemeColumn } from "@/src/api/theme";
+import { handleError } from "@/src/lib/utils";
 import { useDataStore } from "@/src/store/data";
 import { useModalStore } from "@/src/store/modal";
+import { useSettingsStore } from "@/src/store/settings";
 import type { ThemeColumnType } from "@/src/types/theme";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Typography } from "antd";
 import HeaderWithOptions from "../headerWithOptions/HeaderWithOptions";
 import "./theme-column.scss";
-import { useSettingsStore } from "@/src/store/settings";
-import { handleError } from "@/src/lib/utils";
 
 export default function ThemeColumn({
   themeColumn,

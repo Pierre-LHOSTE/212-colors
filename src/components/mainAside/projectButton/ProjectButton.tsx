@@ -1,6 +1,5 @@
 import { isVeryLightColor } from "@/src/lib/utils";
 import { useSettingsStore } from "@/src/store/settings";
-import type { ProjectButtonType } from "@/src/types/project";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import Link from "next/link";

@@ -1,7 +1,3 @@
-import type { ColorType, ThemeColorType } from "./color";
-import type { ThemeColumnType, ThemeType } from "./theme";
-import type { UserType } from "./user";
-
 export interface ProjectLiteType {
   id: string;
   name: string;

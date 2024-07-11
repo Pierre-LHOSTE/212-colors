@@ -1,9 +1,9 @@
-"use client"
+"use client";
+import { useI18nContext } from "@/src/i18n/i18n-react";
 import type { UserType } from "@/src/types/user";
+import { Image } from "antd";
 import MainCard from "../card/MainCard";
 import "./profile.scss";
-import { Image } from "antd";
-import { useI18nContext } from '@/src/i18n/i18n-react'
 
 export default function ProfileCard({ user }: { user: UserType }) {
   const { LL } = useI18nContext();

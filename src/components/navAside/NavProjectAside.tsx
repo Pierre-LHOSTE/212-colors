@@ -1,4 +1,5 @@
 "use client";
+import { useI18nContext } from "@/src/i18n/i18n-react";
 import { useDataStore } from "@/src/store/data";
 import { useSettingsStore } from "@/src/store/settings";
 import {
@@ -12,7 +13,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import "./nav-aside.scss";
 import NavHeader from "./navHeader/NavHeader";
-import { useI18nContext } from "@/src/i18n/i18n-react";
 
 export default function NavProjectAside() {
   const setActiveSection = useSettingsStore((state) => state.setActiveSection);

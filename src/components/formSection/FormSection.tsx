@@ -1,12 +1,12 @@
 "use client";
 import { updateSection } from "@/src/api/project";
+import { useI18nContext } from "@/src/i18n/i18n-react";
+import { handleError } from "@/src/lib/utils";
 import { useDataStore } from "@/src/store/data";
+import { useSettingsStore } from "@/src/store/settings";
 import { Checkbox } from "antd";
 import type { CheckboxChangeEvent } from "antd/es/checkbox";
 import MainCard from "../card/MainCard";
-import { handleError } from "@/src/lib/utils";
-import { useSettingsStore } from "@/src/store/settings";
-import { useI18nContext } from "@/src/i18n/i18n-react";
 
 const sections = ["colors", "themes"];
 

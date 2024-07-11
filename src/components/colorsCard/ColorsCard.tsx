@@ -2,11 +2,10 @@
 import { reOrder as reOrderApi } from "@/src/api/color";
 import MainCard from "@/src/components/card/MainCard";
 import Color from "@/src/components/color/Color";
-import type { ColorType, ThemeColorType } from "@/src/types/color";
-import { useState } from "react";
-import "./colors-card.scss";
-
+import { useI18nContext } from "@/src/i18n/i18n-react";
+import useDndSensors from "@/src/lib/hooks";
 import { useModalStore } from "@/src/store/modal";
+import type { ColorType, ThemeColorType } from "@/src/types/color";
 import {
   DndContext,
   DragOverlay,
@@ -17,9 +16,9 @@ import {
   type UniqueIdentifier,
 } from "@dnd-kit/core";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
+import { useState } from "react";
+import "./colors-card.scss";
 import type { PropsType } from "./props";
-import useDndSensors from "@/src/lib/hooks";
-import { useI18nContext } from "@/src/i18n/i18n-react";
 
 export default function ColorsCard(props: PropsType) {
   const { colors, name, direction, setColors } = props;

@@ -1,13 +1,13 @@
 "use client";
-import { Button } from "antd";
-import "./no-color.scss";
+import { useI18nContext } from "@/src/i18n/i18n-react";
 import { useDataStore } from "@/src/store/data";
 import { useModalStore } from "@/src/store/modal";
 import type { ThemeColorType } from "@/src/types/color";
 import { IconPlus } from "@tabler/icons-react";
+import { Button } from "antd";
 import HeaderWithOptions from "../headerWithOptions/HeaderWithOptions";
+import "./no-color.scss";
 import type { PropsType } from "./props";
-import { useI18nContext } from "@/src/i18n/i18n-react";
 
 export default function NoColor(props: PropsType) {
   const { themeId, themeColumnId } = props;

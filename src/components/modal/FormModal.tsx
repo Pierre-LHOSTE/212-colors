@@ -1,6 +1,6 @@
+import { useI18nContext } from "@/src/i18n/i18n-react";
 import { Button, Modal } from "antd";
 import type { PropsType } from "./props";
-import { useI18nContext } from "@/src/i18n/i18n-react";
 
 export default function FormModal(props: PropsType) {
   const { title, isOpen, closeModal, submitForm, children, mode } = props;

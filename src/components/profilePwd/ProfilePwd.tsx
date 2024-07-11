@@ -1,14 +1,14 @@
 "use client";
-import { Button, Form, Input } from "antd";
-import MainCard from "../card/MainCard";
-import { createSchemaFieldRule } from "antd-zod";
-import { ChangePasswordSchema } from "./ChangePasswordSchema";
-import type { z } from "zod";
 import { changePassword } from "@/src/actions/changePassword";
-import { useTransition } from "react";
+import { useI18nContext } from "@/src/i18n/i18n-react";
 import { handleError } from "@/src/lib/utils";
 import { useSettingsStore } from "@/src/store/settings";
-import { useI18nContext } from "@/src/i18n/i18n-react";
+import { Button, Form, Input } from "antd";
+import { createSchemaFieldRule } from "antd-zod";
+import { useTransition } from "react";
+import type { z } from "zod";
+import MainCard from "../card/MainCard";
+import { ChangePasswordSchema } from "./ChangePasswordSchema";
 
 const rule = createSchemaFieldRule(ChangePasswordSchema);
 

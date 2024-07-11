@@ -1,7 +1,7 @@
 "use client";
+import { useI18nContext } from "@/src/i18n/i18n-react";
 import { Typography } from "antd";
 import MainCard from "../card/MainCard";
-import { useI18nContext } from "@/src/i18n/i18n-react";
 
 export default function LinksCard() {
   const { Link } = Typography;

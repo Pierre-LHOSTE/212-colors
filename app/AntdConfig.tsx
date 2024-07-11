@@ -15,7 +15,7 @@ export function AntdConfig({
 
   useEffect(() => {
     const darkThemeMediaQuery = window.matchMedia(
-      "(prefers-color-scheme: dark)",
+      "(prefers-color-scheme: dark)"
     );
 
     const updateTheme = () => {

@@ -1,8 +1,10 @@
 "use client";
 import { deleteColor, deleteThemeColor, updateColorHex } from "@/src/api/color";
+import { useI18nContext } from "@/src/i18n/i18n-react";
 import { handleError, isVeryLightColor } from "@/src/lib/utils";
 import { useDataStore } from "@/src/store/data";
 import { useModalStore } from "@/src/store/modal";
+import { useSettingsStore } from "@/src/store/settings";
 import type { ColorType, ThemeColorType } from "@/src/types/color";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
@@ -16,9 +18,7 @@ import {
 import { useEffect, useState } from "react";
 import HeaderWithOptions from "../headerWithOptions/HeaderWithOptions";
 import "./color.scss";
-import { useSettingsStore } from "@/src/store/settings";
 import type { PropsType } from "./props";
-import { useI18nContext } from "@/src/i18n/i18n-react";
 
 type Color = GetProp<ColorPickerProps, "value">;
 

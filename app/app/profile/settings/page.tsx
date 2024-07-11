@@ -1,5 +1,5 @@
-import SettingsCard from "@/src/components/settingsCard/SettingsCard";
 import LinksCard from "@/src/components/linksCard/LinksCard";
+import SettingsCard from "@/src/components/settingsCard/SettingsCard";
 
 async function SettingsPage() {
   return (

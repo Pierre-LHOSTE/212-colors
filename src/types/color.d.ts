@@ -1,5 +1,3 @@
-import { ProjectType } from "./project";
-
 export interface ColorType {
   id: string;
   color: string;

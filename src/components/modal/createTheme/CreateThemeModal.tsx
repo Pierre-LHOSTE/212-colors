@@ -1,5 +1,7 @@
 "use client";
 import { createTheme, updateTheme } from "@/src/api/theme";
+import { useI18nContext } from "@/src/i18n/i18n-react";
+import { handleError } from "@/src/lib/utils";
 import { useDataStore } from "@/src/store/data";
 import { useModalStore } from "@/src/store/modal";
 import { useSettingsStore } from "@/src/store/settings";
@@ -9,8 +11,6 @@ import { createSchemaFieldRule } from "antd-zod";
 import { useEffect, useTransition } from "react";
 import FormModal from "../FormModal";
 import { ThemeFormSchema } from "./ThemeFormSchema";
-import { handleError } from "@/src/lib/utils";
-import { useI18nContext } from "@/src/i18n/i18n-react";
 
 const rule = createSchemaFieldRule(ThemeFormSchema);
 

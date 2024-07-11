@@ -1,4 +1,5 @@
 import { reOrder } from "@/src/api/color";
+import useDndSensors from "@/src/lib/hooks";
 import { useDataStore } from "@/src/store/data";
 import type { ThemeType } from "@/src/types/theme";
 import {
@@ -13,7 +14,6 @@ import {
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { useState } from "react";
 import ThemeColorsCard from "../themeColorsCard/ThemeColorsCard";
-import useDndSensors from "@/src/lib/hooks";
 import type { PropsType } from "./props";
 
 export default function ThemesList(props: PropsType) {

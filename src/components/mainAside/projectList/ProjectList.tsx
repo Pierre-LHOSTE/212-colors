@@ -1,10 +1,7 @@
-import type { ProjectButtonType } from "@/src/types/project";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
-import "./project-list.scss";
-
 import { reOrder } from "@/src/api/color";
+import useDndSensors from "@/src/lib/hooks";
 import { useDataStore } from "@/src/store/data";
+import type { ProjectButtonType } from "@/src/types/project";
 import {
   DndContext,
   DragOverlay,
@@ -15,9 +12,11 @@ import {
   type UniqueIdentifier,
 } from "@dnd-kit/core";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
 import NewProjectButton from "../newProjectButton/NewProjectButton";
 import ProjectButton from "../projectButton/ProjectButton";
-import useDndSensors from "@/src/lib/hooks";
+import "./project-list.scss";
 
 export default function ProjectList() {
   const projectsList = useDataStore((state) => state.projectsList);

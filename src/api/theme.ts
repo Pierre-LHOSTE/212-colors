@@ -1,8 +1,8 @@
 "use server";
 import prisma from "@/src/lib/prisma";
 import { auth } from "../lib/auth";
-import type { ThemeColumnType, ThemeType } from "../types/theme";
 import { handleServerError } from "../lib/utils";
+import type { ThemeColumnType, ThemeType } from "../types/theme";
 
 export async function createTheme({
   theme,

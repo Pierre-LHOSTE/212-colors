@@ -1,8 +1,8 @@
-import type PropsType from "./props";
-import "./overview.scss";
-import InfoCard from "./InfoCard";
-import ThemeCardsList from "./ThemeCardsList";
 import ColorCard from "./ColorCard";
+import InfoCard from "./InfoCard";
+import "./overview.scss";
+import type PropsType from "./props";
+import ThemeCardsList from "./ThemeCardsList";
 
 export default function Overview(props: PropsType) {
   const { project, colors, themes, themeColors, themeColumns } = props;

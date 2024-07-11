@@ -1,4 +1,3 @@
-import { theme } from "antd";
 import type { BaseTranslation } from "../i18n-types";
 
 const debug: BaseTranslation = {
