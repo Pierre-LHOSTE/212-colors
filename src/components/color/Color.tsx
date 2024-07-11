@@ -140,6 +140,10 @@ export default function Color(props: PropsType) {
     if (getColorHex() !== colorHex) setCurrentColor(initColor);
   }, [color, initColor, colorHex]);
 
+  useEffect(() => {
+    if (!isPickerVisible) setCurrentColor(initColor);
+  }, [isPickerVisible]);
+
   return (
     <div
       className="color header-hover"
