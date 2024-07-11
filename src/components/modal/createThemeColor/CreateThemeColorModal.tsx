@@ -132,6 +132,7 @@ export default function CreateThemeColorModal() {
           : LL.project.theme.modal.color.edit.title()
       }
       isOpen={modalState.id === "theme-color"}
+      mode={modalState.mode}
       closeModal={() =>
         setModalState({
           id: "",

@@ -67,7 +67,6 @@ const en: BaseTranslation = {
         title: "Informations",
         name: "Name",
         description: "Description",
-        submit: "Submit",
       },
       action: {
         title: "Actions",
@@ -170,7 +169,7 @@ const en: BaseTranslation = {
       edit: "Edit",
       delete: "Delete",
       cancel: "Cancel",
-      submit: "Submit",
+      create: "Create",
       yes: "Yes",
       no: "No",
       newColor: "New color",

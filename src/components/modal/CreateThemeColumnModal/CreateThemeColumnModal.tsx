@@ -111,6 +111,7 @@ export default function CreateThemeColumnModal() {
           : LL.project.theme.modal.colorType.edit.title()
       }
       isOpen={modalState.id === "theme-column"}
+      mode={modalState.mode}
       closeModal={() =>
         setModalState({
           id: "",

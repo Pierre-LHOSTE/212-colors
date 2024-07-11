@@ -120,6 +120,7 @@ export default function CreateColorModal() {
           : LL.project.color.modal.edit.title()
       }
       isOpen={modalState.id === "color"}
+      mode={modalState.mode}
       closeModal={() =>
         setModalState({
           id: "",

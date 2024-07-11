@@ -186,10 +186,6 @@ type RootTranslation = {
 				 * D​e​s​c​r​i​p​t​i​o​n
 				 */
 				description: string
-				/**
-				 * S​u​b​m​i​t
-				 */
-				submit: string
 			}
 			action: {
 				/**
@@ -422,9 +418,9 @@ type RootTranslation = {
 			 */
 			cancel: string
 			/**
-			 * S​u​b​m​i​t
+			 * C​r​e​a​t​e
 			 */
-			submit: string
+			create: string
 			/**
 			 * Y​e​s
 			 */
@@ -613,10 +609,6 @@ export type TranslationFunctions = {
 				 * Description
 				 */
 				description: () => LocalizedString
-				/**
-				 * Submit
-				 */
-				submit: () => LocalizedString
 			}
 			action: {
 				/**
@@ -849,9 +841,9 @@ export type TranslationFunctions = {
 			 */
 			cancel: () => LocalizedString
 			/**
-			 * Submit
+			 * Create
 			 */
-			submit: () => LocalizedString
+			create: () => LocalizedString
 			/**
 			 * Yes
 			 */

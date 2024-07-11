@@ -118,6 +118,7 @@ export default function CreateThemeModal() {
           : LL.project.theme.modal.theme.edit.title()
       }
       isOpen={modalState.id === "theme"}
+      mode={modalState.mode}
       closeModal={() =>
         setModalState({
           id: "",

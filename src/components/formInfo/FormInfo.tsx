@@ -82,7 +82,7 @@ export default function FormInfo({ project }: { project: ProjectType }) {
         </Form.Item>
         {changed ? (
           <Button type="primary" htmlType="submit">
-            {LL.project.info.form.submit()}
+            {LL.global.button.edit()}
           </Button>
         ) : null}
       </Form>

@@ -68,7 +68,6 @@ const debug: BaseTranslation = {
         title: "▩▩▩▩▩▩▩▩▩▩▩▩",
         name: "▩▩▩▩",
         description: "▩▩▩▩▩▩▩▩▩▩▩",
-        submit: "▩▩▩▩▩▩",
       },
       action: {
         title: "▩▩▩▩▩▩▩",
@@ -171,7 +170,7 @@ const debug: BaseTranslation = {
       edit: "▩▩▩▩",
       delete: "▩▩▩▩▩▩",
       cancel: "▩▩▩▩▩▩",
-      submit: "▩▩▩▩▩▩",
+      create: "▩▩▩▩▩▩",
       yes: "▩▩▩",
       no: "▩▩",
       newColor: "▩▩▩ ▩▩▩▩▩",

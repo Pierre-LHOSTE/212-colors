@@ -51,6 +51,7 @@ export default function CreateProjectModal() {
     <FormModal
       title={LL.project.modal.new.title()}
       isOpen={modalState.id === "project"}
+      mode={modalState.mode}
       closeModal={() =>
         setModalState({
           id: "",

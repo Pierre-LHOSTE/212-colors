@@ -42,7 +42,7 @@ const fr: BaseTranslation = {
       },
     },
     navigation: {
-      overview: "Aperçu",
+      overview: "Vue d'ensemble",
       info: "Informations",
       colors: "Couleurs",
       themes: "Thèmes",
@@ -67,7 +67,6 @@ const fr: BaseTranslation = {
         title: "Informations",
         name: "Nom",
         description: "Description",
-        submit: "Soumettre",
       },
       action: {
         title: "Actions",
@@ -171,7 +170,7 @@ const fr: BaseTranslation = {
       edit: "Modifier",
       delete: "Supprimer",
       cancel: "Annuler",
-      submit: "Soumettre",
+      create: "Créer",
       yes: "Oui",
       no: "Non",
       newColor: "Nouvelle couleur",

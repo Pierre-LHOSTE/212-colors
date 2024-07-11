@@ -4,4 +4,5 @@ export interface PropsType {
   closeModal: () => void;
   submitForm: () => void;
   title: string;
+  mode: "add" | "edit";
 }
