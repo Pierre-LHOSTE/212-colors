@@ -1,30 +1,27 @@
 "use client";
-import { useState, useEffect } from "react";
-import { loadLocaleAsync } from "@/src/i18n/i18n-util.async";
-import { detectLocale } from "@/src/i18n/i18n-util";
-import { navigatorDetector } from "typesafe-i18n/detectors";
 import TypesafeI18n from "@/src/i18n/i18n-react";
+import { Locales } from "@/src/i18n/i18n-types";
+import { detectLocale } from "@/src/i18n/i18n-util";
+import { loadLocaleAsync } from "@/src/i18n/i18n-util.async";
+import { useSettingsStore } from "@/src/store/settings";
+import { useEffect, useState } from "react";
+import { navigatorDetector } from "typesafe-i18n/detectors";
 
 export function LangConfig({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // const locale = detectLocale(navigatorDetector);
-  const locale = "debug"
-  console.log("🚀 ~ locale:", locale);
+  const language = useSettingsStore((state) => state.language);
+  const detectedLocale = detectLocale(navigatorDetector);
+  const locale = language === "auto" ? detectedLocale : (language as Locales);
+  // const locale = "fr";
 
   const [localesLoaded, setLocalesLoaded] = useState(false);
   useEffect(() => {
-    try {
-      loadLocaleAsync(locale).then((e) => {
-        console.log("loaded");
-        console.log(e);
-        setLocalesLoaded(true);
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    loadLocaleAsync(locale).then((e) => {
+      setLocalesLoaded(true);
+    });
   }, [locale]);
 
   if (!localesLoaded) {

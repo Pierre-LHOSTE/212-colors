@@ -51,6 +51,10 @@ export default function SettingsCard() {
               value={language}
               onChange={updateLanguage}
               options={[
+                {
+                  label: LL.profile.themes.auto(),
+                  value: "auto",
+                },
                 { label: "English", value: "en" },
                 { label: "Français", value: "fr" },
               ]}
