@@ -55,8 +55,15 @@ export async function getProjectById(id: string) {
 }
 
 export async function getProjectList() {
+  const session = await auth();
+  if (!session?.user?.id) {
+    return { error: true, message: "User not found" };
+  }
   try {
     const project = await prisma.project.findMany({
+      where: {
+        ownerId: session.user.id,
+      },
       select: {
         id: true,
         name: true,
