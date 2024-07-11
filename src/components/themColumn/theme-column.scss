@@ -3,6 +3,8 @@
   flex-direction: column;
   gap: 24px;
   width: 250px;
+  min-width: 186px;
+  max-width: 320px;
 
   .ant-typography {
     margin: 0;
