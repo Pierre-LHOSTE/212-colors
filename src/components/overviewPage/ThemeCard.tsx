@@ -19,12 +19,7 @@ export default function ThemeCard({
       <Typography.Title level={4}>{theme.name}</Typography.Title>
       <Typography.Text>{theme.description}</Typography.Text>
       <div className="flex-horizontal">
-        {/* {themeColors
-          .filter((c) => c.themeId === theme.id)
-          .map((c) => (
-            <ColorPreview key={c.id} color={c as ThemeColor} />
-          ))} */}
-        {themeColumns.map((column, index) => {
+        {themeColumns.map((column) => {
           const color = themeColors
             .filter((c) => c.themeId === theme.id)
             .find((c) => c?.themeColumnId === column.id);

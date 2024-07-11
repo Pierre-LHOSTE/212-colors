@@ -17,6 +17,7 @@ import { useState } from "react";
 import MainCard from "../card/MainCard";
 import ThemeColumn from "../themColumn/ThemeColumn";
 import useDndSensors from "@/src/lib/hooks";
+import { useI18nContext } from "@/src/i18n/i18n-react";
 
 export default function ThemeColumnList({
   themeColumns,
@@ -28,6 +29,8 @@ export default function ThemeColumnList({
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const sensors = useDndSensors();
+
+  const { LL } = useI18nContext();
 
   function createThemeColumn() {
     setModalState({
@@ -88,7 +91,7 @@ export default function ThemeColumnList({
     >
       <MainCard
         className="theme-color-card"
-        title={"Colors informations"}
+        title={LL.project.theme.infoColorsTheme()}
         direction="horizontal"
         createAction={createThemeColumn}
       >

@@ -9,6 +9,7 @@ import FormModal from "../FormModal";
 import { ProjectFormSchema } from "./ProjectFormSchema";
 import { handleError } from "@/src/lib/utils";
 import type { ProjectType } from "@/src/types/project";
+import { useI18nContext } from "@/src/i18n/i18n-react";
 
 const rule = createSchemaFieldRule(ProjectFormSchema);
 
@@ -18,6 +19,7 @@ export default function CreateProjectModal() {
   const setModalState = useModalStore((state) => state.setModalState);
   const modalState = useModalStore((state) => state.modalState);
   const [form] = Form.useForm();
+  const { LL } = useI18nContext();
 
   function onSubmit(values: ProjectType) {
     startTransition(async () => {
@@ -47,7 +49,7 @@ export default function CreateProjectModal() {
 
   return (
     <FormModal
-      title="Create new project"
+      title={LL.project.modal.new.title()}
       isOpen={modalState.id === "project"}
       closeModal={() =>
         setModalState({
@@ -63,7 +65,11 @@ export default function CreateProjectModal() {
         onFinish={onSubmit}
         form={form}
       >
-        <Form.Item label="Nom" name="name" rules={[rule]}>
+        <Form.Item
+          label={LL.project.modal.new.name()}
+          name="name"
+          rules={[rule]}
+        >
           <Input />
         </Form.Item>
       </Form>

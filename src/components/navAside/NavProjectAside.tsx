@@ -12,6 +12,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import "./nav-aside.scss";
 import NavHeader from "./navHeader/NavHeader";
+import { useI18nContext } from "@/src/i18n/i18n-react";
 
 export default function NavProjectAside() {
   const setActiveSection = useSettingsStore((state) => state.setActiveSection);
@@ -19,6 +20,30 @@ export default function NavProjectAside() {
 
   const pathname = usePathname();
   const currentPath = pathname.split("/").pop();
+  const { LL } = useI18nContext();
+
+  const items: MenuItem[] = [
+    {
+      label: LL.project.navigation.overview(),
+      key: "overview",
+      icon: <IconDeviceDesktop />,
+    },
+    {
+      label: LL.project.navigation.info(),
+      key: "info",
+      icon: <IconInfoCircle />,
+    },
+    {
+      label: LL.project.navigation.colors(),
+      key: "colors",
+      icon: <IconPalette />,
+    },
+    {
+      label: LL.project.navigation.themes(),
+      key: "themes",
+      icon: <IconLayoutNavbar />,
+    },
+  ];
 
   const itemsMenu = items
     .filter((item) => !project.hiddenSections.includes(item?.key as string))
@@ -52,26 +77,3 @@ export default function NavProjectAside() {
 }
 
 type MenuItem = Required<MenuProps>["items"][number];
-
-const items: MenuItem[] = [
-  {
-    label: "Vue d'ensemble",
-    key: "overview",
-    icon: <IconDeviceDesktop />,
-  },
-  {
-    label: "Informations",
-    key: "info",
-    icon: <IconInfoCircle />,
-  },
-  {
-    label: "Couleurs",
-    key: "colors",
-    icon: <IconPalette />,
-  },
-  {
-    label: "Thèmes",
-    key: "themes",
-    icon: <IconLayoutNavbar />,
-  },
-];

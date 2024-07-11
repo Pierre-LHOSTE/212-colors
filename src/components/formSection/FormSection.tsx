@@ -6,6 +6,7 @@ import type { CheckboxChangeEvent } from "antd/es/checkbox";
 import MainCard from "../card/MainCard";
 import { handleError } from "@/src/lib/utils";
 import { useSettingsStore } from "@/src/store/settings";
+import { useI18nContext } from "@/src/i18n/i18n-react";
 
 const sections = ["colors", "themes"];
 
@@ -13,6 +14,7 @@ export default function FormSection({ id }: { id: string }) {
   const hiddenSections = useDataStore((state) => state.project.hiddenSections);
   const setHiddenSections = useDataStore((state) => state.setHiddenSections);
   const setMessage = useSettingsStore((state) => state.setMessage);
+  const { LL } = useI18nContext();
 
   async function handleChange(e: CheckboxChangeEvent, name: string) {
     const newHiddenSections = e.target.checked
@@ -37,7 +39,7 @@ export default function FormSection({ id }: { id: string }) {
   }
 
   return (
-    <MainCard title="Active sections">
+    <MainCard title={LL.project.info.activeSections.title()}>
       {sections.map((section) => (
         <Checkbox
           key={section}

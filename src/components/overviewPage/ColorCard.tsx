@@ -2,8 +2,10 @@ import type { ColorType } from "@/src/types/color";
 import MainCard from "../card/MainCard";
 import ColorPreview from "../colorPreview/ColorPreview";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
+import { useI18nContext } from "@/src/i18n/i18n-react";
 
 export default function ColorCard({ colors }: { colors: ColorType[] }) {
+  const { LL } = useI18nContext();
   const primaryColors = colors.filter((c) => c.type === "primary");
   const primaryList =
     primaryColors.length > 0 ? (
@@ -59,7 +61,7 @@ export default function ColorCard({ colors }: { colors: ColorType[] }) {
     ) : null;
 
   return (
-    <MainCard title={"Colors"}>
+    <MainCard title={LL.project.overview.color.title()}>
       <div className="overview-colors flex-vertical">
         {primaryList}
         {secondaryList}

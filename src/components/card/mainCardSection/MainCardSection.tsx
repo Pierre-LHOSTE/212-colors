@@ -10,6 +10,7 @@ import { Button, Popconfirm, Popover, Typography } from "antd";
 import React from "react";
 import "./main-card-section.scss";
 import type { PropsType } from "./props";
+import { useI18nContext } from "@/src/i18n/i18n-react";
 
 const iconSize = 16;
 
@@ -23,6 +24,7 @@ export default function MainCardSection(props: PropsType) {
     dndAction,
   } = props;
   const [open, setOpen] = React.useState(false);
+  const { LL } = useI18nContext();
 
   function handleEditFunc() {
     if (showEditAction) {
@@ -61,7 +63,7 @@ export default function MainCardSection(props: PropsType) {
                         icon={<IconPencil />}
                         onClick={handleEditFunc}
                       >
-                        Edit
+                        {LL.global.button.edit()}
                       </Button>
                     ) : null}
                     {deleteAction ? (
@@ -73,7 +75,7 @@ export default function MainCardSection(props: PropsType) {
                         onConfirm={deleteAction}
                       >
                         <Button type="primary" icon={<IconTrash />}>
-                          Delete
+                          {LL.global.button.delete()}
                         </Button>
                       </Popconfirm>
                     ) : null}

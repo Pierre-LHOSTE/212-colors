@@ -42,6 +42,10 @@ type RootTranslation = {
 		}
 		action: {
 			/**
+			 * A​c​t​i​o​n​s
+			 */
+			title: string
+			/**
 			 * L​o​g​o​u​t
 			 */
 			logout: string
@@ -50,8 +54,70 @@ type RootTranslation = {
 			 */
 			deleteAccount: string
 		}
+		changePassword: {
+			/**
+			 * C​h​a​n​g​e​ ​p​a​s​s​w​o​r​d
+			 */
+			title: string
+			/**
+			 * C​u​r​r​e​n​t​ ​p​a​s​s​w​o​r​d
+			 */
+			currentPassword: string
+			/**
+			 * N​e​w​ ​p​a​s​s​w​o​r​d
+			 */
+			newPassword: string
+			/**
+			 * C​o​n​f​i​r​m​ ​n​e​w​ ​p​a​s​s​w​o​r​d
+			 */
+			confirmNewPassword: string
+			/**
+			 * C​h​a​n​g​e​ ​p​a​s​s​w​o​r​d
+			 */
+			submit: string
+		}
+		settings: {
+			/**
+			 * L​a​n​g​u​a​g​e
+			 */
+			language: string
+			/**
+			 * T​h​e​m​e
+			 */
+			theme: string
+			/**
+			 * L​i​n​k​s
+			 */
+			links: string
+		}
+		themes: {
+			/**
+			 * L​i​g​h​t
+			 */
+			light: string
+			/**
+			 * D​a​r​k
+			 */
+			dark: string
+			/**
+			 * S​y​s​t​e​m
+			 */
+			auto: string
+		}
 	}
 	project: {
+		modal: {
+			'new': {
+				/**
+				 * C​r​e​a​t​e​ ​n​e​w​ ​p​r​o​j​e​c​t
+				 */
+				title: string
+				/**
+				 * N​a​m​e
+				 */
+				name: string
+			}
+		}
 		navigation: {
 			/**
 			 * O​v​e​r​v​i​e​w
@@ -69,6 +135,308 @@ type RootTranslation = {
 			 * T​h​e​m​e​s
 			 */
 			themes: string
+		}
+		overview: {
+			info: {
+				/**
+				 * P​r​o​j​e​c​t
+				 */
+				title: string
+				/**
+				 * N​a​m​e
+				 */
+				name: string
+				/**
+				 * D​e​s​c​r​i​p​t​i​o​n
+				 */
+				description: string
+				/**
+				 * C​r​e​a​t​e​d​ ​a​t
+				 */
+				createdAt: string
+				/**
+				 * U​p​d​a​t​e​d​ ​a​t
+				 */
+				updatedAt: string
+			}
+			color: {
+				/**
+				 * C​o​l​o​r​s
+				 */
+				title: string
+			}
+			theme: {
+				/**
+				 * T​h​e​m​e​s
+				 */
+				title: string
+			}
+		}
+		info: {
+			form: {
+				/**
+				 * I​n​f​o​r​m​a​t​i​o​n​s
+				 */
+				title: string
+				/**
+				 * N​a​m​e
+				 */
+				name: string
+				/**
+				 * D​e​s​c​r​i​p​t​i​o​n
+				 */
+				description: string
+				/**
+				 * S​u​b​m​i​t
+				 */
+				submit: string
+			}
+			action: {
+				/**
+				 * A​c​t​i​o​n​s
+				 */
+				title: string
+				/**
+				 * D​e​l​e​t​e​ ​t​h​e​ ​p​r​o​j​e​c​t
+				 */
+				'delete': string
+			}
+			activeSections: {
+				/**
+				 * A​c​t​i​v​e​ ​s​e​c​t​i​o​n​s
+				 */
+				title: string
+			}
+		}
+		color: {
+			/**
+			 * P​r​i​m​a​r​y
+			 */
+			primary: string
+			/**
+			 * S​e​c​o​n​d​a​r​y
+			 */
+			secondary: string
+			/**
+			 * S​p​e​c​i​a​l
+			 */
+			special: string
+			modal: {
+				create: {
+					/**
+					 * C​r​e​a​t​e​ ​a​ ​c​o​l​o​r
+					 */
+					title: string
+				}
+				edit: {
+					/**
+					 * E​d​i​t​ ​a​ ​c​o​l​o​r
+					 */
+					title: string
+				}
+				display: {
+					/**
+					 * N​a​m​e
+					 */
+					name: string
+					/**
+					 * C​o​l​o​r
+					 */
+					color: string
+					/**
+					 * D​e​s​c​r​i​p​t​i​o​n
+					 */
+					description: string
+				}
+				'delete': {
+					/**
+					 * D​e​l​e​t​e​ ​t​h​e​ ​c​o​l​o​r
+					 */
+					title: string
+					/**
+					 * A​r​e​ ​y​o​u​ ​s​u​r​e​ ​t​o​ ​d​e​l​e​t​e​ ​t​h​i​s​ ​c​o​l​o​r​?
+					 */
+					message: string
+				}
+			}
+			picker: {
+				/**
+				 * C​u​r​r​e​n​t​ ​c​o​l​o​r
+				 */
+				title: string
+				/**
+				 * S​a​v​e​ ​c​o​l​o​r
+				 */
+				save: string
+			}
+		}
+		theme: {
+			/**
+			 * C​o​l​o​r​s​ ​i​n​f​o​r​m​a​t​i​o​n​s
+			 */
+			infoColorsTheme: string
+			/**
+			 * N​e​w​ ​t​h​e​m​e
+			 */
+			newTheme: string
+			modal: {
+				theme: {
+					create: {
+						/**
+						 * C​r​e​a​t​e​ ​a​ ​t​h​e​m​e
+						 */
+						title: string
+					}
+					edit: {
+						/**
+						 * E​d​i​t​ ​a​ ​t​h​e​m​e
+						 */
+						title: string
+					}
+					display: {
+						/**
+						 * N​a​m​e
+						 */
+						name: string
+						/**
+						 * D​e​s​c​r​i​p​t​i​o​n
+						 */
+						description: string
+						/**
+						 * T​y​p​e
+						 */
+						type: string
+						/**
+						 * S​e​l​e​c​t​ ​a​ ​t​y​p​e
+						 */
+						selectType: string
+					}
+					'delete': {
+						/**
+						 * D​e​l​e​t​e​ ​t​h​e​ ​t​h​e​m​e
+						 */
+						title: string
+						/**
+						 * A​r​e​ ​y​o​u​ ​s​u​r​e​ ​t​o​ ​d​e​l​e​t​e​ ​t​h​i​s​ ​t​h​e​m​e​?
+						 */
+						message: string
+					}
+				}
+				color: {
+					create: {
+						/**
+						 * C​r​e​a​t​e​ ​a​ ​t​h​e​m​e​ ​c​o​l​o​r
+						 */
+						title: string
+					}
+					edit: {
+						/**
+						 * E​d​i​t​ ​a​ ​t​h​e​m​e​ ​c​o​l​o​r
+						 */
+						title: string
+					}
+					display: {
+						/**
+						 * N​a​m​e
+						 */
+						name: string
+						/**
+						 * D​e​s​c​r​i​p​t​i​o​n
+						 */
+						description: string
+						/**
+						 * C​o​l​o​r
+						 */
+						color: string
+					}
+					'delete': {
+						/**
+						 * D​e​l​e​t​e​ ​t​h​e​ ​t​h​e​m​e​ ​c​o​l​o​r
+						 */
+						title: string
+						/**
+						 * A​r​e​ ​y​o​u​ ​s​u​r​e​ ​t​o​ ​d​e​l​e​t​e​ ​t​h​i​s​ ​t​h​e​m​e​ ​c​o​l​o​r​?
+						 */
+						message: string
+					}
+				}
+				colorType: {
+					create: {
+						/**
+						 * C​r​e​a​t​e​ ​a​ ​c​o​l​o​r​ ​t​y​p​e
+						 */
+						title: string
+					}
+					edit: {
+						/**
+						 * E​d​i​t​ ​a​ ​c​o​l​o​r​ ​t​y​p​e
+						 */
+						title: string
+					}
+					display: {
+						/**
+						 * N​a​m​e
+						 */
+						name: string
+						/**
+						 * D​e​s​c​r​i​p​t​i​o​n
+						 */
+						description: string
+					}
+					'delete': {
+						/**
+						 * D​e​l​e​t​e​ ​t​h​e​ ​c​o​l​o​r​ ​t​y​p​e
+						 */
+						title: string
+						/**
+						 * A​r​e​ ​y​o​u​ ​s​u​r​e​ ​t​o​ ​d​e​l​e​t​e​ ​t​h​i​s​ ​c​o​l​o​r​ ​t​y​p​e​?
+						 */
+						message: string
+					}
+				}
+			}
+			type: {
+				/**
+				 * D​a​r​k
+				 */
+				dark: string
+				/**
+				 * L​i​g​h​t
+				 */
+				light: string
+			}
+		}
+	}
+	global: {
+		button: {
+			/**
+			 * E​d​i​t
+			 */
+			edit: string
+			/**
+			 * D​e​l​e​t​e
+			 */
+			'delete': string
+			/**
+			 * C​a​n​c​e​l
+			 */
+			cancel: string
+			/**
+			 * S​u​b​m​i​t
+			 */
+			submit: string
+			/**
+			 * Y​e​s
+			 */
+			yes: string
+			/**
+			 * N​o
+			 */
+			no: string
+			/**
+			 * N​e​w​ ​c​o​l​o​r
+			 */
+			newColor: string
 		}
 	}
 }
@@ -101,6 +469,10 @@ export type TranslationFunctions = {
 		}
 		action: {
 			/**
+			 * Actions
+			 */
+			title: () => LocalizedString
+			/**
 			 * Logout
 			 */
 			logout: () => LocalizedString
@@ -109,8 +481,70 @@ export type TranslationFunctions = {
 			 */
 			deleteAccount: () => LocalizedString
 		}
+		changePassword: {
+			/**
+			 * Change password
+			 */
+			title: () => LocalizedString
+			/**
+			 * Current password
+			 */
+			currentPassword: () => LocalizedString
+			/**
+			 * New password
+			 */
+			newPassword: () => LocalizedString
+			/**
+			 * Confirm new password
+			 */
+			confirmNewPassword: () => LocalizedString
+			/**
+			 * Change password
+			 */
+			submit: () => LocalizedString
+		}
+		settings: {
+			/**
+			 * Language
+			 */
+			language: () => LocalizedString
+			/**
+			 * Theme
+			 */
+			theme: () => LocalizedString
+			/**
+			 * Links
+			 */
+			links: () => LocalizedString
+		}
+		themes: {
+			/**
+			 * Light
+			 */
+			light: () => LocalizedString
+			/**
+			 * Dark
+			 */
+			dark: () => LocalizedString
+			/**
+			 * System
+			 */
+			auto: () => LocalizedString
+		}
 	}
 	project: {
+		modal: {
+			'new': {
+				/**
+				 * Create new project
+				 */
+				title: () => LocalizedString
+				/**
+				 * Name
+				 */
+				name: () => LocalizedString
+			}
+		}
 		navigation: {
 			/**
 			 * Overview
@@ -128,6 +562,308 @@ export type TranslationFunctions = {
 			 * Themes
 			 */
 			themes: () => LocalizedString
+		}
+		overview: {
+			info: {
+				/**
+				 * Project
+				 */
+				title: () => LocalizedString
+				/**
+				 * Name
+				 */
+				name: () => LocalizedString
+				/**
+				 * Description
+				 */
+				description: () => LocalizedString
+				/**
+				 * Created at
+				 */
+				createdAt: () => LocalizedString
+				/**
+				 * Updated at
+				 */
+				updatedAt: () => LocalizedString
+			}
+			color: {
+				/**
+				 * Colors
+				 */
+				title: () => LocalizedString
+			}
+			theme: {
+				/**
+				 * Themes
+				 */
+				title: () => LocalizedString
+			}
+		}
+		info: {
+			form: {
+				/**
+				 * Informations
+				 */
+				title: () => LocalizedString
+				/**
+				 * Name
+				 */
+				name: () => LocalizedString
+				/**
+				 * Description
+				 */
+				description: () => LocalizedString
+				/**
+				 * Submit
+				 */
+				submit: () => LocalizedString
+			}
+			action: {
+				/**
+				 * Actions
+				 */
+				title: () => LocalizedString
+				/**
+				 * Delete the project
+				 */
+				'delete': () => LocalizedString
+			}
+			activeSections: {
+				/**
+				 * Active sections
+				 */
+				title: () => LocalizedString
+			}
+		}
+		color: {
+			/**
+			 * Primary
+			 */
+			primary: () => LocalizedString
+			/**
+			 * Secondary
+			 */
+			secondary: () => LocalizedString
+			/**
+			 * Special
+			 */
+			special: () => LocalizedString
+			modal: {
+				create: {
+					/**
+					 * Create a color
+					 */
+					title: () => LocalizedString
+				}
+				edit: {
+					/**
+					 * Edit a color
+					 */
+					title: () => LocalizedString
+				}
+				display: {
+					/**
+					 * Name
+					 */
+					name: () => LocalizedString
+					/**
+					 * Color
+					 */
+					color: () => LocalizedString
+					/**
+					 * Description
+					 */
+					description: () => LocalizedString
+				}
+				'delete': {
+					/**
+					 * Delete the color
+					 */
+					title: () => LocalizedString
+					/**
+					 * Are you sure to delete this color?
+					 */
+					message: () => LocalizedString
+				}
+			}
+			picker: {
+				/**
+				 * Current color
+				 */
+				title: () => LocalizedString
+				/**
+				 * Save color
+				 */
+				save: () => LocalizedString
+			}
+		}
+		theme: {
+			/**
+			 * Colors informations
+			 */
+			infoColorsTheme: () => LocalizedString
+			/**
+			 * New theme
+			 */
+			newTheme: () => LocalizedString
+			modal: {
+				theme: {
+					create: {
+						/**
+						 * Create a theme
+						 */
+						title: () => LocalizedString
+					}
+					edit: {
+						/**
+						 * Edit a theme
+						 */
+						title: () => LocalizedString
+					}
+					display: {
+						/**
+						 * Name
+						 */
+						name: () => LocalizedString
+						/**
+						 * Description
+						 */
+						description: () => LocalizedString
+						/**
+						 * Type
+						 */
+						type: () => LocalizedString
+						/**
+						 * Select a type
+						 */
+						selectType: () => LocalizedString
+					}
+					'delete': {
+						/**
+						 * Delete the theme
+						 */
+						title: () => LocalizedString
+						/**
+						 * Are you sure to delete this theme?
+						 */
+						message: () => LocalizedString
+					}
+				}
+				color: {
+					create: {
+						/**
+						 * Create a theme color
+						 */
+						title: () => LocalizedString
+					}
+					edit: {
+						/**
+						 * Edit a theme color
+						 */
+						title: () => LocalizedString
+					}
+					display: {
+						/**
+						 * Name
+						 */
+						name: () => LocalizedString
+						/**
+						 * Description
+						 */
+						description: () => LocalizedString
+						/**
+						 * Color
+						 */
+						color: () => LocalizedString
+					}
+					'delete': {
+						/**
+						 * Delete the theme color
+						 */
+						title: () => LocalizedString
+						/**
+						 * Are you sure to delete this theme color?
+						 */
+						message: () => LocalizedString
+					}
+				}
+				colorType: {
+					create: {
+						/**
+						 * Create a color type
+						 */
+						title: () => LocalizedString
+					}
+					edit: {
+						/**
+						 * Edit a color type
+						 */
+						title: () => LocalizedString
+					}
+					display: {
+						/**
+						 * Name
+						 */
+						name: () => LocalizedString
+						/**
+						 * Description
+						 */
+						description: () => LocalizedString
+					}
+					'delete': {
+						/**
+						 * Delete the color type
+						 */
+						title: () => LocalizedString
+						/**
+						 * Are you sure to delete this color type?
+						 */
+						message: () => LocalizedString
+					}
+				}
+			}
+			type: {
+				/**
+				 * Dark
+				 */
+				dark: () => LocalizedString
+				/**
+				 * Light
+				 */
+				light: () => LocalizedString
+			}
+		}
+	}
+	global: {
+		button: {
+			/**
+			 * Edit
+			 */
+			edit: () => LocalizedString
+			/**
+			 * Delete
+			 */
+			'delete': () => LocalizedString
+			/**
+			 * Cancel
+			 */
+			cancel: () => LocalizedString
+			/**
+			 * Submit
+			 */
+			submit: () => LocalizedString
+			/**
+			 * Yes
+			 */
+			yes: () => LocalizedString
+			/**
+			 * No
+			 */
+			no: () => LocalizedString
+			/**
+			 * New color
+			 */
+			newColor: () => LocalizedString
 		}
 	}
 }

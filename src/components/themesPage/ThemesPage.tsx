@@ -8,12 +8,15 @@ import MainCard from "../card/MainCard";
 import ThemeColumnList from "../themesList/ThemeColumnList";
 import ThemesList from "../themesList/ThemeList";
 import type { PropsType } from "./props";
+import { useI18nContext } from "@/src/i18n/i18n-react";
 
 export default function ThemesPage(props: PropsType) {
   const { themeColumns, themes, themeColors } = props;
 
   const setModalState = useModalStore((state) => state.setModalState);
   const setThemes = useDataStore((state) => state.setThemes);
+
+  const { LL } = useI18nContext();
 
   return (
     <>
@@ -36,7 +39,7 @@ export default function ThemesPage(props: PropsType) {
             })
           }
         >
-          New theme
+          {LL.project.theme.newTheme()}
         </Button>
       </MainCard>
     </>

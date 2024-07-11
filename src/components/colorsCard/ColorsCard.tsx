@@ -19,16 +19,18 @@ import {
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import type { PropsType } from "./props";
 import useDndSensors from "@/src/lib/hooks";
+import { useI18nContext } from "@/src/i18n/i18n-react";
 
 export default function ColorsCard(props: PropsType) {
   const { colors, name, direction, setColors } = props;
+  const { LL } = useI18nContext();
 
   const setModalState = useModalStore((state) => state.setModalState);
 
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const sensors = useDndSensors();
 
-  const cardId = name.toLowerCase() as ColorType["type"];
+  const cardId = name as ColorType["type"];
 
   function findColorData(id: UniqueIdentifier | undefined): ColorType {
     const item = colors.find((item) => item.id === id);
@@ -87,7 +89,7 @@ export default function ColorsCard(props: PropsType) {
       <MainCard
         className={`color-card ${direction}`}
         id={`${cardId}-card`}
-        title={name}
+        title={LL.project.color[name as "primary" | "secondary" | "special"]()}
         direction={direction}
         createAction={() =>
           setModalState({

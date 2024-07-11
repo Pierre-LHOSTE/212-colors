@@ -6,11 +6,13 @@ import { useRouter } from "next/navigation";
 import MainCard from "../card/MainCard";
 import { handleError } from "@/src/lib/utils";
 import { useSettingsStore } from "@/src/store/settings";
+import { useI18nContext } from "@/src/i18n/i18n-react";
 
 export default function FormAction({ id }: { id: string }) {
   const router = useRouter();
   const setProjectsList = useDataStore((state) => state.setProjectsList);
   const setMessage = useSettingsStore((state) => state.setMessage);
+  const { LL } = useI18nContext();
 
   async function handleClick() {
     const res = await deleteProject(id);
@@ -28,7 +30,7 @@ export default function FormAction({ id }: { id: string }) {
   }
 
   return (
-    <MainCard title="Actions">
+    <MainCard title={LL.project.info.action.title()}>
       <div>
         <Popconfirm
           title="Delete the project"
@@ -37,7 +39,7 @@ export default function FormAction({ id }: { id: string }) {
           cancelText="No"
           onConfirm={handleClick}
         >
-          <Button type="primary">Delete the project</Button>
+          <Button type="primary">{LL.project.info.action.delete()}</Button>
         </Popconfirm>
       </div>
     </MainCard>

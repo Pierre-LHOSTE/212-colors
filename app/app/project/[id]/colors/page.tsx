@@ -1,6 +1,7 @@
 "use client";
 import { getColors } from "@/src/api/color";
 import ColorsCard from "@/src/components/colorsCard/ColorsCard";
+import { useI18nContext } from "@/src/i18n/i18n-react";
 import { handleError } from "@/src/lib/utils";
 import { useDataStore } from "@/src/store/data";
 import type { ColorType } from "@/src/types/color";
@@ -44,20 +45,20 @@ function ColorsPage() {
         <div className="flex-vertical">
           <ColorsCard
             colors={primaryColors}
-            name="Primary"
+            name="primary"
             direction="horizontal"
             setColors={setPrimaryColors}
           />
           <ColorsCard
             colors={specialColors}
-            name="Special"
+            name="special"
             direction="horizontal"
             setColors={setSpecialColors}
           />
         </div>
         <ColorsCard
           colors={secondaryColors}
-          name="Secondary"
+          name="secondary"
           direction="vertical"
           setColors={setSecondaryColors}
         />

@@ -8,9 +8,11 @@ import { Button, Popconfirm, Popover, Typography } from "antd";
 import { useState } from "react";
 import "./header-with-options.scss";
 import type { PropsType } from "./props";
+import { useI18nContext } from "@/src/i18n/i18n-react";
 
 export default function HeaderWithOptions(props: PropsType) {
   const { name, handleDelete, handleEdit, listeners } = props;
+  const { LL } = useI18nContext();
 
   const [open, setOpen] = useState(false);
 
@@ -41,18 +43,18 @@ export default function HeaderWithOptions(props: PropsType) {
                   icon={<IconPencil />}
                   onClick={handleEditFunc}
                 >
-                  Edit
+                  {LL.global.button.edit()}
                 </Button>
                 {handleDelete ? (
                   <Popconfirm
-                    title="Delete the color"
-                    description="Are you sure to delete this color?"
-                    okText="Yes"
-                    cancelText="No"
+                    title={LL.project.color.modal.delete.title()}
+                    description={LL.project.color.modal.delete.message()}
+                    okText={LL.global.button.yes()}
+                    cancelText={LL.global.button.no()}
                     onConfirm={handleDelete}
                   >
                     <Button type="primary" icon={<IconTrash />}>
-                      Delete
+                      {LL.global.button.delete()}
                     </Button>
                   </Popconfirm>
                 ) : null}

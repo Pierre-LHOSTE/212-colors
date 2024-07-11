@@ -10,6 +10,7 @@ import { useEffect, useState, useTransition } from "react";
 import FormModal from "../FormModal";
 import { ColorFormSchema } from "./ThemeColorFormSchema";
 import { handleError } from "@/src/lib/utils";
+import { useI18nContext } from "@/src/i18n/i18n-react";
 
 const rule = createSchemaFieldRule(ColorFormSchema);
 
@@ -22,6 +23,8 @@ export default function CreateThemeColorModal() {
   const [form] = Form.useForm();
   const [previewColor, setPreviewColor] = useState("#000000");
   const project = useDataStore((state) => state.project);
+
+  const { LL } = useI18nContext();
 
   useEffect(() => {
     const editItem = modalState?.editItem;
@@ -123,7 +126,11 @@ export default function CreateThemeColorModal() {
 
   return (
     <FormModal
-      title={"Create new theme color"}
+      title={
+        modalState.mode === "add"
+          ? LL.project.theme.modal.color.create.title()
+          : LL.project.theme.modal.color.edit.title()
+      }
       isOpen={modalState.id === "theme-color"}
       closeModal={() =>
         setModalState({
@@ -140,10 +147,18 @@ export default function CreateThemeColorModal() {
         onFinish={onSubmit}
         form={form}
       >
-        <Form.Item label="Nom" name="name" rules={[rule]}>
+        <Form.Item
+          label={LL.project.theme.modal.color.display.name()}
+          name="name"
+          rules={[rule]}
+        >
           <Input />
         </Form.Item>
-        <Form.Item label="Couleur" name="color" rules={[rule]}>
+        <Form.Item
+          label={LL.project.theme.modal.color.display.color()}
+          name="color"
+          rules={[rule]}
+        >
           <ColorPicker
             showText
             onChange={updateCurrentColor}
@@ -151,7 +166,11 @@ export default function CreateThemeColorModal() {
             defaultValue={"#000"}
           />
         </Form.Item>
-        <Form.Item label="Description" name="description" rules={[rule]}>
+        <Form.Item
+          label={LL.project.theme.modal.color.display.description()}
+          name="description"
+          rules={[rule]}
+        >
           <Input.TextArea />
         </Form.Item>
       </Form>

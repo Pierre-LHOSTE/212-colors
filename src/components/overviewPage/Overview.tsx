@@ -18,7 +18,6 @@ export default function Overview(props: PropsType) {
             themeColumns={themeColumns}
             themes={themes}
           />
-
           <ThemeCardsList
             themes={themes}
             themeColors={themeColors}

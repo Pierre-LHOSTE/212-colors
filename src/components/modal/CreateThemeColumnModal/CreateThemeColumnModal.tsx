@@ -11,6 +11,7 @@ import { useEffect, useTransition } from "react";
 import FormModal from "../FormModal";
 import { ThemeColumnFormSchema } from "./ThemeColumnFormSchema";
 import { handleError } from "@/src/lib/utils";
+import { useI18nContext } from "@/src/i18n/i18n-react";
 
 const rule = createSchemaFieldRule(ThemeColumnFormSchema);
 
@@ -22,6 +23,7 @@ export default function CreateThemeColumnModal() {
   const modalState = useModalStore((state) => state.modalState);
   const [form] = Form.useForm();
   const project = useDataStore((state) => state.project);
+  const { LL } = useI18nContext();
 
   useEffect(() => {
     const editItem = modalState?.editItem;
@@ -103,7 +105,11 @@ export default function CreateThemeColumnModal() {
 
   return (
     <FormModal
-      title="Create new color type"
+      title={
+        modalState.mode === "add"
+          ? LL.project.theme.modal.colorType.create.title()
+          : LL.project.theme.modal.colorType.edit.title()
+      }
       isOpen={modalState.id === "theme-column"}
       closeModal={() =>
         setModalState({
@@ -120,10 +126,18 @@ export default function CreateThemeColumnModal() {
         onFinish={onSubmit}
         form={form}
       >
-        <Form.Item label="Nom" name="name" rules={[rule]}>
+        <Form.Item
+          label={LL.project.theme.modal.colorType.display.name()}
+          name="name"
+          rules={[rule]}
+        >
           <Input />
         </Form.Item>
-        <Form.Item label="Description" name="description" rules={[rule]}>
+        <Form.Item
+          label={LL.project.theme.modal.colorType.display.description()}
+          name="description"
+          rules={[rule]}
+        >
           <Input.TextArea />
         </Form.Item>
       </Form>

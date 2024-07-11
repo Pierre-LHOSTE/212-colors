@@ -1,7 +1,7 @@
 "use client";
 import FormInfo from "@/src/components/formInfo/FormInfo";
 import FormSection from "@/src/components/formSection/FormSection";
-import FormAction from "@/src/components/fromAction/FormAction";
+import FormAction from "@/src/components/formAction/FormAction";
 import { useDataStore } from "@/src/store/data";
 import "./page.scss";
 

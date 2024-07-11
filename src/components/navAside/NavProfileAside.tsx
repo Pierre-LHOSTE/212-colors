@@ -5,25 +5,31 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import "./nav-aside.scss";
 import NavHeader from "./navHeader/NavHeader";
+import { useI18nContext } from "@/src/i18n/i18n-react";
 
 type MenuItem = Required<MenuProps>["items"][number];
-
-const items: MenuItem[] = [
-  {
-    label: <Link href={"./"}>Profile</Link>,
-    key: "profile",
-    icon: <IconEdit />,
-  },
-  {
-    label: <Link href={"profile/settings"}>Paramètres</Link>,
-    key: "settings",
-    icon: <IconAdjustmentsAlt />,
-  },
-];
 
 export default function NavProfileAside() {
   const pathname = usePathname();
   const currentPath = pathname.split("/").pop();
+  const { LL } = useI18nContext();
+
+  const items: MenuItem[] = [
+    {
+      label: <Link href={"./"}>{LL.profile.navigation.profile()}</Link>,
+      key: "profile",
+      icon: <IconEdit />,
+    },
+    {
+      label: (
+        <Link href={"profile/settings"}>
+          {LL.profile.navigation.settings()}
+        </Link>
+      ),
+      key: "settings",
+      icon: <IconAdjustmentsAlt />,
+    },
+  ];
 
   const itemsMenu = items.map((item) => {
     if (item && !("type" in item)) {

@@ -8,6 +8,7 @@ import { changePassword } from "@/src/actions/changePassword";
 import { useTransition } from "react";
 import { handleError } from "@/src/lib/utils";
 import { useSettingsStore } from "@/src/store/settings";
+import { useI18nContext } from "@/src/i18n/i18n-react";
 
 const rule = createSchemaFieldRule(ChangePasswordSchema);
 
@@ -15,6 +16,7 @@ function ProfilePwd() {
   const [form] = Form.useForm();
   const [isPending, startTransition] = useTransition();
   const setMessage = useSettingsStore((state) => state.setMessage);
+  const { LL } = useI18nContext();
 
   async function submit(e: z.infer<typeof ChangePasswordSchema>) {
     startTransition(async () => {
@@ -30,7 +32,7 @@ function ProfilePwd() {
 
   return (
     <>
-      <MainCard id="profile-pwd-card" title="Change password">
+      <MainCard id="profile-pwd-card" title={LL.profile.changePassword.title()}>
         <Form
           layout="vertical"
           name="profile-pwd"
@@ -38,17 +40,21 @@ function ProfilePwd() {
           form={form}
         >
           <Form.Item
-            label="Current password"
+            label={LL.profile.changePassword.currentPassword()}
             name="currentPassword"
             rules={[rule]}
           >
             <Input.Password />
           </Form.Item>
-          <Form.Item label="New password" name="newPassword" rules={[rule]}>
+          <Form.Item
+            label={LL.profile.changePassword.newPassword()}
+            name="newPassword"
+            rules={[rule]}
+          >
             <Input />
           </Form.Item>
           <Form.Item
-            label="Confirm new password"
+            label={LL.profile.changePassword.confirmNewPassword()}
             name="confirmNewPassword"
             rules={[rule]}
           >
@@ -56,7 +62,7 @@ function ProfilePwd() {
           </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit">
-              Change password
+              {LL.profile.changePassword.submit()}
             </Button>
           </Form.Item>
         </Form>

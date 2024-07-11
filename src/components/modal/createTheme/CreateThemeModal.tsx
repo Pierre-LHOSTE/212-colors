@@ -10,6 +10,7 @@ import { useEffect, useTransition } from "react";
 import FormModal from "../FormModal";
 import { ThemeFormSchema } from "./ThemeFormSchema";
 import { handleError } from "@/src/lib/utils";
+import { useI18nContext } from "@/src/i18n/i18n-react";
 
 const rule = createSchemaFieldRule(ThemeFormSchema);
 
@@ -21,6 +22,8 @@ export default function CreateThemeModal() {
   const modalState = useModalStore((state) => state.modalState);
   const [form] = Form.useForm();
   const project = useDataStore((state) => state.project);
+
+  const { LL } = useI18nContext();
 
   useEffect(() => {
     const editItem = modalState?.editItem;
@@ -109,7 +112,11 @@ export default function CreateThemeModal() {
 
   return (
     <FormModal
-      title="Create new theme"
+      title={
+        modalState.mode === "add"
+          ? LL.project.theme.modal.theme.create.title()
+          : LL.project.theme.modal.theme.edit.title()
+      }
       isOpen={modalState.id === "theme"}
       closeModal={() =>
         setModalState({
@@ -126,19 +133,31 @@ export default function CreateThemeModal() {
         onFinish={onSubmit}
         form={form}
       >
-        <Form.Item label="Nom" name="name" rules={[rule]}>
+        <Form.Item
+          label={LL.project.theme.modal.theme.display.name()}
+          name="name"
+          rules={[rule]}
+        >
           <Input />
         </Form.Item>
-        <Form.Item label="Description" name="description" rules={[rule]}>
+        <Form.Item
+          label={LL.project.theme.modal.theme.display.description()}
+          name="description"
+          rules={[rule]}
+        >
           <Input.TextArea />
         </Form.Item>
-        <Form.Item label="Type" name="type" rules={[rule]}>
+        <Form.Item
+          label={LL.project.theme.modal.theme.display.type()}
+          name="type"
+          rules={[rule]}
+        >
           <Select
-            placeholder="Select a type"
+            placeholder={LL.project.theme.modal.theme.display.selectType()}
             allowClear
             options={[
-              { label: "Light", value: "light" },
-              { label: "Dark", value: "dark" },
+              { label: LL.project.theme.type.light(), value: "light" },
+              { label: LL.project.theme.type.dark(), value: "dark" },
             ]}
           />
         </Form.Item>

@@ -9,6 +9,7 @@ import MainCard from "../card/MainCard";
 import { InfoFormSchema } from "./InfoFormSchema";
 import { handleError } from "@/src/lib/utils";
 import { useSettingsStore } from "@/src/store/settings";
+import { useI18nContext } from "@/src/i18n/i18n-react";
 
 const rule = createSchemaFieldRule(InfoFormSchema);
 
@@ -18,6 +19,7 @@ export default function FormInfo({ project }: { project: ProjectType }) {
   const [changed, setChanged] = useState(false);
   const setProject = useDataStore((state) => state.setProject);
   const setMessage = useSettingsStore((state) => state.setMessage);
+  const { LL } = useI18nContext();
 
   useEffect(() => {
     form.setFieldsValue({
@@ -64,15 +66,23 @@ export default function FormInfo({ project }: { project: ProjectType }) {
         form={form}
         onChange={checkChanges}
       >
-        <Form.Item label="Nom" name="name" rules={[rule]}>
+        <Form.Item
+          label={LL.project.info.form.name()}
+          name="name"
+          rules={[rule]}
+        >
           <Input />
         </Form.Item>
-        <Form.Item label="Description" name="description" rules={[rule]}>
+        <Form.Item
+          label={LL.project.info.form.description()}
+          name="description"
+          rules={[rule]}
+        >
           <Input.TextArea />
         </Form.Item>
         {changed ? (
           <Button type="primary" htmlType="submit">
-            Submit
+            {LL.project.info.form.submit()}
           </Button>
         ) : null}
       </Form>

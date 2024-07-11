@@ -3,6 +3,7 @@ import MainCard from "../card/MainCard";
 import type { ProjectType } from "@/src/types/project";
 import type { ColorType, ThemeColorType } from "@/src/types/color";
 import type { ThemeColumnType, ThemeType } from "@/src/types/theme";
+import { useI18nContext } from "@/src/i18n/i18n-react";
 
 export default function InfoCard({
   project,
@@ -17,11 +18,13 @@ export default function InfoCard({
   themeColors: ThemeColorType[];
   themeColumns: ThemeColumnType[];
 }) {
+  const { LL } = useI18nContext();
+
   return (
     <MainCard
       sections={[
         {
-          title: "Project",
+          title: LL.project.overview.info.title(),
           children: (
             <>
               <Typography.Title level={2}>{project.name}</Typography.Title>
@@ -37,34 +40,14 @@ export default function InfoCard({
               items={[
                 {
                   key: "created-at",
-                  label: "Created at",
+                  label: LL.project.overview.info.createdAt(),
                   children: <>{project.createdAt.toLocaleDateString()}</>,
                 },
-                // {
-                //   key: "colors-count",
-                //   label: "Colors",
-                //   children: <>{colors.length}</>,
-                // },
-                // {
-                //   key: "themes-count",
-                //   label: "Themes",
-                //   children: <>{themes.length}</>,
-                // },
                 {
                   key: "updated-at",
-                  label: "Updated at",
+                  label: LL.project.overview.info.updatedAt(),
                   children: <>{project.updatedAt?.toLocaleDateString()}</>,
                 },
-                // {
-                //   key: "theme-colors-count",
-                //   label: "Theme colors",
-                //   children: <>{themeColors.length}</>,
-                // },
-                // {
-                //   key: "theme-columns-count",
-                //   label: "Theme color types",
-                //   children: <>{themeColumns.length}</>,
-                // },
               ]}
             />
           ),

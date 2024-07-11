@@ -10,6 +10,7 @@ import { useEffect, useState, useTransition } from "react";
 import FormModal from "../FormModal";
 import { ColorFormSchema } from "./ColorFormSchema";
 import { handleError } from "@/src/lib/utils";
+import { useI18nContext } from "@/src/i18n/i18n-react";
 
 const rule = createSchemaFieldRule(ColorFormSchema);
 
@@ -21,6 +22,7 @@ export default function CreateColorModal() {
   const [form] = Form.useForm();
   const [previewColor, setPreviewColor] = useState("#000000");
   const project = useDataStore((state) => state.project);
+  const { LL } = useI18nContext();
 
   useEffect(() => {
     const editItem = modalState?.editItem;
@@ -112,7 +114,11 @@ export default function CreateColorModal() {
 
   return (
     <FormModal
-      title="Create new color"
+      title={
+        modalState.mode === "add"
+          ? LL.project.color.modal.create.title()
+          : LL.project.color.modal.edit.title()
+      }
       isOpen={modalState.id === "color"}
       closeModal={() =>
         setModalState({
@@ -129,10 +135,18 @@ export default function CreateColorModal() {
         onFinish={onSubmit}
         form={form}
       >
-        <Form.Item label="Nom" name="name" rules={[rule]}>
+        <Form.Item
+          label={LL.project.color.modal.display.name()}
+          name="name"
+          rules={[rule]}
+        >
           <Input />
         </Form.Item>
-        <Form.Item label="Couleur" name="color" rules={[rule]}>
+        <Form.Item
+          label={LL.project.color.modal.display.color()}
+          name="color"
+          rules={[rule]}
+        >
           <ColorPicker
             showText
             onChange={updateCurrentColor}
@@ -140,7 +154,11 @@ export default function CreateColorModal() {
             defaultValue={"#000"}
           />
         </Form.Item>
-        <Form.Item label="Description" name="description" rules={[rule]}>
+        <Form.Item
+          label={LL.project.color.modal.display.description()}
+          name="description"
+          rules={[rule]}
+        >
           <Input.TextArea />
         </Form.Item>
       </Form>

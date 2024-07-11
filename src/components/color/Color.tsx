@@ -18,12 +18,14 @@ import HeaderWithOptions from "../headerWithOptions/HeaderWithOptions";
 import "./color.scss";
 import { useSettingsStore } from "@/src/store/settings";
 import type { PropsType } from "./props";
+import { useI18nContext } from "@/src/i18n/i18n-react";
 
 type Color = GetProp<ColorPickerProps, "value">;
 
 export default function Color(props: PropsType) {
   const { color, isThemeColor, noDnd, updateState } = props;
   const { id, name, description, color: colorHex } = color;
+  const { LL } = useI18nContext();
 
   const setModalState = useModalStore((state) => state.setModalState);
   const setColors = useDataStore((state) => state.setColors);
@@ -172,11 +174,11 @@ export default function Color(props: PropsType) {
                     }}
                     onClick={updateColor}
                   >
-                    Save color
+                    {LL.project.color.picker.save()}
                   </Button>
                 </>
               ) : (
-                "Current color"
+                LL.project.color.picker.title()
               )}
             </div>
             {panel}

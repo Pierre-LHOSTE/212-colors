@@ -1,10 +1,12 @@
 import { useDataStore } from "@/src/store/data";
 import "./nav-header.scss";
 import { usePathname } from "next/navigation";
+import { useI18nContext } from "@/src/i18n/i18n-react";
 
 export default function NavHeader() {
   const pathname = usePathname();
   const project = useDataStore((state) => state.project);
+  const { LL } = useI18nContext();
 
   return (
     <header id="nav-header">
@@ -12,9 +14,9 @@ export default function NavHeader() {
         <div>
           <span>
             {pathname.endsWith("profile")
-              ? "Profile"
+              ? LL.profile.navigation.profile()
               : pathname.endsWith("settings")
-                ? "Settings"
+                ? LL.profile.navigation.settings()
                 : project.name}
           </span>
         </div>

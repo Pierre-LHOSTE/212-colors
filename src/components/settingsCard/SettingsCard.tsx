@@ -6,6 +6,7 @@ import { useSettingsStore } from "@/src/store/settings";
 import { handleError } from "@/src/lib/utils";
 import { updateSettings } from "@/src/api/settings";
 import type { ThemeType } from "@/src/types/settings";
+import { useI18nContext } from "@/src/i18n/i18n-react";
 
 export default function SettingsCard() {
   const theme = useSettingsStore((state) => state.theme);
@@ -13,6 +14,7 @@ export default function SettingsCard() {
   const language = useSettingsStore((state) => state.language);
   const setLanguage = useSettingsStore((state) => state.setLanguage);
   const setMessage = useSettingsStore((state) => state.setMessage);
+  const { LL } = useI18nContext();
 
   async function updateTheme(values: ThemeType) {
     const res = await updateSettings({ theme: values });
@@ -43,7 +45,7 @@ export default function SettingsCard() {
       id="settings-card"
       sections={[
         {
-          title: "Language",
+          title: LL.profile.settings.language(),
           children: (
             <Select
               value={language}
@@ -56,17 +58,17 @@ export default function SettingsCard() {
           ),
         },
         {
-          title: "Theme",
+          title: LL.profile.settings.theme(),
           children: (
             <>
               <Select
                 value={theme}
                 onChange={updateTheme}
                 options={[
-                  { label: "Light", value: "light" },
-                  { label: "Dark", value: "dark" },
+                  { label: LL.profile.themes.light(), value: "light" },
+                  { label: LL.profile.themes.dark(), value: "dark" },
                   {
-                    label: "System",
+                    label: LL.profile.themes.auto(),
                     value: "auto",
                   },
                 ]}
