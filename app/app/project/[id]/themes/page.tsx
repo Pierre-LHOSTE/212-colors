@@ -15,6 +15,9 @@ function ThemesPage({ params }: { params: { id: string } }) {
   const setThemeColors = useDataStore((state) => state.setThemeColors);
 
   useEffect(() => {
+    setThemeColors([]);
+    setThemeColumns([]);
+    setThemes([]);
     fetchData(getThemeColors, setThemeColors, "ThemeColors");
     fetchData(getThemeColumns, setThemeColumns, "ThemeColumns");
     fetchData(getThemes, setThemes, "Themes");

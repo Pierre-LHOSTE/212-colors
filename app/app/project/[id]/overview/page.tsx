@@ -6,7 +6,7 @@ import { handleError } from "@/src/lib/utils";
 import { useDataStore } from "@/src/store/data";
 import { useEffect } from "react";
 
-export default function OverviewPage() {
+export default function OverviewPage({ params }: { params: { id: string } }) {
   const project = useDataStore((state) => state.project);
   const colors = useDataStore((state) => state.colors);
   const themes = useDataStore((state) => state.themes);
@@ -19,11 +19,15 @@ export default function OverviewPage() {
   const setThemeColumns = useDataStore((state) => state.setThemeColumns);
 
   useEffect(() => {
+    setColors([]);
+    setThemes([]);
+    setThemeColors([]);
+    setThemeColumns([]);
     fetchData(getColors, setColors, "Colors", project.id);
     fetchData(getThemes, setThemes, "Themes", project.id);
     fetchData(getThemeColors, setThemeColors, "ThemeColors", project.id);
     fetchData(getThemeColumns, setThemeColumns, "ThemeColumns", project.id);
-  }, [project.id]);
+  }, [params.id]);
 
   return (
     <div id="overview" className="flex-vertical">

@@ -6,7 +6,7 @@ import { useDataStore } from "@/src/store/data";
 import type { ColorType } from "@/src/types/color";
 import { useEffect, useState } from "react";
 
-function ColorsPage() {
+function ColorsPage({ params }: { params: { id: string } }) {
   const setColors = useDataStore((state) => state.setColors);
   const project = useDataStore((state) => state.project);
   const colors = useDataStore((state) => state.colors);
@@ -22,6 +22,9 @@ function ColorsPage() {
   }, [colors]);
 
   useEffect(() => {
+    setPrimaryColors([]);
+    setSecondaryColors([]);
+    setSpecialColors([]);
     async function fetchColors() {
       const colors = await getColors(project.id);
       if (!colors) {
@@ -36,7 +39,7 @@ function ColorsPage() {
       setColors(colors);
     }
     fetchColors();
-  }, [project.id, setColors]);
+  }, [params.id]);
 
   return (
     <>
