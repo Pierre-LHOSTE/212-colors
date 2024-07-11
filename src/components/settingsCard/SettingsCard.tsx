@@ -41,6 +41,18 @@ export default function SettingsCard() {
     window.dispatchEvent(new Event("languageChange"));
   }
 
+  const languageOptions = [
+    {
+      label: LL.profile.themes.auto(),
+      value: "auto",
+    },
+    { label: "English", value: "en" },
+    { label: "Français", value: "fr" },
+  ];
+
+  if (process.env.NODE_ENV === "development")
+    languageOptions.push({ label: "Debug", value: "debug" });
+
   return (
     <MainCard
       id="settings-card"
@@ -51,14 +63,7 @@ export default function SettingsCard() {
             <Select
               value={language}
               onChange={updateLanguage}
-              options={[
-                {
-                  label: LL.profile.themes.auto(),
-                  value: "auto",
-                },
-                { label: "English", value: "en" },
-                { label: "Français", value: "fr" },
-              ]}
+              options={languageOptions}
             />
           ),
         },

@@ -75,6 +75,12 @@ const debug: BaseTranslation = {
       activeSections: {
         title: "▩▩▩▩▩▩ ▩▩▩▩▩▩▩▩",
       },
+      modal: {
+        delete: {
+          title: "▩▩▩▩▩▩ ▩▩▩ ▩▩▩▩▩▩▩",
+          message: "▩▩▩ ▩▩▩ ▩▩▩▩ ▩▩ ▩▩▩▩▩▩ ▩▩▩▩ ▩▩▩▩▩▩▩▩",
+        },
+      },
     },
     color: {
       primary: "▩▩▩▩▩▩▩",

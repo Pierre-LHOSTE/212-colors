@@ -33,10 +33,10 @@ export default function FormAction({ id }: { id: string }) {
     <MainCard title={LL.project.info.action.title()}>
       <div>
         <Popconfirm
-          title="Delete the project"
-          description="Are you sure to delete this project?"
-          okText="Yes"
-          cancelText="No"
+          title={LL.project.info.modal.delete.title()}
+          description={LL.project.info.modal.delete.message()}
+          okText={LL.global.button.yes()}
+          cancelText={LL.global.button.no()}
           onConfirm={handleClick}
         >
           <Button type="primary">{LL.project.info.action.delete()}</Button>

@@ -203,6 +203,18 @@ type RootTranslation = {
 				 */
 				title: string
 			}
+			modal: {
+				'delete': {
+					/**
+					 * D​e​l​e​t​e​ ​t​h​e​ ​p​r​o​j​e​c​t
+					 */
+					title: string
+					/**
+					 * A​r​e​ ​y​o​u​ ​s​u​r​e​ ​t​o​ ​d​e​l​e​t​e​ ​t​h​i​s​ ​p​r​o​j​e​c​t​?
+					 */
+					message: string
+				}
+			}
 		}
 		color: {
 			/**
@@ -625,6 +637,18 @@ export type TranslationFunctions = {
 				 * Active sections
 				 */
 				title: () => LocalizedString
+			}
+			modal: {
+				'delete': {
+					/**
+					 * Delete the project
+					 */
+					title: () => LocalizedString
+					/**
+					 * Are you sure to delete this project?
+					 */
+					message: () => LocalizedString
+				}
 			}
 		}
 		color: {

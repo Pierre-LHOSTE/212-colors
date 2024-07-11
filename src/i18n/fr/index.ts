@@ -75,6 +75,12 @@ const fr: BaseTranslation = {
       activeSections: {
         title: "Sections actives",
       },
+      modal: {
+        delete: {
+          title: "Supprimer le projet",
+          message: "Êtes-vous sûr de vouloir supprimer ce projet ?",
+        },
+      },
     },
     color: {
       primary: "Primaire",

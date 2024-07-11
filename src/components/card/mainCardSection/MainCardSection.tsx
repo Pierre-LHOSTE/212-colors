@@ -1,4 +1,4 @@
-import type { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities";
+import { useI18nContext } from "@/src/i18n/i18n-react";
 import {
   IconDotsVertical,
   IconGripVertical,
@@ -10,7 +10,6 @@ import { Button, Popconfirm, Popover, Typography } from "antd";
 import React from "react";
 import "./main-card-section.scss";
 import type { PropsType } from "./props";
-import { useI18nContext } from "@/src/i18n/i18n-react";
 
 const iconSize = 16;
 
@@ -68,10 +67,10 @@ export default function MainCardSection(props: PropsType) {
                     ) : null}
                     {deleteAction ? (
                       <Popconfirm
-                        title="Delete the color"
-                        description="Are you sure to delete this color?"
-                        okText="Yes"
-                        cancelText="No"
+                        title={LL.project.theme.modal.theme.delete.title()}
+                        description={LL.project.theme.modal.theme.delete.message()}
+                        okText={LL.global.button.yes()}
+                        cancelText={LL.global.button.no()}
                         onConfirm={deleteAction}
                       >
                         <Button type="primary" icon={<IconTrash />}>

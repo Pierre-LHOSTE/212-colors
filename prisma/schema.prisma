@@ -86,7 +86,7 @@ model Color {
   updatedAt   DateTime? @updatedAt
   owner       User      @relation(fields: [ownerId], references: [id])
   ownerId     String
-  project     Project   @relation(fields: [projectId], references: [id])
+  project     Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
   projectId   String
   position    Int
 
@@ -102,7 +102,7 @@ model ThemeColor {
   updatedAt     DateTime?   @updatedAt
   owner         User        @relation(fields: [ownerId], references: [id])
   ownerId       String
-  project       Project     @relation(fields: [projectId], references: [id])
+  project       Project     @relation(fields: [projectId], references: [id], onDelete: Cascade)
   projectId     String
   themeColumn   ThemeColumn @relation(fields: [themeColumnId], references: [id], onDelete: Cascade)
   themeColumnId String
@@ -120,7 +120,7 @@ model ThemeColumn {
   updatedAt   DateTime?    @updatedAt
   owner       User         @relation(fields: [ownerId], references: [id])
   ownerId     String
-  project     Project      @relation(fields: [projectId], references: [id])
+  project     Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
   projectId   String
   colors      ThemeColor[]
   position    Int
@@ -137,7 +137,7 @@ model Theme {
   updatedAt   DateTime?    @updatedAt
   owner       User         @relation(fields: [ownerId], references: [id])
   ownerId     String
-  project     Project      @relation(fields: [projectId], references: [id])
+  project     Project      @relation(fields: [projectId], references: [id], onDelete: Cascade)
   projectId   String
   colors      ThemeColor[]
   position    Int
