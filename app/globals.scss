@@ -1,5 +1,12 @@
 @import "overlayscrollbars/overlayscrollbars.css";
 
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("JetBrainsMono-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+}
+
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
