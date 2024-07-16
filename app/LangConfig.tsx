@@ -13,7 +13,8 @@ export function LangConfig({
   children: React.ReactNode;
 }>) {
   const language = useSettingsStore((state) => state.language);
-  const detectedLocale = detectLocale(navigatorDetector);
+  const detectedLocale =
+    typeof navigator !== "undefined" ? detectLocale(navigatorDetector) : "en";
   const locale = language === "auto" ? detectedLocale : (language as Locales);
 
   const [localesLoaded, setLocalesLoaded] = useState(false);
