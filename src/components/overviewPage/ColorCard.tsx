@@ -15,7 +15,6 @@ export default function ColorCard({
 }) {
   const { LL } = useI18nContext();
 
-  console.log("🚀 ~ loading color:", loading);
   if (loading) {
     return (
       <MainCard title={LL.project.overview.theme.title()}>
