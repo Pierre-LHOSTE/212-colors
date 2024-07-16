@@ -5,7 +5,8 @@ import { handleError } from "@/src/lib/utils";
 import { useDataStore } from "@/src/store/data";
 import { useSettingsStore } from "@/src/store/settings";
 import type { ProjectType } from "@/src/types/project";
-import { Button, Form, Input } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
+import { Button, Form, Input, Spin } from "antd";
 import { createSchemaFieldRule } from "antd-zod";
 import { useEffect, useState, useTransition } from "react";
 import MainCard from "../card/MainCard";
@@ -13,7 +14,13 @@ import { InfoFormSchema } from "./InfoFormSchema";
 
 const rule = createSchemaFieldRule(InfoFormSchema);
 
-export default function FormInfo({ project }: { project: ProjectType }) {
+export default function FormInfo({
+  project,
+  loading,
+}: {
+  project: ProjectType;
+  loading: boolean;
+}) {
   const [form] = Form.useForm();
   const [isPending, startTransition] = useTransition();
   const [changed, setChanged] = useState(false);
@@ -28,6 +35,14 @@ export default function FormInfo({ project }: { project: ProjectType }) {
     });
   }, [form, project]);
 
+  if (loading) {
+    return (
+      <MainCard>
+        <Spin indicator={<LoadingOutlined spin />} />
+      </MainCard>
+    );
+  }
+
   function onSubmit(values: ProjectType) {
     const newProject = {
       ...values,
@@ -41,6 +56,7 @@ export default function FormInfo({ project }: { project: ProjectType }) {
           type: "success",
           content: "Project updated",
         });
+        setChanged(false);
       } else {
         handleError(res, "Failed to update project");
       }
@@ -81,7 +97,7 @@ export default function FormInfo({ project }: { project: ProjectType }) {
           <Input.TextArea />
         </Form.Item>
         {changed ? (
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" loading={isPending}>
             {LL.global.button.edit()}
           </Button>
         ) : null}

@@ -3,7 +3,15 @@ import { Button, Modal } from "antd";
 import type { PropsType } from "./props";
 
 export default function FormModal(props: PropsType) {
-  const { title, isOpen, closeModal, submitForm, children, mode } = props;
+  const {
+    title,
+    isOpen,
+    closeModal,
+    submitForm,
+    children,
+    mode,
+    loading = false,
+  } = props;
   const { LL } = useI18nContext();
 
   return (
@@ -18,7 +26,7 @@ export default function FormModal(props: PropsType) {
             <Button onClick={() => closeModal()}>
               {LL.global.button.cancel()}
             </Button>
-            <Button type="primary" onClick={submitForm}>
+            <Button type="primary" onClick={submitForm} loading={loading}>
               {mode === "edit"
                 ? LL.global.button.edit()
                 : LL.global.button.create()}

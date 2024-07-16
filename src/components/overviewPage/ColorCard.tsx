@@ -1,11 +1,29 @@
 import { useI18nContext } from "@/src/i18n/i18n-react";
 import type { ColorType } from "@/src/types/color";
+import { LoadingOutlined } from "@ant-design/icons";
+import { Spin } from "antd";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
 import MainCard from "../card/MainCard";
 import ColorPreview from "../colorPreview/ColorPreview";
 
-export default function ColorCard({ colors }: { colors: ColorType[] }) {
+export default function ColorCard({
+  colors,
+  loading,
+}: {
+  colors: ColorType[];
+  loading: boolean;
+}) {
   const { LL } = useI18nContext();
+
+  console.log("🚀 ~ loading color:", loading);
+  if (loading) {
+    return (
+      <MainCard title={LL.project.overview.theme.title()}>
+        <Spin indicator={<LoadingOutlined spin />} />
+      </MainCard>
+    );
+  }
+
   const primaryColors = colors.filter((c) => c.type === "primary");
   const primaryList =
     primaryColors.length > 0 ? (

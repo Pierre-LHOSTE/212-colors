@@ -38,6 +38,7 @@ function ProfilePwd() {
           name="profile-pwd"
           onFinish={submit}
           form={form}
+          disabled={isPending}
         >
           <Form.Item
             label={LL.profile.changePassword.currentPassword()}
@@ -61,7 +62,7 @@ function ProfilePwd() {
             <Input />
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" loading={isPending}>
               {LL.profile.changePassword.submit()}
             </Button>
           </Form.Item>

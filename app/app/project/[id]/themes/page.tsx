@@ -3,24 +3,26 @@ import { getThemeColors, getThemeColumns, getThemes } from "@/src/api/theme";
 import ThemesList from "@/src/components/themesPage/ThemesPage";
 import { handleError } from "@/src/lib/utils";
 import { useDataStore } from "@/src/store/data";
-import { useEffect } from "react";
+import { useEffect, useTransition } from "react";
 
 function ThemesPage({ params }: { params: { id: string } }) {
   const themes = useDataStore((state) => state.themes);
   const themeColumns = useDataStore((state) => state.themeColumns);
   const themeColors = useDataStore((state) => state.themeColors);
-
   const setThemes = useDataStore((state) => state.setThemes);
   const setThemeColumns = useDataStore((state) => state.setThemeColumns);
   const setThemeColors = useDataStore((state) => state.setThemeColors);
+  const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
     setThemeColors([]);
     setThemeColumns([]);
     setThemes([]);
-    fetchData(getThemeColors, setThemeColors, "ThemeColors");
-    fetchData(getThemeColumns, setThemeColumns, "ThemeColumns");
-    fetchData(getThemes, setThemes, "Themes");
+    startTransition(() => {
+      fetchData(getThemeColors, setThemeColors, "ThemeColors");
+      fetchData(getThemeColumns, setThemeColumns, "ThemeColumns");
+      fetchData(getThemes, setThemes, "Themes");
+    });
   }, [params.id]);
 
   async function fetchData(
@@ -60,6 +62,7 @@ function ThemesPage({ params }: { params: { id: string } }) {
         themes={themes}
         themeColumns={themeColumns}
         themeColors={themeColors}
+        loading={isPending}
       />
     </div>
   );

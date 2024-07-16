@@ -8,4 +8,5 @@ export default interface PropsType {
   themes: ThemeType[];
   themeColors: ThemeColorType[];
   themeColumns: ThemeColumnType[];
+  loading: boolean;
 }

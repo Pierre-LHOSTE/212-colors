@@ -7,11 +7,12 @@ import "./page.scss";
 
 function InfoPage({ params }: { params: { id: string } }) {
   const project = useDataStore((state) => state.project);
+  const loading = useDataStore((state) => state.loading);
 
   return (
     <div id="informations-page">
       <div className="flex-horizontal">
-        <FormInfo project={project} />
+        <FormInfo loading={loading} project={project} />
         <div className="flex-vertical">
           <FormSection id={params.id} />
           <FormAction id={params.id} />

@@ -140,6 +140,7 @@ export default function CreateThemeColorModal() {
         })
       }
       submitForm={() => form.submit()}
+      loading={isPending}
     >
       <Form
         layout="vertical"

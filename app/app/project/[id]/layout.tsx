@@ -8,7 +8,7 @@ import CreateThemeColorModal from "@/src/components/modal/createThemeColor/Creat
 import NavProjectAside from "@/src/components/navAside/NavProjectAside";
 import { handleError } from "@/src/lib/utils";
 import { useDataStore } from "@/src/store/data";
-import { useEffect } from "react";
+import { useEffect, useTransition } from "react";
 
 export default function Layout({
   children,
@@ -18,6 +18,8 @@ export default function Layout({
   params: { id: string };
 }>) {
   const setProject = useDataStore((state) => state.setProject);
+  const [isPending, startTransition] = useTransition();
+  const setLoading = useDataStore((state) => state.setLoading);
 
   useEffect(() => {
     async function fetchProjects() {
@@ -33,8 +35,12 @@ export default function Layout({
       }
       setProject(project);
     }
-    fetchProjects();
+    startTransition(() => fetchProjects());
   }, [params.id, setProject]);
+
+  useEffect(() => {
+    setLoading(isPending);
+  }, [isPending]);
 
   return (
     <>

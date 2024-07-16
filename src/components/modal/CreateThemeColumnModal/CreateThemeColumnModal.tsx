@@ -118,6 +118,7 @@ export default function CreateThemeColumnModal() {
         })
       }
       submitForm={() => form.submit()}
+      loading={isPending}
     >
       <Form
         layout="vertical"

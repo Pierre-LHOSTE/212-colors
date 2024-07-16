@@ -8,4 +8,5 @@ export interface PropsType {
   name: string;
   direction: DirectionType;
   setColors: Dispatch<SetStateAction<ColorType[]>>;
+  loading?: boolean;
 }

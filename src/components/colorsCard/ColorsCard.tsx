@@ -6,6 +6,7 @@ import { useI18nContext } from "@/src/i18n/i18n-react";
 import useDndSensors from "@/src/lib/hooks";
 import { useModalStore } from "@/src/store/modal";
 import type { ColorType, ThemeColorType } from "@/src/types/color";
+import { LoadingOutlined } from "@ant-design/icons";
 import {
   DndContext,
   DragOverlay,
@@ -16,20 +17,32 @@ import {
   type UniqueIdentifier,
 } from "@dnd-kit/core";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
+import { Spin } from "antd";
 import { useState } from "react";
 import "./colors-card.scss";
 import type { PropsType } from "./props";
 
 export default function ColorsCard(props: PropsType) {
-  const { colors, name, direction, setColors } = props;
+  const { colors, name, direction, setColors, loading } = props;
   const { LL } = useI18nContext();
 
   const setModalState = useModalStore((state) => state.setModalState);
-
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const sensors = useDndSensors();
 
   const cardId = name as ColorType["type"];
+
+  if (loading)
+    return (
+      <MainCard
+        className={`color-card ${direction}`}
+        id={`${cardId}-card`}
+        title={LL.project.color[name as "primary" | "secondary" | "special"]()}
+        direction={direction}
+      >
+        <Spin indicator={<LoadingOutlined spin />} />
+      </MainCard>
+    );
 
   function findColorData(id: UniqueIdentifier | undefined): ColorType {
     const item = colors.find((item) => item.id === id);

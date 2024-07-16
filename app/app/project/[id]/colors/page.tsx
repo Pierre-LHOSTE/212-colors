@@ -4,12 +4,14 @@ import ColorsCard from "@/src/components/colorsCard/ColorsCard";
 import { handleError } from "@/src/lib/utils";
 import { useDataStore } from "@/src/store/data";
 import type { ColorType } from "@/src/types/color";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 
 function ColorsPage({ params }: { params: { id: string } }) {
   const setColors = useDataStore((state) => state.setColors);
   const project = useDataStore((state) => state.project);
   const colors = useDataStore((state) => state.colors);
+
+  const [isPending, startTransition] = useTransition();
 
   const [primaryColors, setPrimaryColors] = useState<ColorType[]>([]);
   const [secondaryColors, setSecondaryColors] = useState<ColorType[]>([]);
@@ -22,11 +24,9 @@ function ColorsPage({ params }: { params: { id: string } }) {
   }, [colors]);
 
   useEffect(() => {
-    setPrimaryColors([]);
-    setSecondaryColors([]);
-    setSpecialColors([]);
+    setColors([]);
     async function fetchColors() {
-      const colors = await getColors(project.id);
+      const colors = await getColors(params.id);
       if (!colors) {
         return handleError({
           error: true,
@@ -38,7 +38,7 @@ function ColorsPage({ params }: { params: { id: string } }) {
       }
       setColors(colors);
     }
-    fetchColors();
+    startTransition(() => fetchColors());
   }, [params.id]);
 
   return (
@@ -46,12 +46,14 @@ function ColorsPage({ params }: { params: { id: string } }) {
       <div className="flex-horizontal">
         <div className="flex-vertical">
           <ColorsCard
+            loading={isPending}
             colors={primaryColors}
             name="primary"
             direction="horizontal"
             setColors={setPrimaryColors}
           />
           <ColorsCard
+            loading={isPending}
             colors={specialColors}
             name="special"
             direction="horizontal"
@@ -59,6 +61,7 @@ function ColorsPage({ params }: { params: { id: string } }) {
           />
         </div>
         <ColorsCard
+          loading={isPending}
           colors={secondaryColors}
           name="secondary"
           direction="vertical"

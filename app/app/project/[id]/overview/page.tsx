@@ -4,7 +4,7 @@ import { getThemeColors, getThemeColumns, getThemes } from "@/src/api/theme";
 import Overview from "@/src/components/overviewPage/Overview";
 import { handleError } from "@/src/lib/utils";
 import { useDataStore } from "@/src/store/data";
-import { useEffect } from "react";
+import { useEffect, useTransition } from "react";
 
 export default function OverviewPage({ params }: { params: { id: string } }) {
   const project = useDataStore((state) => state.project);
@@ -18,15 +18,19 @@ export default function OverviewPage({ params }: { params: { id: string } }) {
   const setThemeColors = useDataStore((state) => state.setThemeColors);
   const setThemeColumns = useDataStore((state) => state.setThemeColumns);
 
+  const [isPending, startTransition] = useTransition();
+
   useEffect(() => {
-    setColors([]);
-    setThemes([]);
-    setThemeColors([]);
-    setThemeColumns([]);
-    fetchData(getColors, setColors, "Colors", project.id);
-    fetchData(getThemes, setThemes, "Themes", project.id);
-    fetchData(getThemeColors, setThemeColors, "ThemeColors", project.id);
-    fetchData(getThemeColumns, setThemeColumns, "ThemeColumns", project.id);
+    startTransition(() => {
+      setColors([]);
+      setThemes([]);
+      setThemeColors([]);
+      setThemeColumns([]);
+      fetchData(getColors, setColors, "Colors", project.id);
+      fetchData(getThemes, setThemes, "Themes", project.id);
+      fetchData(getThemeColors, setThemeColors, "ThemeColors", project.id);
+      fetchData(getThemeColumns, setThemeColumns, "ThemeColumns", project.id);
+    });
   }, [params.id]);
 
   return (
@@ -37,6 +41,7 @@ export default function OverviewPage({ params }: { params: { id: string } }) {
         themes={themes}
         themeColors={themeColors}
         themeColumns={themeColumns}
+        loading={isPending}
       />
     </div>
   );

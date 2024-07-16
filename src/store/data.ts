@@ -7,6 +7,8 @@ import type { ThemeColumnType, ThemeType } from "../types/theme";
 interface DataStateType {
   project: ProjectType;
   setProject: Dispatch<SetStateAction<ProjectType>>;
+  loading: boolean;
+  setLoading: Dispatch<SetStateAction<boolean>>;
   setHiddenSections: Dispatch<SetStateAction<string[]>>;
   projectsList: ProjectButtonType[];
   setProjectsList: Dispatch<SetStateAction<ProjectButtonType[]>>;
@@ -35,6 +37,11 @@ export const useDataStore = create<DataStateType>((set) => ({
   setProject: (project: SetStateAction<ProjectType>) =>
     set((state) => ({
       project: typeof project === "function" ? project(state.project) : project,
+    })),
+  loading: false,
+  setLoading: (loading: SetStateAction<boolean>) =>
+    set((state) => ({
+      loading: typeof loading === "function" ? loading(state.loading) : loading,
     })),
   setHiddenSections: (hiddenSections: SetStateAction<string[]>) =>
     set((state) => ({

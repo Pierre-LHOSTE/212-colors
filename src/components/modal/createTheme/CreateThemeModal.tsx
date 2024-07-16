@@ -126,6 +126,7 @@ export default function CreateThemeModal() {
         })
       }
       submitForm={() => form.submit()}
+      loading={isPending}
     >
       <Form
         layout="vertical"

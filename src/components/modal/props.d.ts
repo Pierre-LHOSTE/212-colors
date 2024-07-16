@@ -5,4 +5,5 @@ export interface PropsType {
   submitForm: () => void;
   title: string;
   mode: "add" | "edit";
+  loading?: boolean;
 }

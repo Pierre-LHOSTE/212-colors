@@ -5,6 +5,7 @@ import { handleError } from "@/src/lib/utils";
 import { useSettingsStore } from "@/src/store/settings";
 import type { ThemeType } from "@/src/types/settings";
 import { Select } from "antd";
+import { useTransition } from "react";
 import MainCard from "../card/MainCard";
 import "./settings-card.scss";
 
@@ -14,31 +15,37 @@ export default function SettingsCard() {
   const language = useSettingsStore((state) => state.language);
   const setLanguage = useSettingsStore((state) => state.setLanguage);
   const setMessage = useSettingsStore((state) => state.setMessage);
+  const [isThemePending, startThemeTransition] = useTransition();
+  const [isLangPending, startLangTransition] = useTransition();
   const { LL } = useI18nContext();
 
   async function updateTheme(values: ThemeType) {
-    const res = await updateSettings({ theme: values });
-    if ("error" in res) {
-      return handleError(res, "Failed to update theme");
-    }
-    setTheme(values);
-    setMessage({
-      type: "success",
-      content: "Theme settings updated successfully",
+    startThemeTransition(async () => {
+      const res = await updateSettings({ theme: values });
+      if ("error" in res) {
+        return handleError(res, "Failed to update theme");
+      }
+      setTheme(values);
+      setMessage({
+        type: "success",
+        content: "Theme settings updated successfully",
+      });
     });
   }
 
   async function updateLanguage(value: string) {
-    const res = await updateSettings({ language: value });
-    if ("error" in res) {
-      return handleError(res, "Failed to update language");
-    }
-    setLanguage(value);
-    setMessage({
-      type: "success",
-      content: "Language settings updated successfully",
+    startLangTransition(async () => {
+      const res = await updateSettings({ language: value });
+      if ("error" in res) {
+        return handleError(res, "Failed to update language");
+      }
+      setLanguage(value);
+      setMessage({
+        type: "success",
+        content: "Language settings updated successfully",
+      });
+      window.dispatchEvent(new Event("languageChange"));
     });
-    window.dispatchEvent(new Event("languageChange"));
   }
 
   const languageOptions = [
@@ -61,6 +68,7 @@ export default function SettingsCard() {
           title: LL.profile.settings.language(),
           children: (
             <Select
+              loading={isLangPending}
               value={language}
               onChange={updateLanguage}
               options={languageOptions}
@@ -72,6 +80,7 @@ export default function SettingsCard() {
           children: (
             <>
               <Select
+                loading={isThemePending}
                 value={theme}
                 onChange={updateTheme}
                 options={[

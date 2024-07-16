@@ -58,6 +58,7 @@ export default function CreateProjectModal() {
         })
       }
       submitForm={() => form.submit()}
+      loading={isPending}
     >
       <Form
         layout="vertical"

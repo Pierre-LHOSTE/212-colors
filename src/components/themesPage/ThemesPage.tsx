@@ -3,8 +3,9 @@ import { useI18nContext } from "@/src/i18n/i18n-react";
 import { useDataStore } from "@/src/store/data";
 import { useModalStore } from "@/src/store/modal";
 import type { ThemeType } from "@/src/types/theme";
+import { LoadingOutlined } from "@ant-design/icons";
 import { IconPlus } from "@tabler/icons-react";
-import { Button } from "antd";
+import { Button, Spin } from "antd";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
 import MainCard from "../card/MainCard";
 import ThemeColumnList from "../themesList/ThemeColumnList";
@@ -13,12 +14,19 @@ import type { PropsType } from "./props";
 import "./theme-page.scss";
 
 export default function ThemesPage(props: PropsType) {
-  const { themeColumns, themes, themeColors } = props;
+  const { themeColumns, themes, themeColors, loading } = props;
 
   const setModalState = useModalStore((state) => state.setModalState);
   const setThemes = useDataStore((state) => state.setThemes);
 
   const { LL } = useI18nContext();
+
+  if (loading)
+    return (
+      <MainCard className="theme-color-card" direction="horizontal">
+        <Spin indicator={<LoadingOutlined spin />} />
+      </MainCard>
+    );
 
   return (
     <>
