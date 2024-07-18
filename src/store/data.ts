@@ -33,6 +33,13 @@ export const useDataStore = create<DataStateType>((set) => ({
     ownerId: "",
     updatedAt: null,
     colors: [],
+    generalPrompt: "",
+    namePrompt: "",
+    descriptionPrompt: "",
+    colorPrompt: "",
+    owner: {
+      premium: false,
+    },
   },
   setProject: (project: SetStateAction<ProjectType>) =>
     set((state) => ({

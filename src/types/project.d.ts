@@ -20,4 +20,7 @@ export interface ProjectType extends ProjectLiteType {
   namePrompt: string | null;
   descriptionPrompt: string | null;
   colorPrompt: string | null;
+  owner: {
+    premium: boolean;
+  };
 }

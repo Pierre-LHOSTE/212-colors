@@ -34,7 +34,6 @@ export default function FormIa({ project }: { project: ProjectType }) {
       ...values,
       id: project.id,
     };
-    console.log("🚀 ~ newProject:", newProject);
     startTransition(async () => {
       const res = await updateProjectPrompt(newProject);
       if ("id" in res) {

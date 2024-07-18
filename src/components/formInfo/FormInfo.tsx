@@ -73,53 +73,52 @@ export default function FormInfo({
     setChanged(JSON.stringify(fieldsValue) !== JSON.stringify(projectValue));
   }
 
-  return (
-    <MainCard
-      sections={[
-        {
-          title: LL.project.info.form.title(),
-          children: (
-            <>
-              <Form
-                layout="vertical"
-                name="info-form"
-                disabled={isPending}
-                onFinish={onSubmit}
-                form={form}
-                onChange={checkChanges}
-              >
-                <Form.Item
-                  label={LL.project.info.form.name()}
-                  name="name"
-                  rules={[rule]}
-                >
-                  <Input />
-                </Form.Item>
-                <Form.Item
-                  label={LL.project.info.form.description()}
-                  name="description"
-                  rules={[rule]}
-                >
-                  <Input.TextArea />
-                </Form.Item>
-                {changed ? (
-                  <Button type="primary" htmlType="submit" loading={isPending}>
-                    {LL.global.button.edit()}
-                  </Button>
-                ) : null}
-              </Form>
-            </>
-          ),
-        },
-        {
-          title: LL.project.info.prompt.title(),
-          children: (
-            <>
-              <FormIa project={project} />
-            </>
-          ),
-        },
-      ]}
-    ></MainCard>
-  );
+  const sections = [
+    {
+      title: LL.project.info.form.title(),
+      children: (
+        <>
+          <Form
+            layout="vertical"
+            name="info-form"
+            disabled={isPending}
+            onFinish={onSubmit}
+            form={form}
+            onChange={checkChanges}
+          >
+            <Form.Item
+              label={LL.project.info.form.name()}
+              name="name"
+              rules={[rule]}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item
+              label={LL.project.info.form.description()}
+              name="description"
+              rules={[rule]}
+            >
+              <Input.TextArea />
+            </Form.Item>
+            {changed ? (
+              <Button type="primary" htmlType="submit" loading={isPending}>
+                {LL.global.button.edit()}
+              </Button>
+            ) : null}
+          </Form>
+        </>
+      ),
+    },
+  ];
+
+  console.log(project.owner);
+
+  if (project.owner.premium) {
+    sections.push({
+      title: LL.project.info.prompt.title(),
+      children: <FormIa project={project} />,
+    });
+  }
+
+  return <MainCard sections={sections}></MainCard>;
 }

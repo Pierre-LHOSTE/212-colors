@@ -46,6 +46,11 @@ export async function getProjectById(id: string) {
         createdAt: true,
         updatedAt: true,
         ownerId: true,
+        owner: {
+          select: {
+            premium: true,
+          },
+        },
         generalPrompt: true,
         namePrompt: true,
         descriptionPrompt: true,
@@ -101,6 +106,25 @@ export async function updateProject(project: ProjectType) {
         description: project.description,
         updatedAt: new Date(),
       },
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        position: true,
+        hiddenSections: true,
+        createdAt: true,
+        updatedAt: true,
+        ownerId: true,
+        owner: {
+          select: {
+            premium: true,
+          },
+        },
+        generalPrompt: true,
+        namePrompt: true,
+        descriptionPrompt: true,
+        colorPrompt: true,
+      },
     });
     revalidateTag("prisma-project");
     return res;
@@ -117,6 +141,25 @@ export async function updateProjectPrompt(project: ProjectType) {
         namePrompt: project.namePrompt,
         descriptionPrompt: project.descriptionPrompt,
         colorPrompt: project.colorPrompt,
+      },
+      select: {
+        id: true,
+        name: true,
+        description: true,
+        position: true,
+        hiddenSections: true,
+        createdAt: true,
+        updatedAt: true,
+        ownerId: true,
+        owner: {
+          select: {
+            premium: true,
+          },
+        },
+        generalPrompt: true,
+        namePrompt: true,
+        descriptionPrompt: true,
+        colorPrompt: true,
       },
     });
     revalidateTag("prisma-project");
