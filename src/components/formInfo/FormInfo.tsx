@@ -111,8 +111,6 @@ export default function FormInfo({
     },
   ];
 
-  console.log(project.owner);
-
   if (project.owner.premium) {
     sections.push({
       title: LL.project.info.prompt.title(),
