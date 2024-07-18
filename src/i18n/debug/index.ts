@@ -68,6 +68,17 @@ const debug: BaseTranslation = {
         name: "▩▩▩▩",
         description: "▩▩▩▩▩▩▩▩▩▩▩",
       },
+      prompt: {
+        title: "▩▩ ▩▩▩▩▩▩▩▩▩▩▩▩",
+        namePrompt: "▩▩▩▩▩▩▩▩▩▩▩▩ ▩▩▩ ▩▩▩▩",
+        nameExample: "▩▩▩▩▩▩ ▩▩ ▩▩▩▩▩▩▩▩ ▩▩▩ ▩▩▩▩▩",
+        descriptionPrompt: "▩▩▩▩▩▩▩▩▩▩▩▩ ▩▩▩ ▩▩▩▩▩▩▩▩▩▩▩",
+        descriptionExample: "▩▩▩▩▩▩ ▩▩ ▩▩▩▩▩▩▩ ▩▩▩ ▩ ▩▩▩▩▩",
+        generalPrompt: "▩▩▩▩▩▩▩▩▩▩▩▩ ▩▩▩ ▩▩▩",
+        generalExample: "▩▩▩▩▩▩ ▩▩ ▩▩ ▩▩▩▩▩▩",
+        colorPrompt: "▩▩▩▩▩▩▩▩▩▩▩▩ ▩▩▩ ▩▩▩▩▩",
+        colorExample: "▩▩▩▩▩▩ ▩▩ ▩▩▩▩ ▩▩▩▩▩▩",
+      },
       action: {
         title: "▩▩▩▩▩▩▩",
         delete: "▩▩▩▩▩▩ ▩▩▩ ▩▩▩▩▩▩▩",

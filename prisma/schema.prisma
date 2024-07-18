@@ -43,6 +43,7 @@ model User {
   themeColumns  ThemeColumn[]
   themes        Theme[]
   settings      Settings?
+  premium       Boolean       @default(false)
 
   @@map("users")
 }
@@ -59,19 +60,23 @@ model Settings {
 }
 
 model Project {
-  id             String        @id @default(cuid())
-  name           String
-  description    String?
-  createdAt      DateTime      @default(now())
-  updatedAt      DateTime?
-  owner          User          @relation(fields: [ownerId], references: [id])
-  ownerId        String
-  colors         Color[]
-  themeColors    ThemeColor[]
-  themeColumns   ThemeColumn[]
-  themes         Theme[]
-  position       Int
-  hiddenSections String[]
+  id                String        @id @default(cuid())
+  name              String
+  description       String?
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime?
+  owner             User          @relation(fields: [ownerId], references: [id])
+  ownerId           String
+  colors            Color[]
+  themeColors       ThemeColor[]
+  themeColumns      ThemeColumn[]
+  themes            Theme[]
+  position          Int
+  hiddenSections    String[]
+  generalPrompt     String?
+  namePrompt        String?
+  descriptionPrompt String?
+  colorPrompt       String?
 
   @@map("projects")
 }

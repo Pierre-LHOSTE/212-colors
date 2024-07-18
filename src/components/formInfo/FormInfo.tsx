@@ -10,6 +10,7 @@ import { Button, Form, Input, Spin } from "antd";
 import { createSchemaFieldRule } from "antd-zod";
 import { useEffect, useState, useTransition } from "react";
 import MainCard from "../card/MainCard";
+import FormIa from "../formIa/FormIa";
 import { InfoFormSchema } from "./InfoFormSchema";
 
 const rule = createSchemaFieldRule(InfoFormSchema);
@@ -73,35 +74,52 @@ export default function FormInfo({
   }
 
   return (
-    <MainCard>
-      <Form
-        layout="vertical"
-        name="new-color-form"
-        disabled={isPending}
-        onFinish={onSubmit}
-        form={form}
-        onChange={checkChanges}
-      >
-        <Form.Item
-          label={LL.project.info.form.name()}
-          name="name"
-          rules={[rule]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          label={LL.project.info.form.description()}
-          name="description"
-          rules={[rule]}
-        >
-          <Input.TextArea />
-        </Form.Item>
-        {changed ? (
-          <Button type="primary" htmlType="submit" loading={isPending}>
-            {LL.global.button.edit()}
-          </Button>
-        ) : null}
-      </Form>
-    </MainCard>
+    <MainCard
+      sections={[
+        {
+          title: LL.project.info.form.title(),
+          children: (
+            <>
+              <Form
+                layout="vertical"
+                name="info-form"
+                disabled={isPending}
+                onFinish={onSubmit}
+                form={form}
+                onChange={checkChanges}
+              >
+                <Form.Item
+                  label={LL.project.info.form.name()}
+                  name="name"
+                  rules={[rule]}
+                >
+                  <Input />
+                </Form.Item>
+                <Form.Item
+                  label={LL.project.info.form.description()}
+                  name="description"
+                  rules={[rule]}
+                >
+                  <Input.TextArea />
+                </Form.Item>
+                {changed ? (
+                  <Button type="primary" htmlType="submit" loading={isPending}>
+                    {LL.global.button.edit()}
+                  </Button>
+                ) : null}
+              </Form>
+            </>
+          ),
+        },
+        {
+          title: LL.project.info.prompt.title(),
+          children: (
+            <>
+              <FormIa project={project} />
+            </>
+          ),
+        },
+      ]}
+    ></MainCard>
   );
 }

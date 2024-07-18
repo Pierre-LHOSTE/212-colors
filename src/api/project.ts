@@ -46,6 +46,10 @@ export async function getProjectById(id: string) {
         createdAt: true,
         updatedAt: true,
         ownerId: true,
+        generalPrompt: true,
+        namePrompt: true,
+        descriptionPrompt: true,
+        colorPrompt: true,
       },
     });
     return project;
@@ -96,6 +100,23 @@ export async function updateProject(project: ProjectType) {
         name: project.name,
         description: project.description,
         updatedAt: new Date(),
+      },
+    });
+    revalidateTag("prisma-project");
+    return res;
+  } catch (error: unknown) {
+    return handleServerError(error);
+  }
+}
+export async function updateProjectPrompt(project: ProjectType) {
+  try {
+    const res = await prisma.project.update({
+      where: { id: project.id },
+      data: {
+        generalPrompt: project.generalPrompt,
+        namePrompt: project.namePrompt,
+        descriptionPrompt: project.descriptionPrompt,
+        colorPrompt: project.colorPrompt,
       },
     });
     revalidateTag("prisma-project");

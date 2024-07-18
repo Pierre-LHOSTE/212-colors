@@ -187,6 +187,44 @@ type RootTranslation = {
 				 */
 				description: string
 			}
+			prompt: {
+				/**
+				 * A​I​ ​I​n​t​r​o​d​u​c​t​i​o​n
+				 */
+				title: string
+				/**
+				 * I​n​s​t​r​u​c​t​i​o​n​s​ ​f​o​r​ ​n​a​m​e
+				 */
+				namePrompt: string
+				/**
+				 * S​h​o​u​l​d​ ​b​e​ ​o​r​i​g​i​n​a​l​ ​a​n​d​ ​s​h​o​r​t
+				 */
+				nameExample: string
+				/**
+				 * I​n​s​t​r​u​c​t​i​o​n​s​ ​f​o​r​ ​d​e​s​c​r​i​p​t​i​o​n
+				 */
+				descriptionPrompt: string
+				/**
+				 * S​h​o​u​l​d​ ​b​e​ ​s​i​m​p​l​e​,​ ​m​a​x​ ​2​ ​l​i​n​e​s
+				 */
+				descriptionExample: string
+				/**
+				 * I​n​s​t​r​u​c​t​i​o​n​s​ ​g​e​n​e​r​a​l
+				 */
+				generalPrompt: string
+				/**
+				 * S​h​o​u​l​d​ ​b​e​ ​i​n​ ​F​r​e​n​c​h
+				 */
+				generalExample: string
+				/**
+				 * I​n​s​t​r​u​c​t​i​o​n​s​ ​f​o​r​ ​c​o​l​o​r
+				 */
+				colorPrompt: string
+				/**
+				 * S​h​o​u​l​d​ ​b​e​ ​l​i​k​e​ ​p​a​s​t​e​l
+				 */
+				colorExample: string
+			}
 			action: {
 				/**
 				 * A​c​t​i​o​n​s
@@ -621,6 +659,44 @@ export type TranslationFunctions = {
 				 * Description
 				 */
 				description: () => LocalizedString
+			}
+			prompt: {
+				/**
+				 * AI Introduction
+				 */
+				title: () => LocalizedString
+				/**
+				 * Instructions for name
+				 */
+				namePrompt: () => LocalizedString
+				/**
+				 * Should be original and short
+				 */
+				nameExample: () => LocalizedString
+				/**
+				 * Instructions for description
+				 */
+				descriptionPrompt: () => LocalizedString
+				/**
+				 * Should be simple, max 2 lines
+				 */
+				descriptionExample: () => LocalizedString
+				/**
+				 * Instructions general
+				 */
+				generalPrompt: () => LocalizedString
+				/**
+				 * Should be in French
+				 */
+				generalExample: () => LocalizedString
+				/**
+				 * Instructions for color
+				 */
+				colorPrompt: () => LocalizedString
+				/**
+				 * Should be like pastel
+				 */
+				colorExample: () => LocalizedString
 			}
 			action: {
 				/**

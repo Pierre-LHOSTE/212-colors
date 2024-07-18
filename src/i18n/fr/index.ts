@@ -68,6 +68,17 @@ const fr: BaseTranslation = {
         name: "Nom",
         description: "Description",
       },
+      prompt: {
+        title: "Instructions de l'IA",
+        namePrompt: "Instructions pour le nom",
+        nameExample: "Doit être original et court",
+        descriptionPrompt: "Instructions pour la description",
+        descriptionExample: "Doit être simple, max 2 lignes",
+        generalPrompt: "Instructions générales",
+        generalExample: "Doit être en français",
+        colorPrompt: "Instructions pour la couleur",
+        colorExample: "Doit être de type pastel",
+      },
       action: {
         title: "Actions",
         delete: "Supprimer le projet",
