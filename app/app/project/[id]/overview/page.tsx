@@ -26,10 +26,10 @@ export default function OverviewPage({ params }: { params: { id: string } }) {
       setThemes([]);
       setThemeColors([]);
       setThemeColumns([]);
-      fetchData(getColors, setColors, "Colors", project.id);
-      fetchData(getThemes, setThemes, "Themes", project.id);
-      fetchData(getThemeColors, setThemeColors, "ThemeColors", project.id);
-      fetchData(getThemeColumns, setThemeColumns, "ThemeColumns", project.id);
+      fetchData(getColors, setColors, "Colors", params.id);
+      fetchData(getThemes, setThemes, "Themes", params.id);
+      fetchData(getThemeColors, setThemeColors, "ThemeColors", params.id);
+      fetchData(getThemeColumns, setThemeColumns, "ThemeColumns", params.id);
     });
   }, [params.id]);
 
