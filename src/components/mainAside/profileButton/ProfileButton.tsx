@@ -1,5 +1,6 @@
 import { IconUser } from "@tabler/icons-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import "./profile-button.scss";
 
 export default function ProfileButton({
@@ -7,8 +8,13 @@ export default function ProfileButton({
 }: {
   active?: boolean;
 }) {
+  const pathname = usePathname();
   return (
-    <div id="profile-icon" className={active ? " active" : ""}>
+    <div
+      id="profile-icon"
+      className={pathname.startsWith(`/app/profile`) ? "active" : ""}
+    >
+      <div className={"icon-hook"} />
       <Link
         href="/app/profile"
         style={{

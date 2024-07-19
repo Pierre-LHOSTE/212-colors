@@ -7,6 +7,22 @@
 #profile-icon {
   @extend %flex-center;
   padding: 16px 0;
+  position: relative;
+
+  .icon-hook {
+    background-color: #ff1818;
+    width: 6px;
+    height: 24px;
+    position: absolute;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.5s;
+    border-radius: 0 50% 50% 0;
+  }
+
+  &.active .icon-hook {
+    opacity: 1;
+  }
 
   a {
     @extend %flex-center;
