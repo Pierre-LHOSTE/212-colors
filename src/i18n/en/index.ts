@@ -97,6 +97,7 @@ const en: BaseTranslation = {
       primary: "Primary",
       secondary: "Secondary",
       special: "Special",
+      empty: "No color",
       modal: {
         create: {
           title: "Create a color",
@@ -122,6 +123,7 @@ const en: BaseTranslation = {
     theme: {
       infoColorsTheme: "Colors informations",
       newTheme: "New theme",
+      empty: "No theme",
       modal: {
         theme: {
           create: {
@@ -159,6 +161,7 @@ const en: BaseTranslation = {
           },
         },
         colorType: {
+          empty: "No color type",
           create: {
             title: "Create a color type",
           },

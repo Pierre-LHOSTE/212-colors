@@ -31,7 +31,6 @@ export default function ThemesPage(props: PropsType) {
   return (
     <>
       <ThemeColumnList themeColumns={themeColumns} />
-
       <OverlayScrollbarsComponent id="theme-scroll" defer={true}>
         <ThemesList
           themes={themes}

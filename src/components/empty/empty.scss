@@ -1,0 +1,12 @@
+.empty {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  opacity: 0.5;
+  padding: 32px;
+  gap: 8px;
+}

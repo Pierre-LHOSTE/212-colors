@@ -17,8 +17,10 @@ import {
   type UniqueIdentifier,
 } from "@dnd-kit/core";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
+import { IconCircleHalf2 } from "@tabler/icons-react";
 import { Spin } from "antd";
 import { useState } from "react";
+import Empty from "../empty/Empty";
 import "./colors-card.scss";
 import type { PropsType } from "./props";
 
@@ -113,13 +115,24 @@ export default function ColorsCard(props: PropsType) {
           })
         }
       >
-        <SortableContext items={colors.map((i) => i.id)}>
-          {colors && colors.length > 0
-            ? colors.map((color) => (
-                <Color key={color.id} color={color} updateState={updateState} />
-              ))
-            : null}
-        </SortableContext>
+        {colors && colors.length === 0 ? (
+          <Empty
+            name={LL.project.color.empty()}
+            icon={<IconCircleHalf2 size={16} />}
+          />
+        ) : (
+          <SortableContext items={colors.map((i) => i.id)}>
+            {colors && colors.length > 0
+              ? colors.map((color) => (
+                  <Color
+                    key={color.id}
+                    color={color}
+                    updateState={updateState}
+                  />
+                ))
+              : null}
+          </SortableContext>
+        )}
       </MainCard>
       <DragOverlay adjustScale={false}>
         {activeId ? <>{<Color color={findColorData(activeId)} />}</> : null}

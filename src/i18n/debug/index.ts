@@ -74,7 +74,7 @@ const debug: BaseTranslation = {
         nameExample: "▩▩▩▩▩▩ ▩▩ ▩▩▩▩▩▩▩▩ ▩▩▩ ▩▩▩▩▩",
         descriptionPrompt: "▩▩▩▩▩▩▩▩▩▩▩▩ ▩▩▩ ▩▩▩▩▩▩▩▩▩▩▩",
         descriptionExample: "▩▩▩▩▩▩ ▩▩ ▩▩▩▩▩▩▩ ▩▩▩ ▩ ▩▩▩▩▩",
-        generalPrompt: "▩▩▩▩▩▩▩▩▩▩▩▩ ▩▩▩ ▩▩▩",
+        generalPrompt: "▩▩▩▩▩▩▩▩▩▩▩▩ ▩▩▩▩▩▩▩",
         generalExample: "▩▩▩▩▩▩ ▩▩ ▩▩ ▩▩▩▩▩▩",
         colorPrompt: "▩▩▩▩▩▩▩▩▩▩▩▩ ▩▩▩ ▩▩▩▩▩",
         colorExample: "▩▩▩▩▩▩ ▩▩ ▩▩▩▩ ▩▩▩▩▩▩",
@@ -97,6 +97,7 @@ const debug: BaseTranslation = {
       primary: "▩▩▩▩▩▩▩",
       secondary: "▩▩▩▩▩▩▩▩▩",
       special: "▩▩▩▩▩▩▩",
+      empty: "▩▩ ▩▩▩▩▩",
       modal: {
         create: {
           title: "▩▩▩▩▩▩ ▩ ▩▩▩▩▩",
@@ -122,6 +123,7 @@ const debug: BaseTranslation = {
     theme: {
       infoColorsTheme: "▩▩▩▩▩▩ ▩▩▩▩▩▩▩▩▩▩▩▩",
       newTheme: "▩▩▩ ▩▩▩▩▩",
+      empty: "▩▩ ▩▩▩▩▩",
       modal: {
         theme: {
           create: {
@@ -159,6 +161,7 @@ const debug: BaseTranslation = {
           },
         },
         colorType: {
+          empty: "▩▩ ▩▩▩▩▩ ▩▩▩▩",
           create: {
             title: "▩▩▩▩▩▩ ▩ ▩▩▩▩▩ ▩▩▩▩",
           },

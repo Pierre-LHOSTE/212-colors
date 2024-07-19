@@ -15,8 +15,10 @@ import {
   type UniqueIdentifier,
 } from "@dnd-kit/core";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
+import { IconCircleHalf2 } from "@tabler/icons-react";
 import { useState } from "react";
 import MainCard from "../card/MainCard";
+import Empty from "../empty/Empty";
 import ThemeColumn from "../themColumn/ThemeColumn";
 
 export default function ThemeColumnList({
@@ -95,11 +97,18 @@ export default function ThemeColumnList({
         direction="horizontal"
         createAction={createThemeColumn}
       >
-        <SortableContext items={themeColumns.map((i) => i.id)}>
-          {themeColumns.map((themeColumn, index) => (
-            <ThemeColumn key={themeColumn.id} themeColumn={themeColumn} />
-          ))}
-        </SortableContext>
+        {themeColumns.length > 0 ? (
+          <SortableContext items={themeColumns.map((i) => i.id)}>
+            {themeColumns.map((themeColumn, index) => (
+              <ThemeColumn key={themeColumn.id} themeColumn={themeColumn} />
+            ))}
+          </SortableContext>
+        ) : (
+          <Empty
+            name={LL.project.theme.modal.colorType.empty()}
+            icon={<IconCircleHalf2 size={16} />}
+          />
+        )}
       </MainCard>
       <DragOverlay adjustScale={false}>
         {activeId ? (

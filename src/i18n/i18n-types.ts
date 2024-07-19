@@ -267,6 +267,10 @@ type RootTranslation = {
 			 * S​p​e​c​i​a​l
 			 */
 			special: string
+			/**
+			 * N​o​ ​c​o​l​o​r
+			 */
+			empty: string
 			modal: {
 				create: {
 					/**
@@ -325,6 +329,10 @@ type RootTranslation = {
 			 * N​e​w​ ​t​h​e​m​e
 			 */
 			newTheme: string
+			/**
+			 * N​o​ ​t​h​e​m​e
+			 */
+			empty: string
 			modal: {
 				theme: {
 					create: {
@@ -407,6 +415,10 @@ type RootTranslation = {
 					}
 				}
 				colorType: {
+					/**
+					 * N​o​ ​c​o​l​o​r​ ​t​y​p​e
+					 */
+					empty: string
 					create: {
 						/**
 						 * C​r​e​a​t​e​ ​a​ ​c​o​l​o​r​ ​t​y​p​e
@@ -740,6 +752,10 @@ export type TranslationFunctions = {
 			 * Special
 			 */
 			special: () => LocalizedString
+			/**
+			 * No color
+			 */
+			empty: () => LocalizedString
 			modal: {
 				create: {
 					/**
@@ -798,6 +814,10 @@ export type TranslationFunctions = {
 			 * New theme
 			 */
 			newTheme: () => LocalizedString
+			/**
+			 * No theme
+			 */
+			empty: () => LocalizedString
 			modal: {
 				theme: {
 					create: {
@@ -880,6 +900,10 @@ export type TranslationFunctions = {
 					}
 				}
 				colorType: {
+					/**
+					 * No color type
+					 */
+					empty: () => LocalizedString
 					create: {
 						/**
 						 * Create a color type

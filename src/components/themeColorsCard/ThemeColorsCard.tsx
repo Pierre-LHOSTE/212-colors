@@ -9,6 +9,8 @@ import type { ColorType, ThemeColorType } from "@/src/types/color";
 import type { ThemeType } from "@/src/types/theme";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { IconCircleHalf2 } from "@tabler/icons-react";
+import Empty from "../empty/Empty";
 import NoColor from "../noColor/NoColor";
 import type { PropsType } from "./props";
 import "./theme-colors-card.scss";
@@ -84,31 +86,35 @@ export default function ThemeColorsCard(props: PropsType) {
         showEditAction={handleEdit}
         deleteAction={handleDelete}
       >
-        {themeColumns.map((column, index) => {
-          const color = colors
-            ? colors.find((c) => c?.themeColumnId === column.id)
-            : null;
-          if (color) {
+        {themeColumns.length > 0 ? (
+          themeColumns.map((column, index) => {
+            const color = colors
+              ? colors.find((c) => c?.themeColumnId === column.id)
+              : null;
+            if (color) {
+              return (
+                <Color
+                  noDnd
+                  key={color.id}
+                  color={color}
+                  isThemeColor
+                  updateState={
+                    updateState as (color: ThemeColorType | ColorType) => void
+                  }
+                />
+              );
+            }
             return (
-              <Color
-                noDnd
-                key={color.id}
-                color={color}
-                isThemeColor
-                updateState={
-                  updateState as (color: ThemeColorType | ColorType) => void
-                }
+              <NoColor
+                themeId={theme.id}
+                themeColumnId={column.id}
+                key={column.id}
               />
             );
-          }
-          return (
-            <NoColor
-              themeId={theme.id}
-              themeColumnId={column.id}
-              key={column.id}
-            />
-          );
-        })}
+          })
+        ) : (
+          <Empty name="No color" icon={<IconCircleHalf2 size={16} />} />
+        )}
       </MainCard>
     </div>
   );
