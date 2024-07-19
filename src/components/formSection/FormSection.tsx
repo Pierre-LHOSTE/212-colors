@@ -8,13 +8,16 @@ import { Checkbox } from "antd";
 import type { CheckboxChangeEvent } from "antd/es/checkbox";
 import MainCard from "../card/MainCard";
 
-const sections = ["colors", "themes"];
-
 export default function FormSection({ id }: { id: string }) {
   const hiddenSections = useDataStore((state) => state.project.hiddenSections);
   const setHiddenSections = useDataStore((state) => state.setHiddenSections);
   const setMessage = useSettingsStore((state) => state.setMessage);
   const { LL } = useI18nContext();
+
+  const sections = [
+    { label: LL.project.overview.color.title(), key: "colors" },
+    { label: LL.project.overview.theme.title(), key: "themes" },
+  ];
 
   async function handleChange(e: CheckboxChangeEvent, name: string) {
     const newHiddenSections = e.target.checked
@@ -42,14 +45,14 @@ export default function FormSection({ id }: { id: string }) {
     <MainCard title={LL.project.info.activeSections.title()}>
       {sections.map((section) => (
         <Checkbox
-          key={section}
-          checked={!hiddenSections.includes(section)}
-          onChange={(e) => handleChange(e, section)}
+          key={section.key}
+          checked={!hiddenSections.includes(section.key)}
+          onChange={(e) => handleChange(e, section.key)}
           style={{
             textTransform: "capitalize",
           }}
         >
-          {section.split("Section")[0]}
+          {section.label}
         </Checkbox>
       ))}
     </MainCard>
