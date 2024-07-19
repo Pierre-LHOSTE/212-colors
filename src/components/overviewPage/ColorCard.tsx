@@ -1,10 +1,12 @@
 import { useI18nContext } from "@/src/i18n/i18n-react";
 import type { ColorType } from "@/src/types/color";
 import { LoadingOutlined } from "@ant-design/icons";
+import { IconCircleHalf2 } from "@tabler/icons-react";
 import { Spin } from "antd";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
 import MainCard from "../card/MainCard";
 import ColorPreview from "../colorPreview/ColorPreview";
+import Empty from "../empty/Empty";
 
 export default function ColorCard({
   colors,
@@ -79,11 +81,18 @@ export default function ColorCard({
 
   return (
     <MainCard title={LL.project.overview.color.title()}>
-      <div className="overview-colors flex-vertical">
-        {primaryList}
-        {secondaryList}
-        {specialList}
-      </div>
+      {primaryList && secondaryList && specialList ? (
+        <div className="overview-colors flex-vertical">
+          {primaryList}
+          {secondaryList}
+          {specialList}
+        </div>
+      ) : (
+        <Empty
+          name={LL.project.color.empty()}
+          icon={<IconCircleHalf2 size={16} />}
+        />
+      )}
     </MainCard>
   );
 }
