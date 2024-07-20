@@ -1,4 +1,5 @@
-import { askColorName } from "@/src/api/ai";
+import { askColorDescription } from "@/src/api/askColorDescription";
+import { askColorName } from "@/src/api/askColorName";
 import { handleError } from "@/src/lib/utils";
 import { useDataStore } from "@/src/store/data";
 import { useSettingsStore } from "@/src/store/settings";
@@ -23,7 +24,7 @@ export default function AiPopover({
     description: "",
     suggestions: [] as {
       value: string;
-      explanation: string;
+      explanation?: string;
     }[],
   });
 
@@ -39,31 +40,69 @@ export default function AiPopover({
 
   async function askSuggestions() {
     startTransition(async () => {
-      const res = await askColorName({
-        project,
-        values: form.getFieldsValue(),
-        more: moreDetails,
-        lang: localLanguage,
-      });
-      if ("error" in res) {
-        return handleError(res, "Failed to create color");
-      }
-      const d = res.response.split("\n");
-      const description = d[0];
-      const suggestion1 = { value: d[2], explanation: d[3] };
-      const suggestion2 = { value: d[5], explanation: d[6] };
-      const suggestion3 = { value: d[8], explanation: d[9] };
-
-      if (description && suggestion1 && suggestion2 && suggestion3) {
-        setSuggestions({
-          description: description,
-          suggestions: [suggestion1, suggestion2, suggestion3],
+      let res;
+      if (type === "name") {
+        res = await askColorName({
+          project,
+          values: form.getFieldsValue(),
+          more: moreDetails,
+          lang: localLanguage,
         });
-      } else {
+      } else if (type === "description") {
+        res = await askColorDescription({
+          project,
+          values: form.getFieldsValue(),
+          more: moreDetails,
+        });
+      }
+
+      if (!res) {
         return handleError({
           error: true,
-          message: "Failed to get name suggestions",
+          message: `Type ${type} is not supported`,
         });
+      }
+
+      if ("error" in res) {
+        return handleError(res, `Failed to create ${type}`);
+      }
+
+      const d = res.response.split("\n");
+
+      if (type === "name") {
+        const description = d[0];
+        const suggestionsArray = [];
+
+        for (let i = 2; i < d.length; i += 3) {
+          suggestionsArray.push({
+            value: d[i],
+            explanation: d[i + 1],
+          });
+        }
+
+        if (description && suggestionsArray.length) {
+          setSuggestions({
+            description: description,
+            suggestions: suggestionsArray,
+          });
+        } else {
+          return handleError({
+            error: true,
+            message: `Failed to get ${type} suggestions`,
+          });
+        }
+      } else if (type === "description") {
+        if (d.length) {
+          setSuggestions({
+            description: "",
+            suggestions: d.map((s) => ({ value: s })),
+          });
+        } else {
+          return handleError({
+            error: true,
+            message: `Failed to get ${type} suggestions`,
+          });
+        }
       }
     });
   }
@@ -85,7 +124,12 @@ export default function AiPopover({
             >
               <Typography.Text>
                 - {project.generalPrompt}
-                <br />- {project.namePrompt}
+                <br />-{" "}
+                {type === "name"
+                  ? project.namePrompt
+                  : type === "description"
+                    ? project.descriptionPrompt
+                    : ""}
               </Typography.Text>
               <Input.TextArea
                 placeholder="Say more?"
@@ -107,14 +151,16 @@ export default function AiPopover({
                   className="suggestion"
                   key={i}
                   onClick={() => {
-                    form.setFieldsValue({ name: s.value });
+                    form.setFieldValue(type, s.value);
                     handlePopoverChange(false);
                   }}
                 >
                   <Typography.Text>{s.value}</Typography.Text>
-                  <Typography.Text type="secondary">
-                    {s.explanation}
-                  </Typography.Text>
+                  {s.explanation && (
+                    <Typography.Text type="secondary">
+                      {s.explanation}
+                    </Typography.Text>
+                  )}
                 </div>
               ))}
             </Space>

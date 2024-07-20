@@ -35,8 +35,9 @@ export default function CreateColorModal() {
         form.setFieldValue("color", editItem.color);
         setPreviewColor(editItem.color);
       }
-      if (editItem.description)
+      if (editItem.description) {
         form.setFieldValue("description", editItem.description);
+      }
     } else {
       form.resetFields();
       setPreviewColor("#000000");
@@ -171,6 +172,9 @@ export default function CreateColorModal() {
         >
           <Input.TextArea />
         </Form.Item>
+        {project.owner.premium ? (
+          <AiPopover type="description" form={form} />
+        ) : null}
       </Form>
     </FormModal>
   );
