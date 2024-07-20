@@ -1,4 +1,5 @@
 "use client";
+import { askColorName } from "@/src/api/ai";
 import { createColor, updateColor } from "@/src/api/color";
 import { useI18nContext } from "@/src/i18n/i18n-react";
 import { handleError } from "@/src/lib/utils";
@@ -24,6 +25,13 @@ export default function CreateColorModal() {
   const [previewColor, setPreviewColor] = useState("#000000");
   const project = useDataStore((state) => state.project);
   const { LL } = useI18nContext();
+  const [nameSuggestions, setNameSuggestions] = useState({
+    nameDescription: "",
+    suggestions: [] as {
+      name: string;
+      explanation: string;
+    }[],
+  });
 
   useEffect(() => {
     const editItem = modalState?.editItem;
@@ -41,6 +49,37 @@ export default function CreateColorModal() {
       setPreviewColor("#000000");
     }
   }, [modalState.editItem, form]);
+
+  useEffect(() => {
+    console.log(nameSuggestions);
+  }, [nameSuggestions]);
+
+  async function handleAskName() {
+    const res = await askColorName({
+      project,
+      values: form.getFieldsValue(),
+    });
+    if ("error" in res) {
+      return handleError(res, "Failed to create color");
+    }
+    const d = res.response.split("\n");
+    const description = d[0];
+    const suggestion1 = { name: d[2], explanation: d[3] };
+    const suggestion2 = { name: d[5], explanation: d[6] };
+    const suggestion3 = { name: d[8], explanation: d[9] };
+
+    if (description && suggestion1 && suggestion2 && suggestion3) {
+      setNameSuggestions({
+        nameDescription: description,
+        suggestions: [suggestion1, suggestion2, suggestion3],
+      });
+    } else {
+      return handleError({
+        error: true,
+        message: "Failed to get name suggestions",
+      });
+    }
+  }
 
   function onSubmit(values: ColorType) {
     if (modalState.mode === "add") {
@@ -146,7 +185,11 @@ export default function CreateColorModal() {
           <Input
             suffix={
               project.owner.premium ? (
-                <Button type="text" icon={<IconSparkles stroke={1.25} />} />
+                <Button
+                  onClick={handleAskName}
+                  type="text"
+                  icon={<IconSparkles stroke={1.25} />}
+                />
               ) : null
             }
           />
