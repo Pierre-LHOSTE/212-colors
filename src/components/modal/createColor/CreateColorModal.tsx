@@ -6,7 +6,8 @@ import { useDataStore } from "@/src/store/data";
 import { useModalStore } from "@/src/store/modal";
 import { useSettingsStore } from "@/src/store/settings";
 import type { ColorType } from "@/src/types/color";
-import { ColorPicker, Form, Input } from "antd";
+import { IconSparkles } from "@tabler/icons-react";
+import { Button, ColorPicker, Form, Input } from "antd";
 import { createSchemaFieldRule } from "antd-zod";
 import { useEffect, useState, useTransition } from "react";
 import FormModal from "../FormModal";
@@ -142,7 +143,13 @@ export default function CreateColorModal() {
           name="name"
           rules={[rule]}
         >
-          <Input />
+          <Input
+            suffix={
+              project.owner.premium ? (
+                <Button type="text" icon={<IconSparkles stroke={1.25} />} />
+              ) : null
+            }
+          />
         </Form.Item>
         <Form.Item
           label={LL.project.color.modal.display.color()}
