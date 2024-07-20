@@ -8,17 +8,27 @@ import { useModalStore } from "@/src/store/modal";
 import { useSettingsStore } from "@/src/store/settings";
 import type { ColorType } from "@/src/types/color";
 import { IconSparkles } from "@tabler/icons-react";
-import { Button, ColorPicker, Form, Input } from "antd";
+import {
+  Button,
+  ColorPicker,
+  Form,
+  Input,
+  Popover,
+  Space,
+  Typography,
+} from "antd";
 import { createSchemaFieldRule } from "antd-zod";
 import { useEffect, useState, useTransition } from "react";
 import FormModal from "../FormModal";
 import { ColorFormSchema } from "./ColorFormSchema";
+import "./suggestion.scss";
 
 const rule = createSchemaFieldRule(ColorFormSchema);
 
 export default function CreateColorModal() {
   const setMessage = useSettingsStore((state) => state.setMessage);
   const [isPending, startTransition] = useTransition();
+  const [isPendingAi, startTransitionAi] = useTransition();
   const setModalState = useModalStore((state) => state.setModalState);
   const modalState = useModalStore((state) => state.modalState);
   const [form] = Form.useForm();
@@ -32,6 +42,9 @@ export default function CreateColorModal() {
       explanation: string;
     }[],
   });
+  const [open, setOpen] = useState(false);
+  const [askMore, setAskMore] = useState<string | undefined>(undefined);
+  const localLanguage = useSettingsStore((state) => state.localLanguage);
 
   useEffect(() => {
     const editItem = modalState?.editItem;
@@ -55,30 +68,34 @@ export default function CreateColorModal() {
   }, [nameSuggestions]);
 
   async function handleAskName() {
-    const res = await askColorName({
-      project,
-      values: form.getFieldsValue(),
-    });
-    if ("error" in res) {
-      return handleError(res, "Failed to create color");
-    }
-    const d = res.response.split("\n");
-    const description = d[0];
-    const suggestion1 = { name: d[2], explanation: d[3] };
-    const suggestion2 = { name: d[5], explanation: d[6] };
-    const suggestion3 = { name: d[8], explanation: d[9] };
+    startTransitionAi(async () => {
+      const res = await askColorName({
+        project,
+        values: form.getFieldsValue(),
+        more: askMore,
+        lang: localLanguage,
+      });
+      if ("error" in res) {
+        return handleError(res, "Failed to create color");
+      }
+      const d = res.response.split("\n");
+      const description = d[0];
+      const suggestion1 = { name: d[2], explanation: d[3] };
+      const suggestion2 = { name: d[5], explanation: d[6] };
+      const suggestion3 = { name: d[8], explanation: d[9] };
 
-    if (description && suggestion1 && suggestion2 && suggestion3) {
-      setNameSuggestions({
-        nameDescription: description,
-        suggestions: [suggestion1, suggestion2, suggestion3],
-      });
-    } else {
-      return handleError({
-        error: true,
-        message: "Failed to get name suggestions",
-      });
-    }
+      if (description && suggestion1 && suggestion2 && suggestion3) {
+        setNameSuggestions({
+          nameDescription: description,
+          suggestions: [suggestion1, suggestion2, suggestion3],
+        });
+      } else {
+        return handleError({
+          error: true,
+          message: "Failed to get name suggestions",
+        });
+      }
+    });
   }
 
   function onSubmit(values: ColorType) {
@@ -146,6 +163,16 @@ export default function CreateColorModal() {
     }
   }
 
+  function handlePopoverChange(newOpen: boolean) {
+    if (!newOpen) {
+      setNameSuggestions({
+        nameDescription: "",
+        suggestions: [],
+      });
+    }
+    setOpen(newOpen);
+  }
+
   function updateCurrentColor(e: { toHexString: () => string }) {
     const hex = e.toHexString();
     form.setFieldsValue({ color: hex });
@@ -185,11 +212,63 @@ export default function CreateColorModal() {
           <Input
             suffix={
               project.owner.premium ? (
-                <Button
-                  onClick={handleAskName}
-                  type="text"
-                  icon={<IconSparkles stroke={1.25} />}
-                />
+                <Popover
+                  placement="rightTop"
+                  open={open}
+                  trigger={"click"}
+                  onOpenChange={handlePopoverChange}
+                  content={
+                    nameSuggestions.suggestions.length === 0 ? (
+                      <Space
+                        direction="vertical"
+                        style={{
+                          maxWidth: "300px",
+                        }}
+                      >
+                        <Typography.Text>
+                          - {project.generalPrompt}
+                          <br />- {project.namePrompt}
+                        </Typography.Text>
+                        <Input.TextArea
+                          placeholder="Say more?"
+                          value={askMore ?? ""}
+                          onChange={(e) => setAskMore(e.target.value)}
+                        />
+                        <Button
+                          loading={isPendingAi}
+                          onClick={handleAskName}
+                          type="primary"
+                        >
+                          Ask
+                        </Button>
+                      </Space>
+                    ) : (
+                      <Space direction="vertical">
+                        {nameSuggestions.suggestions.map((s, i) => (
+                          <div
+                            className="suggestion"
+                            key={i}
+                            onClick={() => {
+                              form.setFieldsValue({ name: s.name });
+                              handlePopoverChange(false);
+                            }}
+                          >
+                            <Typography.Text>{s.name}</Typography.Text>
+                            <Typography.Text type="secondary">
+                              {s.explanation}
+                            </Typography.Text>
+                          </div>
+                        ))}
+                      </Space>
+                    )
+                  }
+                >
+                  <Button
+                    onClick={() => setOpen(true)}
+                    type="text"
+                    icon={<IconSparkles stroke={1.25} />}
+                  />
+                </Popover>
               ) : null
             }
           />

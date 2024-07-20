@@ -1,0 +1,45 @@
+.suggestion {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 4px;
+  max-width: 300px;
+  border-radius: 4px;
+  cursor: pointer;
+
+  .ant-typography-secondary {
+    font-size: 14px;
+  }
+}
+
+@mixin dark-theme {
+  .suggestion:hover {
+    background-color: rgba($color: #fff, $alpha: 0.05);
+  }
+}
+
+@mixin light-theme {
+  .suggestion:hover {
+    background-color: rgba($color: #000, $alpha: 0.05);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .auto-theme {
+    @include dark-theme;
+  }
+}
+
+.dark-theme {
+  @include dark-theme;
+}
+
+@media (prefers-color-scheme: light) {
+  .auto-theme {
+    @include light-theme;
+  }
+}
+
+.light-theme {
+  @include light-theme;
+}
