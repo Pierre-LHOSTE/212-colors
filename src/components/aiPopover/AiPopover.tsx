@@ -1,10 +1,20 @@
 import { askColorDescription } from "@/src/api/askColorDescription";
 import { askColorName } from "@/src/api/askColorName";
+import { useI18nContext } from "@/src/i18n/i18n-react";
 import { handleError } from "@/src/lib/utils";
 import { useDataStore } from "@/src/store/data";
 import { useSettingsStore } from "@/src/store/settings";
+import { LoadingOutlined } from "@ant-design/icons";
 import { IconSparkles } from "@tabler/icons-react";
-import { Button, FormInstance, Input, Popover, Space, Typography } from "antd";
+import {
+  Button,
+  FormInstance,
+  Input,
+  Popover,
+  Space,
+  Spin,
+  Typography,
+} from "antd";
 import { useState, useTransition } from "react";
 
 export default function AiPopover({
@@ -19,6 +29,7 @@ export default function AiPopover({
   const [moreDetails, setMoreDetails] = useState<string | undefined>(undefined);
   const [isPending, startTransition] = useTransition();
   const localLanguage = useSettingsStore((state) => state.localLanguage);
+  const { LL } = useI18nContext();
 
   const [suggestions, setSuggestions] = useState({
     description: "",
@@ -115,7 +126,11 @@ export default function AiPopover({
         trigger={"click"}
         onOpenChange={handlePopoverChange}
         content={
-          suggestions.suggestions.length === 0 ? (
+          isPending ? (
+            <>
+              <Spin indicator={<LoadingOutlined spin />} />
+            </>
+          ) : suggestions.suggestions.length === 0 ? (
             <Space
               direction="vertical"
               style={{
@@ -123,13 +138,24 @@ export default function AiPopover({
               }}
             >
               <Typography.Text>
-                - {project.generalPrompt}
+                -{" "}
+                {project.generalPrompt
+                  ? project.generalPrompt
+                  : LL.project.info.prompt.noGeneralPrompt()}
                 <br />-{" "}
                 {type === "name"
                   ? project.namePrompt
+                    ? project.namePrompt
+                    : LL.project.info.prompt.noNamePrompt()
                   : type === "description"
                     ? project.descriptionPrompt
-                    : ""}
+                      ? project.descriptionPrompt
+                      : LL.project.info.prompt.noDescriptionPrompt()
+                    : type === "color"
+                      ? project.colorPrompt
+                        ? project.colorPrompt
+                        : LL.project.info.prompt.noColorPrompt()
+                      : ""}
               </Typography.Text>
               <Input.TextArea
                 placeholder="Say more?"
@@ -168,7 +194,13 @@ export default function AiPopover({
         }
       >
         <Button
-          onClick={() => setOpen(true)}
+          onClick={(e) => {
+            if (e.shiftKey) {
+              setOpen(true);
+            } else {
+              askSuggestions();
+            }
+          }}
           type="text"
           icon={<IconSparkles stroke={1.25} />}
         />

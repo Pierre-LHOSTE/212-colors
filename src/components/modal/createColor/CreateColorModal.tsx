@@ -9,7 +9,7 @@ import type { ColorType } from "@/src/types/color";
 import { ColorPicker, Form, Input } from "antd";
 import { createSchemaFieldRule } from "antd-zod";
 import { useEffect, useState, useTransition } from "react";
-import AiPopover from "../../iaPopover/AiPopover";
+import AiFormItem from "../../aiFormItem/AiFormItem";
 import FormModal from "../FormModal";
 import { ColorFormSchema } from "./ColorFormSchema";
 import "./suggestion.scss";
@@ -45,6 +45,7 @@ export default function CreateColorModal() {
   }, [modalState.editItem, form]);
 
   function onSubmit(values: ColorType) {
+    console.log("🚀 ~ values:", values);
     if (modalState.mode === "add") {
       const newColor = {
         ...values,
@@ -140,19 +141,14 @@ export default function CreateColorModal() {
         onFinish={onSubmit}
         form={form}
       >
-        <Form.Item
+        <AiFormItem
           label={LL.project.color.modal.display.name()}
           name="name"
-          rules={[rule]}
+          rule={rule}
+          form={form}
         >
-          <Input
-            suffix={
-              project.owner.premium ? (
-                <AiPopover type="name" form={form} />
-              ) : null
-            }
-          />
-        </Form.Item>
+          <Input />
+        </AiFormItem>
         <Form.Item
           label={LL.project.color.modal.display.color()}
           name="color"
@@ -165,16 +161,14 @@ export default function CreateColorModal() {
             defaultValue={"#000"}
           />
         </Form.Item>
-        <Form.Item
+        <AiFormItem
           label={LL.project.color.modal.display.description()}
           name="description"
-          rules={[rule]}
+          rule={rule}
+          form={form}
         >
           <Input.TextArea />
-        </Form.Item>
-        {project.owner.premium ? (
-          <AiPopover type="description" form={form} />
-        ) : null}
+        </AiFormItem>
       </Form>
     </FormModal>
   );
