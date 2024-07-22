@@ -95,7 +95,7 @@ export default function AiPopover({
         if (d.length) {
           setSuggestions({
             description: "",
-            suggestions: d.map((s) => ({ value: s })),
+            suggestions: d.filter((s) => s).map((s) => ({ value: s })),
           });
         } else {
           return handleError({

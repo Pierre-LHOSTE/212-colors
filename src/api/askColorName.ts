@@ -11,10 +11,10 @@ import { getColors } from "./color";
 
 function formatColors(type: string, colors: ColorType[]) {
   return colors
-    .filter((color) => color.type === type)
+    .filter((color) => color.type === type && color.name)
     .map(
       (color) =>
-        `    - ${color.color} named "${color.name}" and described as "${color.description}"`
+        `    - ${color.color} named "${color.name}" ${color.description ? ` and described as "${color.description}"` : null}`
     )
     .join("\n");
 }

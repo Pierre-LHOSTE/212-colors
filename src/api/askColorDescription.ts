@@ -11,7 +11,7 @@ import { getColors } from "./color";
 
 function formatColors(type: string, colors: ColorType[]) {
   return colors
-    .filter((color) => color.type === type)
+    .filter((color) => color.type === type && color.description)
     .map(
       (color) =>
         `    - ${color.color} named "${color.name}" and described as "${color.description}"`
