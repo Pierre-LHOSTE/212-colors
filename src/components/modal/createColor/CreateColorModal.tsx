@@ -42,7 +42,7 @@ export default function CreateColorModal() {
       form.resetFields();
       setPreviewColor("#000000");
     }
-  }, [modalState.editItem, form]);
+  }, [modalState, form]);
 
   function onSubmit(values: ColorType) {
     if (modalState.mode === "add") {

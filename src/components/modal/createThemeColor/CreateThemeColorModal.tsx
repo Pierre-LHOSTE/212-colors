@@ -41,7 +41,7 @@ export default function CreateThemeColorModal() {
       form.resetFields();
       setPreviewColor("#000000");
     }
-  }, [modalState.editItem, form]);
+  }, [modalState, form]);
 
   function onSubmit(values: ThemeColorType) {
     if (modalState.mode === "add") {
