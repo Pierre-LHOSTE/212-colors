@@ -12,10 +12,7 @@ import { getColors } from "./color";
 function formatColors(type: string, colors: ColorType[]) {
   return colors
     .filter((color) => color.type === type && color.description)
-    .map(
-      (color) =>
-        `    - ${color.color} named "${color.name}" and described as "${color.description}"`
-    )
+    .map((color) => `    - ${color.color} described as "${color.description}"`)
     .join("\n");
 }
 
@@ -29,6 +26,7 @@ export async function askColorDescription({
   more?: string;
 }) {
   try {
+    let step = 4;
     if (!values.color) throw new Error("Color is required");
     const colors = await getColors(project.id);
 
@@ -72,19 +70,37 @@ export async function askColorDescription({
         project.descriptionPrompt ?? "No specific instructions"
       );
 
+    if (values.name && values.name.trim() !== "") {
+      prompt = prompt
+        .replace(
+          /{color-name}/g,
+          `\n- Color name given by the user: "${values.name}"`
+        )
+        .replace(
+          /{color-name-instructions}/g,
+          `\n${step}. Description should align with the color name (given by the user) without mentioning it`
+        );
+      step++;
+    } else {
+      prompt = prompt
+        .replace(/{color-name}/g, "")
+        .replace(/{color-name-instructions}/g, "");
+    }
+
     if (more) {
-      prompt = prompt.replace(/{ask-more}/g, `4. ${more}`);
+      prompt = prompt.replace(/{ask-more}/g, `${step}. ${more}`);
+      step++;
     } else {
       prompt = prompt.replace(/{ask-more}/g, "");
     }
 
-    console.log("prompt", prompt);
+    console.log("---------------");
+    console.log(prompt);
 
     const result = await generateText({
       model: openai("gpt-4o"),
       prompt: prompt,
     });
-    console.log(result.text);
 
     return { success: true, response: result.text };
   } catch (error: unknown) {

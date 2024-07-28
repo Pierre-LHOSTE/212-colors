@@ -3,14 +3,14 @@ Based on the following context, provide 3 description suggestions for the color.
 
 Context:
 - Project: "{project-name}"
-- Description: "{project-description}"
+- Project description: "{project-description}"{color-name}
 - Existing colors:
 {colors}
 
 Instructions for describing:
 1. General: "{general-instructions}"
 2. Specific (Can override general): "{specific-instructions}"
-3. The description should align with the project style and theme implied by existing color descriptions
+3. Descriptions should align with the project style and theme implied by existing color descriptions{color-name-instructions}
 {ask-more}
 Respond WITHOUT MARKDOWN, WItHOUT TITLE, in the following STRICT format:
 {description1}

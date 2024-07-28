@@ -12,10 +12,7 @@ import { getColors } from "./color";
 function formatColors(type: string, colors: ColorType[]) {
   return colors
     .filter((color) => color.type === type && color.name)
-    .map(
-      (color) =>
-        `    - ${color.color} named "${color.name}" ${color.description ? ` and described as "${color.description}"` : null}`
-    )
+    .map((color) => `    - ${color.color} named "${color.name}"`)
     .join("\n");
 }
 
@@ -31,6 +28,7 @@ export async function askColorName({
   lang: string;
 }) {
   try {
+    let step = 6;
     if (!values.color) throw new Error("Color is required");
     const colors = await getColors(project.id);
 
@@ -75,19 +73,36 @@ export async function askColorName({
         project.namePrompt ?? "No specific instructions"
       );
 
+    if (values.description && values.description.trim() !== "") {
+      prompt = prompt
+        .replace(
+          /{color-description}/g,
+          `\n- Color description given by the user: "${values.description}"`
+        )
+        .replace(
+          /{color-description-instructions}/g,
+          `\n${step}. The names MUST REFLECT the color description given by the user: "{color-description}"`
+        );
+      step++;
+    } else {
+      prompt = prompt
+        .replace(/{color-description}/g, "")
+        .replace(/{color-description-instructions}/g, "");
+    }
+
     if (more) {
-      prompt = prompt.replace(/{ask-more}/g, `6. ${more}`);
+      prompt = prompt.replace(/{ask-more}/g, `${step}. ${more}`);
     } else {
       prompt = prompt.replace(/{ask-more}/g, "");
     }
 
-    console.log("prompt", prompt);
+    console.log("---------------");
+    console.log(prompt);
 
     const result = await generateText({
       model: openai("gpt-4o"),
       prompt: prompt,
     });
-    console.log(result.text);
 
     return { success: true, response: result.text };
   } catch (error: unknown) {
