@@ -1,4 +1,5 @@
 import { askColorDescription } from "@/src/api/askColorDescription";
+import { askColorHex } from "@/src/api/askColorHex";
 import { askColorName } from "@/src/api/askColorName";
 import { useI18nContext } from "@/src/i18n/i18n-react";
 import { handleError } from "@/src/lib/utils";
@@ -8,6 +9,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 import { IconSparkles } from "@tabler/icons-react";
 import {
   Button,
+  ColorPicker,
   FormInstance,
   Input,
   Popover,
@@ -15,6 +17,7 @@ import {
   Spin,
   Typography,
 } from "antd";
+import { colord } from "colord";
 import { useState, useTransition } from "react";
 
 export default function AiPopover({
@@ -65,6 +68,13 @@ export default function AiPopover({
           values: form.getFieldsValue(),
           more: moreDetails,
         });
+      } else if (type === "color") {
+        res = await askColorHex({
+          project,
+          values: form.getFieldsValue(),
+          more: moreDetails,
+          lang: localLanguage,
+        });
       }
 
       if (!res) {
@@ -107,6 +117,29 @@ export default function AiPopover({
           setSuggestions({
             description: "",
             suggestions: d.filter((s) => s).map((s) => ({ value: s })),
+          });
+        } else {
+          return handleError({
+            error: true,
+            message: `Failed to get ${type} suggestions`,
+          });
+        }
+      } else if (type === "color") {
+        const description = d[0];
+        const suggestionsArray = [];
+
+        for (let i = 2; i < d.length; i += 3) {
+          const color = colord(d[i]).toHex();
+          suggestionsArray.push({
+            value: color,
+            explanation: d[i + 1],
+          });
+        }
+
+        if (description && suggestionsArray.length) {
+          setSuggestions({
+            description: description,
+            suggestions: suggestionsArray,
           });
         } else {
           return handleError({
@@ -181,7 +214,17 @@ export default function AiPopover({
                     handlePopoverChange(false);
                   }}
                 >
-                  <Typography.Text>{s.value}</Typography.Text>
+                  {type === "color" ? (
+                    <ColorPicker
+                      showText
+                      value={s.value}
+                      onOpenChange={() => {}}
+                      open={false}
+                      format="hex"
+                    />
+                  ) : (
+                    <Typography.Text>{s.value}</Typography.Text>
+                  )}
                   {s.explanation && (
                     <Typography.Text type="secondary">
                       {s.explanation}

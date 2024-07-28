@@ -12,7 +12,7 @@ Instructions for describing:
 2. Specific (Can override general): "{specific-instructions}"
 3. Descriptions should align with the project style and theme implied by existing color descriptions{color-name-instructions}
 {ask-more}
-Respond WITHOUT MARKDOWN, WItHOUT TITLE, in the following STRICT format:
+Respond WITHOUT MARKDOWN, WITHOUT TITLE, in the following STRICT format:
 {description1}
 {description2}
 {description3}`;

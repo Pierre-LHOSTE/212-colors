@@ -4,7 +4,7 @@ import { generateText } from "ai";
 import { z } from "zod";
 import { ColorFormSchema } from "../components/modal/createColor/ColorFormSchema";
 import { handleServerError } from "../lib/utils";
-import { colorNamePrompt } from "../prompts/colorName";
+import { colorHexPrompt } from "../prompts/colorHex";
 import { ColorType } from "../types/color";
 import { ProjectType } from "../types/project";
 import { getColors } from "./color";
@@ -12,11 +12,14 @@ import { getColors } from "./color";
 function formatColors(type: string, colors: ColorType[]) {
   return colors
     .filter((color) => color.type === type && color.name)
-    .map((color) => `    - ${color.color} named "${color.name}"`)
+    .map(
+      (color) =>
+        `    - ${color.color} ${color.name ? `named "${color.name}"` : ""}${color.description ? ` described as "${color.description}"` : ""}`
+    )
     .join("\n");
 }
 
-export async function askColorName({
+export async function askColorHex({
   project,
   values,
   more,
@@ -29,7 +32,6 @@ export async function askColorName({
 }) {
   try {
     let step = 6;
-    if (!values.color) throw new Error("Color is required");
     const colors = await getColors(project.id);
 
     if ("error" in colors) {
@@ -55,8 +57,7 @@ export async function askColorName({
       formattedColors.push("  - No colors");
     }
 
-    let prompt = colorNamePrompt
-      .replace(/{color-hex}/g, values.color)
+    let prompt = colorHexPrompt
       .replace(/{lang}/g, lang)
       .replace(/{project-name}/g, project.name)
       .replace(/{colors}/g, formattedColors.join("\n"))
@@ -70,8 +71,25 @@ export async function askColorName({
       )
       .replace(
         /{specific-instructions}/g,
-        project.namePrompt ?? "No specific instructions"
+        project.colorPrompt ?? "No specific instructions"
       );
+
+    if (values.name && values.name.trim() !== "") {
+      prompt = prompt
+        .replace(
+          /{color-name}/g,
+          `\n- Color name given by the user: "${values.name}"`
+        )
+        .replace(
+          /{color-name-instructions}/g,
+          `\n${step}. The names MUST REFLECT the color name given by the user: "{color-name}"`
+        );
+      step++;
+    } else {
+      prompt = prompt
+        .replace(/{color-name}/g, "")
+        .replace(/{color-name-instructions}/g, "");
+    }
 
     if (values.description && values.description.trim() !== "") {
       prompt = prompt

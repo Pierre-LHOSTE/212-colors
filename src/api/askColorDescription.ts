@@ -88,7 +88,10 @@ export async function askColorDescription({
     }
 
     if (more) {
-      prompt = prompt.replace(/{ask-more}/g, `${step}. ${more}`);
+      prompt = prompt.replace(
+        /{ask-more}/g,
+        `${step} (Very important!). ${more}`
+      );
       step++;
     } else {
       prompt = prompt.replace(/{ask-more}/g, "");
@@ -99,6 +102,7 @@ export async function askColorDescription({
 
     const result = await generateText({
       model: openai("gpt-4o"),
+      temperature: 0.7,
       prompt: prompt,
     });
 

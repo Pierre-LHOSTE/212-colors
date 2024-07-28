@@ -45,7 +45,6 @@ export default function CreateColorModal() {
   }, [modalState.editItem, form]);
 
   function onSubmit(values: ColorType) {
-    console.log("🚀 ~ values:", values);
     if (modalState.mode === "add") {
       const newColor = {
         ...values,
@@ -149,18 +148,20 @@ export default function CreateColorModal() {
         >
           <Input />
         </AiFormItem>
-        <Form.Item
+        <AiFormItem
           label={LL.project.color.modal.display.color()}
           name="color"
-          rules={[rule]}
+          rule={rule}
+          form={form}
         >
           <ColorPicker
             showText
             onChange={updateCurrentColor}
             value={previewColor}
             defaultValue={"#000"}
+            format="hex"
           />
-        </Form.Item>
+        </AiFormItem>
         <AiFormItem
           label={LL.project.color.modal.display.description()}
           name="description"

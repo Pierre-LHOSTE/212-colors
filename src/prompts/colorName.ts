@@ -17,7 +17,7 @@ Instructions for naming:
 4. Names must reflect the specific shade described in Task 1
 5. Explanations should be in the following language: "{lang}" and should not exceed 200 characters{color-description-instructions}
 {ask-more}
-Respond WITHOUT MARKDOWN, WItHOUT TITLE, in the following STRICT format:
+Respond WITHOUT MARKDOWN, WITHOUT TITLE, in the following STRICT format:
 {brief, accurate description of the color}
 
 {name1}
