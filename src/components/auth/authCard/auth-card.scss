@@ -6,7 +6,7 @@
 
   #block {
     aspect-ratio: 1;
-    background: linear-gradient(135deg, #ff1818, #1e2126);
+    background: linear-gradient(135deg, var(--primary-color), #1e2126);
     height: 333px;
     border-radius: 6px 0 0 6px;
   }

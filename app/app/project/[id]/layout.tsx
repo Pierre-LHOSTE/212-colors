@@ -6,8 +6,10 @@ import CreateColorModal from "@/src/components/modal/createColor/CreateColorModa
 import CreateThemeModal from "@/src/components/modal/createTheme/CreateThemeModal";
 import CreateThemeColorModal from "@/src/components/modal/createThemeColor/CreateThemeColorModal";
 import NavProjectAside from "@/src/components/navAside/NavProjectAside";
+import generatePrimaryColor from "@/src/lib/generatePrimaryColor";
 import { handleError } from "@/src/lib/utils";
 import { useDataStore } from "@/src/store/data";
+import { useThemeStore } from "@/src/store/theme";
 import { useEffect, useTransition } from "react";
 
 export default function Layout({
@@ -24,6 +26,8 @@ export default function Layout({
   const setThemes = useDataStore((state) => state.setThemes);
   const [isPending, startTransition] = useTransition();
   const setLoading = useDataStore((state) => state.setLoading);
+  const setPrimaryColor = useThemeStore((state) => state.setPrimaryColor);
+  const colors = useDataStore((state) => state.colors);
 
   useEffect(() => {
     async function fetchProjects() {
@@ -49,6 +53,13 @@ export default function Layout({
   useEffect(() => {
     setLoading(isPending);
   }, [isPending]);
+
+  useEffect(() => {
+    const primaryColor = generatePrimaryColor(colors);
+    if (!primaryColor) return;
+    setPrimaryColor(primaryColor);
+    document.body.style.setProperty("--primary-color", primaryColor);
+  }, [colors]);
 
   return (
     <>

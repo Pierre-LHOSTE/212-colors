@@ -1,6 +1,6 @@
 import { ColorType } from "../types/color";
 
-function generatePrimaryColor(colors: ColorType[]) {
+export default function generatePrimaryColor(colors: ColorType[]) {
   const firstPrimaryColor = colors.find((color) => color.type === "primary");
   if (firstPrimaryColor) return firstPrimaryColor.color;
 
@@ -11,4 +11,6 @@ function generatePrimaryColor(colors: ColorType[]) {
 
   const firstSpecialColor = colors.find((color) => color.type === "special");
   if (firstSpecialColor) return firstSpecialColor.color;
+
+  return null;
 }

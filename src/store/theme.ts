@@ -2,12 +2,13 @@ import { create } from "zustand";
 
 type SetStateFunction<T> = (state: T) => void;
 
-interface SettingsStoreType {
-  primaryColor: string;
-  setPrimaryColor: SetStateFunction<string>;
+interface ThemeStoreType {
+  primaryColor: string | null;
+  setPrimaryColor: SetStateFunction<ThemeStoreType["primaryColor"]>;
 }
 
-export const useSettingsStore = create<SettingsStoreType>((set) => ({
-  primaryColor: "#000000",
-  setPrimaryColor: (primaryColor: string) => set({ primaryColor }),
+export const useThemeStore = create<ThemeStoreType>((set) => ({
+  primaryColor: null,
+  setPrimaryColor: (primaryColor: ThemeStoreType["primaryColor"]) =>
+    set({ primaryColor }),
 }));
