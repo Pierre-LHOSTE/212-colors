@@ -1,5 +1,5 @@
 "use client";
-import { getProjectById } from "@/src/api/project";
+import { fetchAllData } from "@/src/api/all";
 import Header from "@/src/components/header/Header";
 import CreateThemeColumnModal from "@/src/components/modal/CreateThemeColumnModal/CreateThemeColumnModal";
 import CreateColorModal from "@/src/components/modal/createColor/CreateColorModal";
@@ -18,12 +18,16 @@ export default function Layout({
   params: { id: string };
 }>) {
   const setProject = useDataStore((state) => state.setProject);
+  const setColors = useDataStore((state) => state.setColors);
+  const setThemeColors = useDataStore((state) => state.setThemeColors);
+  const setThemeColumns = useDataStore((state) => state.setThemeColumns);
+  const setThemes = useDataStore((state) => state.setThemes);
   const [isPending, startTransition] = useTransition();
   const setLoading = useDataStore((state) => state.setLoading);
 
   useEffect(() => {
     async function fetchProjects() {
-      const project = await getProjectById(params.id);
+      const project = await fetchAllData(params.id);
       if (!project) {
         return handleError({
           error: true,
@@ -33,7 +37,11 @@ export default function Layout({
       if ("error" in project) {
         return handleError(project, "Failed to fetch project");
       }
-      setProject(project);
+      setProject(project.project);
+      setColors(project.colors);
+      setThemes(project.themes);
+      setThemeColors(project.themeColors);
+      setThemeColumns(project.themeColumns);
     }
     startTransition(() => fetchProjects());
   }, [params.id, setProject]);

@@ -1,49 +1,12 @@
 "use client";
-import { getThemeColors, getThemeColumns, getThemes } from "@/src/api/theme";
 import ThemesList from "@/src/components/themesPage/ThemesPage";
-import { handleError } from "@/src/lib/utils";
 import { useDataStore } from "@/src/store/data";
-import { useEffect, useTransition } from "react";
 
 function ThemesPage({ params }: { params: { id: string } }) {
   const themes = useDataStore((state) => state.themes);
   const themeColumns = useDataStore((state) => state.themeColumns);
   const themeColors = useDataStore((state) => state.themeColors);
-  const setThemes = useDataStore((state) => state.setThemes);
-  const setThemeColumns = useDataStore((state) => state.setThemeColumns);
-  const setThemeColors = useDataStore((state) => state.setThemeColors);
-  const [isPending, startTransition] = useTransition();
-
-  useEffect(() => {
-    setThemeColors([]);
-    setThemeColumns([]);
-    setThemes([]);
-    startTransition(() => {
-      fetchData(getThemeColors, setThemeColors, "ThemeColors");
-      fetchData(getThemeColumns, setThemeColumns, "ThemeColumns");
-      fetchData(getThemes, setThemes, "Themes");
-    });
-  }, [params.id]);
-
-  async function fetchData(
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-    fetchFunction: (id: string) => Promise<any>,
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-    setData: (data: any) => void,
-    errorMessage: string
-  ) {
-    const data = await fetchFunction(params.id);
-    if (!data) {
-      return handleError({
-        error: true,
-        message: `${errorMessage} not found`,
-      });
-    }
-    if ("error" in data) {
-      return handleError(data, `Failed to fetch ${errorMessage}`);
-    }
-    setData(data);
-  }
+  const loading = useDataStore((state) => state.loading);
 
   if (
     !themes ||
@@ -62,7 +25,7 @@ function ThemesPage({ params }: { params: { id: string } }) {
         themes={themes}
         themeColumns={themeColumns}
         themeColors={themeColors}
-        loading={isPending}
+        loading={loading}
       />
     </div>
   );

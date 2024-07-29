@@ -1,17 +1,12 @@
 "use client";
-import { getColors } from "@/src/api/color";
 import ColorsCard from "@/src/components/colorsCard/ColorsCard";
-import { handleError } from "@/src/lib/utils";
 import { useDataStore } from "@/src/store/data";
 import type { ColorType } from "@/src/types/color";
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useState } from "react";
 
 function ColorsPage({ params }: { params: { id: string } }) {
-  const setColors = useDataStore((state) => state.setColors);
-  const project = useDataStore((state) => state.project);
   const colors = useDataStore((state) => state.colors);
-
-  const [isPending, startTransition] = useTransition();
+  const loading = useDataStore((state) => state.loading);
 
   const [primaryColors, setPrimaryColors] = useState<ColorType[]>([]);
   const [secondaryColors, setSecondaryColors] = useState<ColorType[]>([]);
@@ -23,37 +18,19 @@ function ColorsPage({ params }: { params: { id: string } }) {
     setSpecialColors(colors.filter((c) => c.type === "special"));
   }, [colors]);
 
-  useEffect(() => {
-    setColors([]);
-    async function fetchColors() {
-      const colors = await getColors(params.id);
-      if (!colors) {
-        return handleError({
-          error: true,
-          message: "Colors not found",
-        });
-      }
-      if ("error" in colors) {
-        return handleError(colors, "Failed to fetch colors");
-      }
-      setColors(colors);
-    }
-    startTransition(() => fetchColors());
-  }, [params.id]);
-
   return (
     <>
       <div className="flex-horizontal">
         <div className="flex-vertical">
           <ColorsCard
-            loading={isPending}
+            loading={loading}
             colors={primaryColors}
             name="primary"
             direction="horizontal"
             setColors={setPrimaryColors}
           />
           <ColorsCard
-            loading={isPending}
+            loading={loading}
             colors={specialColors}
             name="special"
             direction="horizontal"
@@ -61,7 +38,7 @@ function ColorsPage({ params }: { params: { id: string } }) {
           />
         </div>
         <ColorsCard
-          loading={isPending}
+          loading={loading}
           colors={secondaryColors}
           name="secondary"
           direction="vertical"
