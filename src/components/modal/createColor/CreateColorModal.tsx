@@ -143,6 +143,7 @@ export default function CreateColorModal() {
         <AiFormItem
           label={LL.project.color.modal.display.name()}
           name="name"
+          category="color"
           rule={rule}
           form={form}
         >
@@ -151,6 +152,7 @@ export default function CreateColorModal() {
         <AiFormItem
           label={LL.project.color.modal.display.color()}
           name="color"
+          category="color"
           rule={rule}
           form={form}
         >
@@ -165,6 +167,7 @@ export default function CreateColorModal() {
         <AiFormItem
           label={LL.project.color.modal.display.description()}
           name="description"
+          category="color"
           rule={rule}
           form={form}
         >

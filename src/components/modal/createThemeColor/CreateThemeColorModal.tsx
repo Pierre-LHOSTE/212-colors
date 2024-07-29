@@ -9,6 +9,7 @@ import type { ThemeColorType } from "@/src/types/color";
 import { ColorPicker, Form, Input } from "antd";
 import { createSchemaFieldRule } from "antd-zod";
 import { useEffect, useState, useTransition } from "react";
+import AiFormItem from "../../aiFormItem/AiFormItem";
 import FormModal from "../FormModal";
 import { ColorFormSchema } from "./ThemeColorFormSchema";
 
@@ -16,7 +17,6 @@ const rule = createSchemaFieldRule(ColorFormSchema);
 
 export default function CreateThemeColorModal() {
   const setMessage = useSettingsStore((state) => state.setMessage);
-  const setNotification = useSettingsStore((state) => state.setNotification);
   const [isPending, startTransition] = useTransition();
   const setModalState = useModalStore((state) => state.setModalState);
   const modalState = useModalStore((state) => state.modalState);
@@ -104,15 +104,7 @@ export default function CreateThemeColorModal() {
           });
           form.resetFields();
         } else {
-          setMessage({
-            type: "error",
-            content: "Failed to update color",
-          });
-          setNotification({
-            type: "error",
-            message: "Error",
-            description: <>{res.message || "An error occurred"}</>,
-          });
+          handleError(res, "Failed to update color");
         }
       });
     }
@@ -149,17 +141,21 @@ export default function CreateThemeColorModal() {
         onFinish={onSubmit}
         form={form}
       >
-        <Form.Item
+        <AiFormItem
           label={LL.project.theme.modal.color.display.name()}
           name="name"
-          rules={[rule]}
+          category="theme"
+          rule={rule}
+          form={form}
         >
           <Input />
-        </Form.Item>
-        <Form.Item
+        </AiFormItem>
+        <AiFormItem
           label={LL.project.theme.modal.color.display.color()}
           name="color"
-          rules={[rule]}
+          category="theme"
+          rule={rule}
+          form={form}
         >
           <ColorPicker
             showText
@@ -167,14 +163,16 @@ export default function CreateThemeColorModal() {
             value={previewColor}
             defaultValue={"#000"}
           />
-        </Form.Item>
-        <Form.Item
+        </AiFormItem>
+        <AiFormItem
           label={LL.project.theme.modal.color.display.description()}
           name="description"
-          rules={[rule]}
+          category="theme"
+          rule={rule}
+          form={form}
         >
           <Input.TextArea />
-        </Form.Item>
+        </AiFormItem>
       </Form>
     </FormModal>
   );

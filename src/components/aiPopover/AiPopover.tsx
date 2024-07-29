@@ -1,6 +1,9 @@
-import { askColorDescription } from "@/src/api/askColorDescription";
-import { askColorHex } from "@/src/api/askColorHex";
-import { askColorName } from "@/src/api/askColorName";
+import { askColorDescription } from "@/src/api/askColorDescription/api";
+import { askColorHex } from "@/src/api/askColorHex/api";
+import { askColorName } from "@/src/api/askColorName/api";
+import { askThemeColorDescription } from "@/src/api/askThemeColorDescription/api";
+import { askThemeColorHex } from "@/src/api/askThemeColorHex/api";
+import { askThemeColorName } from "@/src/api/askThemeColorName/api";
 import { useI18nContext } from "@/src/i18n/i18n-react";
 import { handleError } from "@/src/lib/utils";
 import { useDataStore } from "@/src/store/data";
@@ -23,9 +26,11 @@ import { useState, useTransition } from "react";
 export default function AiPopover({
   form,
   type,
+  category,
 }: {
   form: FormInstance;
   type: "name" | "description" | "color";
+  category: "color" | "theme";
 }) {
   const [open, setOpen] = useState(false);
   const project = useDataStore((state) => state.project);
@@ -56,25 +61,51 @@ export default function AiPopover({
     startTransition(async () => {
       let res;
       if (type === "name") {
-        res = await askColorName({
-          project,
-          values: form.getFieldsValue(),
-          more: moreDetails,
-          lang: localLanguage,
-        });
+        if (category === "color") {
+          res = await askColorName({
+            project,
+            values: form.getFieldsValue(),
+            more: moreDetails,
+            lang: localLanguage,
+          });
+        } else {
+          res = await askThemeColorName({
+            project,
+            values: form.getFieldsValue(),
+            more: moreDetails,
+            lang: localLanguage,
+          });
+        }
       } else if (type === "description") {
-        res = await askColorDescription({
-          project,
-          values: form.getFieldsValue(),
-          more: moreDetails,
-        });
+        if (category === "color") {
+          res = await askColorDescription({
+            project,
+            values: form.getFieldsValue(),
+            more: moreDetails,
+          });
+        } else {
+          res = await askThemeColorDescription({
+            project,
+            values: form.getFieldsValue(),
+            more: moreDetails,
+          });
+        }
       } else if (type === "color") {
-        res = await askColorHex({
-          project,
-          values: form.getFieldsValue(),
-          more: moreDetails,
-          lang: localLanguage,
-        });
+        if (category === "color") {
+          res = await askColorHex({
+            project,
+            values: form.getFieldsValue(),
+            more: moreDetails,
+            lang: localLanguage,
+          });
+        } else {
+          res = await askThemeColorHex({
+            project,
+            values: form.getFieldsValue(),
+            more: moreDetails,
+            lang: localLanguage,
+          });
+        }
       }
 
       if (!res) {
@@ -87,6 +118,8 @@ export default function AiPopover({
       if ("error" in res) {
         return handleError(res, `Failed to create ${type}`);
       }
+
+      console.log(res.response);
 
       const d = res.response.split("\n");
 

@@ -6,7 +6,7 @@ Based on the color description and the following context, provide 3 color sugges
 
 Context:
 - Project: "{project-name}"
-- Project description: "{project-description}"{color-description}
+- Project description: "{project-description}"{color-name}{color-description}
 - Existing colors:
 {colors}
 

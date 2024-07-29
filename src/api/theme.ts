@@ -2,7 +2,11 @@
 import prisma from "@/src/lib/prisma";
 import { auth } from "../lib/auth";
 import { handleServerError } from "../lib/utils";
-import type { ThemeColumnType, ThemeType } from "../types/theme";
+import type {
+  ThemeColumnType,
+  ThemeType,
+  ThemeWithColorsType,
+} from "../types/theme";
 
 export async function createTheme({
   theme,
@@ -62,6 +66,40 @@ export async function getThemes(projectId: string) {
       },
     });
     return themes as ThemeType[];
+  } catch (error: unknown) {
+    return handleServerError(error);
+  }
+}
+
+export async function getThemesWithColors(projectId: string) {
+  try {
+    const themes = await prisma.theme.findMany({
+      where: {
+        projectId,
+      },
+      select: {
+        name: true,
+        description: true,
+        type: true,
+        colors: {
+          select: {
+            name: true,
+            description: true,
+            color: true,
+            themeColumn: {
+              select: {
+                name: true,
+                description: true,
+              },
+            },
+          },
+        },
+      },
+      orderBy: {
+        position: "asc",
+      },
+    });
+    return themes as ThemeWithColorsType[];
   } catch (error: unknown) {
     return handleServerError(error);
   }

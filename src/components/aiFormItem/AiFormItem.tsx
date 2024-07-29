@@ -10,12 +10,14 @@ export default function AiFormItem({
   rule,
   children,
   form,
+  category,
 }: {
   name: "name" | "description" | "color";
   label: string;
   rule: RuleRender;
   children: React.ReactNode;
   form: FormInstance;
+  category: "color" | "theme";
 }) {
   const project = useDataStore((state) => state.project);
 
@@ -30,7 +32,9 @@ export default function AiFormItem({
           >
             {children}
           </Form.Item>
-          {project.owner.premium ? <AiPopover type={name} form={form} /> : null}
+          {project.owner.premium ? (
+            <AiPopover category={category} type={name} form={form} />
+          ) : null}
         </div>
       </Form.Item>
     </>
