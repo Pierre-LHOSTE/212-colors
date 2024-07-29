@@ -224,6 +224,22 @@ type RootTranslation = {
 				 * S​h​o​u​l​d​ ​b​e​ ​l​i​k​e​ ​p​a​s​t​e​l
 				 */
 				colorExample: string
+				/**
+				 * N​o​ ​g​e​n​e​r​a​l​ ​i​n​s​t​r​u​c​t​i​o​n​s
+				 */
+				noGeneralPrompt: string
+				/**
+				 * N​o​ ​i​n​s​t​r​u​c​t​i​o​n​s​ ​f​o​r​ ​n​a​m​e
+				 */
+				noNamePrompt: string
+				/**
+				 * N​o​ ​i​n​s​t​r​u​c​t​i​o​n​s​ ​f​o​r​ ​d​e​s​c​r​i​p​t​i​o​n
+				 */
+				noDescriptionPrompt: string
+				/**
+				 * N​o​ ​i​n​s​t​r​u​c​t​i​o​n​s​ ​f​o​r​ ​c​o​l​o​r
+				 */
+				noColorPrompt: string
 			}
 			action: {
 				/**
@@ -709,6 +725,22 @@ export type TranslationFunctions = {
 				 * Should be like pastel
 				 */
 				colorExample: () => LocalizedString
+				/**
+				 * No general instructions
+				 */
+				noGeneralPrompt: () => LocalizedString
+				/**
+				 * No instructions for name
+				 */
+				noNamePrompt: () => LocalizedString
+				/**
+				 * No instructions for description
+				 */
+				noDescriptionPrompt: () => LocalizedString
+				/**
+				 * No instructions for color
+				 */
+				noColorPrompt: () => LocalizedString
 			}
 			action: {
 				/**

@@ -78,6 +78,10 @@ const debug: BaseTranslation = {
         generalExample: "▩▩▩▩▩▩ ▩▩ ▩▩ ▩▩▩▩▩▩",
         colorPrompt: "▩▩▩▩▩▩▩▩▩▩▩▩ ▩▩▩ ▩▩▩▩▩",
         colorExample: "▩▩▩▩▩▩ ▩▩ ▩▩▩▩ ▩▩▩▩▩▩",
+        noGeneralPrompt: "▩▩ ▩▩▩▩▩▩▩ ▩▩▩▩▩▩▩▩▩▩▩▩",
+        noNamePrompt: "▩▩ ▩▩▩▩▩▩▩▩▩▩▩▩ ▩▩▩ ▩▩▩▩",
+        noDescriptionPrompt: "▩▩ ▩▩▩▩▩▩▩▩▩▩▩▩ ▩▩▩ ▩▩▩▩▩▩▩▩▩▩▩",
+        noColorPrompt: "▩▩ ▩▩▩▩▩▩▩▩▩▩▩▩ ▩▩▩ ▩▩▩▩▩",
       },
       action: {
         title: "▩▩▩▩▩▩▩",

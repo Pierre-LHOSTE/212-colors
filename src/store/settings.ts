@@ -9,6 +9,8 @@ interface SettingsStoreType {
   setTheme: SetStateFunction<ThemeType>;
   language: string;
   setLanguage: SetStateFunction<string>;
+  localLanguage: string;
+  setLocalLanguage: SetStateFunction<string>;
   message: MessageArgsProps;
   setMessage: SetStateFunction<MessageArgsProps>;
   notification: NotificationArgsProps;
@@ -22,6 +24,8 @@ export const useSettingsStore = create<SettingsStoreType>((set) => ({
   setTheme: (theme: ThemeType) => set({ theme }),
   language: "en",
   setLanguage: (language: string) => set({ language }),
+  localLanguage: "en",
+  setLocalLanguage: (localLanguage: string) => set({ localLanguage }),
   message: {
     type: "info",
     content: "",

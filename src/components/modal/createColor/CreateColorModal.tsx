@@ -9,8 +9,10 @@ import type { ColorType } from "@/src/types/color";
 import { ColorPicker, Form, Input } from "antd";
 import { createSchemaFieldRule } from "antd-zod";
 import { useEffect, useState, useTransition } from "react";
+import AiFormItem from "../../aiFormItem/AiFormItem";
 import FormModal from "../FormModal";
 import { ColorFormSchema } from "./ColorFormSchema";
+import "./suggestion.scss";
 
 const rule = createSchemaFieldRule(ColorFormSchema);
 
@@ -33,13 +35,14 @@ export default function CreateColorModal() {
         form.setFieldValue("color", editItem.color);
         setPreviewColor(editItem.color);
       }
-      if (editItem.description)
+      if (editItem.description) {
         form.setFieldValue("description", editItem.description);
+      }
     } else {
       form.resetFields();
       setPreviewColor("#000000");
     }
-  }, [modalState.editItem, form]);
+  }, [modalState, form]);
 
   function onSubmit(values: ColorType) {
     if (modalState.mode === "add") {
@@ -137,32 +140,39 @@ export default function CreateColorModal() {
         onFinish={onSubmit}
         form={form}
       >
-        <Form.Item
+        <AiFormItem
           label={LL.project.color.modal.display.name()}
           name="name"
-          rules={[rule]}
+          category="color"
+          rule={rule}
+          form={form}
         >
           <Input />
-        </Form.Item>
-        <Form.Item
+        </AiFormItem>
+        <AiFormItem
           label={LL.project.color.modal.display.color()}
           name="color"
-          rules={[rule]}
+          category="color"
+          rule={rule}
+          form={form}
         >
           <ColorPicker
             showText
             onChange={updateCurrentColor}
             value={previewColor}
             defaultValue={"#000"}
+            format="hex"
           />
-        </Form.Item>
-        <Form.Item
+        </AiFormItem>
+        <AiFormItem
           label={LL.project.color.modal.display.description()}
           name="description"
-          rules={[rule]}
+          category="color"
+          rule={rule}
+          form={form}
         >
           <Input.TextArea />
-        </Form.Item>
+        </AiFormItem>
       </Form>
     </FormModal>
   );

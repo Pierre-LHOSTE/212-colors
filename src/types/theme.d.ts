@@ -18,3 +18,18 @@ export interface ThemeType {
   colors: ThemeColorType[];
   position: number;
 }
+
+export interface ThemeWithColorsType {
+  name: string;
+  description: string | null;
+  type: string;
+  colors: {
+    color: string;
+    name: string | null;
+    description: string | null;
+    themeColumn: {
+      name: string;
+      description: string | null;
+    };
+  }[];
+}

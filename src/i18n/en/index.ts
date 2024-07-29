@@ -78,6 +78,10 @@ const en: BaseTranslation = {
         generalExample: "Should be in French",
         colorPrompt: "Instructions for color",
         colorExample: "Should be like pastel",
+        noGeneralPrompt: "No general instructions",
+        noNamePrompt: "No instructions for name",
+        noDescriptionPrompt: "No instructions for description",
+        noColorPrompt: "No instructions for color",
       },
       action: {
         title: "Actions",
