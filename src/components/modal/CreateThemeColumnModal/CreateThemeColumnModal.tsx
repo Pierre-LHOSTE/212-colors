@@ -42,6 +42,7 @@ export default function CreateThemeColumnModal() {
       if (editItem.name) form.setFieldValue("name", editItem.name);
       if (editItem.description)
         form.setFieldValue("description", editItem.description);
+      if (editItem.type) form.setFieldValue("type", editItem.type);
     } else {
       form.resetFields();
     }
