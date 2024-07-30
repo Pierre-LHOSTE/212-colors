@@ -129,6 +129,7 @@ model ThemeColumn {
   projectId   String
   colors      ThemeColor[]
   position    Int
+  type        String       @default("unknown")
 
   @@map("theme_columns")
 }

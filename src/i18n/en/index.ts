@@ -175,6 +175,8 @@ const en: BaseTranslation = {
           display: {
             name: "Name",
             description: "Description",
+            type: "Type",
+            selectType: "Select a type",
           },
           delete: {
             title: "Delete the color type",

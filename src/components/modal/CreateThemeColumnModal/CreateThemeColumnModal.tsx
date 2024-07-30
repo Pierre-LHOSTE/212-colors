@@ -6,13 +6,25 @@ import { useDataStore } from "@/src/store/data";
 import { useModalStore } from "@/src/store/modal";
 import { useSettingsStore } from "@/src/store/settings";
 import type { ThemeColumnType } from "@/src/types/theme";
-import { Form, Input } from "antd";
+import { Form, Input, Select } from "antd";
 import { createSchemaFieldRule } from "antd-zod";
 import { useEffect, useTransition } from "react";
 import FormModal from "../FormModal";
 import { ThemeColumnFormSchema } from "./ThemeColumnFormSchema";
 
 const rule = createSchemaFieldRule(ThemeColumnFormSchema);
+
+export const typeOptions = [
+  "unknown",
+  "background",
+  "background-secondary",
+  "background-content",
+  "background-content-secondary",
+  "text-primary",
+  "text-secondary",
+  "highlight",
+  "hover",
+];
 
 export default function CreateThemeColumnModal() {
   const setMessage = useSettingsStore((state) => state.setMessage);
@@ -140,6 +152,23 @@ export default function CreateThemeColumnModal() {
           rules={[rule]}
         >
           <Input.TextArea />
+        </Form.Item>
+        <Form.Item
+          label={LL.project.theme.modal.colorType.display.type()}
+          name="type"
+          rules={[rule]}
+        >
+          <Select
+            placeholder={LL.project.theme.modal.colorType.display.selectType()}
+            allowClear
+            options={
+              typeOptions.map((type) => ({
+                label: type,
+                value: type,
+              })) as any
+            }
+            defaultValue={"unknown"}
+          />
         </Form.Item>
       </Form>
     </FormModal>

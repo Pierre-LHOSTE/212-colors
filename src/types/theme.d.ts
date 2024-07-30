@@ -8,6 +8,7 @@ export interface ThemeColumnType {
   description: string | null;
   colors: ThemeColorType[];
   position: number;
+  type: string;
 }
 
 export interface ThemeType {

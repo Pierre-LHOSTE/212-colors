@@ -456,6 +456,14 @@ type RootTranslation = {
 						 * D​e​s​c​r​i​p​t​i​o​n
 						 */
 						description: string
+						/**
+						 * T​y​p​e
+						 */
+						type: string
+						/**
+						 * S​e​l​e​c​t​ ​a​ ​t​y​p​e
+						 */
+						selectType: string
 					}
 					'delete': {
 						/**
@@ -957,6 +965,14 @@ export type TranslationFunctions = {
 						 * Description
 						 */
 						description: () => LocalizedString
+						/**
+						 * Type
+						 */
+						type: () => LocalizedString
+						/**
+						 * Select a type
+						 */
+						selectType: () => LocalizedString
 					}
 					'delete': {
 						/**
