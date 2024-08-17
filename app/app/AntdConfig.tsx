@@ -14,6 +14,14 @@ export function AntdConfig({
   const [isDarkTheme, setIsDarkTheme] = useState(false);
   const theme = useSettingsStore((state) => state.theme);
   const primaryColor = useThemeStore((state) => state.primaryColor);
+  const backgroundColor = useThemeStore((state) => state.backgroundColor);
+  const contentColor = useThemeStore((state) => state.contentColor);
+  const extraColor = useThemeStore((state) => state.extraColor);
+  const setLocalTheme = useSettingsStore((state) => state.setLocalTheme);
+
+  useEffect(() => {
+    setLocalTheme(isDarkTheme ? "dark" : "light");
+  }, [isDarkTheme]);
 
   useEffect(() => {
     const darkThemeMediaQuery = window.matchMedia(
@@ -49,14 +57,23 @@ export function AntdConfig({
     };
   }, [theme]);
 
-  if (!primaryColor) return children;
+  if (!primaryColor && !backgroundColor) return children;
 
   const adaptedDarkTheme = {
     ...darkTheme,
     token: {
       ...darkTheme.token,
-      colorInfo: primaryColor,
-      colorPrimary: primaryColor,
+      ...(primaryColor
+        ? {
+            colorInfo: primaryColor,
+            colorPrimary: primaryColor,
+          }
+        : {}),
+      ...(backgroundColor
+        ? {
+            colorBgBase: backgroundColor,
+          }
+        : {}),
     },
   } as ThemeConfig;
 
@@ -64,8 +81,17 @@ export function AntdConfig({
     ...lightTheme,
     token: {
       ...lightTheme.token,
-      colorInfo: primaryColor,
-      colorPrimary: primaryColor,
+      ...(primaryColor
+        ? {
+            colorInfo: primaryColor,
+            colorPrimary: primaryColor,
+          }
+        : {}),
+      ...(backgroundColor
+        ? {
+            colorBgBase: backgroundColor,
+          }
+        : {}),
     },
   } as ThemeConfig;
 
