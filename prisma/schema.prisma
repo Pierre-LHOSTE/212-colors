@@ -44,6 +44,7 @@ model User {
   themes        Theme[]
   settings      Settings?
   premium       Boolean       @default(false)
+  role          String        @default("user")
 
   @@map("users")
 }
