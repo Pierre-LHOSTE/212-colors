@@ -1,4 +1,5 @@
 import { isVeryLightColor } from "@/src/lib/utils";
+import { useDataStore } from "@/src/store/data";
 import { useSettingsStore } from "@/src/store/settings";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
@@ -11,6 +12,7 @@ export default function ProjectButton(props: PropsType) {
   const { id, name, colors } = project;
   const color = colors && colors.length > 0 ? colors[0].color : "#000";
   const initials = getInitials(name);
+  const loading = useDataStore((state) => state.loading);
 
   const activeSection = useSettingsStore((state) => state.activeSection);
 
@@ -47,6 +49,7 @@ export default function ProjectButton(props: PropsType) {
       />
       <Link
         href={`/app/project/${id}/${activeSection}`}
+        onClick={loading ? (e) => e.preventDefault() : undefined}
         style={{ backgroundColor: color }}
       >
         <span className={elementColor}>{initials}</span>

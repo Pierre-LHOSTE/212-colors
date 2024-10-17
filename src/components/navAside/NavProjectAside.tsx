@@ -17,6 +17,7 @@ import NavHeader from "./navHeader/NavHeader";
 export default function NavProjectAside() {
   const setActiveSection = useSettingsStore((state) => state.setActiveSection);
   const project = useDataStore((state) => state.project);
+  const loading = useDataStore((state) => state.loading);
 
   const pathname = usePathname();
   const currentPath = pathname.split("/").pop();
@@ -52,7 +53,10 @@ export default function NavProjectAside() {
         return {
           ...item,
           label: (
-            <Link href={`/app/project/${project.id}/${item.key}`}>
+            <Link
+              href={`/app/project/${project.id}/${item.key}`}
+              onClick={loading ? (e) => e.preventDefault() : undefined}
+            >
               {item.label}
             </Link>
           ),

@@ -1,7 +1,7 @@
 "use client";
 import { login } from "@/src/actions/login";
 import { LoginSchema } from "@/src/schemas/LoginSchema";
-import { Button, Form, Input } from "antd";
+import { Alert, Button, Form, Input } from "antd";
 import { createSchemaFieldRule } from "antd-zod";
 import { useState, useTransition } from "react";
 import type { z } from "zod";
@@ -35,11 +35,8 @@ function LoginForm() {
         // style={{ maxWidth: 600 }}
         disabled={isPending}
       >
-        {/* {error ? <Alert message={error} type="error" /> : null}
+        {error ? <Alert message={error} type="error" /> : null}
         {success ? <Alert message={success} type="success" /> : null}
-        {!success && !error ? (
-          <Alert message="Please fill in the form" type="info" />
-        ) : null} */}
 
         <header className="card-header">
           <h3>Login</h3>
@@ -56,7 +53,7 @@ function LoginForm() {
         </div>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" loading={isPending}>
             Login
           </Button>
         </Form.Item>

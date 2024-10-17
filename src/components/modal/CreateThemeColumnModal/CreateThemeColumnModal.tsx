@@ -33,7 +33,7 @@ export default function CreateThemeColumnModal() {
     } else {
       form.resetFields();
     }
-  }, [modalState.editItem, form]);
+  }, [modalState, form]);
 
   function onSubmit(values: ThemeColumnType) {
     if (modalState.mode === "add") {

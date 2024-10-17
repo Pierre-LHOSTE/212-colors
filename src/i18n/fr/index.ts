@@ -2,6 +2,28 @@ import type { BaseTranslation } from "../i18n-types";
 
 const fr: BaseTranslation = {
   profile: {
+    auth: {
+      login: {
+        title: "Connexion",
+        email: "Email",
+        password: "Mot de passe",
+        submit: "Se connecter",
+        register: "Vous n'avez pas de compte ?",
+        forgotPassword: "Mot de passe oublié ?",
+        success: "Connexion réussie",
+      },
+      register: {
+        title: "Inscription",
+        name: "Nom",
+        email: "Email",
+        password: "Mot de passe",
+        confirmPassword: "Confirmer le mot de passe",
+        submit: "S'inscrire",
+        login: "Vous avez déjà un compte ?",
+        success: "Compte créé avec succès",
+      },
+      oauth: "Connexion avec {provider:string}",
+    },
     navigation: {
       profile: "Profil",
       settings: "Paramètres",

@@ -36,7 +36,7 @@ export default function CreateThemeModal() {
     } else {
       form.resetFields();
     }
-  }, [modalState.editItem, form]);
+  }, [modalState, form]);
 
   function onSubmit(values: ThemeType) {
     if (modalState.mode === "add") {
