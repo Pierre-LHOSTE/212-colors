@@ -1,6 +1,6 @@
 "use client";
 import { useI18nContext } from "@/src/i18n/i18n-react";
-import { IconAdjustmentsAlt, IconEdit } from "@tabler/icons-react";
+import { IconAdjustmentsAlt, IconEdit, IconGraph } from "@tabler/icons-react";
 import { Menu, type MenuProps } from "antd";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -28,6 +28,11 @@ export default function NavProfileAside() {
       ),
       key: "settings",
       icon: <IconAdjustmentsAlt />,
+    },
+    {
+      label: <Link href={"profile/dashboard"}>Dashboard</Link>,
+      key: "dashboard",
+      icon: <IconGraph />,
     },
   ];
 
