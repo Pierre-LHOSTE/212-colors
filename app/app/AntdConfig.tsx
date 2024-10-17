@@ -16,7 +16,7 @@ export function AntdConfig({
   const primaryColor = useThemeStore((state) => state.primaryColor);
   const backgroundColor = useThemeStore((state) => state.backgroundColor);
   const contentColor = useThemeStore((state) => state.contentColor);
-  const extraColor = useThemeStore((state) => state.extraColor);
+  const highlightColor = useThemeStore((state) => state.highlightColor);
   const setLocalTheme = useSettingsStore((state) => state.setLocalTheme);
 
   useEffect(() => {
@@ -89,7 +89,9 @@ export function AntdConfig({
         : {}),
       ...(backgroundColor
         ? {
-            colorBgBase: backgroundColor,
+            // colorBgBase: backgroundColor,
+            // colorBgContainer: contentColor,
+            // colorBgElevated: highlightColor,
           }
         : {}),
     },

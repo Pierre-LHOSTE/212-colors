@@ -1,8 +1,11 @@
 "use client";
+import { theme } from "antd";
 import { OverlayScrollbarsComponent } from "overlayscrollbars-react";
 import "./main-card.scss";
 import MainCardSection from "./mainCardSection/MainCardSection";
 import type { MainCardProps, MainCardSectionType } from "./props";
+
+const { useToken } = theme;
 
 export default function MainCard(props: MainCardProps): JSX.Element {
   const {
@@ -19,10 +22,14 @@ export default function MainCard(props: MainCardProps): JSX.Element {
     id,
     className,
   } = props;
+  const { token } = useToken();
   return (
     <div
       id={id}
       className={`main-card${className ? ` ${className} ` : ""}${direction === "horizontal" ? " horizontal" : " vertical"}${noPadding ? " no-padding" : ""}`}
+      style={{
+        backgroundColor: token.colorBgElevated,
+      }}
     >
       <div className="main-card-wrapper">
         {noScroll ? (

@@ -8,7 +8,9 @@ const lightTheme: ThemeConfig = {
     colorInfo: "#ff1818",
     colorLink: "#1677ff",
     colorError: "#ff1818",
-    colorBgBase: "#f5f5f5",
+    colorBgBase: "#f4f4f4",
+    colorBgContainer: "#fafafa",
+    colorBgElevated: "#ffffff",
   },
 };
 

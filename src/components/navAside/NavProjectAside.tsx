@@ -8,15 +8,19 @@ import {
   IconLayoutNavbar,
   IconPalette,
 } from "@tabler/icons-react";
-import { Menu, type MenuProps } from "antd";
+import { Menu, theme, type MenuProps } from "antd";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import "./nav-aside.scss";
 import NavHeader from "./navHeader/NavHeader";
 
+const { useToken } = theme;
+
 export default function NavProjectAside() {
   const setActiveSection = useSettingsStore((state) => state.setActiveSection);
   const project = useDataStore((state) => state.project);
+
+  const { token } = useToken();
 
   const pathname = usePathname();
   const currentPath = pathname.split("/").pop();
@@ -57,13 +61,22 @@ export default function NavProjectAside() {
             </Link>
           ),
           className: currentPath === item.key ? "active" : "",
+          style:
+            currentPath === item.key
+              ? { backgroundColor: token.colorBgTextActive }
+              : {},
         };
       }
       return item;
     });
 
   return (
-    <aside id="nav-aside">
+    <aside
+      id="nav-aside"
+      style={{
+        backgroundColor: token.colorBgContainer,
+      }}
+    >
       <NavHeader />
       <Menu
         id="main-nav"

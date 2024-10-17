@@ -34,7 +34,7 @@ export default function Layout({
   const themeColors = useDataStore((state) => state.themeColors);
   const setBackgroundColor = useThemeStore((state) => state.setBackgroundColor);
   const setContentColor = useThemeStore((state) => state.setContentColor);
-  const setExtraColor = useThemeStore((state) => state.setExtraColor);
+  const setHighlightColor = useThemeStore((state) => state.setHighlightColor);
   const localTheme = useSettingsStore((state) => state.localTheme);
 
   useEffect(() => {
@@ -78,9 +78,13 @@ export default function Layout({
     );
     if (selectedColors.length <= 0) return;
     const theme = generateTheme(selectedColors, localTheme);
+    console.log("🚀 ~ theme:", theme);
     if (theme.background) setBackgroundColor(theme.background);
-    if (theme.content) setContentColor(theme.content);
-    if (theme.extra) setExtraColor(theme.extra);
+    if (theme.content) {
+      setContentColor(theme.content);
+      document.body.style.setProperty("--content-color", theme.content);
+    }
+    if (theme.highlight) setHighlightColor(theme.highlight);
   }, [themes.length, themeColors.length]);
 
   return (

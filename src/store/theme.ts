@@ -9,8 +9,8 @@ interface ThemeStoreType {
   setBackgroundColor: SetStateFunction<ThemeStoreType["backgroundColor"]>;
   contentColor: string | null;
   setContentColor: SetStateFunction<ThemeStoreType["contentColor"]>;
-  extraColor: string | null;
-  setExtraColor: SetStateFunction<ThemeStoreType["extraColor"]>;
+  highlightColor: string | null;
+  setHighlightColor: SetStateFunction<ThemeStoreType["highlightColor"]>;
 }
 
 export const useThemeStore = create<ThemeStoreType>((set) => ({
@@ -23,7 +23,7 @@ export const useThemeStore = create<ThemeStoreType>((set) => ({
   contentColor: null,
   setContentColor: (contentColor: ThemeStoreType["contentColor"]) =>
     set({ contentColor }),
-  extraColor: null,
-  setExtraColor: (extraColor: ThemeStoreType["extraColor"]) =>
-    set({ extraColor }),
+  highlightColor: null,
+  setHighlightColor: (highlightColor: ThemeStoreType["highlightColor"]) =>
+    set({ highlightColor }),
 }));
