@@ -5,7 +5,7 @@ import { handleServerError } from "../lib/utils";
 import { UserType } from "../types/user";
 
 interface FullUserType extends UserType {
-  password: string | undefined;
+  password?: string | undefined;
 }
 
 export async function getAllUsers() {
