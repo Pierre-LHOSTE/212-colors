@@ -17,7 +17,9 @@ export default function NavHeader() {
               ? LL.profile.navigation.profile()
               : pathname.endsWith("settings")
                 ? LL.profile.navigation.settings()
-                : project.name}
+                : pathname.endsWith("dashboard")
+                  ? LL.profile.navigation.dashboard()
+                  : project.name}
           </span>
         </div>
       </div>

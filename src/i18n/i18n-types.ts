@@ -96,6 +96,10 @@ type RootTranslation = {
 			 * S​e​t​t​i​n​g​s
 			 */
 			settings: string
+			/**
+			 * D​a​s​h​b​o​a​r​d
+			 */
+			dashboard: string
 		}
 		display: {
 			/**
@@ -174,6 +178,20 @@ type RootTranslation = {
 			 * S​y​s​t​e​m
 			 */
 			auto: string
+		}
+		dashboard: {
+			/**
+			 * U​s​e​r​s
+			 */
+			users: string
+			/**
+			 * C​r​e​a​t​e​ ​n​e​w​ ​u​s​e​r
+			 */
+			newUsers: string
+			/**
+			 * C​o​l​o​r​s
+			 */
+			colors: string
 		}
 	}
 	project: {
@@ -582,6 +600,10 @@ type RootTranslation = {
 			 * N​e​w​ ​c​o​l​o​r
 			 */
 			newColor: string
+			/**
+			 * A​r​e​ ​y​o​u​ ​s​u​r​e​?
+			 */
+			confirm: string
 		}
 	}
 }
@@ -667,6 +689,10 @@ export type TranslationFunctions = {
 			 * Settings
 			 */
 			settings: () => LocalizedString
+			/**
+			 * Dashboard
+			 */
+			dashboard: () => LocalizedString
 		}
 		display: {
 			/**
@@ -745,6 +771,20 @@ export type TranslationFunctions = {
 			 * System
 			 */
 			auto: () => LocalizedString
+		}
+		dashboard: {
+			/**
+			 * Users
+			 */
+			users: () => LocalizedString
+			/**
+			 * Create new user
+			 */
+			newUsers: () => LocalizedString
+			/**
+			 * Colors
+			 */
+			colors: () => LocalizedString
 		}
 	}
 	project: {
@@ -1153,6 +1193,10 @@ export type TranslationFunctions = {
 			 * New color
 			 */
 			newColor: () => LocalizedString
+			/**
+			 * Are you sure?
+			 */
+			confirm: () => LocalizedString
 		}
 	}
 }

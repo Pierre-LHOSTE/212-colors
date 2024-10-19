@@ -1,5 +1,6 @@
 "use client";
 import { useI18nContext } from "@/src/i18n/i18n-react";
+import { UserType } from "@/src/types/user";
 import { IconAdjustmentsAlt, IconEdit, IconGraph } from "@tabler/icons-react";
 import { Menu, type MenuProps } from "antd";
 import Link from "next/link";
@@ -9,7 +10,7 @@ import NavHeader from "./navHeader/NavHeader";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
-export default function NavProfileAside() {
+export default function NavProfileAside({ user }: { user: UserType }) {
   const pathname = usePathname();
   const currentPath = pathname.split("/").pop();
   const { LL } = useI18nContext();
@@ -22,18 +23,26 @@ export default function NavProfileAside() {
     },
     {
       label: (
-        <Link href={"profile/settings"}>
+        <Link href={"/app/profile/settings"}>
           {LL.profile.navigation.settings()}
         </Link>
       ),
       key: "settings",
       icon: <IconAdjustmentsAlt />,
     },
-    {
-      label: <Link href={"profile/dashboard"}>Dashboard</Link>,
-      key: "dashboard",
-      icon: <IconGraph />,
-    },
+    ...(user.role === "admin"
+      ? [
+          {
+            label: (
+              <Link href={"/app/profile/dashboard"}>
+                {LL.profile.navigation.dashboard()}
+              </Link>
+            ),
+            key: "dashboard",
+            icon: <IconGraph />,
+          },
+        ]
+      : []),
   ];
 
   const itemsMenu = items.map((item) => {
