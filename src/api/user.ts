@@ -1,7 +1,12 @@
 "use server";
 import prisma from "@/src/lib/prisma";
+import { hash } from "bcryptjs";
 import { handleServerError } from "../lib/utils";
 import { UserType } from "../types/user";
+
+interface FullUserType extends UserType {
+  password: string | undefined;
+}
 
 export async function getAllUsers() {
   try {
@@ -47,8 +52,9 @@ export async function getUserById(id: string) {
   }
 }
 
-export async function updateUser(user: UserType) {
+export async function updateUser(user: FullUserType) {
   try {
+    const hashedNewPassword = await hash(user.password || "", 10);
     const updatedUser = await prisma.user.update({
       where: { id: user.id },
       data: {
@@ -56,6 +62,7 @@ export async function updateUser(user: UserType) {
         email: user.email,
         role: user.role,
         premium: user.premium,
+        password: user.password ? hashedNewPassword : undefined,
       },
     });
     return updatedUser;
@@ -81,14 +88,16 @@ export async function deleteUser(id: string) {
   }
 }
 
-export async function createUser(user: UserType) {
+export async function createUser(user: FullUserType) {
   try {
+    const hashedNewPassword = await hash(user.password || "", 10);
     const newUser = await prisma.user.create({
       data: {
         name: user.name,
         email: user.email,
         role: user.role,
         premium: user.premium,
+        password: hashedNewPassword,
       },
     });
     return newUser;

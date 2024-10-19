@@ -113,6 +113,10 @@ export default function UserModal() {
             ]}
           />
         </Form.Item>
+
+        <Form.Item label="Password" name="password">
+          <Input type="password" />
+        </Form.Item>
       </Form>
     </FormModal>
   );
