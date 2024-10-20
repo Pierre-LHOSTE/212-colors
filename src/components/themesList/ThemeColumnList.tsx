@@ -80,7 +80,6 @@ export default function ThemeColumnList({
         description: "",
         colors: [],
         position: 0,
-        type: "light",
       };
     return item;
   }
