@@ -27,6 +27,7 @@ const fr: BaseTranslation = {
     navigation: {
       profile: "Profil",
       settings: "Paramètres",
+      dashboard: "Tableau de bord",
     },
     display: {
       name: "Nom",
@@ -54,6 +55,11 @@ const fr: BaseTranslation = {
       light: "Clair",
       dark: "Sombre",
       auto: "Système",
+    },
+    dashboard: {
+      users: "Utilisateurs",
+      newUsers: "Créer un nouvel utilisateur",
+      colors: "Couleurs",
     },
   },
   project: {
@@ -220,6 +226,7 @@ const fr: BaseTranslation = {
       yes: "Oui",
       no: "Non",
       newColor: "Nouvelle couleur",
+      confirm: "Êtes-vous sûr ?",
     },
   },
 };

@@ -27,6 +27,7 @@ const en: BaseTranslation = {
     navigation: {
       profile: "Profile",
       settings: "Settings",
+      dashboard: "Dashboard",
     },
     display: {
       name: "Name",
@@ -54,6 +55,11 @@ const en: BaseTranslation = {
       light: "Light",
       dark: "Dark",
       auto: "System",
+    },
+    dashboard: {
+      users: "Users",
+      newUsers: "Create new user",
+      colors: "Colors",
     },
   },
   project: {
@@ -219,6 +225,7 @@ const en: BaseTranslation = {
       yes: "Yes",
       no: "No",
       newColor: "New color",
+      confirm: "Are you sure?",
     },
   },
 };

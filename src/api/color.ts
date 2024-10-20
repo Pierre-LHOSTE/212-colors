@@ -49,6 +49,34 @@ export async function createColor({
   }
 }
 
+export async function getAllColors() {
+  try {
+    const colors = await prisma.color.findMany({
+      include: {
+        project: {
+          select: {
+            name: true,
+            id: true,
+          },
+        },
+        owner: {
+          select: {
+            name: true,
+            id: true,
+          },
+        },
+      },
+      orderBy: {
+        position: "asc",
+      },
+    });
+    revalidateTag("prisma-color");
+    return colors as ColorType[];
+  } catch (error: unknown) {
+    return handleServerError(error);
+  }
+}
+
 export async function getColors(projectId: string) {
   try {
     const colors = await prisma.color.findMany({

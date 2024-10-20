@@ -44,6 +44,7 @@ model User {
   themes        Theme[]
   settings      Settings?
   premium       Boolean       @default(false)
+  role          String        @default("user")
 
   @@map("users")
 }
@@ -129,6 +130,7 @@ model ThemeColumn {
   projectId   String
   colors      ThemeColor[]
   position    Int
+  type        String       @default("unknown")
 
   @@map("theme_columns")
 }
