@@ -58,6 +58,7 @@ export default function ThemeColumn({
         id: themeColumn.id,
         name: themeColumn.name,
         description: themeColumn.description,
+        type: themeColumn.type,
       },
       updateStateCallBack: (themeColumn: ThemeColumnType) => {
         setThemeColumns((themeColumns) =>

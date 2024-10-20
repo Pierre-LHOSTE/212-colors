@@ -7,6 +7,8 @@ type SetStateFunction<T> = (state: T) => void;
 interface SettingsStoreType {
   theme: ThemeType;
   setTheme: SetStateFunction<ThemeType>;
+  localTheme: "light" | "dark";
+  setLocalTheme: SetStateFunction<"light" | "dark">;
   language: string;
   setLanguage: SetStateFunction<string>;
   localLanguage: string;
@@ -22,6 +24,8 @@ interface SettingsStoreType {
 export const useSettingsStore = create<SettingsStoreType>((set) => ({
   theme: "auto",
   setTheme: (theme: ThemeType) => set({ theme }),
+  localTheme: "light",
+  setLocalTheme: (localTheme: "light" | "dark") => set({ localTheme }),
   language: "en",
   setLanguage: (language: string) => set({ language }),
   localLanguage: "en",

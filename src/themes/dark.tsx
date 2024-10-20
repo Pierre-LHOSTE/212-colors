@@ -4,7 +4,7 @@ const darkTheme: ThemeConfig = {
   algorithm: theme.darkAlgorithm,
   token: {
     fontSize: 16,
-    colorBgBase: "#13161c ",
+    colorBgBase: "#0F1319 ",
     colorBgLayout: "#13161c",
     colorBgContainer: "#13161c",
     colorBgElevated: "#1c1b22",

@@ -15,12 +15,7 @@ export default function ProfileButton({
       className={pathname.startsWith(`/app/profile`) ? "active" : ""}
     >
       <div className={"icon-hook"} />
-      <Link
-        href="/app/profile"
-        style={{
-          backgroundColor: "#FF1818",
-        }}
-      >
+      <Link href="/app/profile">
         <IconUser strokeWidth={2.5} size={24} />
       </Link>
     </div>

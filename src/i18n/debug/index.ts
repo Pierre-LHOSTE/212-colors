@@ -179,6 +179,8 @@ const debug: BaseTranslation = {
           delete: {
             title: "▩▩▩▩▩▩ ▩▩▩ ▩▩▩▩▩ ▩▩▩▩",
             message: "▩▩▩ ▩▩▩ ▩▩▩▩ ▩▩ ▩▩▩▩▩▩ ▩▩▩▩ ▩▩▩▩▩ ▩▩▩▩▩",
+            type: "▩▩▩▩",
+            selectType: "▩▩▩▩▩▩ ▩ ▩▩▩▩",
           },
         },
       },

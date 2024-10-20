@@ -1,6 +1,4 @@
 #nav-header {
-  // border-bottom: 2px solid;
-
   #nav-header-wrapper {
     height: 116px;
     width: 100%;
@@ -42,12 +40,10 @@
 @mixin dark-theme {
   #nav-header {
     #nav-header-wrapper {
-      background: #b83536;
-      background: linear-gradient(135deg, #ff1818, #1e2126);
+      background: linear-gradient(135deg, var(--primary-color), #1e2126);
 
       > div {
-        background: #ff1818;
-        background: linear-gradient(135deg, #ff1818, #1e2126);
+        background: linear-gradient(135deg, var(--primary-color), #1e2126);
       }
     }
   }
@@ -56,12 +52,10 @@
 @mixin light-theme {
   #nav-header {
     #nav-header-wrapper {
-      background: #b83536;
-      background: linear-gradient(135deg, #ff1818, #1e2126);
+      background: linear-gradient(135deg, var(--primary-color), #1e2126);
 
       > div {
-        background: #ff1818;
-        background: linear-gradient(135deg, #ff1818, #1e2126);
+        background: linear-gradient(135deg, var(--primary-color), #1e2126);
       }
     }
   }
