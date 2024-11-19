@@ -7,6 +7,8 @@ import { useDataStore } from "@/src/store/data";
 import { useSettingsStore } from "@/src/store/settings";
 import "overlayscrollbars/overlayscrollbars.css";
 import { useEffect } from "react";
+import { AntdConfig } from "./AntdConfig";
+import BackgroundLayout from "./BackgroundLayout";
 import "./layout.scss";
 
 export default function Layout({
@@ -41,9 +43,11 @@ export default function Layout({
   }, [setProjectsList]);
 
   return (
-    <div id="app-window">
-      <MainAside />
-      {children}
-    </div>
+    <AntdConfig>
+      <BackgroundLayout>
+        <MainAside />
+        {children}
+      </BackgroundLayout>
+    </AntdConfig>
   );
 }

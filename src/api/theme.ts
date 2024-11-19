@@ -117,7 +117,7 @@ export async function createThemeColumn({
     return { error: true, message: "User not found" };
   }
   try {
-    const { name, description } = themeColumn;
+    const { name, description, type } = themeColumn;
     const maxPosition = await prisma.themeColumn.findFirst({
       select: {
         position: true,
@@ -134,6 +134,7 @@ export async function createThemeColumn({
         position,
         ownerId: session.user.id,
         projectId,
+        type,
       },
     });
     return res;
@@ -152,6 +153,7 @@ export async function getThemeColumns(projectId: string) {
         id: true,
         name: true,
         description: true,
+        type: true,
         position: true,
       },
       orderBy: {
@@ -198,7 +200,7 @@ export async function deleteThemeColumn(id: string) {
 }
 export async function updateThemeColumn(themeColumn: ThemeColumnType) {
   try {
-    const { id, name, description } = themeColumn;
+    const { id, name, description, type } = themeColumn;
     const res = await prisma.themeColumn.update({
       where: {
         id,
@@ -206,6 +208,7 @@ export async function updateThemeColumn(themeColumn: ThemeColumnType) {
       data: {
         name,
         description,
+        type,
         updatedAt: new Date(),
       },
     });

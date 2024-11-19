@@ -1,6 +1,17 @@
 "use client";
+import { theme } from "antd";
 import "./header.scss";
 
+const { useToken } = theme;
+
 export default function Header() {
-  return <header id="header" />;
+  const { token } = useToken();
+  return (
+    <header
+      id="header"
+      style={{
+        backgroundColor: token.colorBgElevated,
+      }}
+    />
+  );
 }
